@@ -1,0 +1,15 @@
+# Cloned repos (large, not needed in remote kb)
+repos/
+repo/
+
+# Logs
+*.log
+
+# Large binary files
+*.pdf
+*.pkl
+*.bin
+*.pt
+*.pth
+.DS_Store
+**/.DS_Store

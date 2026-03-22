@@ -1,0 +1,39 @@
+#separator:tab
+#html:false
+#tags column:3
+Transformer 三种架构变体分别是什么？代表模型？	Encoder-only（BERT/RoBERTa）：双向注意力，适合NLU | Decoder-only（GPT/LLaMA/Qwen）：单向因果，适合生成 | Encoder-Decoder（T5/BART）：双向+单向，适合翻译/摘要	llm_engineering::L1::概念
+Multi-Head Attention 的核心公式是什么？为什么要除以 √d_k？	Attention(Q,K,V)=softmax(QKᵀ/√d_k)·V；MHA=Concat(head₁...headₕ)·Wₒ | 除以√d_k：防止点积方差随维度增大，softmax饱和导致梯度消失 | 时间复杂度 O(n²d)	llm_engineering::L1::概念
+MQA 和 GQA 分别是什么？解决了什么问题？	MQA：多Q共享单组KV，KV Cache最小，精度略降 | GQA：Q分组，每组共享KV，平衡效率与精度 | 应用：LLaMA2/Mistral用GQA，解决KV Cache显存瓶颈	llm_engineering::L1::概念
+RoPE 和 ALiBi 位置编码各有何特点？	RoPE：旋转矩阵编码位置，相对位置感知，支持长度外推，LLaMA/Qwen使用 | ALiBi：Attention score加线性偏置，距离越远偏置越负，BLOOM使用，无额外参数	llm_engineering::L1::概念
+LoRA（低秩适配）的核心思想是什么？	冻结预训练权重W₀，只训练低秩矩阵B·A（r<<d）| W=W₀+B·A | 参数减少10~1000倍 | 推理时合并权重，零额外延迟	llm_engineering::L1::概念
+RLHF 包含哪三个主要步骤？PPO 和 DPO 的区别？	步骤：1.SFT有监督微调 2.训练奖励模型RM 3.RL优化（PPO/DPO）| PPO：4个模型（Actor/Critic/RM/Ref），复杂稳定 | DPO：2个模型，无需RM，直接优化偏好对	llm_engineering::L1::概念
+KV Cache 是什么？解决了什么问题？有什么代价？	缓存Attention的Key/Value矩阵，避免自回归生成时重复计算历史token | 代价：显存随序列长度线性增长，传统实现碎片化严重（浪费60-80%显存）	llm_engineering::L1::概念
+推测解码（Speculative Decoding）是什么？	小Draft Model快速生成K个候选token，大Target Model并行验证 | 接受正确token，拒绝则重采样 | 加速2-3x，不改变输出分布（数学上等价）	llm_engineering::L1::概念
+RAG（检索增强生成）的基本架构是什么？	Query→Retriever（向量检索/BM25）→Top-K文档→拼入Prompt→LLM生成 | 三段式：索引→检索→生成 | 解决幻觉和知识时效性问题	llm_engineering::L1::概念
+Continuous Batching 是什么？与 Static Batching 的区别？	Static Batching：等一批全部完成才处理下一批，GPU利用率低 | Continuous Batching：请求完成即移出，新请求立即插入 | 效果：GPU利用率接近100%，吞吐量提升3-10x | vLLM/TGI均支持	llm_engineering::L1::概念
+Self-Attention 为什么要除以 √d_k？推导思路？	Q·Kᵀ的元素是d_k维向量点积，期望方差为d_k | 不缩放时softmax输出接近one-hot，梯度消失 | 除以√d_k使方差归一为1，保持梯度流动 | 类比Xavier初始化的1/√n缩放	llm_engineering::L2::原理
+LoRA 的完整数学公式是什么？参数量如何计算？	W=W₀+ΔW=W₀+B·A | A∈ℝ^(r×d)高斯初始化，B∈ℝ^(d×r)零初始化，r<<d | 缩放：(α/r)，通常α=r | 参数量：d×d→2×d×r，节省比=d/(2r) | 推理合并：W_merged=W₀+BA，零额外延迟	llm_engineering::L2::原理
+KV Cache 占用显存如何计算？LLaMA-7B 的具体数值？	= 2×num_layers×num_heads×head_dim×seq_len×batch×dtype_bytes | LLaMA-7B(32层,32头,head_dim=128,FP16,seq=2048,batch=1)≈1GB | 批量32请求≈32GB，成为显存瓶颈 | GQA可缩小num_heads/num_kv_groups倍	llm_engineering::L2::原理
+推测解码（Speculative Decoding）如何实现加速？接受率是多少？	1.Draft Model生成K候选token | 2.Target Model一次前向并行验证所有K个位置 | 3.按概率比p_target/p_draft决定接受/拒绝 | 典型接受率70-90%，加速2-3x | 数学保证：输出分布等价于Target Model直接生成	llm_engineering::L2::原理
+GPTQ 量化的核心机制是什么？	逐层量化，使用Hessian二阶信息最小化量化误差 | "Lazy Batch-Updates"：逐列量化，误差传播到未量化列补偿 | 支持2/3/4 bit | min_Q||WX-Q̂X||²_F | 175B模型可在4×A100上完成	llm_engineering::L2::原理
+AWQ 量化与 GPTQ 的区别？如何保护重要权重？	AWQ：激活感知量化，识别激活salient channels | 对重要通道乘缩放因子s：W_scaled=W·diag(s)，推理时互相抵消 | 无需校准数据集，INT4精度接近FP16 | GPTQ用Hessian，AWQ用激活统计	llm_engineering::L2::原理
+PagedAttention 如何解决 KV Cache 碎片化？	借鉴OS虚拟内存分页：KV Cache切为固定block（默认16tokens）| Block Table维护逻辑→物理映射 | 不同请求block可非连续存储 | 支持Prefix Caching跨请求共享 | 显存利用率<40%→>90%，吞吐2-4x	llm_engineering::L2::原理
+RoPE 旋转位置编码的数学原理？	位置m编码为旋转矩阵Rₘ作用于Q/K | qₘ=Rₘ·q，kₙ=Rₙ·k | qₘᵀkₙ=qᵀR(n-m)k，只依赖相对位置(n-m) | 旋转角θᵢ=1/10000^(2i/d) | 优点：相对位置感知，支持长度外推（YaRN/NTK），无额外参数	llm_engineering::L2::原理
+DPO 如何绕过 PPO 的复杂性？核心公式？	PPO需4模型（Actor/Critic/RM/Ref），训练不稳定 | DPO：loss=-E[log σ(β·(log π_θ(y_w|x)/π_ref(y_w|x) - log π_θ(y_l|x)/π_ref(y_l|x)))] | y_w=偏好，y_l=拒绝 | 隐式奖励建模，只需Actor+Reference两个模型	llm_engineering::L2::原理
+Tensor Parallelism 和 Pipeline Parallelism 如何切分模型？各适合什么场景？	TP（层内切分）：权重矩阵分列/行到多卡，需AllReduce，适合同机NVLink | PP（层间切分）：不同层放不同卡，Micro-batching填充Bubble，适合跨机低带宽 | 混合：Megatron-LM = TP×PP×DP三维并行	llm_engineering::L2::原理
+为什么现代 LLM 从 MHA 迁移到 GQA？	MHA：每头独立KV，KV Cache大，显存瓶颈 | MQA：共享KV最小，精度损失大 | GQA折中：KV Cache缩小H/G倍，性能接近MHA | 序列增长时KV Cache压力>>计算压力，GQA最优	llm_engineering::L3::决策
+LoRA 微调 vs 全参数微调，如何选择？	LoRA优势：显存少(无全量梯度)、灾难性遗忘轻、多任务只换小权重 | 优选LoRA：资源受限/多任务/快速迭代 | 优选全参：数据>10M/任务与预训练差距极大 | LoRA推理合并后零额外延迟	llm_engineering::L3::决策
+RLHF 中应该选 PPO 还是 DPO？	工程充足需极致对齐→PPO（在线RL，泛化强）| 快速迭代数据质量高→DPO（稳定简单）| 数据噪声大→PPO（RM可过滤）| 显存受限→DPO（2个模型）| 案例：Llama2用PPO，Zephyr/Mistral用DPO	llm_engineering::L3::决策
+RAG vs Fine-tuning，何时用哪个？	知识实时更新/私有知识库→RAG（改向量库即可，可溯源）| 风格统一/特定领域能力→Fine-tuning | 经验法则：知识问题用RAG，行为问题用Fine-tuning | 复杂场景：RAG+Fine-tuning结合	llm_engineering::L3::决策
+INT8/INT4/FP8 量化如何选择？	FP16/BF16：无损失，显存充足时用 | INT8(W8A8)：极小损失，50%显存节省，在线服务标准 | INT4(GPTQ/AWQ)：小损失，75%节省，边缘部署 | FP8：接近FP16，H100/H800首选 | INT2/3：较大损失，极端受限场景	llm_engineering::L3::决策
+多卡部署时，何时用 Tensor Parallelism，何时用 Pipeline Parallelism？	同机多卡(NVLink高带宽)→优先TP | 跨机多卡(InfiniBand)→优先PP | 超大模型>100B→3D并行TP×PP×DP | 延迟优先(在线)→TP减少单请求延迟 | 吞吐优先(离线)→PP+DP提高并发	llm_engineering::L3::决策
+RAG 检索到的内容不相关怎么办？如何排查优化？	1.检查Embedding模型（换BGE/E5等专业模型）| 2.优化Chunking（太大→缩小256-512tokens，太小→加overlap）| 3.加Reranker重排（BGE-Reranker）| 4.HyDE：先生成假设答案再检索 | 5.Query改写/RAG Fusion多路检索 | 6.相关性低于阈值则拒绝回答	llm_engineering::L4::场景
+模型推理延迟高如何优化？	1.启用PagedAttention减少KV Cache碎片 | 2.INT8/INT4量化减少显存带宽压力 | 3.推测解码加速（对话类2-3x）| 4.Continuous Batching提高GPU利用率 | 5.蒸馏换小模型 | 6.流式输出改善感知 | 7.Prefill/Decode分离集群各自优化	llm_engineering::L4::场景
+如何选择 LoRA 的秩 r？	<1K样本/简单任务→r=4~8 | 1K-10K/中等任务→r=16~32 | >10K/复杂推理代码→r=64~128 | r越大表达强但过拟合风险高 | α/r通常保持为1（α=r）| 实践：从r=16开始，验证集收敛后决定是否增大	llm_engineering::L4::场景
+从零部署一个 LLM 推理服务的步骤？	1.选框架：vLLM（高吞吐）或TGI（易集成）| 2.量化：AWQ/GPTQ INT4减显存 | 3.配置：tensor_parallel_size/max_num_seqs/gpu_memory_utilization=0.9 | 4.启动vllm serve | 5.监控：TTFT/TPOT/GPU利用率/KV Cache命中率 | 6.压测找吞吐vs延迟拐点	llm_engineering::L4::场景
+如何诊断 LLM 输出质量问题（格式乱/幻觉/拒绝率高）？	输出格式乱→检查SFT数据格式/加结构化Prompt/用JSON mode | 幻觉增多→加RAG/降temperature/加repetition_penalty | 拒绝率高→RLHF过度对齐，降KL系数或DPO重对齐 | 重复输出→调repetition_penalty | 风格漂移→检查训练数据分布/加系统prompt约束	llm_engineering::L4::场景
+陷阱：量化一定会损失精度，不能用于生产？	错误！INT8(W8A8)精度损失<0.5%基本无感知 | FP8在H100接近FP16且更快 | INT4(AWQ/GPTQ)在大模型上损失可控，7B以上更佳 | 量化误差与模型大小负相关 | 真正有损的是INT2/3激进量化或不校准的naïve量化 | 在线服务标准做法：INT8/FP8	llm_engineering::L5::陷阱
+陷阱：有了 RAG 就不需要 Fine-tuning 了？	错误！RAG解决知识检索问题，Fine-tuning解决行为和能力问题 | RAG上限受检索质量限制，检索不到就幻觉 | Fine-tuning让模型学特定推理方式/输出格式/领域术语 | 常见：RAG检索到了但模型不会用（需Fine-tuning提升利用能力）| 最佳：复杂场景RAG+Fine-tuning结合	llm_engineering::L5::陷阱
+陷阱：CoT 一定能提升推理效果？	错误！CoT对复杂推理（数学/逻辑）显著有效 | 对简单分类任务可能无效甚至有害 | CoT效果依赖模型规模：<100B模型CoT不稳定 | 错误的CoT比无CoT更差（模型顺着错误步骤推理）| Few-shot CoT > Zero-shot CoT | 结论：CoT是条件有效的，勿盲目使用	llm_engineering::L5::陷阱
+陷阱：LoRA rank r 越大越好？	错误！r太大→过拟合小数据集，泛化性下降 | r太大→接近全参微调，失去正则化优势 | r=8~16在多数任务已达全参微调90%+效果 | LoRA核心价值是效率，不是追求最高秩 | 确实需要大秩时：考虑直接全参微调（数据量充足时）	llm_engineering::L5::陷阱
+陷阱：Continuous Batching 没有代价，无脑开启即可？	错误！长短请求混合时短请求抢占资源，长请求延迟增大 | 高并发时KV Cache撑满触发preemption（抢占重计算），延迟骤增 | 关键参数：max_num_seqs和gpu_memory_utilization需调优 | 过高并发→KV Cache OOM→某些请求延迟10x | 最佳实践：压测找延迟SLA约束下的最大吞吐点	llm_engineering::L5::陷阱

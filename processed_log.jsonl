@@ -1,0 +1,209 @@
+{"date": "20260318", "title": "Heterogeneity-Aware Pre-ranking", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "MaRI: Structural Re-parameterization", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "From Reviews to Dialogues", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "Graph Foundation Models for Recommendation", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "ActionPiece: Contextually Tokenizing", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "SS4Rec: State Space Models", "field": "rec-sys", "status": "done", "url": ""}
+{"date": "20260318", "title": "Breaking Determinism: Stochastic OPE", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "EGA-V2: Generative Framework", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "Diffusion Auto-Bidding", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "LLM-Auction", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "WWW 2025 Multimodal CTR", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "Adaptable Budget Planner", "field": "ads", "status": "done", "url": ""}
+{"date": "20260318", "title": "Scaling Laws for Reranking", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "Tip-of-the-Tongue Retrieval", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "Col-Bandit: Zero-Shot Pruning", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "LMK > CLS: Landmark Pooling", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "LURE-RAG: Lightweight Reranking", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "Naver WSDM 2026 Multilingual", "field": "search", "status": "done", "url": ""}
+{"date": "20260318", "title": "Fusion RAG Cache", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "HA-RAG: Hotness-Aware", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "CacheClip: KV Cache Reuse", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "Multi-Stage Inference Pipeline", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "ML-SpecQD: Speculative Decoding", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "S'more: MoE for Finetuning", "field": "llm-infra", "status": "done", "url": ""}
+{"date": "20260318", "title": "torchrec: PyTorch Rec Library", "field": "repo", "status": "done", "url": ""}
+{"date": "20260318", "title": "OneRec-Think: LLM-based Rec", "field": "repo", "status": "done", "url": ""}
+{"date": "20260318", "title": "Gorse: Recommender Engine", "field": "repo", "status": "done", "url": ""}
+{"date": "20260318", "title": "verl: LLM RL Framework", "field": "repo", "status": "done", "url": ""}
+{"date": "20260318", "title": "Milvus: Vector Database", "field": "repo", "status": "done", "url": ""}
+{"date": "20260318", "title": "LightRAG: Simple RAG", "field": "repo", "status": "done", "url": ""}
+{"title": "Not All Candidates are Created Equal: Heterogeneity-Aware Pre-ranking in Recommender Systems", "date": "20260318", "status": "done"}
+{"title": "MaRI: Accelerating Ranking Model Inference via Structural Re-parameterization in Large Scale RS", "date": "20260318", "status": "done"}
+{"title": "From Reviews to Dialogues: Active Synthesis for Zero-Shot LLM-based Conversational Recommender System", "date": "20260318", "status": "done"}
+{"title": "Graph Foundation Models for Recommendation: A Comprehensive Survey", "date": "20260318", "status": "done"}
+{"title": "ActionPiece: Contextually Tokenizing Action Sequences for Generative Recommendation", "date": "20260318", "status": "done"}
+{"title": "SS4Rec: Continuous-Time Sequential Recommendation with State Space Models", "date": "20260318", "status": "done"}
+{"title": "Breaking Determinism: Stochastic Modeling for Reliable Off-Policy Evaluation in Ad Auctions", "date": "20260318", "status": "done"}
+{"title": "EGA-V2: An End-to-end Generative Framework for Industrial Advertising", "date": "20260318", "status": "done"}
+{"title": "Generative Auto-Bidding in Large-Scale Competitive Auctions via Diffusion Completer-Aligner", "date": "20260318", "status": "done"}
+{"title": "LLM-Auction: Generative Auction towards LLM-Native Advertising", "date": "20260318", "status": "done"}
+{"title": "1st Place Solution of WWW 2025 EReL@MIR Workshop Multimodal CTR Prediction Challenge", "date": "20260318", "status": "done"}
+{"title": "An Adaptable Budget Planner for Enhancing Budget-Constrained Auto-Bidding", "date": "20260318", "status": "done"}
+{"title": "Scaling Laws for Reranking in Information Retrieval", "date": "20260318", "status": "done"}
+{"title": "Single-Turn LLM Reformulation Powered Multi-Stage Hybrid Re-Ranking for Tip-of-the-Tongue Retrieval", "date": "20260318", "status": "done"}
+{"title": "Col-Bandit: Zero-Shot Query-Time Pruning for Late-Interaction Retrieval", "date": "20260318", "status": "done"}
+{"title": "LMK > CLS: Landmark Pooling for Dense Embeddings", "date": "20260318", "status": "done"}
+{"title": "LURE-RAG: Lightweight Utility-driven Reranking for Efficient RAG", "date": "20260318", "status": "done"}
+{"title": "Naver Labs Europe @ WSDM CUP 2026: Multilingual Retrieval", "date": "20260318", "status": "done"}
+{"title": "From Prefix Cache to Fusion RAG Cache: Accelerating LLM Inference in Retrieval-Augmented Generation", "date": "20260318", "status": "done"}
+{"title": "HA-RAG: Hotness-Aware RAG Acceleration via Mixed Precision and Data Placement", "date": "20260318", "status": "done"}
+{"title": "CacheClip: Accelerating RAG with Effective KV Cache Reuse", "date": "20260318", "status": "done"}
+{"title": "Understanding and Optimizing Multi-Stage AI Inference Pipelines", "date": "20260318", "status": "done"}
+{"title": "ML-SpecQD: Multi-level Speculative Decoding with Quantized Drafts", "date": "20260318", "status": "done"}
+{"title": "S'more: Structural Mixture of Residual Experts for LLM Finetuning", "date": "20260318", "status": "done"}
+{"title": "meta-pytorch/torchrec: PyTorch Domain Library for Recommendation Systems", "date": "20260318", "status": "done"}
+{"title": "OneRec-Think: LLM-based Recommendation with Dialogue Reasoning and Personalization", "date": "20260318", "status": "done"}
+{"title": "Gorse - Open Source Recommender System Engine", "date": "20260318", "status": "done"}
+{"title": "verl - Volcano Engine Reinforcement Learning for LLM", "date": "20260318", "status": "done"}
+{"title": "Milvus - Cloud-Native Vector Database", "date": "20260318", "status": "done"}
+{"title": "LightRAG - Simple and Fast Retrieval-Augmented Generation", "date": "20260318", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "出价基础体系：CPM/CPC/CPA/oCPM原理", "file": "ads/20260318_bidding_basics.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "RTB实时竞价：二价/GSP/VCG机制", "file": "ads/20260318_rtb_auction_mechanism.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "深度转化出价：oCPC/oCPA原理与工程落地", "file": "ads/20260318_ocpc_ocpa_deep.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "智能出价Autobidding系统架构", "file": "ads/20260318_autobidding_system.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "预算控制与Pacing机制详解", "file": "ads/20260318_budget_pacing.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "前沿出价方向：多目标/Constrained/Bid Landscape/隐私计算", "file": "ads/20260318_advanced_bidding.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "竞价实战策略：Bid Adjustments/流量分层/再营销出价", "file": "ads/20260318_bidding_strategy_practical.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "出价系统工程架构：延迟/分布式/特征实时化/日志闭环", "file": "ads/20260318_bidding_system_engineering.md", "status": "done"}
+{"date": "20260318", "domain": "ads", "title": "多平台出价机制对比：Google/字节/腾讯/阿里妈妈", "file": "ads/20260318_bidding_platform_comparison.md", "status": "done"}
+{"date":"20260319","domain":"rec-sys","title":"Joint Modeling in Recommendations: A Survey","file":"20260319_joint-modeling-rec-survey.md"}
+{"date":"20260319","domain":"rec-sys","title":"Bridging Jensen Gap for Max-Min Group Fairness Optimization in Recommendation","file":"20260319_jensen-gap-fairness-rec.md"}
+{"date":"20260319","domain":"rec-sys","title":"Linear Item-Item Model with Neural Knowledge for Session-based Recommendation","file":"20260319_linear-item-item-session-rec.md"}
+{"date":"20260319","domain":"rec-sys","title":"Understanding Accuracy-Fairness Trade-offs in Re-ranking through Elasticity in Economics","file":"20260319_accuracy-fairness-reranking-elasticity.md"}
+{"date":"20260319","domain":"rec-sys","title":"KGMEL: Knowledge Graph-Enhanced Multimodal Entity Linking","file":"20260319_kgmel-knowledge-graph-multimodal-entity-linking.md"}
+{"date":"20260319","domain":"ads","title":"Addressing Multiple Hypothesis Bias in CTR Prediction for Ad Selection","file":"20260319_multiple-hypothesis-bias-ctr.md"}
+{"date":"20260319","domain":"ads","title":"No-Regret Online Autobidding Algorithms in First-price Auctions","file":"20260319_no-regret-autobidding-first-price-auction.md"}
+{"date":"20260319","domain":"ads","title":"A Comprehensive Survey on Advertising Click-Through Rate Prediction Algorithm","file":"20260319_ctr-prediction-survey.md"}
+{"date":"20260319","domain":"ads","title":"HALO: Hindsight-Augmented Learning for Online Auto-Bidding","file":"20260319_halo-hindsight-autobidding.md"}
+{"date":"20260319","domain":"ads","title":"Optimal Boost Design for Auto-bidding Mechanism with Publisher Quality Constraints","file":"20260319_optimal-boost-autobidding-publisher-quality.md"}
+{"date":"20260319","domain":"ads","title":"BAT: Benchmark for Auto-bidding Task","file":"20260319_bat-benchmark-autobidding.md"}
+{"date":"20260319","domain":"search","title":"Unlocking Multimodal Document Intelligence: Visual Document Retrieval Survey","file":"20260319_multimodal-visual-document-retrieval-survey.md"}
+{"date":"20260319","domain":"search","title":"LegalMALR: Multi-Agent Query Understanding and LLM-Based Reranking for Chinese Statute Retrieval","file":"20260319_legalmalr-multi-agent-chinese-statute-retrieval.md"}
+{"date":"20260319","domain":"search","title":"SUNAR: Semantic Uncertainty based Neighborhood Aware Retrieval for Complex QA","file":"20260319_sunar-semantic-uncertainty-retrieval.md"}
+{"date":"20260319","domain":"search","title":"DRAMA: Diverse Augmentation from Large Language Models to Smaller Dense Retrievers","file":"20260319_drama-diverse-augmentation-dense-retrieval.md"}
+{"date":"20260319","domain":"search","title":"RewriteGen: Autonomous Query Optimization for Retrieval-Augmented LLMs via Reinforcement Learning","file":"20260319_rewritegen-query-optimization-rl.md"}
+{"date":"20260319","domain":"search","title":"MA-RAG: Multi-Agent Retrieval-Augmented Generation via Collaborative Chain-of-Thought Reasoning","file":"20260319_ma-rag-multi-agent-cot-reasoning.md"}
+{"date":"20260319","domain":"llm-infra","title":"QR-LoRA: Efficient and Disentangled Fine-tuning via QR Decomposition","file":"20260319_qr-lora-qr-decomposition-finetuning.md"}
+{"date":"20260319","domain":"llm-infra","title":"From Glue-Code to Protocols: A2A and MCP Integration for Scalable Agent Systems","file":"20260319_a2a-mcp-scalable-agent-systems.md"}
+{"date":"20260319","domain":"llm-infra","title":"Recurrent Drafter for Fast Speculative Decoding","file":"20260319_recurrent-drafter-speculative-decoding.md"}
+{"date":"20260319","domain":"llm-infra","title":"Creativity in LLM-based Multi-Agent Systems: A Survey","file":"20260319_creativity-llm-multi-agent-survey.md"}
+{"date":"20260319","domain":"llm-infra","title":"LONGER: Scaling Up Long Sequence Modeling in Industrial Recommenders","file":"20260319_longer-long-sequence-industrial-rec.md"}
+{"date":"20260319","domain":"llm-infra","title":"FlashInfer: Efficient and Customizable Attention Engine for LLM Inference Serving","file":"20260319_flashinfer-attention-engine-llm-inference.md"}
+{"date":"20260319","domain":"repo","title":"RecBole 2.0 - Unified Recommendation Framework","file":"20260319_recbole2-unified-recommendation-framework.md"}
+{"date":"20260319","domain":"repo","title":"Qdrant - High-Performance Vector Search Engine","file":"20260319_qdrant-vector-search-engine.md"}
+{"date":"20260319","domain":"repo","title":"Microsoft Recommenders - Best Practices for Recommendation","file":"20260319_microsoft-recommenders-best-practices.md"}
+{"date":"20260319","domain":"repo","title":"UI-TARS - Multimodal GUI Agent by ByteDance","file":"20260319_ui-tars-multimodal-gui-agent.md"}
+{"date":"20260319","domain":"repo","title":"LlamaIndex: Data Framework for LLM Applications (2025 updates)","file":"20260319_llamaindex-data-framework-llm.md"}
+{"date":"20260319","domain":"repo","title":"Chroma: Open-source embedding database for LLM-powered apps (2025 updates)","file":"20260319_chroma-embedding-database.md"}
+{"date":"20260319","domain":"rec-sys","title":"Multi-behavior Recommender Systems: A Survey","file":"20260319_multi-behavior-rec-survey.md"}
+{"date":"20260319","domain":"rec-sys","title":"KGMEL: Knowledge Graph-Enhanced Multimodal Entity Linking","file":"20260319_kgmel-knowledge-graph-entity-linking.md"}
+{"date":"20260319","domain":"ads","title":"No-Regret Online Autobidding Algorithms in First-price Auctions","file":"20260319_no-regret-autobidding-first-price.md"}
+{"date":"20260319","domain":"ads","title":"A Comprehensive Survey on Advertising Click-Through Rate Prediction Algorithm","file":"20260319_ctr-prediction-comprehensive-survey.md"}
+{"date":"20260319","domain":"ads","title":"Optimal Boost Design for Auto-bidding Mechanism with Publisher Quality Constraints","file":"20260319_optimal-boost-autobidding-publisher.md"}
+{"date":"20260319","domain":"search","title":"Unlocking Multimodal Document Intelligence: Visual Document Retrieval Survey","file":"20260319_multimodal-document-retrieval-survey.md"}
+{"date":"20260319","domain":"search","title":"LegalMALR: Multi-Agent Query Understanding and LLM-Based Reranking for Chinese Statute Retrieval","file":"20260319_legalmalr-chinese-statute-retrieval.md"}
+{"date":"20260319","domain":"llm-infra","title":"From Glue-Code to Protocols: A2A and MCP Integration for Scalable Agent Systems","file":"20260319_a2a-mcp-agent-protocols.md"}
+{"date":"20260319","domain":"llm-infra","title":"Creativity in LLM-based Multi-Agent Systems: A Survey","file":"20260319_creativity-llm-multiagent-survey.md"}
+{"date":"20260319","domain":"llm-infra","title":"FlashInfer: Efficient and Customizable Attention Engine for LLM Inference Serving","file":"20260319_flashinfer-attention-engine-llm.md"}
+{"date":"20260319","domain":"repo","title":"RecBole 2.0 - Unified Recommendation Framework","file":"20260319_recbole-recommendation-framework.md"}
+{"date":"20260319","domain":"repo","title":"Chroma: Open-source embedding database for LLM-powered apps (2025 updates)","file":"20260319_chroma-embedding-database-llm.md"}
+{"title":"Large Language Model as Universal Retriever in Industrial-Scale Recommender System","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_llm-universal-retriever.md"}
+{"title":"Towards Web-scale Recommendations with LLMs: From Quality-aware Ranking to Candidate Generation","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_web-scale-llm-recsys.md"}
+{"title":"Rankformer: A Graph Transformer for Recommendation based on Ranking Objective","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_rankformer-graph-transformer.md"}
+{"title":"Personalized Ranking on Cascading Behavior Graphs for Accurate Multi-Behavior Recommendation","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_cascadingrank-multi-behavior.md"}
+{"title":"Automated Information Flow Selection for Multi-scenario Multi-task Recommendation","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_autoifs-multi-scenario-task.md"}
+{"title":"Variational Bayesian Personalized Ranking","domain":"rec-sys","date":"20260320","file":"/Users/boyu/Documents/ai-kb/rec-sys/20260320_variational-bpr.md"}
+{"title":"Joint Value Estimation and Bidding in Repeated First-Price Auctions","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_joint-value-estimation-bidding-repeated-fpa.md"}
+{"title":"Learning to Bid in Non-Stationary Repeated First-Price Auctions","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_learning-bid-nonstationary-fpa.md"}
+{"title":"Adaptive Bidding Policies for First-Price Auctions with Budget Constraints under Non-stationarity","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_adaptive-bidding-budget-nonstationary.md"}
+{"title":"To Judge or not to Judge: Using LLM Judgements for Advertiser Keyphrase Relevance at eBay","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_llm-judge-keyphrase-relevance-ebay.md"}
+{"title":"A Practical Guide to Budget Pacing Algorithms in Digital Advertising","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_practical-guide-budget-pacing.md"}
+{"title":"Multi-Platform Autobidding with and without Predictions","domain":"ads","date":"20260320","file":"/Users/boyu/Documents/ai-kb/ads/20260320_multi-platform-autobidding-predictions.md"}
+{"title":"Haystack 2.0: AI Orchestration Framework for LLM Pipelines","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_haystack-ai-orchestration-framework.md"}
+{"title":"AlgoNotes/fun-rec: 推荐系统算法工程入门教程 2025更新","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_fun-rec-recommendation-tutorial.md"}
+{"title":"DeepCTR: Easy-to-use, Modular and Extendable package for CTR Prediction","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_deepctr-modular-ctr-framework.md"}
+{"title":"FATE: Industrial Grade Federated Learning Framework (2025 LLM updates)","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_fate-federated-learning-framework.md"}
+{"title":"OpenMatch: Open-Source Information Retrieval Toolkit (2025 updates)","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_openmatch-information-retrieval-toolkit.md"}
+{"title":"vLLM: Easy, Fast, and Cheap LLM Serving (2025 PagedAttention v2)","domain":"repo","date":"20260320","file":"/Users/boyu/Documents/ai-kb/repo/20260320_vllm-pagedattention-serving.md"}
+{"title":"LeSeR: Lexical-Semantic Retrieval for Regulatory Information Retrieval","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_LeSeR-Lexical-Semantic-Retrieval.md"}
+{"title":"W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-Domain QA","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_W-RAG-Weakly-Supervised-Dense-Retrieval.md"}
+{"title":"ColBERT-serve: Efficient Multi-Stage Memory-Mapped Scoring","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_ColBERT-serve-Efficient-Memory-Mapped-Scoring.md"}
+{"title":"BGE-M3: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_BGE-M3-Multi-Lingual-Embeddings.md"}
+{"title":"Hybrid Search with LLM Re-ranking for Enhanced Retrieval Quality","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_Hybrid-Search-LLM-Re-ranking.md"}
+{"title":"Dense Passage Retrieval in Conversational Search","domain":"search","date":"20260320","file":"/Users/boyu/Documents/ai-kb/search/20260320_Dense-Passage-Retrieval-Conversational-Search.md"}
+{"title":"ZeroMerge: Dynamic Zero-Shot KV Cache Compression","domain":"llm-infra","date":"20260320","file":"~/Documents/ai-kb/llm-infra/20260320_zeromerge-kv-cache-compression.md"}
+{"title":"Bigram Subnetworks: Minimal Circuits for Predicting Next Tokens","domain":"llm-infra","date":"20260320","file":"~/Documents/ai-kb/llm-infra/20260320_bigram-subnetworks-mechanistic-interpretability.md"}
+{"title":"Interplay: Training Independent Simulators for Reference-Free Conversational Recommendation","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_interplay-training-independent-simulators-for-reference-free-conversational-recommendation.md"}
+{"title":"Deploying Semantic ID-based Generative Retrieval for Large-Scale Podcast Discovery at Spotify","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_deploying-semantic-id-based-generative-retrieval-for-large-scale-podcast-discovery-at-spotify.md"}
+{"title":"A Unified Language Model for Large Scale Search, Recommendation, and Reasoning at Spotify","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_a-unified-language-model-for-large-scale-search-recommendation-and-reasoning-at-spotify.md"}
+{"title":"GEMs: Breaking the Long-Sequence Barrier in Generative Recommendation with a Multi-Stream Decoder","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_gems-breaking-the-long-sequence-barrier-in-generative-recommendation-with-a-multi-stream-decoder.md"}
+{"title":"Variable-Length Semantic IDs for Recommender Systems","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_variable-length-semantic-ids-for-recommender-systems.md"}
+{"title":"DiffGRM: Diffusion-based Generative Recommendation Model","domain":"rec-sys","date":"20260321","file":"~/Documents/ai-kb/rec-sys/20260321_diffgrm-diffusion-based-generative-recommendation-model.md"}
+{"title":"AutoBid: Reinforcement Learning for Automated Ad Bidding with Constraints","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_autobid-reinforcement-learning-for-automated-ad-bidding-with-constraints.md"}
+{"title":"LLM-Enhanced Ad Creative Generation and Optimization for E-Commerce","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_llm-enhanced-ad-creative-generation-and-optimization-for-e-commerce.md"}
+{"title":"Multi-Objective Optimization for Online Advertising: Balancing Revenue and User Experience","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_multi-objective-optimization-for-online-advertising-balancing-revenue-and-user-experience.md"}
+{"title":"Counterfactual Learning for Unbiased Ad Ranking in Industrial Search Systems","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_counterfactual-learning-for-unbiased-ad-ranking-in-industrial-search-systems.md"}
+{"title":"Real-Time Bidding Optimization with Multi-Agent Deep Reinforcement Learning","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_real-time-bidding-optimization-with-multi-agent-deep-reinforcement-learning.md"}
+{"title":"Budget Pacing Strategies for Large-Scale Ad Campaigns","domain":"ads","date":"20260321","file":"~/Documents/ai-kb/ads/20260321_budget-pacing-strategies-for-large-scale-ad-campaigns.md"}
+{"title":"Location Aware Embedding for Geotargeting in Sponsored Search Advertising","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_location-aware-embedding-for-geotargeting-in-sponsored-search-advertising.md"}
+{"title":"Intent-Aware Neural Query Reformulation for Behavior-Aligned Product Search","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md"}
+{"title":"Query as Anchor: Scenario-Adaptive User Representation via Large Language Model for Search","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_query-as-anchor-scenario-adaptive-user-representation-via-large-language-model-for-search.md"}
+{"title":"DLLM-Searcher: Adapting Diffusion Large Language Model for Search Agents","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_dllm-searcher-adapting-diffusion-large-language-model-for-search-agents.md"}
+{"title":"Dense Retrieval vs Sparse Retrieval: A Unified Evaluation Framework for Large-Scale Product Search","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_dense-retrieval-vs-sparse-retrieval-a-unified-evaluation-framework-for-large-scale-product-search.md"}
+{"title":"SPLADE-v3: Advancing Sparse Retrieval with Deep Language Models","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_splade-v3-advancing-sparse-retrieval-with-deep-language-models.md"}
+{"title":"Efficiently Aligning Draft Models via Parameter- and Data-Efficient Adaptation for Speculative Decoding","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_efficiently-aligning-draft-models-via-parameter-and-data-efficient-adaptation-for-speculative-decoding.md"}
+{"title":"LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_llmorbit-a-circular-taxonomy-of-large-language-models-from-scaling-walls-to-agentic-ai-systems.md"}
+{"title":"FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_flashattention-3-fast-and-accurate-attention-for-llms-on-next-gen-accelerators.md"}
+{"title":"Efficient Long-Context LLMs: Survey and Benchmark 2025-2026","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_efficient-long-context-llms-survey-and-benchmark-2025-2026.md"}
+{"title":"GRPO: Group Relative Policy Optimization for Large Language Model Reasoning","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_grpo-group-relative-policy-optimization-for-large-language-model-reasoning.md"}
+{"title":"MoE-LLaMA: Mixture-of-Experts for Efficient Large Language Model Serving","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_moe-llama-mixture-of-experts-for-efficient-large-language-model-serving.md"}
+{"title":"MiroFish: Simple and Universal Swarm Intelligence Engine for Prediction Tasks","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_mirofish-simple-and-universal-swarm-intelligence-engine-for-prediction-tasks.md"}
+{"title":"langchain-ai/open-swe: Open-Source Asynchronous Coding Agent","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langchain-ai-open-swe-open-source-asynchronous-coding-agent.md"}
+{"title":"volcengine/OpenViking: Open-Source Context Database for AI Agents","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_volcengine-openviking-open-source-context-database-for-ai-agents.md"}
+{"title":"langchain-ai/deepagents: Agent Harness with LangChain and LangGraph","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langchain-ai-deepagents-agent-harness-with-langchain-and-langgraph.md"}
+{"title":"microsoft/BitNet: Official Inference Framework for 1-bit LLMs","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_microsoft-bitnet-official-inference-framework-for-1-bit-llms.md"}
+{"title":"langflow-ai/openrag: Comprehensive RAG Platform Built on Langflow","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langflow-ai-openrag-comprehensive-rag-platform-built-on-langflow.md"}
+{"title":"Dense Retrieval vs Sparse Retrieval: A Unified Evaluation Framework for Large-Scale Product Search","domain":"search","date":"20260321","file":"~/Documents/ai-kb/search/20260321_dense-retrieval-vs-sparse-retrieval-unified-evaluation-framework.md"}
+{"title":"Efficiently Aligning Draft Models via Parameter- and Data-Efficient Adaptation for Speculative Decoding","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_efficiently-aligning-draft-models-speculative-decoding-peft.md"}
+{"title":"LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_llmorbit-circular-taxonomy-llm-scaling-to-agentic-ai.md"}
+{"title":"FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_flashattention-3-fast-accurate-attention-next-gen-accelerators.md"}
+{"title":"Efficient Long-Context LLMs: Survey and Benchmark 2025-2026","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_efficient-long-context-llms-survey-benchmark-2025-2026.md"}
+{"title":"GRPO: Group Relative Policy Optimization for Large Language Model Reasoning","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_grpo-group-relative-policy-optimization-llm-reasoning.md"}
+{"title":"MoE-LLaMA: Mixture-of-Experts for Efficient Large Language Model Serving","domain":"llm-infra","date":"20260321","file":"~/Documents/ai-kb/llm-infra/20260321_moe-llama-mixture-of-experts-efficient-llm-serving.md"}
+{"title":"MiroFish: Simple and Universal Swarm Intelligence Engine for Prediction Tasks","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_mirofish-swarm-intelligence-engine-prediction-tasks.md"}
+{"title":"langchain-ai/open-swe: Open-Source Asynchronous Coding Agent","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langchain-open-swe-open-source-async-coding-agent.md"}
+{"title":"volcengine/OpenViking: Open-Source Context Database for AI Agents","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_volcengine-openviking-open-source-context-database-ai-agents.md"}
+{"title":"langchain-ai/deepagents: Agent Harness with LangChain and LangGraph","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langchain-deepagents-agent-harness-langchain-langgraph.md"}
+{"title":"microsoft/BitNet: Official Inference Framework for 1-bit LLMs","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_microsoft-bitnet-inference-framework-1bit-llms.md"}
+{"title":"langflow-ai/openrag: Comprehensive RAG Platform Built on Langflow","domain":"repo","date":"20260321","file":"~/Documents/ai-kb/repo/20260321_langflow-openrag-comprehensive-rag-platform-langflow.md"}
+{"title": "Interplay: Training Independent Simulators for Reference-Free Conversational Recommendation", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_interplay_conversational_rec.md", "date": "20260322", "status": "done"}
+{"title": "Deploying Semantic ID-based Generative Retrieval for Large-Scale Podcast Discovery at Spotify", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_spotify_semantic_id_podcast.md", "date": "20260322", "status": "done"}
+{"title": "A Unified Language Model for Large Scale Search, Recommendation, and Reasoning at Spotify", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_spotify_unified_lm_search_rec.md", "date": "20260322", "status": "done"}
+{"title": "GEMs: Breaking the Long-Sequence Barrier in Generative Recommendation with a Multi-Stream Decoder", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_gems_long_sequence_generative_rec.md", "date": "20260322", "status": "done"}
+{"title": "Variable-Length Semantic IDs for Recommender Systems", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_variable_length_semantic_id.md", "date": "20260322", "status": "done"}
+{"title": "DiffGRM: Diffusion-based Generative Recommendation Model", "domain": "rec-sys", "file": "~/Documents/ai-kb/rec-sys/20260322_diffgrm_diffusion_generative_rec.md", "date": "20260322", "status": "done"}
+{"title": "AutoBid: Reinforcement Learning for Automated Ad Bidding with Constraints", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_autobid_rl_ad_bidding.md", "date": "20260322", "status": "done"}
+{"title": "LLM-Enhanced Ad Creative Generation and Optimization for E-Commerce", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_llm_ad_creative_generation.md", "date": "20260322", "status": "done"}
+{"title": "Multi-Objective Optimization for Online Advertising: Balancing Revenue and User Experience", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_multi_objective_online_advertising.md", "date": "20260322", "status": "done"}
+{"title": "Counterfactual Learning for Unbiased Ad Ranking in Industrial Search Systems", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_counterfactual_unbiased_ad_ranking.md", "date": "20260322", "status": "done"}
+{"title": "DIN: Deep Interest Network for Click-Through Rate Prediction", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_din_deep_interest_network.md", "date": "20260322", "status": "done"}
+{"title": "ESMM: Entire Space Multi-Task Model for Post-Click Conversion Rate Estimation", "domain": "ads", "file": "~/Documents/ai-kb/ads/20260322_esmm_entire_space_multitask.md", "date": "20260322", "status": "done"}
+{"title": "Location Aware Embedding for Geotargeting in Sponsored Search Advertising", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_location_aware_embedding_geotargeting.md", "date": "20260322", "status": "done"}
+{"title": "Intent-Aware Neural Query Reformulation for Behavior-Aligned Product Search", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_intent_aware_query_reformulation.md", "date": "20260322", "status": "done"}
+{"title": "Query as Anchor: Scenario-Adaptive User Representation via LLM for Search", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_query_as_anchor_llm_user_repr.md", "date": "20260322", "status": "done"}
+{"title": "DLLM-Searcher: Adapting Diffusion LLM for Search Agents", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_dllm_searcher_diffusion_llm_search.md", "date": "20260322", "status": "done"}
+{"title": "Dense Retrieval vs Sparse Retrieval: Unified Evaluation Framework for Large-Scale Product Search", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_dense_vs_sparse_retrieval_eval.md", "date": "20260322", "status": "done"}
+{"title": "SPLADE-v3: Advancing Sparse Retrieval with Deep Language Models", "domain": "search", "file": "~/Documents/ai-kb/search/20260322_splade_v3_sparse_retrieval.md", "date": "20260322", "status": "done"}
+{"title": "Efficiently Aligning Draft Models for Speculative Decoding", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_speculative_decoding_draft_alignment.md", "date": "20260322", "status": "done"}
+{"title": "LLMOrbit: A Circular Taxonomy of LLMs from Scaling Walls to Agentic AI Systems", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_llmorbit_taxonomy_llms.md", "date": "20260322", "status": "done"}
+{"title": "FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_flashattention3_next_gen_accelerators.md", "date": "20260322", "status": "done"}
+{"title": "Efficient Long-Context LLMs: Survey and Benchmark 2025-2026", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_efficient_long_context_llm_survey.md", "date": "20260322", "status": "done"}
+{"title": "GRPO: Group Relative Policy Optimization for Large Language Model Reasoning", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_grpo_group_relative_policy_optimization.md", "date": "20260322", "status": "done"}
+{"title": "MoE-LLaMA: Mixture-of-Experts for Efficient LLM Serving", "domain": "llm-infra", "file": "~/Documents/ai-kb/llm-infra/20260322_moe_llama_mixture_of_experts.md", "date": "20260322", "status": "done"}
+{"title": "MiroFish: Simple and Universal Swarm Intelligence Engine", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_mirofish_swarm_intelligence.md", "date": "20260322", "status": "done"}
+{"title": "langchain-ai/open-swe: Open-Source Asynchronous Coding Agent", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_open_swe_coding_agent.md", "date": "20260322", "status": "done"}
+{"title": "volcengine/OpenViking: Open-Source Context Database for AI Agents", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_openviking_context_database.md", "date": "20260322", "status": "done"}
+{"title": "langchain-ai/deepagents: Agent Harness with LangChain and LangGraph", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_deepagents_langgraph_harness.md", "date": "20260322", "status": "done"}
+{"title": "microsoft/BitNet: Official Inference Framework for 1-bit LLMs", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_bitnet_1bit_llm_inference.md", "date": "20260322", "status": "done"}
+{"title": "langflow-ai/openrag: Comprehensive RAG Platform Built on Langflow", "domain": "repo", "file": "~/Documents/ai-kb/repo/20260322_openrag_rag_platform.md", "date": "20260322", "status": "done"}

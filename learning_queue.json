@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-03-11",
+  "sources": [
+    {
+      "id": "aigc_book_remaining",
+      "type": "local_dir",
+      "dirs": [
+        "/Users/boyu/Documents/ai-kb/repos/AIGC-Interview-Book/数字人基础",
+        "/Users/boyu/Documents/ai-kb/repos/AIGC-Interview-Book/AI绘画基础",
+        "/Users/boyu/Documents/ai-kb/repos/AIGC-Interview-Book/AI视频基础",
+        "/Users/boyu/Documents/ai-kb/repos/AIGC-Interview-Book/机器学习基础",
+        "/Users/boyu/Documents/ai-kb/repos/AIGC-Interview-Book/数据结构基础"
+      ],
+      "status": "pending",
+      "output": "~/Documents/ai-kb/interview/qa-bank.md"
+    },
+    {
+      "id": "algo_notes_batch1",
+      "type": "web_articles",
+      "source": "/Users/boyu/Documents/ai-kb/reading-list.md",
+      "section": "精排模型",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/rec-sys/05_ranking_deep.md"
+    },
+    {
+      "id": "algo_notes_batch2",
+      "type": "web_articles",
+      "source": "/Users/boyu/Documents/ai-kb/reading-list.md",
+      "section": "召回系统",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/rec-sys/06_recall_advanced.md"
+    },
+    {
+      "id": "algo_notes_batch3",
+      "type": "web_articles",
+      "source": "/Users/boyu/Documents/ai-kb/reading-list.md",
+      "section": "计算广告",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/ads/02_ads_advanced.md"
+    },
+    {
+      "id": "user_learning_plan",
+      "type": "local_file",
+      "path": "/Users/boyu/Downloads/learning-plan (2).docx",
+      "status": "completed",
+      "output": "~/Documents/ai-kb/rec-sys/00_personal_notes.md"
+    },
+    {
+      "id": "interview_simulation_1",
+      "type": "synthetic",
+      "topic": "推荐系统全链路系统设计",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/interview/mock-interview-recsys.md"
+    },
+    {
+      "id": "interview_simulation_2",
+      "type": "synthetic",
+      "topic": "LLM大模型原理与工程",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/interview/mock-interview-llm.md"
+    },
+    {
+      "id": "interview_simulation_3",
+      "type": "synthetic",
+      "topic": "搜索广告系统设计",
+      "status": "pending",
+      "output": "~/Documents/ai-kb/interview/mock-interview-ads.md"
+    }
+  ]
+}

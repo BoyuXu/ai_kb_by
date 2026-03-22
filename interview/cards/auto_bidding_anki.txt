@@ -1,0 +1,26 @@
+#separator:tab
+#html:false
+#tags column:3
+什么是 Auto Bidding？和手动出价的本质区别？	Auto Bidding 让平台AI代替广告主出价。手动出价：广告主定固定价格；Auto Bidding：只告诉平台"每个转化最多50元"，AI按流量质量智能出价。类比：打车不管走哪条路，只说目的地和预算。	auto_bidding::L1::concept
+什么是 eCPM？为什么用 eCPM 排序而不是直接用出价？	eCPM = bid × pCTR × quality_score × 1000。只按出价排序，高出价低CTR的广告反而给平台带来更少收入。eCPM把出价和点击概率合并，是"性价比排名"而非"出价排名"。	auto_bidding::L1::concept
+oCPC 和 oCPA 有什么区别？	oCPC：以点击计费，平台优化CPA；oCPA：直接以转化为目标，平台全权出价。口诀：C=Click点击，A=Action转化行为。oCPA是更彻底的自动化。	auto_bidding::L1::concept
+PID Pacing 解决什么问题？三个分量各做什么？	防止预算在某时段瞬间耗尽。P=比例（快速响应当前偏差），I=积分（消除历史累积误差），D=微分（预测趋势抑制震荡）。类比：驾驶员踩油门/刹车保持匀速。Anti-windup防止预算耗尽时积分无限累积。	auto_bidding::L2::mechanism
+什么是 Bid Shading？什么场景下必须用？	一价拍卖中压低出价的策略：shaded_bid = v × (1-shading_factor)。二价拍卖不需要（诚实出价最优），一价拍卖必须用（否则多付冤枉钱）。2019年Google切换一价后行业全面引入。口诀：二价说真话，一价留余地。	auto_bidding::L1::concept
+为什么 RL 要把出价建模成 MDP（序列决策）？	一天内百万次出价前后关联：早期多花预算影响晚期出价空间。oCPC每次独立决策，RL把"当前决策对未来的影响"建模进去，追求整个Campaign周期累积最优。类比：oCPC是选择题，RL是下棋。	auto_bidding::L1::concept
+oCPA 最优出价公式是什么？怎么推导的？	bid* = CPA_target × pCTR × pCVR（不含预算系数）；实用版：bid = k × CPA_target × pCVR，k由PID控制器输出。本质：出价=期望转化价值=目标成本×转化概率×预算松紧系数。	auto_bidding::L2::formula
+KKT 最优出价结论是什么？λ代表什么含义？	b*_i = v_i / λ。推导：在预算约束B下最大化总转化量，拉格朗日函数对b求导=0得到。λ是"预算影子价格"，反映预算紧张程度：λ越大预算越紧，出价越保守。用二分搜索找满足预算约束的λ。	auto_bidding::L2::formula
+RL 出价的 MDP 三要素是什么？	State：pCTR/pCVR + 剩余预算比 + 时间进度比 + 实际CPA/目标CPA + 近期赢率/市场均价；Action：出价乘数λ∈[0.1,3.0]（连续DDPG）或离散档位（DQN）；Reward：pCVR×CPA_target - cost - 超预算惩罚。	auto_bidding::L2::mechanism
+DQN/PPO/DDPG 在出价中怎么选？	离散出价档位→DQN；连续出价+稳定优先→PPO（clip防策略崩溃）；连续+样本效率优先→SAC/TD3。实践中字节用"对偶方法基准+PPO微调"：对偶管稳定，RL管精细优化。	auto_bidding::L2::mechanism
+ESMM 为什么能解决 CVR 样本空间偏差？	CVR模型只能在点击样本上训练，但出价需要在全展示空间预测。ESMM不直接训练pCVR，而是训练pCTR（全展示空间无偏）和pCTR×pCVR，用pCVR=(pCTR×pCVR)/pCTR反推无偏CVR，两个任务共享底层embedding。	auto_bidding::L2::mechanism
+Bid Landscape 是什么？在 RL 出价中有什么用？	赢率函数w(b)=出价b时赢得展示的概率，用历史竞价数据拟合（常用Log-logistic/指数分布）。在RL中辅助Reward计算和off-policy评估：估计"如果出价b，期望赢得什么样的流量"。	auto_bidding::L2::mechanism
+RL 如何处理非平稳环境？	5种方案：①在线持续更新（每小时fine-tune）②将时间/节假日/近期均价加入State③元学习（快速适应新环境）④域随机化（训练时扰动市场参数）⑤持续校准Bid Simulator。口诀：要么持续更新，要么把时间教给State。	auto_bidding::L2::mechanism
+为什么用 RL 而不用 oCPC？oCPC 两个致命局限？	局限1：静态假设——每次出价独立，不考虑预算动态对未来的影响；局限2：线性假设——出价=目标CPA×CVR，无法对不同质量流量差异化定价。RL解决：序列决策+全局最优+动态自适应。口诀：oCPC管单次，RL管全局；oCPC假设静态，RL处理动态。	auto_bidding::L3::decision
+GSP vs VCG：工业界为什么主要用 GSP？	VCG激励相容（诚实出价最优）但计算复杂O(2^n)、平台收入低；GSP非激励相容但计算简单O(nlogn)、平台收入高、广告主能看懂账单。工业界选GSP：工程简单+收入更高+历史惯例。口诀：理论选VCG，工程选GSP。	auto_bidding::L3::decision
+On-policy(PPO) vs Off-policy(DQN/SAC) 怎么选？	PPO：数据只用一次，训练稳定，适合有实时数据流；DQN/SAC：Replay Buffer反复利用，样本效率高，适合历史日志数据量大。字节最优实践：对偶方法提供稳定基准+PPO微调。	auto_bidding::L3::decision
+Campaign 级 vs Impression 级出价如何选择？	Campaign级：简单低延迟，无法区分流量质量；Impression级：最优但实时推理复杂。最优实践（字节）：分层设计——Campaign级RL决定预算节奏+全局乘数λ，Impression级在λ基础上微调。口诀：Campaign管方向，Impression管精度。	auto_bidding::L3::decision
+Bid Shading 为什么二价不需要但一价必须？	二价拍卖：赢了只付第二名价格，诚实出价是占优策略，压低出价反而可能输；一价拍卖：赢了付你出的价，只需比第二名高一点点即可赢，出真实价值是浪费。2019年Google切到一价后Bid Shading成行业标配。	auto_bidding::L3::decision
+[陷阱] RL出价能直接用线上竞价日志做Experience Replay吗？	不能！Counterfactual Bias问题：日志只记录"实际出价b赢得的展示"，没有低出价的反事实样本，导致策略系统性低估低价动作的价值。正确做法：Bid Simulator模拟反事实+Importance Sampling修正。金句："直接用线上日志训练RL，等于只从成功者学经验，忽视低价出价的潜力。"	auto_bidding::L5::trap
+[陷阱] CVR模型AUC提升0.5%，Auto Bidding GMV一定会提升吗？	不一定！Auto Bidding依赖CVR的绝对值出价，AUC只衡量相对排序。AUC提升但校准度差（整体高估/低估）会导致系统性出价偏差。正确评估：关注Calibration曲线和log-loss，而非只看AUC。金句："AUC好不等于校准好；Auto Bidding用CVR绝对值出价，校准差=出价系统性偏差。"	auto_bidding::L5::trap
+[陷阱] PID积分项K_i越大越好，消除偏差越多？	错！K_i过大导致超调震荡：历史误差大时剧烈降价→流量买不够→重新升价，来回震荡。实践经验：K_i通常是K_p的1/5到1/10（典型值K_p=0.5, K_i=0.1）。Anti-windup解决积分饱和，但K_i过大的问题需要直接调小参数。	auto_bidding::L5::trap
+[陷阱] RL出价在Simulator里Reward持续上涨，说明策略变好了？	不一定！可能是：①Reward Hacking（学会刷低质量转化）②Simulator Bias（模拟器与真实环境Gap被策略利用）③Mode Collapse（过拟合特定场景）。必须经过Shadow Mode用真实数据验证。金句："Simulator Reward上涨≠上线效果好，RL必须Shadow Mode验证，模拟器的Gap会被策略利用。"	auto_bidding::L5::trap
+[陷阱] 所有广告主都升级RL出价，整个市场会更好吗？	不一定，可能触发"军备竞赛"：所有人更激进竞价高质量流量→市场均价上涨→广告主ROI集体下降。类似囚徒困境：个体理性→集体不理性。实证：2018-2022 RTB市场引入Auto Bidding后行业CPM整体上涨。金句："RL对单个广告主有利，但全行业都用RL=市场竞争加剧，ROI优势消失。"	auto_bidding::L5::trap

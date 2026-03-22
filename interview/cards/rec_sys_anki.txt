@@ -1,0 +1,38 @@
+#separator:tab
+#html:false
+#tags column:3
+推荐系统全链路漏斗分几层？各层的规模是多少？	召回(亿→万) → 粗排(万→千) → 精排(千→百) → 重排(百→十)。像招聘流程：海投简历→HR初筛→技术面→offer决策，越往后越精细。	rec_sys::L1::concept
+协同过滤的核心思想是什么？UserCF和ItemCF的区别？	CF核心："物以类聚，人以群分"。UserCF=找相似用户推他们喜欢的，适合新闻/社交；ItemCF=推与历史物品相似的物品，适合电商。都不需要物品内容，只靠行为矩阵。	rec_sys::L1::concept
+双塔模型（DSSM）的结构是什么？	用户塔和物品塔分别独立编码，最后内积计算相似度。物品Embedding可离线预计算，在线只算用户Embedding+ANN检索。记忆锚：两塔靠距离衡量缘分。	rec_sys::L1::concept
+矩阵分解如何解决协同过滤的稀疏性问题？	将R(m×n稀疏矩阵)分解为U(m×k)×V^T(k×n)，通过k维隐空间表示克服稀疏性。R≈U×V^T，k远小于m,n。像把人×物品大矩阵压缩成口味基因×风格基因。	rec_sys::L1::concept
+HNSW是什么？在推荐系统中解决什么问题？	近似最近邻检索算法，在亿级向量中快速找Top-K相似向量。多层图结构：高层稀疏长跳跃，低层密集精细搜索。时间复杂度O(logN)。像地图导航先看全国再缩小到市区。	rec_sys::L1::concept
+DIN（深度兴趣网络）的核心创新是什么？	对历史行为序列做注意力加权，目标物品和历史物品越相关权重越高。解决sum/avg pooling丢失目标相关性的问题。看科幻片时系统关注的是你的科幻历史而非爱情历史。	rec_sys::L1::concept
+MMR算法如何在推荐中实现多样性？	argmax[λ·相关性 - (1-λ)·与已选集合最大相似度]，贪心逐步构建列表。λ=1纯相关，λ=0纯多样性。调色板原则：每次选"又好看又不撞色"的颜色。	rec_sys::L1::concept
+DPP（行列式点过程）如何建模多样性？	P(Y)∝det(L_Y)，行列式=向量张成的超平行体体积，向量越各不相同体积越大。L_{ij}=q_i·φ(s_i,s_j)·q_j。好推荐列表像互相垂直的向量组——既高质量又各向延伸。	rec_sys::L1::concept
+GAUC和普通AUC的区别是什么？	GAUC=Σ(w_u×AUC_u)/Σw_u，对每用户分别算AUC再加权平均。普通AUC被活跃用户主导，GAUC更能反映用户级排序质量。像班级加权平均vs总平均，防止学霸班掩盖其他班。	rec_sys::L1::concept
+GNN召回和双塔召回的区别是什么？	GNN通过图上邻居聚合把物品间共现关系融入Embedding，利用高阶图结构信息。双塔独立学习没有图结构。PinSage(Pinterest)/EGES(阿里)是代表。你的朋友圈影响你。	rec_sys::L1::concept
+BPR损失函数是什么？为什么比MSE更适合推荐？	L_BPR=-Σln σ(r̂_ui - r̂_uj)+λ||Θ||²。直接优化相对排序（正样本分>负样本分），比MSE优化绝对评分更适合Top-K推荐。推荐关心排序对，不关心评分精度。	rec_sys::L2::formula
+双塔模型In-batch Negative Sampling的原理和修正方法？	把batch中其他用户的正样本当负样本，InfoNCE损失：L=-Σlog[exp(u·v/τ)/Σexp(u·v_j/τ)]。热门物品被过采样→修正：score-=log(P(v_j))。	rec_sys::L2::mechanism
+DIN注意力权重公式是什么？	e_i=a(v_a, e_i, v_a⊙e_i, v_a-e_i)，v_a是目标物品，e_i是历史物品。输入4种特征(原始+交互+差值)给MLP打分。用户兴趣表示v_u=Σa_i·e_i加权求和。	rec_sys::L2::formula
+DeepFM和Wide&Deep的区别是什么？	DeepFM用FM替换Wide部分的LR，FM自动学习二阶特征交叉无需手工。关键：FM和DNN共享同一套Embedding，更高效。y=y_FM+y_DNN，FM二阶项：Σ_{i<j}<v_i,v_j>·x_i·x_j。	rec_sys::L2::mechanism
+HNSW的构建和查询原理是什么？	构建：节点按概率分层l=⌊-ln(rand)·m_L⌋，每层连M个最近邻。查询：从最高层贪心搜索，逐层细化，第0层扩大搜索（ef_search参数）返回TopK。O(logN)查询复杂度。	rec_sys::L2::mechanism
+DIEN如何建模兴趣演化？AUGRU公式是什么？	两阶段：1)GRU兴趣抽取+辅助损失监督每步；2)AUGRU用注意力调制更新门：u_t'=a_t·u_t。a_t是目标物品对历史时刻t的注意力。建模"今天和昨天的你不一样"。	rec_sys::L2::formula
+COLD粗排框架如何实现高效精排？	SE-block自动特征选择：s=Sigmoid(W_2·ReLU(W_1·GAP))，output=feature×s，再接轻量DNN+并行推断。在时延约束内最大化模型复杂度，粗排的COLD是精排能力的"轻量移植"。	rec_sys::L2::mechanism
+DPP核矩阵如何构建？行列式的几何意义？	L_{ij}=q_i·φ(s_i,s_j)·q_j，L=diag(q)·S·diag(q)。行列式=向量张成k维平行体体积，v_i≈v_j则det≈0，v_i⊥v_j则det大。贪心MAP推断：O(k²n)。	rec_sys::L2::formula
+FM/DCN/xDeepFM在特征交叉上的演进？	FM:Σ_{i<j}<v_i,v_j>·x_i·x_j(二阶) → DCN: x_{l+1}=x_0·x_l^T·w_l+b_l+x_l(多阶显式) → xDeepFM: CIN在Embedding向量级做高阶交叉，保留Embedding空间结构。	rec_sys::L2::mechanism
+不同场景召回策略如何选型？	行为稀疏→内容/热门/标签；有行为→双塔；图结构信息→GNN；实时要求高→预计算Embedding+ANN。多路并行保覆盖，分数需校准到同一空间。多路不翻车。	rec_sys::L3::decision
+DIN vs DIEN如何选型？	序列短(<50)且兴趣稳定→DIN；序列长(>100)且有时序规律→DIEN；资源受限→DIN；追求极致精排→DIEN或BST。权衡：DIEN有GRU增加推理延迟，DIN更轻量。	rec_sys::L3::decision
+离线AUC高但线上CTR不涨，可能原因是什么？	1.特征穿越(用了未来信息) 2.样本分布差异(历史曝光有偏) 3.线上线下特征不一致 4.AUC和业务目标错位 5.模型陈旧。排查：先查穿越→看分布→特征一致性→统计显著性。	rec_sys::L3::decision
+如何设计新用户冷启动策略？	T=0:注册信息+热门多样性；T=0~1h:I2I实时召回；T=1~3d:激活双塔+探索多样性；T=4~7d:过渡常规个性化。关键：实时特征流(<1min)，新用户模型更新频率提高。	rec_sys::L3::decision
+粗排和精排的工程取舍是什么？	粗排(<10ms,万→千,特征有限,双塔等轻量)；精排(<100ms,千→百,特征充分,DIN等复杂)。粗排精度不足上COLD；精排延迟过高用特征预计算+蒸馏。粗排保速度广撒网，精排保精度细筛选。	rec_sys::L3::decision
+负采样策略如何选型？	召回训练：批内负采样+热度频率修正(score-=log(P(v)))；精排训练：曝光未点击+少量Hard Negative(约30%)。避免假负样本（用户其实喜欢的被当负样本）。黄金比例7:3。	rec_sys::L3::decision
+召回率突然下降10%，如何排查？	1.分路统计(CF/双塔/GNN/热门各路) 2.检查向量服务是否故障 3.查特征流是否变更 4.看模型更新是否异常 5.检查候选集过滤规则。快速恢复：回滚+增大热门兜底。	rec_sys::L4::scenario
+如何从算法侧为新用户设计完整冷启动策略？	T=0无行为→人口属性+兴趣选择；T=1h短行为→I2I实时召回；T=1-3d→双塔激活+多样性探索；T=4-7d→过渡常规策略。核心：实时特征流+冷启动专用模型+快速迭代。	rec_sys::L4::scenario
+推荐多样性和相关性如何平衡？	度量：ILD=1-平均相似度，Coverage，Novelty。算法：MMR贪心(快)→DPP行列式(优雅)→类目强制打散(硬规则)。评估：不能只看CTR，要看ILD+7/30天留存，多样性收益是长期的。	rec_sys::L4::scenario
+如何将推荐系统特征实时性从30分钟降到1分钟？	实时行为(<10s)→Redis直接拼接；实时统计(1-5min)→Flink滑动窗口→低延迟KV；模型端→Feature Store统一管理+Online Learning。容灾：实时降级→缓存最近1h特征+缺失标记。	rec_sys::L4::scenario
+如何利用图文数据迁移加速新短视频场景冷启动？	方案1:共享用户ID Embedding；方案2:图文用户塔迁移+短视频新特征分支；方案3:多任务STAR/PLE共享底层。分析两域用户重叠率，实验对比迁移vs从头训练。预期：冷启动数据需求减少50-80%。	rec_sys::L4::scenario
+陷阱：AUC高就代表推荐效果好？	不是！1.全局AUC被活跃用户主导，要看GAUC 2.AUC衡量排序不衡量位置，要看NDCG@K 3.测试集≠线上分布 4.AUC目标可能与GMV/留存错位。AUC提升是A/B实验的门票，不是进宫的钥匙。	rec_sys::L5::trap
+陷阱：双塔模型应该一律用余弦相似度？	不是！内积是工业主流(YouTube/微信)，模长携带流行度信息。真正的陷阱：训练用余弦、推理用内积不一致→离线在线Gap。温度系数τ和相似度方式强相关，换了要重调τ。	rec_sys::L5::trap
+陷阱：Hard Negative采样越难越好？	过难引入假负样本(用户其实喜欢但没曝光的物品)，梯度方向错误，AUC不升反降。正确：70%随机负+30%Hard Negative，Hard Negative来源要可信(召回结果未点击)。	rec_sys::L5::trap
+陷阱：DIN用户行为序列越长效果越好？	过长有害：Attention O(T)推理延迟增大；早期行为相关性低；噪声比例增加。工业解决方案：SIM用检索从超长序列找Top-K相关行为再精细Attention，ETA用LSH快速检索。序列长度通常控制50-200。	rec_sys::L5::trap
+陷阱：DPP有数学保证，生产一定比MMR好？	不一定！DPP问题：MAP推断O(k²n)计算复杂；核矩阵调参复杂；可解释性差；短期CTR可能显著下降难推动。MMR优势：O(nk)低复杂度，λ参数直观，工程稳定。先用MMR快速验证多样性收益，再决定是否换DPP。	rec_sys::L5::trap

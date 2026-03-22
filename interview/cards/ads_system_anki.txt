@@ -1,0 +1,39 @@
+#separator:tab
+#html:false
+#tags column:3
+什么是RTB实时竞价？核心参与方有哪些？	RTB(Real-Time Bidding)是程序化广告核心：每次用户触发广告请求，在100ms内完成竞价。DSP(需求方平台)：广告主侧，管理预算/出价/定向；SSP(供给方平台)：媒体侧，管理广告位/填充率；ADX(广告交易所)：撮合竞价；DMP(数据管理平台)：提供用户标签。类比：股票撮合交易，买方下单→交易所撮合→毫秒成交。	ads_system::L1::concept
+eCPM是什么？三种计费模式如何计算？	eCPM=每千次展示有效收入，是广告排序核心指标。CPM广告：eCPM=bid_CPM；CPC广告：eCPM=pCTR×bid_CPC×1000；CPA广告：eCPM=pCTR×pCVR×bid_CPA×1000。eCPM越高越优先展示。记忆：eCPM是广告综合竞争力分，出价高但CTR低 vs 出价适中CTR高，eCPM决定胜负。	ads_system::L1::concept
+GSP和VCG竞价机制有什么区别？	GSP(广义二价)：赢家付第二高出价，实现简单，非激励相容；VCG：赢家付自己参与拍卖给他人造成的损失，激励真实出价，社会福利最优但实现复杂。GSP用于Google/百度，VCG用于Facebook。口诀：GSP付下家的价，VCG付挤走别人的代价。	ads_system::L1::concept
+什么是ESMM？解决CVR预估的什么问题？	ESMM解决两大问题：1.样本选择偏差(SSB)：CVR只用点击样本训练但需预测全展示空间；2.稀疏数据：转化数据远少于点击。解法：在全展示空间联合训练CTR和CTCVR，pCVR=pCTCVR/pCTR反推真实转化率。类比：CVR只在"已进屋的人"中学，ESMM用全域数据联合训练。	ads_system::L1::concept
+什么是Pacing机制？为什么需要平滑消耗预算？	Pacing控制广告预算在时间维度均匀消耗。避免超投(早高峰花光预算)和欠投(预算跑不完)。方法：令牌桶(匀速补充出价令牌)、PID控制(实时监控消耗速率动态调整出价系数λ)、预算分时(按历史流量曲线预分配)。类比：水龙头调节，不能一次放完，要匀速流一天。	ads_system::L1::mechanism
+Lookalike相似用户扩量是什么？	给定种子用户(如已购高价值用户)，通过模型在全量用户中找最相似的人群扩大投放。用于广告定向/人群包，适合再营销受众扩充、新品冷启动、高价值用户挖掘。核心技术：用户Embedding+ANN相似度检索，或训练二分类模型预测"像不像种子用户"。类比：给我一批忠实粉丝，模型找一批"长得像粉丝"的潜在顾客。	ads_system::L1::concept
+广告冷启动面临哪些核心挑战？如何解决？	挑战：CTR预估不准(无历史)、CVR预估缺失、eCPM低→展示少→数据更少(恶性循环)。解决：1.UCB/Thompson Sampling主动给新广告探索机会；2.用创意语义特征估计CTR先验；3.迁移同行业数据初始化；4.平台补贴/降低底价。类比：先有鸡还是先有蛋，需平台主动打破循环。	ads_system::L1::concept
+什么是Reserve Price(底价)？如何影响竞价？	底价是媒体/SSP设定的最低成交价格，低于底价的出价不参与竞价。作用：保护媒体收益、过滤低质广告、设定质量门槛。二价拍卖中底价作为"虚拟出价"参与竞争，赢家至少支付底价。底价过高→填充率下降；底价过低→收益损失。类比：房东设的最低租金。	ads_system::L1::concept
+什么是位置偏差？如何校正？	位置偏差：用户天然更容易点击靠前广告，导致位置1 CTR高估、位置5 CTR低估。校正方法：1.IPW逆倾向加权(用展示位置倾向得分对样本加权)；2.位置特征解耦(引入位置Embedding，预测时置零)；3.PAL(显式建模：点击概率=被看到概率×真实相关性)。类比：超市货架效应，眼高位商品不代表质量更好。	ads_system::L1::mechanism
+什么是延迟转化？为何对CVR预估有挑战？	延迟转化：用户点击广告后数小时/数天才完成转化。问题：实时标签缺失(1小时内转化被标为负样本)→CVR被低估→出价保守→错过优质流量。解决：Elapsed Time方法(引入等待时间特征建模转化时间分布)、延迟归因窗口(24/72h等待回流)、重要性采样(对假负样本重新加权)。类比：网购今天逛三天后下单，系统以为你没买。	ads_system::L1::concept
+eCPM完整计算公式？三种计费模式如何统一排序？	CPM广告：eCPM=bid_CPM；CPC广告：eCPM=pCTR×bid_CPC×1000；CPA广告：eCPM=pCTR×pCVR×bid_CPA×1000；OCPA：eCPM=pCTR×pCVR×target_CPA×1000。综合质量分：eCPM_eff=eCPM×q_score。GSP实际支付：pay_click=eCPM_next/(pCTR×1000)+δ。统一折算到eCPM空间排序，实现公平竞争。	ads_system::L2::formula
+ESMM多任务结构如何推导pCVR？联合训练损失函数是什么？	全空间定义：pCTCVR=pCTR×pCVR（乘积规则）→ pCVR=pCTCVR/pCTR。网络：共享Embedding→CTR Tower(浅)和CTCVR Tower(深)→分别输出pCTR和pCTCVR。损失：L=CrossEntropy(y_click,pCTR)+CrossEntropy(y_ctcvr,pCTCVR)。推理时pCVR=pCTCVR/pCTR。彻底消除样本空间不一致问题。	ads_system::L2::formula
+Lookalike相似用户扩量的技术原理是什么？	方案1-Embedding+ANN：用DNN/双塔将用户映射到d维向量；种子用户质心=mean(user_emb_i)；全量ANN检索top_k=argmax cos_sim(user_emb_i, center)。方案2-二分类模型：种子为正样本，随机全量为负样本，训练分类器取top-K%。扩量控制：相似度阈值τ控制倍数，τ高→精准但少，τ低→多但有噪声。	ads_system::L2::mechanism
+RTB实时竞价的完整时序是什么？100ms内如何完成？	t=0ms用户触发请求；t=0-5ms SSP查DMP用户标签；t=5-10ms SSP→ADX发Bid Request(user_id,标签,底价)；t=10-80ms ADX并行广播多DSP，各DSP完成定向匹配+CTR预估+出价计算，返回bid_price；t=80-90ms ADX竞价排序，winner=argmax(bid×quality)，pay=second_bid(GSP)；t=90-100ms 返回广告素材渲染。超时DSP放弃参与。	ads_system::L2::mechanism
+GSP和VCG的数学原理对比？为什么VCG激励真实出价？	GSP：赢家i支付第二高出价b_{i+1}，不保证真实出价最优。VCG：pay_i=Σ_{j≠i}[v_j(无i时分配)-v_j(有i时分配)]，即补偿对他人造成的损失。VCG性质：真实出价是弱优势策略(报高→亏损，报低→错失)，激励相容。VCG计算O(n²)，GSP是O(n)。	ads_system::L2::formula
+Pacing的PID控制原理？参数含义？	误差e(t)=r_target-r(t)（目标消耗速率-实际消耗速率）。出价调节系数：λ(t)=Kp×e(t)+Ki×∫e(τ)dτ+Kd×de(t)/dt。P项：当前差距立即响应；I项：历史累积偏差消除稳态误差；D项：预测趋势防止震荡。参数过大风险：Kp大→震荡，Ki大→积分饱和，Kd大→对噪声过敏。	ads_system::L2::formula
+样本选择偏差在CVR预估中如何产生？解决方案？	训练空间=点击样本，预测空间=全量曝光样本，分布不一致。P(convert|click,x)≠P(convert|x)。解决：1.ESMM(全空间训练)；2.IPW重要性采样(w_i=1/P(click|x_i)加权)；3.域自适应(GAN/MMD对齐分布)；4.反事实推断。ESMM治空间偏差，IPW治分布偏差，延迟归因治时间偏差。	ads_system::L2::mechanism
+广告多目标优化数学框架？帕累托前沿含义？	max GMV=Σ pCVR_i×price_i×x_i；约束：ROI≥ROI_target，spend≤Budget。拉格朗日对偶：bid_i*=pCVR_i×price_i/(λ+μ)，λ/μ是对偶变量。帕累托前沿：各目标不能同时改进的解集，GMV↑↔ROI↓。通过调整λ(ROI约束松紧)在帕累托前沿上移动。增长期偏GMV，成熟期偏ROI。	ads_system::L2::formula
+广告召回层双塔模型在广告场景的特殊挑战？	双塔：UserTower→u，AdTower→a，score=cos_sim(u,a)。广告特有挑战：1.预算约束(预算耗尽不召回)；2.定向过滤(性别/地域/设备)；3.频次控制(曝光上限)；4.实时出价(相关性需结合出价)。目标：top-eCPM而非纯相关性。复合召回：eCPM_approx=pCTR_coarse×bid_i。	ads_system::L2::mechanism
+冷启动Explore-Exploit策略UCB和Thompson Sampling原理？	UCB：score_i=μ̂_i+√(2lnt/n_i)，展示越少置信上界越大，自动获得更多探索机会。Thompson Sampling：先验Beta(α_i,β_i)，每次从各广告Beta分布采样θ_i，选argmax θ_i，点击→α++，未点击→β++。实践：前K次(K=100-500)强制explore，K次后切正常竞价。UCB靠置信上界，TS靠贝叶斯采样。	ads_system::L2::mechanism
+CVR预估时，ESMM/IPW/延迟归因如何选择？	决策树：1.样本空间不一致→ESMM(全空间多任务)；2.数据极稀疏→ESMM+迁移学习；3.严重延迟转化(>24h)→Elapsed Time Model+归因窗口；4.快速修复位置偏差(不改模型)→IPW；5.改模型允许→位置解耦特征。原则：ESMM治空间偏差，IPW治分布偏差，延迟归因治时间偏差——三种偏差各有解药。	ads_system::L3::decision
+广告预算超投或欠投时，如何选择Pacing策略？	超投：短期降λ(PID负反馈)，中期提高令牌桶阈值，长期改善分时预算模型。欠投：提高λ(正反馈)、放宽定向、开启Lookalike扩量。系统性欠投：查广告质量分(提素材质量)或提高出价。策略选择：日内均匀消耗→PID；按流量曲线→分时预算+令牌桶；需保量→合约广告。	ads_system::L3::decision
+二价拍卖 vs 一价拍卖，如何选择？	二价优点：激励真实出价(真实价值是弱优势策略)、分配效率高、市场稳定。一价使用场景：Header Bidding(多SSP并行，难统一二价)、私有市场PMP、防Bid Shading攻击。趋势：Google 2019年后从二价转一价(因Header Bidding兴起导致二价机制失真)。决策：封闭单一ADX→二价；多SSP并行→一价。	ads_system::L3::decision
+新广告主冷启动，平台如何权衡探索成本和短期收益损失？	权衡：探索成本(牺牲当前eCPM最优)vs利用收益(当前最大化)。框架：1.高价值广告主→主动Boost/平台补贴探索；2.普通广告主→UCB/TS自动探索；3.前K次强制探索窗口；4.内容特征先验(语义质量分+同行业均值)。量化：期望LTV>探索期收益损失→值得探索。口诀：高价值主动Boost，普通UCB自动探索，前K次强制探索换长期留存。	ads_system::L3::decision
+广告定向越精准越好吗？何时应该扩大定向范围？	精准定向风险：受众小→频次高→用户疲劳、竞争激烈→成本飙升、预算欠投。扩量触发信号：填充率<60%、频次>7天10次、CPM持续上涨、预算连续欠投>3天。扩量优先级：1.Lookalike扩量；2.放宽兴趣标签；3.放宽地域；4.全量+智能定向。口诀：填充率低、频次高、预算跑不完→三信号触发扩量。	ads_system::L3::decision
+多目标优化GMV/ROI/用户体验不可兼得时如何取舍？	优先级框架：层级1(底线不可破)：用户体验红线(投诉率>阈值过滤)、平台合规；层级2(商业底线通常不破)：媒体最低eCPM、广告主ROI保障；层级3(可调参数)：ROI_target、Budget作为约束，约束内最大化GMV/LTV。业务阶段：增长期偏GMV，成熟期偏ROI。口诀：用户体验是红线，ROI是约束，GMV是目标。	ads_system::L3::decision
+新广告主第一天0历史数据如何冷启动？	步骤：1.建立先验：素材语义特征估计CTR先验+同行业历史均值作CVR先验；2.强制探索窗口(前100-500次展示)：Thompson Sampling从Beta(1,1)开始快速收敛；3.Pacing调整：冷启动期暂停严格ROI约束，设10-20%探索预算；4.获得100-500次点击后逐步减少Boost切回正常eCPM排序。监控：CTR置信区间宽度收窄到阈值以下即可切换。	ads_system::L4::scenario
+广告填充率突然下降10%如何排查？	排查框架：1.确认范围：全局or特定位置/用户/设备/时段；2.供给侧：媒体流量异常？底价是否调高？广告位配置变更？3.需求侧：DSP数量减少？广告主预算耗尽？定向收窄？4.竞价系统：RTB响应超时率↑？反作弊过滤增多？eCPM阈值上调？5.数据管道：Cookie/标签回传异常？DMP标签更新问题？汇报结构：影响范围→根因→影响评估→修复方案→预防措施。	ads_system::L4::scenario
+广告ROI超标但消耗极低，原因和解法？	根本原因：ROI约束过紧→出价过低→竞价赢单率低→消耗极低。验证：查Win Rate<10%确认出价问题。解法：1.放宽ROI目标(从3降到2.5)；2.智能出价：ROI_actual>>ROI_target时自动提价×1.2；3.检查转化归因是否有漏归因；4.放宽定向增加受众量。核心：oCPA系统ROI硬约束过保守，引入软约束或置信区间调节。	ads_system::L4::scenario
+广告CTR很高但CVR很低，广告主ROI差如何分析？	原因：1.创意与落地页不一致(夸大吸引点击，落地页不符预期)；2.定向人群无购买意向(如学生看游戏广告)；3.落地页体验差(加载慢/支付复杂)；4.CVR模型低估(延迟转化/归因窗口短)。排查：分析落地页跳出率→对比点击vs转化用户画像→A/B测试落地页→检查归因数据完整性。优化：直接对CVR/ROI优化出价(oCVR/oCPA)。	ads_system::L4::scenario
+广告系统升级一价拍卖，广告主出价策略如何调整？	关键变化：一价付自己出价，需主动Bid Shading压缩。最优出价：b*=v×(1-shading_factor)，shading_factor≈历史赢单价/历史出价。步骤：1.建立赢单价格预测模型；2.历史数据校准(分析二价期假设一价成本)；3.A/B测试不同shading ratio；4.动态调整(不同时段/用户群竞争强度不同)。风险：shading过度→Win Rate↓；不足→ROI↓。	ads_system::L4::scenario
+CTR高的广告一定排在前面？（陷阱）	错误！排序依据是eCPM=pCTR×bid，不是单纯CTR。例：CTR=10%,bid=1元→eCPM=100；CTR=1%,bid=20元→eCPM=200排前面。另外：pCTR是模型预估值(不是历史实际CTR)，质量分/相关性也影响排序。面试金句："广告系统不排CTR，排eCPM——出价乘以预估点击率，才是媒体的期望收入。"	ads_system::L5::trap
+Pacing平稳就代表广告系统健康？（陷阱）	错误！Pacing平稳只说明消耗速率均匀，不代表：1.质量正常(可能靠低eCPM展示凑消耗)；2.ROI达标；3.竞价健康(Win Rate可能极低)；4.填充率正常。真正健康指标：Win Rate、有效eCPM趋势、Fill Rate、广告主ROI达成率、转化漏斗数据。面试金句："Pacing平稳是必要条件不是充分条件，就像车速稳定不代表在正确的路上行驶。"	ads_system::L5::trap
+eCPM高的广告主一定是平台最赚钱的？（陷阱）	错误！eCPM是单次展示期望收入，总收益还取决于：1.消耗总量(eCPM=200日消耗1万<eCPM=100日消耗100万)；2.预算稳定性；3.LTV(效果差→停投快→短命)；4.竞争贡献(抬高市场出价)。平台更关注：LTV=平均日消耗×留存天数。面试金句："eCPM是展示层面的单价，平台赚钱看总GMV——频次×eCPM×留存才是广告主真实价值。"	ads_system::L5::trap
+二价拍卖中广告主应该尽量出价高来赢更多展示？（陷阱）	错误！最优出价=真实价值v(理论上，VCG激励相容)。出价>v：赢了但亏损；出价<v：错失应赢的竞价。GSP实践中真实出价非严格最优(存在博弈均衡)，但出价过高→预算快速耗尽→后续覆盖差。正确策略：bid_max=target_CPA×pCVR，Auto Bidding动态调整。面试金句："二价最优出价是真实价值，不是越高越好——出价高于价值就是在亏钱买展示。"	ads_system::L5::trap
+ESMM彻底解决CVR预估所有偏差问题？（陷阱）	错误！ESMM解决样本空间不一致，但以下问题依然存在：1.数值不稳定(pCTR→0时pCTCVR/pCTR→∞，需clip平滑)；2.延迟转化问题未解决(只治空间偏差不治时间偏差)；3.位置偏差依然存在；4.联合训练Loss权重比需精心调参；5.负样本极不平衡(曝光未点击的负样本海量)。面试金句："ESMM治了'在哪训练'的病，但'什么时候标注'和'位置影响'的病还需要单独治。"	ads_system::L5::trap
