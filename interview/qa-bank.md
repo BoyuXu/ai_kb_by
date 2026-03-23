@@ -4132,3 +4132,274 @@ Speculative Decoding：
 
 ---
 
+
+---
+
+## 2026-03-23 面试实战（MelonEgg 模拟面试）
+> 今日主题：生成式推荐 · KV Cache 推理优化 · 混合检索 · RLVR vs RLHF · 推荐 Scaling Law
+
+---
+
+### Q1（基础/初级）：KV Cache 是什么？它的显存占用如何计算？
+
+**难度**: 初级 | **出处**: KV Cache 推理优化知识卡片
+
+**Q**: 请解释 KV Cache 的作用原理，并给出 GPT-3 级别模型在 128K token 上下文下的显存占用估算公式。
+
+**A**:
+
+**直接结论**：KV Cache 是 Transformer 自注意力机制的缓存加速结构，将每个 token 的 Key/Value 向量存储下来，避免每次解码都重新计算所有历史 token 的注意力。
+
+**原理**：
+- 自回归解码中，生成第 t 个 token 时，需要 Attention(q_t, K_{1..t}, V_{1..t})
+- 没有 KV Cache：每步需重新计算所有历史 K/V，复杂度 O(t²)
+- 有 KV Cache：增量追加，复杂度 O(t)，典型推理加速 5-10x
+
+**显存公式**：
+```
+显存 = 2 × num_layers × num_heads × head_dim × seq_len × bytes_per_element
+      ↑ (K+V各一份)
+
+GPT-3: 2 × 96 × 96 × 128 × 128000 × 2 (FP16)
+     = 2 × 96 × 96 × 128 × 128000 × 2 / 1e9
+     ≈ 288 GB
+```
+
+**示例**：LLaMA-3 8B（32层，8头，128dim，FP16）处理 8K context：
+- 2 × 32 × 8 × 128 × 8192 × 2 ≈ 2.1 GB
+
+**与其他方案对比**：
+| 方案 | 显存 | 精度损失 |
+|------|------|---------|
+| FP16 KV（基线）| 100% | 0% |
+| INT8 KV | 50% | <1% |
+| H2O 驱逐（20%保留）| ~20% | 3-5% |
+| PagedAttention | 100%（利用率+35%）| 0%（无压缩）|
+
+**面试官点评**：考察 LLM 基础工程知识。高分要点：① 公式中正确写出 2（K+V 各一份）② 知道 FP16/INT8 压缩方案 ③ 能区分"减少显存"和"提高利用率"（PagedAttention 是后者）④ 举具体数字（GPT-3 128K = 288GB）。
+
+---
+
+### Q2（中级/原理）：RLVR 和 RLHF 的本质差异是什么？GRPO 为什么可以去掉 Critic？
+
+**难度**: 中级 | **出处**: RLVR vs RLHF 后训练知识卡片
+
+**Q**: 面试官问：DeepSeek-R1 为什么选择 RLVR 而不是 RLHF？GRPO 算法相比 PPO 的关键改进是什么？
+
+**A**:
+
+**直接结论**：RLVR 用客观可验证的奖励（程序验证答案对错），比 RLHF 的学习式奖励模型更稳定、无 Reward Hacking 风险；GRPO 用「组内相对奖励」代替 Critic 网络，节省 40-50% 显存。
+
+**RLHF vs RLVR 核心差异**：
+```
+RLHF：SFT → 奖励模型（RM）→ PPO
+  奖励：RM 打分（可被欺骗）→ Reward Hacking 风险
+  适用：开放生成（写作、对话），无客观标准
+
+RLVR：SFT（可选）→ 程序验证奖励 → GRPO/PPO
+  奖励：答案对错/代码测试通过（不可欺骗）
+  适用：数学、代码、逻辑推理
+```
+
+**GRPO 核心原理**：
+```python
+# PPO：需要 Critic 估计 baseline
+advantage_i = reward_i - V(state_i)   # V 是独立 Critic 网络
+
+# GRPO：同 prompt 采样 G 个回答，组内均值作 baseline
+advantage_i = (reward_i - mean(rewards_G)) / std(rewards_G)
+# 无 Critic → 显存节省 40-50%，实现更简单
+```
+
+**为什么 GRPO 有效**：
+- Baseline 的作用是减少 Policy Gradient 的方差，不一定需要神经网络
+- 同 prompt 的 G 个回答已经是好的参照基准（相对好坏比绝对值更稳定）
+- 加 KL 约束 `D_KL(π_θ || π_ref)` 防止策略漂移过大
+
+**DeepSeek-R1 的关键发现**：用纯 RLVR（无 SFT 预热）训练的 R1-Zero，模型自发涌现出 `<think>...</think>` 推理格式，说明推理链是 RL 压力下「自发进化」的工具行为，而非硬编码。
+
+**面试官点评**：考察对 RL 框架的理解深度。高分要点：① 讲清楚 Reward Hacking 机制 ② GRPO 的 "组内相对" 是关键词，不能只说"去掉 Critic" ③ 提到 KL 约束防漂移 ④ 加分：说出 R1-Zero 的 CoT 自发涌现这一 insight。
+
+---
+
+### Q3（中级/原理）：Dense、Sparse、Late Interaction 检索各自的适用场景和核心权衡？
+
+**难度**: 中级 | **出处**: 检索三角知识卡片
+
+**Q**: 你们的搜索系统同时有 BM25、Dense（E5）和 ColBERT 三套检索，产品经理问你：什么情况下用哪套？怎么融合？
+
+**A**:
+
+**直接结论**：三者互补——Sparse 精确词匹配、Dense 语义泛化、ColBERT 精度最高但存储贵；工业上几乎总是混合（BM25 + Dense，RRF 融合）胜过任意单一方案。
+
+**场景选择矩阵**：
+```
+用户查询 "iPhone 15 Pro Max 256G 黑色"
+  → 精确型查询（SKU/型号/人名/代码）
+  → 首选 BM25 / SPLADE，精确3-5%优于 Dense
+
+用户查询 "适合送给程序员的礼物"
+  → 语义型查询（意图/概念/需求描述）
+  → 首选 Dense（E5/GTE），比 BM25 +20-30%
+
+需要最高精度（精排/重排）
+  → ColBERT v3（MaxSim 细粒度交互）
+  → 比 Dense +3-5%，慢5-10x，存储50-200x
+  → 只用于最终 Top-1000 精排，不做全量召回
+```
+
+**ColBERT MaxSim 核心公式**：
+```
+score(q, d) = Σ_{qi ∈ Q} max_{dj ∈ D} (qi · dj)
+```
+每个 query token 找 document 里最相似的 token，所有 query token MaxSim 求和，比 Bi-Encoder 的单向量更细粒度。
+
+**RRF 融合**：
+```python
+rrf_score(doc) = Σ_k 1 / (k + rank_k(doc))
+# k=60 是经验最优，几乎不需要调参，工业可直接用
+```
+
+**无监督场景的反直觉结论**：跨域泛化时 BM25 往往 > Dense，因为 Dense 依赖训练域分布，BM25 是无参精确匹配，天然 domain-agnostic。
+
+**面试官点评**：考察工程权衡意识，不只要求说"哪个好"，要说清楚"在什么条件下好"。高分要点：① 精确查询 vs 语义查询的区分 ② RRF 融合的实用性（无超参） ③ ColBERT 定位为精排而非召回 ④ 主动提出"无监督场景 BM25 反超 Dense"这个反直觉结论。
+
+---
+
+### Q4（高级/系统设计）：如何为亿级商品的电商平台设计一套生成式推荐系统，同时满足 <100ms 在线延迟？
+
+**难度**: 高级 | **出处**: 生成式推荐全谱系 + KV Cache 优化知识卡片
+
+**Q**: 请设计一个支持 1 亿 SKU 的电商推荐系统，要求引入生成式推荐（如 TBGRecall/OneRec 思路），在线 P99 延迟 ≤ 100ms，离线 Recall@100 ≥ 30%，如何设计？
+
+**A**:
+
+**直接结论**：当前 <100ms 约束下，生成式推荐只能替换**召回层**（不是全流程），排序层仍用 LTR；核心工程挑战是 Semantic ID 的每日重建和 Constrained Beam Search 的延迟控制。
+
+**分层架构**：
+```
+用户请求
+    ↓
+召回层（生成式，替换双塔）：
+  ├── Semantic ID 建设：RQ-VAE 对 1亿 SKU 编码
+  │     └── 每日增量重建（新品每日上架 ~10万）
+  ├── 生成式召回：LLM Decoder 直接生成 SKU Token 序列
+  │     ├── Constrained Beam Search（Trie 约束合法物品）
+  │     └── 目标：召回 Top-200，P50 ~30ms，P99 ~60ms
+  └── 覆盖兜底：双塔召回（并行，保证覆盖率）
+    ↓
+融合层：
+  └── 合并生成式召回 + 双塔召回（RRF or Learning-to-Fuse）
+    ↓
+排序层（LTR，不用生成式，延迟约束）：
+  └── LightGBM / 双塔精排，Top-200 → Top-20，<20ms
+    ↓
+重排层：
+  └── 多样性约束（MMR/DPP），Top-20 → Top-10，<5ms
+```
+
+**生成式召回的延迟控制**（关键）：
+```
+挑战：自回归解码 O(K × L)，K=召回数量，L=每SKU的token数
+解决方案：
+1. Beam Width 控制：beam=5（不是20），召回 Top-50 而非 Top-200
+2. KV Cache 复用：同批次 request 共享 Prefix KV（用户公共前缀）
+   → SGLang RadixAttention，命中率 ~60%，延迟 -40%
+3. Speculative Decoding：草稿模型先生成，主模型验证
+   → 适合 token 分布稳定的 SKU ID 序列
+4. INT8 量化推理：生成式召回模型 INT8，精度损失 <1%
+```
+
+**Semantic ID 重建挑战**：
+```
+问题：新品无 Semantic ID，旧品 ID 每日变动（语义漂移）
+方案：
+├── 基于内容特征初始化：新品用文本/图像特征找 K 个最近邻，
+│   借用其 Semantic ID 前缀（保持树结构稳定）
+└── 增量索引：只重建新品的 Trie 节点，不重建全量（Spotify 方案）
+```
+
+**延迟 SLA 分配**：
+```
+总预算 100ms：
+├── 召回层（生成式 + 双塔并行）：50ms
+├── 融合层：5ms
+├── 排序层（LTR）：30ms
+├── 重排层：10ms
+└── 网络/其他：5ms
+```
+
+**面试官点评**：系统设计题考察：① 能否识别约束（<100ms 决定了生成式只能做召回） ② 有无具体的延迟分配 ③ 提出 Semantic ID 增量重建的工程细节 ④ 提到 KV Cache 和 Constrained Beam Search 是加分项 ⑤ 整体架构能自洽、无明显漏洞。
+
+---
+
+### Q5（开放/思维）：推荐系统的 Scaling Law（Wukong）和 LLM Scaling Law 的本质异同是什么？对你设计下一代推荐系统有什么启发？
+
+**难度**: 高级/开放 | **出处**: Wukong 推荐 Scaling Law 知识卡片
+
+**Q**: Meta Wukong 发现推荐系统也有 Scaling Law，但和 LLM（Chinchilla）不同。你怎么理解两者的本质差异？这对推荐系统的工程路线有什么指导意义？
+
+**A**:
+
+**直接结论**：LLM Scaling 的主角是**稠密计算参数**（Attention + FFN，捕获世界知识），推荐 Scaling 的主角是**稀疏 Embedding**（记忆用户/物品协同信号）——底层信息形态不同，决定 Scaling 的目标不同。
+
+**本质差异**：
+
+```
+LLM Scaling（Chinchilla）：
+  核心资源：FLOPs（计算量）
+  增长主体：Attention + FFN 稠密参数
+  瓶颈：计算能力（GPU 算力）
+  关系：效果 ∝ 参数量 × 训练token数的联合函数
+  直觉："大脑皮层越大越能学复杂知识"
+
+推荐 Scaling（Wukong）：
+  核心资源：内存带宽（Embedding 查表）
+  增长主体：Embedding Table（稀疏，每个 user/item 独立向量）
+  瓶颈：存储容量 + 查表带宽
+  关系：效果 ∝ Embedding Table 大小^α（α ≈ 0.05-0.1）
+  直觉："记忆容量越大，越了解每个用户的历史行为"
+
+关键数字对比：
+  最优 Embedding:MLP 参数比 ≈ 8:1 ~ 16:1（推荐）
+  LLM 中几乎全是稠密参数（无 Embedding Table 概念）
+```
+
+**工程启发**：
+
+**1. 资源分配优先级重排**
+```
+旧思路：买更多 GPU → 加深 MLP → 模型更强
+Wukong 启发：同预算下，买更多内存/SSD → 扩大 Embedding Table
+         → Embedding 10x >> MLP 3x，效果差距显著
+```
+
+**2. Embedding 基础设施优先于 MLP 复杂度**
+```
+实践：
+├── 用参数服务器（PS）管理 TB 级 Embedding（异步更新）
+├── SSD 卸载冷 Embedding（ZionEX/DLRM 方案）
+└── PQ 压缩：Product Quantization 减少 Embedding 存储 10-20x
+    但压缩比超过 50% 后质量明显下降（经验红线）
+```
+
+**3. 特征质量 >> 特征数量，Scaling 不替代特征工程**
+```
+Wukong 发现：高质量数据胜低质量数据 15-20%
+实践意义：精确的行为时间戳、序列顺序、上下文特征
+         比粗粒度点击计数更有价值，不要用 Scaling 掩盖特征问题
+```
+
+**4. 增量更新频率比模型大小更重要**
+```
+用户行为分布在高频变化：
+├── 每小时增量更新 Embedding >> 每天全量重训
+└── 推荐 Scaling Law 暗示：实时数据价值 > 历史数据量堆叠
+```
+
+**我的判断（开放观点）**：
+推荐和 LLM 最终会融合——LLM 的世界知识（稠密 Scaling）+ 推荐的用户记忆（稀疏 Scaling），类似 HLLM（分层 LLM 推荐）的思路。但5年内，"先扩 Embedding，再融合 LLM"仍是最经济的路线，因为 Embedding Scaling 的 ROI 更直接可量化。
+
+**面试官点评**：开放题考察技术深度+战略视角。高分要点：① 一句话说清"稀疏 vs 稠密"是本质差异 ② 有具体数字（8:1 参数比，α≈0.05）③ 工程启发不只是"扩大模型"，要说到基础设施路线（PS、SSD卸载）④ 有自己的预测和判断，不只复述论文 ⑤ 提到增量更新的重要性（实时性 > 规模）。
+
+---
