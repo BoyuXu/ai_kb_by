@@ -797,18 +797,322 @@ ATE = mean(Y_treatment) - mean(Y_control)  # 匹配后样本
 
 ---
 
-## 项目经历汇总表
+---
 
-| 项目 | 核心技术 | 主要亮点 | 关键指标 |
-|------|---------|---------|---------|
-| 召回重构 | 双塔+HNSW | 解决长尾和冷启动 | 召回率+23.4% |
-| CTR精排迭代 | DIN→DIEN | 兴趣演化建模 | CTR+1.8%, AUC+0.017 |
-| 多任务学习 | ESMM+MMoE | 解决SSB，多目标联合 | GMV+2.4% |
-| Auto Bidding | PPO+CMDP | 约束RL，全自动出价 | ROI满足率89% |
-| 实时特征平台 | Flink+Redis | 穿越防护，特征统一 | P99延迟50→9ms |
-| AB实验平台 | CUPED+因果推断 | 分层框架，统计规范 | 实验周期-43% |
+## 项目7：生成式召回系统建设（Semantic ID + Generative Retrieval）
+
+### 背景
+
+- **公司/团队背景**：某头部短视频平台推荐算法团队，负责首页信息流召回模块，item 库约 2 亿条视频，日均 PV 约 30 亿。
+- **问题痛点**：
+  - 现有召回以双塔为主，**user-item 特征交叉能力受限**（双塔结构决定了 user 侧和 item 侧独立编码，只有最后 dot product 才有交叉）。
+  - ANN 检索（HNSW）在 item 量超过亿级后，**内存开销极大**（2亿×128维×4 bytes ≈ 100GB），扩容成本高。
+  - 新视频上线后需要先入 ANN 索引再能被召回，**从上传到可召回存在约 3-5 分钟的延迟**。
+  - 双塔召回的 item 多样性有限：余弦相似度接近的 item 集中在少数类目，**长尾内容曝光不足**。
+
+### 技术方案
+
+#### 核心思路：Generative Retrieval（生成式召回）
+
+不再用 ANN 检索，而是让模型直接"生成" item 的 Semantic ID token 序列：
+
+```
+输入: 用户行为序列 [v1, v2, v3, ..., vn]
+    ↓  Encoder（Transformer）
+    ↓  Decoder（自回归）
+输出: token1 → token2 → token3  →  映射回 item_id
+```
+
+#### Item Tokenization：残差 K-Means 量化
+
+> 改进自 TIGER 的 RQ-VAE，解决 Hourglass 现象
+
+```
+Step 1: 预训练多模态 Item Embedding
+- 视频帧: ViT-Large（16帧均值）
+- 文字标题: BERT 中文
+- 行为对齐: 用 user-item co-click 对做对比学习微调 embedding
+- 最终 item embedding: 256维，对齐语义与行为分布
+
+Step 2: 残差 K-Means 分层量化
+第1层: K=4096 簇，item → 最近簇 c1_id，残差 r1 = e - center_1
+第2层: K=4096 簇，对 r1 → 最近簇 c2_id，残差 r2 = r1 - center_2
+第3层: K=4096 簇，对 r2 → 最近簇 c3_id
+
+item_i 的 Semantic Token = (c1_id, c2_id, c3_id)
+token 空间: 4096^3 ≈ 680亿 种组合，足够覆盖 2亿 item
+```
+
+与 RQ-VAE 的关键区别：每层 K-Means 强制平衡（每个簇的 item 数量相近），避免 code 分布不均匀。
+
+#### Encoder-Decoder 生成模型
+
+```
+Encoder:
+- 输入: 用户历史 50 条行为的 token 序列（每条行为 = 3个 token）
+- Position Encoding: 行为时序
+- Transformer 6层, d_model=512
+
+Decoder（自回归）:
+- 第1步: cross-attention(user_rep) → 生成 c1_id（beam_size=10）
+- 第2步: 在 c1_id 约束下生成 c2_id（beam_size=10）
+- 第3步: 在 (c1_id, c2_id) 约束下生成 c3_id（beam_size=10）
+- 最终: beam search 得到 top-100 个 token 序列 → 映射回 top-100 item
+
+约束 beam search（Constrained Decoding）：
+- 每一步只在合法 token（有对应 item 的 token）中做 softmax
+- 避免生成不存在的 item
+```
+
+#### 训练策略
+
+```
+训练目标: 给定用户历史，预测下一个有效互动 item 的 token 序列
+Loss: Cross-Entropy（每个 token 位置独立）
+
+L = -1/T Σ_t [log P(c1_t|H_u) + log P(c2_t|H_u, c1_t) + log P(c3_t|H_u, c1_t, c2_t)]
+
+数据规模: 30天点击+完播日志，约 200亿 (user, item) 对
+训练: 8×A100，约 36h 完成一轮
+
+新 item 冷启动:
+- 新视频上传后立即计算多模态 embedding
+- K-Means 量化（无需重训，用已有 codebook 直接映射）→ 得到 token
+- 立即可参与生成式召回（无需 ANN index rebuild）
+```
+
+### 实施过程
+
+#### 对比实验（生成式召回 vs 双塔召回）
+
+| 指标 | 双塔+HNSW | 生成式召回 | 变化 |
+|------|-----------|-----------|------|
+| Recall@50 | 38.2% | 42.7% | +4.5% |
+| Recall@200 | 61.4% | 67.8% | +6.4% |
+| 长尾 item 召回率（底部30%）| 12.3% | 19.1% | +55% |
+| 新 item 首次召回延迟 | 3-5 min | **< 1 min** | -80% |
+| 内存占用（索引部分）| ~100GB | ~8GB（codebook）| -92% |
+| 召回延迟（P99）| 6ms | 18ms | +3x（工程优化后可降至 10ms）|
+
+#### AB 实验
+
+- 召回阶段：生成式召回替换一路双塔召回（保留另一路双塔+用户协同过滤）
+- 流量：20%，3周
+- 线上结果：
+  - CTR +0.9%（召回质量提升）
+  - 长尾内容曝光占比 +12%（多样性改善）
+  - 用户停留时长 +1.3%
+
+### 量化结果（STAR格式）
+
+- **S**：双塔召回内存成本高、新 item 冷启动慢、长尾多样性不足。
+- **T**：探索生成式召回技术，替换一路双塔，提升召回质量和新 item 时效。
+- **A**：设计残差 K-Means tokenization，训练 Encoder-Decoder 生成模型，实现约束 beam search 召回。
+- **R**：Recall@200 **+6.4%**，长尾召回率 **+55%**，新 item 首次召回延迟从 3-5 分钟降至 **< 1 分钟**，ANN 索引内存降低 **92%**，线上 CTR **+0.9%**，停留时长 **+1.3%**。
+
+### 面试亮点
+
+**可深挖的技术点（3条）**：
+
+1. **为什么选残差 K-Means 而非 RQ-VAE？**
+RQ-VAE（VQ-VAE的残差版）在推荐场景存在"Hourglass 现象"：第1层 codebook 的某些 code 被大量 item 使用，而第 2、3 层的区分度极低，导致不同 item 的 token 后几位几乎相同，模型难以区分。残差 K-Means 每层强制均匀分配（用 balanced K-Means，每个簇 item 数相近），保证每层 code 都有足够区分度。实验对比：相同 token 长度下，残差 K-Means 的 item 区分度（token 碰撞率）比 RQ-VAE 低 60%。
+
+2. **约束 Beam Search 的工程实现**：
+Decoder 每步都要在"合法 token 空间"做 softmax（非全词表，只有当前前缀下存在 item 的 token 才合法）。实现：预构建前缀树（Trie Tree），key=(c1, c2)，value=合法的 c3 列表。每步 decode 时查 Trie 得到合法 token 集合，在此集合内做 top-k 选择。Trie 大小约 4GB（2亿 item × 3层），加载到内存后查询延迟 < 0.1ms。
+
+3. **生成式召回的 Exposure Bias 问题**：
+训练时 Decoder 用真实 token 序列（Teacher Forcing），推理时用自身生成的 token（自回归），训练推理不一致（Exposure Bias）。缓解：Scheduled Sampling（训练时以概率 p 用模型预测 token 替代真实 token）；p 从 0 逐步增大到 0.3，让模型学会纠错。
+
+**可能被追问的问题+参考答案框架**：
+
+- **Q：生成式召回和双塔召回能直接比较吗？各自适合什么场景？**
+A：不能简单替代，应该互补并行。双塔：延迟极低（ANN < 5ms），对热门 item、高曝光商品效果稳定，工程成熟；适合对延迟要求极高、item 库相对静态的场景。生成式召回：延迟较高（beam search ~15ms），但冷启动优秀、多样性好、不需要大规模 ANN 索引；适合 item 更新频率高（短视频/新闻）、多样性要求高的场景。实践：两路并行，最后 merge 去重送粗排。
+
+- **Q：Token 冲突问题：不同 item 有相同 token 怎么处理？**
+A：K-Means 量化后必然存在 token 碰撞（相同 token 映射多个 item）。处理方式：① 三层 token（4096^3）的碰撞率 < 0.001%，基本可忽略；② 碰撞的 item 都出现在 beam search 结果中，downstream ranking 会区分；③ 对热门 item 可加一层 item-specific 后缀 token（第4层，仅热门 item 专属），降低 top item 的碰撞。
 
 ---
 
-*文档完成时间：2026-03-16 | 作者：MelonEggLearn*
+## 项目8：LLM 语义特征增强推荐系统
+
+### 背景
+
+- **公司/团队背景**：某综合电商平台推荐算法团队，负责商品详情页"相关推荐"和首页"猜你喜欢"，商品库约 5000 万 SKU，类目 3 万+，日均 PV 15 亿。
+- **问题痛点**：
+  - 传统推荐强依赖行为信号（点击/购买），但 **60% 的 SKU 是长尾商品**，历史行为极少（< 10 次），CF 信号稀疏，排序效果差。
+  - 商品标题/描述包含大量语义信息（材质、场景、风格），但原有模型只用分词后的 bag-of-words 特征，**深层语义理解能力不足**（例如"透气运动鞋"和"跑步鞋"语义相关，但词汇不同导致无法关联）。
+  - 用户端：用户的真实购买意图往往藏在浏览行为序列的语义模式里（"最近看了3双跑鞋→用户在选跑步装备"），**行为语义归因能力弱**。
+  - 新兴品类（如"新中式服装"）上线后无历史数据，**跨类目冷启动**基本失败。
+
+### 技术方案
+
+#### 整体思路：LLM 作为语义特征提取器（不替换 CF，而是增强）
+
+```
+架构：
+                     ┌──────────────────────────────┐
+用户行为序列(IDs)  →  │    协同过滤模型（DIN/SIM）     │ → CF embedding (256d)
+                     └──────────────────────────────┘
+                               ↕ 对齐
+用户历史行为文本描述  →  LLM  → 语义 embedding (256d)
+                               ↕ 融合
+商品ID → CF item embedding    最终表示 → 排序打分
+商品文本(标题+属性) → LLM → 语义 item embedding
+```
+
+#### LLM 语义表示提取
+
+**模型选择**：`bge-large-zh-v1.5`（通义千问 embedding，中文优化，1024 维，本地部署）
+
+**用户语义表示构建**：
+
+```python
+# 把用户最近 20 条行为转化为自然语言摘要（离线，每日更新）
+prompt = f"""
+用户最近浏览的商品（按时间倒序）：
+1. {item1_title} - 品类：{category1} - 价格区间：{price_range1}
+2. {item2_title} - 品类：{category2} - 价格区间：{price_range2}
+...
+请用一段话总结该用户当前的购物兴趣和意图：
+"""
+# 用 Qwen-7B-Chat 生成摘要（离线批处理）
+summary = llm.generate(prompt)
+# 用 embedding 模型提取向量
+user_semantic_emb = bge_model.encode(summary)  # 1024维
+# 降维到256维（PCA/Linear Projection）
+user_semantic_emb = projection(user_semantic_emb)  # 256维
+```
+
+**商品语义表示构建**：
+
+```python
+# 商品侧：标题 + 属性 + 描述 → 拼接 → embedding
+item_text = f"{item.title} | {item.category_path} | 材质:{item.material} | 适用场景:{item.scene} | {item.description[:200]}"
+item_semantic_emb = bge_model.encode(item_text)  # 1024维 → 降维256维
+
+# 数据规模：5000万 SKU，批量离线处理
+# GPU：4×A100，约 18h 完成全量计算
+# 增量：每日新商品实时触发 embedding 计算（Kafka trigger）
+```
+
+#### 语义对齐（Semantic-CF Alignment）
+
+CF embedding 和 LLM embedding 来自不同空间，需要对齐：
+
+```
+对齐目标：
+相同用户的 CF embedding 和 LLM embedding 应该相近（InfoNCE Loss）
+相同 item 的 CF embedding 和 LLM embedding 应该相近
+
+L_align = -log(sim(cf_u, sem_u) / Σ_j sim(cf_u, sem_uj⁻))
+
+对齐方式：在 DIN 模型基础上，加一个 Alignment Head：
+- 输入：DIN 的 user representation（CF侧）
+- 目标：拉近对应用户的 LLM semantic embedding（语义侧）
+- 反向：同时更新 CF model 参数，让 CF embedding 向语义空间靠拢
+```
+
+#### 融合策略（三种，按场景选择）
+
+```
+方案A（特征拼接）：
+final_user_rep = concat([cf_user_emb, semantic_user_emb])  // 512维
+适用：训练数据充足的热门品类
+
+方案B（MoE门控融合）：
+gate = sigmoid(W · [cf_user_emb; semantic_user_emb])
+final = gate * cf_user_emb + (1-gate) * semantic_user_emb
+适用：行为稀疏的中等品类（语义权重自适应）
+
+方案C（纯语义）：
+仅用 semantic_user_emb，丢弃 CF
+适用：极度冷启动（< 3次行为）或新品类上线
+```
+
+#### RAG 增强的 Item 相关推荐
+
+```
+场景：商品详情页"相关推荐"
+传统：i2i 协同过滤（共现矩阵）
+新方案：语义 ANN 检索
+
+query = item_semantic_emb (当前商品)
+candidates = HNSW.search(query, top_k=500)  // 语义相似商品
+合并 i2i 候选 + 语义候选 → 去重 → 粗排
+```
+
+### 实施过程
+
+#### 数据准备
+
+- 商品文本：SKU 标题（平均 35 字）+ 属性（平均 15 个 KV 对）+ 描述（截断 200 字）。
+- 用户行为摘要：每日 T+1 批处理，Qwen-7B-Chat 生成 20 字摘要（日均处理 5000 万活跃用户）。
+- Embedding 更新频率：商品全量每周重算（新商品实时），用户每日增量。
+
+#### 模型训练/迭代
+
+| 版本 | 方案 | 长尾商品AUC | 全量AUC |
+|------|------|------------|---------|
+| baseline | DIN（CF only）| 0.682 | 0.749 |
+| v1 | +语义 item embedding（拼接）| 0.701 | 0.754 |
+| v2 | +语义 user embedding（拼接）| 0.718 | 0.758 |
+| v3 | +对齐 Loss（Alignment）| 0.729 | 0.762 |
+| v4 | MoE 门控融合 | **0.736** | **0.764** |
+
+#### AB 实验设计
+
+- 对照：原有 DIN 模型（CF + 简单文本特征 bag-of-words）
+- 实验：DIN + LLM 语义特征（MoE 融合）
+- 流量：20%，实验期 21 天
+- 分层分析：按商品行为频次（热门/中等/长尾）分别统计
+
+### 量化结果（STAR格式）
+
+- **S**：长尾商品行为稀少，CF 无能为力；语义理解能力弱，跨类目推荐质量差。
+- **T**：引入 LLM 语义特征增强推荐，重点提升长尾和冷启动商品效果。
+- **A**：bge 提取商品/用户语义 embedding，Qwen-7B 生成用户购物意图摘要，语义-CF 对齐，MoE 融合。
+- **R**：
+  - 全量 AUC：0.749 → **0.764**（+0.015）
+  - 长尾商品（< 50次历史行为）AUC：0.682 → **0.736**（+0.054，提升最显著）
+  - 跨类目推荐 CTR **+8.3%**（语义理解打通了近义类目）
+  - 新品（上线 < 7天）首周 CTR **+31%**（语义冷启动效果显著）
+  - 线上全量 CTR **+1.2%**，GMV **+1.7%**
+  - Embedding 服务 P99 延迟 < 5ms（HNSW 语义 ANN 检索）
+
+### 面试亮点
+
+**可深挖的技术点（3条）**：
+
+1. **LLM Embedding 的训练-推断一致性**：LLM 生成的 embedding 是离线批处理的（T+1 或实时），而模型训练时也是离线特征。潜在的一致性风险：LLM 模型版本更新后，embedding 空间发生 shift，导致旧 embedding 和新 embedding 不可比。解决：embedding 版本管理（每次 LLM 更新后全量重新计算，并同步更新 HNSW 索引）+ 灰度上线（先替换 10% 流量验证 embedding 一致性）。
+
+2. **Qwen 生成用户意图摘要的质量控制**：LLM 生成的摘要质量不稳定，可能产生幻觉或噪声。质控：① 设置最大/最小 token 限制（10-50 字）；② 温度参数设为 0（确定性输出，减少幻觉）；③ 人工抽样 500 条评估摘要质量（ROUGE vs 真实购买商品的相关性）；④ 对摘要质量低的用户（LLM 置信度低）回退到 CF only。
+
+3. **语义 embedding 的流行度偏差**：LLM 的预训练数据里，知名品牌/热门品类的描述更丰富，导致其 embedding 质量更高，长尾小众商品反而在语义空间里离群（embedding 质量差）。缓解：① 在 embedding 训练阶段用推荐业务数据做微调（fine-tune bge，使 embedding 更贴近用户行为分布）；② 长尾商品的语义特征权重适度降低（在 MoE 融合时，长尾商品的 gate 对 semantic 的权重给 cap 上限）。
+
+**可能被追问的问题+参考答案框架**：
+
+- **Q：为什么不直接用 LLM 做排序打分（cross-encoder），而要提取 embedding？**
+A：cross-encoder（每个 user-item 对单独输入 LLM 做打分）精度最高，但线上延迟不可接受（7B LLM 单次 inference ~100ms，精排要处理 200 个候选 → 总延迟 20s，不可用）。bi-encoder（分别编码 user 和 item，embedding 离线）牺牲部分精度，但延迟 < 5ms，可落地。工程 tradeoff 的结论：LLM 做离线 embedding，线上轻量 MLP 做融合打分。
+
+- **Q：LLM 提取的 user embedding 和 item embedding，如何保证语义空间一致？**
+A：关键是用同一个 embedding 模型处理 user 描述和 item 描述，且用 Alignment Loss 在业务数据上对齐两个空间（user 向量应该和他购买的 item 向量相近）。具体：用点击/购买对 (user_emb, item_emb) 做对比学习 fine-tune（InfoNCE），确保 user 的语义偏好和 item 的语义内容在同一空间里可以做相似度计算。
+
+---
+
+## 项目经历汇总表
+
+| 项目 | 核心技术 | 主要亮点 | 关键指标 | 时期 |
+|------|---------|---------|---------|------|
+| 召回重构 | 双塔+HNSW | 解决长尾和冷启动 | 召回率+23.4% | 2021-2022 |
+| CTR精排迭代 | DIN→DIEN | 兴趣演化建模 | CTR+1.8%, AUC+0.017 | 2021-2022 |
+| 多任务学习 | ESMM+MMoE | 解决SSB，多目标联合 | GMV+2.4% | 2021-2022 |
+| Auto Bidding | PPO+CMDP | 约束RL，全自动出价 | ROI满足率89% | 2022-2023 |
+| 实时特征平台 | Flink+Redis | 穿越防护，特征统一 | P99延迟50→9ms | 2022-2023 |
+| AB实验平台 | CUPED+因果推断 | 分层框架，统计规范 | 实验周期-43% | 2022 |
+| **生成式召回** | **残差K-Means+Encoder-Decoder** | **新item冷启动<1min，ANN内存-92%** | **Recall@200+6.4%，CTR+0.9%** | **2023-2024** |
+| **LLM语义增强** | **bge/Qwen+语义对齐+MoE融合** | **长尾商品AUC+0.054，跨类目打通** | **全量CTR+1.2%，GMV+1.7%** | **2024-2025** |
+
+---
+
+*文档更新时间：2026-03-23 | 作者：MelonEggLearn*
 *注：所有数据为合理范围内的虚构数字，面试时请结合个人实际经历调整描述*
