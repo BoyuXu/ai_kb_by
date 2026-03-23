@@ -1,6 +1,6 @@
 # AI-KB 知识图谱
 
-> 最后更新：2026-03-22 | 版本 v4
+> 最后更新：2026-03-23 | 版本 v5
 
 ---
 
@@ -345,5 +345,66 @@ LLM 广告创意生成
 8. **偏差治理是广告系统的基础工程**（20260322）：位置偏差（IPS）→ 样本偏差（ESMM）→ 兴趣偏差（DIN Attention）→ 多目标偏差（Pareto），层层递进构建无偏广告系统
 
 9. **统一化是 2024-2025 的系统趋势**（20260322）：Spotify ULM（搜推统一）↔ ESMM（全空间统一）↔ 扩散生成（离散连续统一）→ "大一统"在各维度同步发生
+
+10. **Scaling 的双轨制**（20260323）：LLM Scaling 靠稠密参数（Attention/FFN），推荐 Scaling 靠稀疏参数（Embedding Table）→ 同样的幂律规律，完全不同的工程实现；Wukong 证明 Embedding:MLP ≈ 10:1 最优
+
+11. **推理（Reasoning）从数学到推荐的渗透**（20260323）：RLVR → DeepSeek-R1 数学推理 → OneRec-Think 推荐推理 → 「先想再推荐」成为新范式；冷启动场景推理能力最有价值（弥补行为数据不足）
+
+12. **KV Cache 优化三角形**（20260323）：量化（无损）+ 驱逐（有损）+ 稀疏注意力（结构性）互相正交，可叠加；Attention Sink 不可驱逐是「红线」；PagedAttention → RadixAttention 是系统层的演进方向
+
+13. **检索三角的工业选型逻辑**（20260323）：精确查询用 Sparse，语义查询用 Dense，高精度排序用 Late Interaction（ColBERT）；混合检索（RRF）几乎总是最优；BM25s 让 BM25 「免费化」，没有理由不用作基线
+
+14. **RLVR 让客观任务的 RL 训练脱离对奖励模型的依赖**（20260323）：推荐系统的 CTR/CVR 预测天然有客观奖励 → 搜广推的 RL 优化可以大规模采用 RLVR 框架，绕过奖励模型的 reward hacking 问题
+
+---
+
+## 📊 今日新节点（2026-03-23）
+
+### 生成式推荐三阶段（完整图谱）
+```
+阶段1（召回）：TBGRecall / GPR / COBRA
+    └─ 连接：Semantic ID（20260321）+ RQ-VAE（20260322）
+
+阶段2（统一召回排序）：OneRec / EteGrec / MTGRBoost
+    ├─ 连接：Constrained Beam Search（Trie 约束）
+    └─ 连接：快手生产系统（实际大规模部署案例）
+
+阶段3（推理增强）：OneRec-Think / Reg4Rec / PinRec
+    ├─ 连接：DeepSeek-R1 CoT 推理（20260323 RLVR）
+    ├─ 连接：冷启动问题（常识先验 via 推理）
+    └─ 技术：<think>...</think> 监督信号来自用户满意度
+```
+
+### KV Cache 完整技术树（补充）
+```
+量化路线：FP16 → INT8（-50%显存）→ INT4（-75%）
+    └─ 挑战：outlier，需 per-token 动态量化
+
+驱逐路线：H2O（Heavy Hitter）→ StreamingLLM
+    └─ 红线：Attention Sink（开头 token）不可驱逐
+
+系统层：vLLM(PagedAttention) → SGLang(RadixAttention)
+    └─ 跨 session KV 共享，Agent 场景 3x 吞吐
+```
+
+### 检索三角（新增 ColBERT v3 / BM25s / SPLADE-v3）
+```
+BM25s → BM25 的极速 Python 实现（比 rank_bm25 快 500x）
+    └─ 连接：混合检索的「免费基线」
+
+SPLADE-v3 → 最强稀疏神经检索（BEIR 0.546）
+    └─ 连接：SPLADE 系列演进（20260321）
+
+ColBERT v3 → Late Interaction 最新版（PLAID v2 加速）
+    └─ 连接：MaxSim 操作（20260321）
+```
+
+### 推荐 Scaling Law（Wukong）
+```
+Wukong (Meta 2024)
+    ├─ 连接：LLM Scaling Law（Chinchilla 对比）
+    ├─ 技术：Embedding:MLP ≈ 10:1 最优
+    └─ 工程：参数服务器分布式存储万亿参数
+```
 
 ---
