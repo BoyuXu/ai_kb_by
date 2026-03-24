@@ -13,3 +13,14 @@ repo/
 *.pth
 .DS_Store
 **/.DS_Store
+
+# 敏感信息（不提交到 git）
+.env.local
+.env
+*.env
+.env.*.local
+secrets/
+*.secret
+credentials.json
+api_keys.json
+cron_jobs.json
