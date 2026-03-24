@@ -1,5 +1,34 @@
 # 广告系统 + LLM 集成框架
 
+## 📚 参考资料与引用
+
+本文是对 LLM 在广告系统中应用的总结提炼，引用了以下研究与实践案例：
+
+### CTR 预估与建模
+- [CTR 预估综述](../papers/20260319_ctr-prediction-comprehensive-survey.md)
+- [生成式 CTR 范式](../papers/20260313_generative_ctr_paradigm.md)
+- [CADET - 上下文 CTR](../papers/20260313_cadet_context_ctr.md)
+
+### 创意与图像优化
+- [CTR 与图像生成](../papers/20260313_ctr_image_gen.md)
+
+### 自动竞价与出价
+- [自动出价基础](../papers/20260318_bidding_basics.md)
+- [扩散模型自动出价](../papers/20260318_DiffusionAutoBidding.md)
+- [无遗憾自动出价 - First Price](../papers/20260319_no-regret-autobidding-first-price.md)
+- [适应性预算规划](../papers/20260318_AdaptableBudgetPlanner.md)
+
+### 多目标优化
+- [多目标在线广告](../papers/20260322_multi_objective_online_advertising.md)
+- [多目标优化在线广告 - 收益用户体验平衡](../papers/20260321_multi-objective-optimization-for-online-advertising-balancing-revenue-and-user-experience.md)
+
+### 工业实践
+- [P3 - LTR 到 RL](../papers/p3_ltr_to_rl_ranking.md)
+- [P5 - 工业实践](../papers/p5_industrial_practice.md)
+- [抖音 RL 混合](../papers/douyin_rl_mixing.md)
+
+---
+
 ## 文档概览
 
 本文档按"替换层 → 节点层 → 架构层"三个维度，系统地梳理 LLM 在广告系统中的应用方向。

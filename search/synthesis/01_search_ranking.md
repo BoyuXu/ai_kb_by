@@ -4,6 +4,33 @@
 
 ---
 
+## 📚 参考资料与引用
+
+本文是对搜索系统发展的总结提炼，引用了以下研究与实践案例：
+
+### 学术基础论文
+- [BM25 & 语义混合检索](../papers/20260316_bm25-semantic-hybrid-retrieval.md)
+- [DPR - 密集通道检索](../papers/20260316_dpr-dense-retrieval.md)
+- [ColBERT v2 - 后期交互检索](../papers/20260313_colbert_v2.md)
+- [ColBERT v3 - 高效后期交互](../papers/20260323_colbert_v3_efficient_neural_retrieval_with_late_int.md)
+- [SPLADE v3 - 稀疏检索新基准](../papers/20260322_splade_v3_sparse_retrieval.md)
+- [稀疏检索 vs 密集检索统一评估](../papers/20260323_dense_retrieval_vs_sparse_retrieval_a_unified_eval.md)
+
+### 混合检索与融合
+- [混合搜索 LLM 重排](../papers/20260320_Hybrid-Search-LLM-Re-ranking.md)
+- [BM25S - 快速稀疏搜索](../papers/20260323_bm25s_orders_of_magnitude_faster_lexical_search_via.md)
+
+### LLM 时代集成
+- [LLM for IR 综述](../papers/20260316_llm-for-ir-survey.md)
+- [RAG 检索优化](../papers/20260316_rag-retrieval-optimization.md)
+- [LLM 集成框架](./llm_integration_framework.md)
+
+### 工程实现参考
+- [FlashRAG - 检索工具包](../papers/20260323_flashrag_a_modular_toolkit_for_efficient_retrieval-.md)
+- [ColBERT Serve - 高效内存映射评分](../papers/20260320_ColBERT-serve-Efficient-Memory-Mapped-Scoring.md)
+
+---
+
 ## 目录
 1. [BM25原理与局限](#1-bm25原理与局限)
 2. [Dense Retrieval (DPR/ANCE)](#2-dense-retrieval-dprance)

@@ -1,5 +1,33 @@
 # 搜索系统 + LLM 集成框架
 
+## 📚 参考资料与引用
+
+本文是对 LLM 在搜索系统中应用的总结提炼，引用了以下研究与实践案例：
+
+### 核心论文
+- [LLM for IR 综述](../papers/20260316_llm-for-ir-survey.md) - LLM 在信息检索中的全景
+- [RAG 检索优化](../papers/20260316_rag-retrieval-optimization.md) - 检索增强生成优化
+- [查询改写与优化](../papers/20260319_rewritegen-query-optimization-rl.md) - 强化学习查询改写
+
+### 排序与重排
+- [RankLLM - LLM 重排](../papers/20260323_rankllm_reranking_with_large_language_models.md)
+- [LLM 文档重排 - 列表到成对](../papers/20260323_document_re-ranking_with_llm_from_listwise_to_pair.md)
+- [混合搜索 LLM 重排](../papers/20260320_Hybrid-Search-LLM-Re-ranking.md)
+
+### 多智能体与推理
+- [多智能体 RAG - CoT 推理](../papers/20260319_ma-rag-multi-agent-cot-reasoning.md)
+- [DLLM Searcher - 扩散 LLM 搜索](../papers/20260321_dllm-searcher-adapting-diffusion-large-language-model-for-search-agents.md)
+
+### 产品应用
+- [意图感知查询改写 - 行为对齐产品搜索](../papers/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md)
+- [生成式查询扩展 - 电子商务搜索](../papers/20260323_generative_query_expansion_for_e-commerce_search_a.md)
+- [统一生成搜索和推荐](../papers/20260323_sparse_meets_dense_unified_generative_recommendatio.md)
+
+### 工程工具
+- [FlashRAG - 模块化高效检索工具包](../papers/20260323_flashrag_a_modular_toolkit_for_efficient_retrieval_.md)
+
+---
+
 ## 文档概览
 
 本文档按"替换层 → 节点层 → 架构层"三个维度，系统地梳理 LLM 在搜索系统中的应用方向。
