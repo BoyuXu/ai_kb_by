@@ -1545,4 +1545,4 @@ LLM           → 蒸馏/量化/KV-cache + 推理加速
 > - 创建时间：2026-03-16
 > - 覆盖范围：精排模型完整演进（2010-2024+）
 > - 知识库路径：`~/Documents/ai-kb/tech-evolution/`
-> - 关联文档：`01_recall_evolution.md`、`../rec-sys/05_ranking_deep.md`
+> - 关联文档：`01_recall_evolution.md`、`../rec-sys/精排模型进阶深度解析.md`

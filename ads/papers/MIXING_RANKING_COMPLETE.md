@@ -8,7 +8,7 @@
 ## 📊 完成清单
 
 ### ✅ 任务 1：混排演进路线文档
-**文件**：`mixing_ranking_evolution.md`  
+**文件**：`广告系统混排演进路线.md`  
 **字数**：1450+ 行  
 **覆盖范围**：
 - 第一阶段：硬规则时代（2015-2017）- 栈混排、滑动窗口
@@ -172,7 +172,7 @@
 ### 文件清单
 ```
 ~/Documents/ai-kb/ads/
-├── mixing_ranking_evolution.md         (1450+ 行)
+├── 广告系统混排演进路线.md         (1450+ 行)
 ├── mixing_dpp_application.md           (480+ 行)
 ├── xiaohongshu_mixing_system.md        (480+ 行)
 ├── douyin_rl_mixing.md                 (480+ 行)
@@ -248,7 +248,7 @@
 
 ### 相关文档
 - `p2_diversity_feed_mixing.md`：多样性定义基础
-- `ads_ranking_evolution.md`：排序系统演进概览
+- `广告排序系统演进路线图.md`：排序系统演进概览
 - `p3_ltr_to_rl_ranking.md`：强化学习排序
 - `p4_generative_ranking.md`：生成式排序
 
@@ -286,7 +286,7 @@
 
 已追加 7 条记录：
 ```json
-{"timestamp": "2026-03-24T13:48:00", "task": "mixing_ranking_evolution", "file": "mixing_ranking_evolution.md", "lines": 1450, "status": "completed"}
+{"timestamp": "2026-03-24T13:48:00", "task": "mixing_ranking_evolution", "file": "广告系统混排演进路线.md", "lines": 1450, "status": "completed"}
 {"timestamp": "2026-03-24T13:50:00", "task": "mixing_dpp_application", "file": "mixing_dpp_application.md", "lines": 480, "status": "completed"}
 {"timestamp": "2026-03-24T13:52:00", "task": "xiaohongshu_mixing_system", "file": "xiaohongshu_mixing_system.md", "lines": 480, "status": "completed"}
 {"timestamp": "2026-03-24T13:54:00", "task": "douyin_rl_mixing", "file": "douyin_rl_mixing.md", "lines": 480, "status": "completed"}

@@ -1683,4 +1683,4 @@ Bid Shading（FPA最优出价）：
 
 > 📝 整理：MelonEggLearn | 更新：2026-03-16
 > 覆盖阶段：关键词广告→RTB→深度学习CTR→Auto Bidding→LLM+隐私计算
-> 下一步建议阅读：`ads/ESMM详解.md`、`ads/auto_bidding_evolution.md`、`ads/广告系统知识库.md`
+> 下一步建议阅读：`ads/ESMM详解.md`、`ads/AutoBidding技术演进_从规则到RL.md`、`ads/广告系统知识库.md`

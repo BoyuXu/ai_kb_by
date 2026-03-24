@@ -173,7 +173,7 @@ ItemCF     SVD/ALS     影响深远    DNN召回     FastText    大规模部署
   - Rajput et al., "Recommender Systems with Generative Retrieval" (TIGER, Google, 2023)
   - Zhai et al., "Actions Speak Louder than Words: Trillion-Parameter Sequential Transducers" (HSTU, Meta, 2024)
   - RecGPT相关工作（2024）
-  - 本知识库: `rec-sys/生成式推荐.md`, `rec-sys/20260313_recgpt_generative_rec.md`
+  - 本知识库: `rec-sys/生成式推荐.md`, `rec-sys/RecGPT_A_Large_Language_Model_for_Generative_Recommendati.md`
 
 ---
 

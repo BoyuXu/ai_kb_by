@@ -376,7 +376,7 @@ Agent 4：「我要确保品牌安全」
 
 - `action_is_all_you_need_dual-flow_generative_ranking.md` — Transformer 排序
 - `generative_click-through_rate_prediction_with_appl.md` — 生成式 CTR
-- `ads_ranking_evolution.md` — 完整演进路线
+- `广告排序系统演进路线图.md` — 完整演进路线
 
 ---
 

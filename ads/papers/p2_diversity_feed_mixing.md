@@ -322,7 +322,7 @@ RPM 可能在测试初期下降，但长期上升
 
 ## 下一步
 
-- `ads_ranking_evolution.md` — 完整演进路线
+- `广告排序系统演进路线图.md` — 完整演进路线
 - `p1_reranking_fundamentals.md` — 重排算法
 - `p3_ltr_to_rl_ranking.md` （待创建） — 排序学习
 

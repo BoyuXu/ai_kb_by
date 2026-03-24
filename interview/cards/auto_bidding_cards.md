@@ -1,7 +1,7 @@
 # Auto Bidding 分层知识卡片
 
 > 生成时间：2026-03-16 | MelonEggLearn
-> 素材来源：auto_bidding_evolution.md（1015行深度笔记）
+> 素材来源：AutoBidding技术演进_从规则到RL.md（1015行深度笔记）
 > 用法：L1→L2→L3 顺序学，L4 模拟面试答题，L5 防踩坑
 
 ---

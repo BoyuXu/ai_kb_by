@@ -69,22 +69,22 @@ rec-sys/     ├── papers/      ├── practices/   └── synthesis/
 ### 4️⃣ 引用链接添加（4个synthesis文件更新）
 
 #### Search 领域
-- ✅ `01_search_ranking.md` - 添加了 11 条学术基础论文引用
-- ✅ `llm_integration_framework.md` - 添加了 8 条 LLM 集成论文引用
+- ✅ `搜索排序专项笔记.md` - 添加了 11 条学术基础论文引用
+- ✅ `搜索系统LLM集成框架.md` - 添加了 8 条 LLM 集成论文引用
 
 #### Ads 领域
-- ✅ `llm_integration_framework.md` - 添加了 8 条广告系统论文引用
+- ✅ `搜索系统LLM集成框架.md` - 添加了 8 条广告系统论文引用
 
 #### Rec-Sys 领域
-- ✅ `llm_integration_framework.md` - 添加了模板性引用框架
+- ✅ `搜索系统LLM集成框架.md` - 添加了模板性引用框架
 
 **引用格式示例**：
 ```markdown
 ## 📚 参考资料与引用
 
-- [DPR - 密集通道检索](../papers/20260316_dpr-dense-retrieval.md)
-- [LLM for IR 综述](../papers/20260316_llm-for-ir-survey.md)
-- [混合搜索 LLM 重排](../papers/20260320_Hybrid-Search-LLM-Re-ranking.md)
+- [DPR - 密集通道检索](../papers/dpr_dense_retrieval.md)
+- [LLM for IR 综述](../papers/Large_Language_Models_for_Information_Retrieval_A_Survey.md)
+- [混合搜索 LLM 重排](../papers/Hybrid_Search_with_LLM_Re_ranking_for_Enhanced_Retrieval.md)
 ```
 
 ---
@@ -127,20 +127,20 @@ Synthesis (演进总结与框架)
 ### 搜索系统 (74篇)
 进入: [search/INDEX.md](../search/INDEX.md)
 - 最新: `papers/20260323_*.md` (WSDM 2026 论文)
-- 经典: `papers/20260313_colbert_v2.md` (后期交互)
-- 框架: `synthesis/llm_integration_framework.md`
+- 经典: `papers/ColBERT_v2_Effective_and_Efficient_Retrieval_via_Lightwei.md` (后期交互)
+- 框架: `synthesis/搜索系统LLM集成框架.md`
 
 ### 广告系统 (88篇)
 进入: [ads/INDEX.md](../ads/INDEX.md)
-- CTR预估: `papers/20260319_ctr-prediction-comprehensive-survey.md`
-- 自动竞价: `synthesis/auto_bidding_evolution.md`
+- CTR预估: `papers/A_Comprehensive_Survey_on_Advertising_Click_Through_Rate.md`
+- 自动竞价: `synthesis/AutoBidding技术演进_从规则到RL.md`
 - 工业实践: `practices/p3_ltr_to_rl_ranking.md`
 
 ### 推荐系统 (80篇)
 进入: [rec-sys/INDEX.md](../rec-sys/INDEX.md)
-- CTR建模: `synthesis/01_ctr_models_deep_dive.md`
+- CTR建模: `synthesis/CTR模型深度解析.md`
 - 召回系统: `papers/ + practices/` (待补充)
-- LLM融合: `synthesis/llm_integration_framework.md`
+- LLM融合: `synthesis/搜索系统LLM集成框架.md`
 
 ---
 
@@ -180,7 +180,7 @@ Synthesis (演进总结与框架)
 ```python
 papers:    20260313_*.md、arxiv论文笔记、学术论文总结
 practices: 大厂案例、工业实现经验（Google/Meta/字节等）
-synthesis: XXX_evolution.md、llm_integration_framework.md、项目创意
+synthesis: XXX_evolution.md、搜索系统LLM集成框架.md、项目创意
 ```
 
 ### 引用链接格式

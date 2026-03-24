@@ -222,11 +222,11 @@ AutoBid RL ↔ GRPO：都用 Lagrangian 处理约束，RL 解序列决策
 | OCPC/OCPA 出价 | #003 | 广告 |
 | Query Rewriting / RAG | #004 | 搜索/NLP |
 | 推荐系统全链路 | #005 | 推荐 |
-| GRPO（无 Critic RL 对齐）| synthesis/20260321_grpo_rl_alignment.md | LLM 训练 |
-| Semantic ID + 生成式检索 | synthesis/20260321_semantic_id_generative_retrieval.md | 推荐召回 |
-| 广告出价体系演进 | synthesis/20260321_ad_bidding_evolution.md | 广告 |
-| SPLADE-v3 稀疏检索 | synthesis/20260321_sparse_dense_retrieval.md | 搜索 |
-| FlashAttention-3 | synthesis/20260321_flashattention3_llm_infra.md | LLM Infra |
+| GRPO（无 Critic RL 对齐）| synthesis/GRPO大模型推理RL算法.md | LLM 训练 |
+| Semantic ID + 生成式检索 | synthesis/SemanticID与生成式检索.md | 推荐召回 |
+| 广告出价体系演进 | synthesis/广告出价体系_从手动规则到RL自动出价.md | 广告 |
+| SPLADE-v3 稀疏检索 | synthesis/稀疏检索vs稠密检索.md | 搜索 |
+| FlashAttention-3 | synthesis/FlashAttention3与LLM推理基础设施.md | LLM Infra |
 
 ---
 

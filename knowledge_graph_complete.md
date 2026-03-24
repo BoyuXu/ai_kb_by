@@ -351,8 +351,8 @@ LTV 长期价值 ← CTR/CVR 短期指标（防止短视）
 
 | 核心系统 | 主要文件 | 覆盖范围 |
 |---------|--------|--------|
-| **搜索系统** | search/01_search_ranking.md | BM25、Dense、混合、个性化 |
-| **推荐系统** | rec-sys/00_overview.md 等 | 召回→粗排→精排→重排 |
+| **搜索系统** | search/搜索排序专项笔记.md | BM25、Dense、混合、个性化 |
+| **推荐系统** | rec-sys/推荐系统全链路架构概览.md 等 | 召回→粗排→精排→重排 |
 | **广告系统** | ads/01_ads_system.md 等 | 竞价、Pacing、出价、多目标 |
 | **LLM 基础设施** | knowledge_graph.md | KV Cache、MoE、Attention |
 | **最新综述** | synthesis/ (2026-03-xx) | 月度最新论文解读 |

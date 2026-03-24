@@ -1,32 +1,24 @@
-# 跨域综合知识库导航 🔗
+# 跨领域知识库导航
 
 ## 📊 领域概览
 
 | 分类 | 文档数 | 描述 |
 |------|--------|------|
-| **Synthesis** (提炼总结) | 11篇 | 跨搜广推的通用知识、系统设计、ML 基础 |
+| **Synthesis** | 11篇 | 提炼总结 |
+| **总计** | 11篇 | - |
 
 ---
 
-## 📖 Synthesis (11篇 提炼总结)
+## 📝 Synthesis 总结文档
 
-### 标准化文档 (std_cross_*)
-- [偏差治理](./synthesis/std_cross_bias_governance.md) — 推荐/广告/搜索中的偏差问题
-- [生成式范式](./synthesis/std_cross_generative_paradigm.md) — 生成式方法跨域应用
-- [长序列建模](./synthesis/std_cross_long_sequence.md) — 超长用户行为序列
-- [ML 基础](./synthesis/std_cross_ml_fundamentals.md) — 通用机器学习基础
-- [多目标统一](./synthesis/std_cross_multi_objective_unified.md) — 多目标优化统一框架
-- [系统设计](./synthesis/std_cross_system_design.md) — 大规模系统设计
-
-### 专题综合
-- [LLM × 推荐 × 检索](./synthesis/20260320_llm_recommendation_retrieval.md)
-- [搜索推荐统一模型](./synthesis/20260322_unified_model_search_rec.md)
-- [推荐广告周报综合](./synthesis/20260322_weekly_rec_ads_synthesis.md)
-- [工程实践](./synthesis/20260324_engineering_practices.md)
-- [推荐广告算法演进](./synthesis/20260324_rec_ads_algo_evolution.md)
-
----
-
-## 📝 最后更新
-- **最后更新**: 2026-03-24
-- **总文档数**: 11 篇
+- [知识卡片 #009：LLM 赋能推荐召回——从多路专家到通用检索](./synthesis/LLM赋能推荐召回.md)
+- [偏差治理体系：推荐/广告/搜索中的偏差识别与纠正](./synthesis/偏差治理体系.md)
+- [多目标优化在推荐/广告/搜索中的统一框架](./synthesis/多目标优化统一框架.md)
+- [知识卡片：工程实践 - 从论文到生产的决策和权衡](./synthesis/工程实践_从论文到生产.md)
+- [知识卡片：广告/推荐系统的算法演进脉络](./synthesis/广告推荐系统算法演进脉络.md)
+- [推荐系统 & 广告系统本周综合总结（2026-03-16 ~ 2026-03-22）](./synthesis/推荐广告系统周总结_0316_0322.md)
+- [机器学习基础：推荐/搜索/广告面试必备](./synthesis/机器学习基础面试必备.md)
+- [生成式范式在推荐/广告/搜索中的统一视角](./synthesis/生成式范式统一视角.md)
+- [系统设计面试：推荐/搜索/广告系统架构要点](./synthesis/系统设计面试要点.md)
+- [统一模型做搜索+推荐：Spotify ULM 的工程哲学](./synthesis/统一模型搜索推荐_Spotify_ULM.md)
+- [长序列处理：推荐/搜索/LLM 的共同挑战](./synthesis/长序列处理_推荐搜索LLM共同挑战.md)

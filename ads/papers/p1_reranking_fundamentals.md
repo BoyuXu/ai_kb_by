@@ -471,7 +471,7 @@ w1 + w2 = 1，通常 w1=0.7, w2=0.3
 
 1. **相关已有资源**：
    - `multi-objective-ads-ranking.md` — 多目标优化深入
-   - `auto_bidding_evolution.md` — 竞价系统演进（与重排并行）
+   - `AutoBidding技术演进_从规则到RL.md` — 竞价系统演进（与重排并行）
 
 2. **待创建资源**：
    - `P2：多样性与 Feed 混排策略`

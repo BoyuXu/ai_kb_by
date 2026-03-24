@@ -1,268 +1,92 @@
-# 搜索系统知识库导航 🔍
+# 搜索系统知识库导航
 
 ## 📊 领域概览
 
 | 分类 | 文档数 | 描述 |
 |------|--------|------|
-| **Papers** (学术论文笔记) | 72篇 | arXiv 论文、学术研究、算法基础 |
-| **Practices** (工业实践案例) | 0篇 | 大厂系统设计、生产案例（待补充） |
-| **Synthesis** (提炼总结) | 12篇 | 搜索系统演进、框架总结、标准化文档 |
-| **总计** | 74篇 | - |
+| **Papers** | 63篇 | 学术论文笔记 |
+| **Synthesis** | 12篇 | 提炼总结 |
+| **总计** | 75篇 | - |
 
 ---
 
-## 🚀 快速导航
+## 📝 Synthesis 总结文档
 
-### 📚 按学习阶段查找
+- [Learning to Rank：搜索排序的三大范式](./synthesis/LearningToRank搜索排序三大范式.md)
+- [搜索 Query 理解：从分词到意图识别到 LLM 改写](./synthesis/搜索Query理解.md)
+- [搜索 Reranker 演进：从 LambdaMART 到 LLM](./synthesis/搜索Reranker演进.md)
+- [搜索排序专项笔记 - MelonEggLearn](./synthesis/搜索排序专项笔记.md)
+- [搜索时间序列图：从静态检索到动态时序建模](./synthesis/搜索时间序列图.md)
+- [搜索系统 + LLM 集成框架](./synthesis/搜索系统LLM集成框架.md)
+- [检索三角：Dense vs Sparse vs Late Interaction](./synthesis/检索三角_Dense_Sparse_LateInteraction.md)
+- [检索三角形深析：Dense vs Sparse vs Late Interaction](./synthesis/检索三角形深析.md)
+- [知识卡片 #008：混合检索的工业化演进](./synthesis/混合检索的工业化演进.md)
+- [混合检索融合：多路召回的工业化实践](./synthesis/混合检索融合_多路召回实践.md)
+- [稀疏检索 vs 密集检索：怎么选，怎么融合](./synthesis/稀疏vs密集检索决策.md)
+- [稀疏检索 vs 稠密检索：从 BM25 到 SPLADE，搜索召回的两条腿](./synthesis/稀疏检索vs稠密检索.md)
 
-1. **新手入门** → [搜索排序系统概览](./synthesis/01_search_ranking.md)
-2. **深度学习基础** → [密集检索 (DPR)](./papers/20260316_dpr-dense-retrieval.md) | [稀疏检索 (BM25)](./papers/20260316_bm25-semantic-hybrid-retrieval.md)
-3. **LLM 时代前沿** → [LLM for IR 综述](./papers/20260316_llm-for-ir-survey.md) | [RAG 检索优化](./papers/20260316_rag-retrieval-optimization.md)
-4. **系统架构** → [LLM 集成框架](./synthesis/llm_integration_framework.md)
+## 📚 论文笔记
 
-### 🎯 按研究方向查找
-
-#### 💾 检索 (Retrieval)
-- **基础** 
-  - [BM25 & 混合检索](./papers/20260316_bm25-semantic-hybrid-retrieval.md)
-  - [Dense Passage Retrieval (DPR)](./papers/20260316_dpr-dense-retrieval.md)
-  - [Multi-Lingual Embeddings (BGE-M3)](./papers/20260320_BGE-M3-Multi-Lingual-Embeddings.md)
-  
-- **最新进展**
-  - [SPLADE v3 - 稀疏检索新突破](./papers/20260322_splade_v3_sparse_retrieval.md)
-  - [E5-Mistral 7B - 双语嵌入](./papers/20260323_e5-mistral-7b-instruct_improving_text_embeddings_wi.md)
-  - [GTE - 通用文本嵌入](./papers/20260323_gte_towards_general_text_embeddings_with_multi-stag.md)
-
-#### 🔄 排序 & 重排 (Ranking & Reranking)
-- [ColBERT v2 - 后期交互检索](./papers/20260313_colbert_v2.md)
-- [LLM 重排与排序](./papers/20260323_rankllm_reranking_with_large_language_models.md)
-- [缩放律与重排](./papers/20260318_ScalingLawsReranking.md)
-- [基于扩散模型的重排](./papers/20260321_dllm-searcher-adapting-diffusion-large-language-model-for-search-agents.md)
-
-#### 🧠 图神经网络 & 图检索
-- [GRIT - 图召回](./papers/20260313_grit_graph_recall.md)
-- [RETE - 时间图](./papers/20260313_rete_temporal_graph.md)
-- [知识图谱增强搜索](./papers/20260323_knowledge_graph_enhanced_product_search_bridging_s.md)
-
-#### 🌍 多模态 & 地理感知
-- [多模态文档检索综述](./papers/20260317_multimodal-document-retrieval-survey.md)
-- [地理感知嵌入](./papers/20260322_location_aware_embedding_geotargeting.md)
-- [视频检索 (Landmark)](./papers/20260316_llandmark-multimodal-video-retrieval.md)
-
-#### 🤖 LLM & RAG 集成
-- [RAG 检索优化](./papers/20260316_rag-retrieval-optimization.md)
-- [LLM for IR 综述](./papers/20260316_llm-for-ir-survey.md)
-- [查询改写与优化](./papers/20260319_rewritegen-query-optimization-rl.md)
-- [多智能体 RAG](./papers/20260319_ma-rag-multi-agent-cot-reasoning.md)
-- [意图感知查询改写](./papers/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md)
-
-#### 📍 产品搜索 & 场景化
-- [产品搜索意图识别](./papers/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md)
-- [查询作为锚点 (用户表示)](./papers/20260322_query_as_anchor_llm_user_repr.md)
-- [生成式搜索引擎优化](./papers/geo_generative_engine_optimization.md)
-
-#### 🔧 工程优化
-- [BM25S - 快速稀疏搜索](./papers/20260323_bm25s_orders_of_magnitude_faster_lexical_search_via.md)
-- [ColBERT Serve - 内存映射评分](./papers/20260320_ColBERT-serve-Efficient-Memory-Mapped-Scoring.md)
-- [FlashRAG - 检索工具包](./papers/20260323_flashrag_a_modular_toolkit_for_efficient_retrieval-.md)
-
-#### 📋 特殊场景
-- [法律文本检索 (LegalMALR)](./papers/20260317_legalmalr-chinese-statute-retrieval.md)
-- [WSDM 2026 多语言赛](./papers/20260317_naver-wsdm-2026-multilingual.md)
-- [Tip-of-Tongue 检索](./papers/20260318_TipOfTongueRetrieval.md)
-
----
-
-## 📚 完整文档列表
-
-### 📄 Papers (72篇 学术论文笔记)
-
-#### 基础与综述
-- [BM25 & 语义混合检索](./papers/20260316_bm25-semantic-hybrid-retrieval.md)
-- [DPR - 密集通道检索](./papers/20260316_dpr-dense-retrieval.md)
-- [LLM for IR 综述](./papers/20260316_llm-for-ir-survey.md)
-- [多模态文档检索综述](./papers/20260317_multimodal-document-retrieval-survey.md)
-- [多模态视觉文档检索综述](./papers/20260319_multimodal-visual-document-retrieval-survey.md)
-
-#### 检索方法与模型
-- [稀疏检索 vs 密集检索 统一评估](./papers/20260323_dense_retrieval_vs_sparse_retrieval_a_unified_eval.md)
-- [SPLADE v3 - 稀疏检索新基准](./papers/20260323_splade-v3_new_baselines_for_splade.md)
-- [SPLADE v3 - 推进稀疏检索](./papers/20260321_splade-v3-advancing-sparse-retrieval-with-deep-language-models.md)
-- [E5-Mistral 7B - 文本嵌入改进](./papers/20260323_e5-mistral-7b-instruct_improving_text_embeddings_wi.md)
-- [GTE - 通用文本嵌入多阶段](./papers/20260323_gte_towards_general_text_embeddings_with_multi-stag.md)
-- [BGE-M3 - 多语言嵌入](./papers/20260320_BGE-M3-Multi-Lingual-Embeddings.md)
-- [密集检索对话搜索](./papers/20260320_Dense-Passage-Retrieval-Conversational-Search.md)
-- [LeSeR - 词法语义检索](./papers/20260320_LeSeR-Lexical-Semantic-Retrieval.md)
-
-#### 排序与重排
-- [ColBERT v2 - 后期交互检索](./papers/20260313_colbert_v2.md)
-- [ColBERT v3 - 高效后期交互](./papers/20260323_colbert_v3_efficient_neural_retrieval_with_late_int.md)
-- [RankLLM - LLM 重排](./papers/20260323_rankllm_reranking_with_large_language_models.md)
-- [LLM 文档重排 - 列表到成对](./papers/20260323_document_re-ranking_with_llm_from_listwise_to_pair.md)
-- [缩放律与重排](./papers/20260318_ScalingLawsReranking.md)
-- [密集 vs 稀疏检索评估](./papers/20260322_dense_vs_sparse_retrieval_eval.md)
-
-#### 图与高级检索
-- [GRIT - 图召回](./papers/20260313_grit_graph_recall.md)
-- [RETE - 时间图](./papers/20260313_rete_temporal_graph.md)
-- [知识图谱增强产品搜索](./papers/20260323_knowledge_graph_enhanced_product_search_bridging_s.md)
-
-#### 多模态与地理
-- [Landmark 多模态视频检索](./papers/20260316_llandmark-multimodal-video-retrieval.md)
-- [LMK-CLS - Landmark 池化](./papers/20260318_LandmarkPooling.md)
-- [Location-Aware 嵌入 地理定向](./papers/20260321_location-aware-embedding-for-geotargeting-in-sponsored-search-advertising.md)
-- [地理定向位置感知嵌入](./papers/20260322_location_aware_embedding_geotargeting.md)
-- [混合搜索 LLM 重排](./papers/20260320_Hybrid-Search-LLM-Re-ranking.md)
-
-#### LLM & RAG
-- [RAG 检索优化](./papers/20260316_rag-retrieval-optimization.md)
-- [多模态搜索](./papers/20260316_multimodal-search.md)
-- [查询改写生成 & RL 优化](./papers/20260319_rewritegen-query-optimization-rl.md)
-- [多智能体 RAG - CoT 推理](./papers/20260319_ma-rag-multi-agent-cot-reasoning.md)
-- [SUNAR - 语义不确定性检索](./papers/20260319_sunar-semantic-uncertainty-retrieval.md)
-- [DRAMA - 多样化数据增强密集检索](./papers/20260319_drama-diverse-augmentation-dense-retrieval.md)
-- [LURE - RAG 重排](./papers/20260317_lure-rag-reranking.md)
-- [W-RAG - 弱监督密集检索](./papers/20260320_W-RAG-Weakly-Supervised-Dense-Retrieval.md)
-- [LEGALMALR - 中文法律检索](./papers/20260317_legalmalr-chinese-statute-retrieval.md)
-- [LegalMALR - 多智能体中文法律检索](./papers/20260319_legalmalr-multi-agent-chinese-statute-retrieval.md)
-- [LEGALMALR - 中文法规检索](./papers/20260319_legalmalr-chinese-statute-retrieval.md)
-
-#### 产品与应用场景
-- [意图感知查询改写 - 行为对齐产品搜索](./papers/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md)
-- [查询作为锚点 场景自适应用户表示](./papers/20260321_query-as-anchor-scenario-adaptive-user-representation-via-large-language-model-for-search.md)
-- [意图感知神经查询改写](./papers/20260322_intent_aware_query_reformulation.md)
-- [查询作为锚点 LLM 用户表示](./papers/20260322_query_as_anchor_llm_user_repr.md)
-- [生成式查询扩展 电子商务搜索](./papers/20260323_generative_query_expansion_for_e-commerce_search_a.md)
-- [统一生成搜索和推荐](./papers/20260323_sparse_meets_dense_unified_generative_recommendatio.md)
-- [单一搜索初步探索](./papers/20260323_onesearch_a_preliminary_exploration_of_the_unified_.md)
-
-#### 提示与辅助
-- [提示提示技巧](./papers/20260318_LURE_RAG.md)
-- [Tip-of-Tongue 检索](./papers/20260318_TipOfTongueRetrieval.md)
-- [ColBandit - 零-shot 剪枝](./papers/20260317_col-bandit-zero-shot-pruning.md)
-- [LLM 用户表示](./papers/20260320_Dense-Passage-Retrieval-Conversational-Search.md)
-
-#### 数据与合成
-- [合成数据重排](./papers/20260313_synthetic_data_reranker.md)
-- [提示增强重排](./papers/20260313_hint_augmented_reranking.md)
-- [大规模推理嵌入](./papers/20260313_large_reasoning_embedding.md)
-
-#### 竞赛与最新
-- [NAVER WSDM 2026 多语言](./papers/20260317_naver-wsdm-2026-multilingual.md)
-- [Wukong - 大规模推荐缩放律](./papers/20260323_wukong_towards_a_scaling_law_for_large-scale_recom.md)
-- [FlashRAG - 模块化高效检索工具包](./papers/20260323_flashrag_a_modular_toolkit_for_efficient_retrieval_.md)
-
-#### 工程优化
-- [BM25S - 快速词法搜索](./papers/20260323_bm25s_orders_of_magnitude_faster_lexical_search_via.md)
-- [ColBERT Serve - 高效内存映射评分](./papers/20260320_ColBERT-serve-Efficient-Memory-Mapped-Scoring.md)
-- [DLLM Searcher - 扩散 LLM 搜索](./papers/20260321_dllm-searcher-adapting-diffusion-large-language-model-for-search-agents.md)
-- [DLLM Searcher 扩散 LLM](./papers/20260322_dllm_searcher_diffusion_llm_search.md)
-
-#### 其他
+- [BGE-M3: Multi-Lingual, Multi-Functionality, Multi-Granularit...](./papers/BGE_M3_Multi_Lingual_Multi_Functionality_Multi_Granularit.md)
+- [BM25S: Orders of Magnitude Faster Lexical Search via Eager S...](./papers/BM25S_Orders_of_Magnitude_Faster_Lexical_Search_via_Eager.md)
+- [BM25 与语义检索融合：Hybrid Retrieval 最佳实践](./papers/BM25_Hybrid_Retrieval.md)
+- [ColBERT-serve: Efficient Multi-Stage Memory-Mapped Scoring](./papers/ColBERT_serve_Efficient_Multi_Stage_Memory_Mapped_Scoring.md)
+- [ColBERT v2: Effective and Efficient Retrieval via Lightweigh...](./papers/ColBERT_v2_Effective_and_Efficient_Retrieval_via_Lightwei.md)
+- [ColBERT v3: Efficient Neural Retrieval with Late Interaction](./papers/ColBERT_v3_Efficient_Neural_Retrieval_with_Late_Interacti.md)
+- [Col-Bandit：零样本查询时剪枝用于后期交互检索](./papers/Col_Bandit.md)
+- [Col-Bandit: Zero-Shot Query-Time Pruning for Late-Interactio...](./papers/Col_Bandit_Zero_Shot_Query_Time_Pruning_for_Late_Interact.md)
+- [DLLM-Searcher: Adapting Diffusion LLM for Search Agents](./papers/DLLM_Searcher_Adapting_Diffusion_LLM_for_Search_Agents.md)
+- [DLLM-Searcher: Adapting Diffusion Large Language Model for S...](./papers/DLLM_Searcher_Adapting_Diffusion_Large_Language_Model_for.md)
+- [DRAMA: Diverse Augmentation from Large Language Models to Sm...](./papers/DRAMA_Diverse_Augmentation_from_Large_Language_Models_to.md)
+- [Dense Passage Retrieval for Open-Domain Question Answering w...](./papers/Dense_Passage_Retrieval_for_Open_Domain_Question_Answerin.md)
+- [Dense Passage Retrieval in Conversational Search](./papers/Dense_Passage_Retrieval_in_Conversational_Search.md)
+- [Dense Retrieval vs Sparse Retrieval: A Unified Evaluation Fr...](./papers/Dense_Retrieval_vs_Sparse_Retrieval_A_Unified_Evaluation.md)
+- [Dense Retrieval vs Sparse Retrieval: Unified Evaluation Fram...](./papers/Dense_Retrieval_vs_Sparse_Retrieval_Unified_Evaluation_Fr.md)
+- [Document Re-ranking with LLM: From Listwise to Pairwise Appr...](./papers/Document_Re_ranking_with_LLM_From_Listwise_to_Pairwise_Ap.md)
+- [E5-mistral-7b-instruct: Improving Text Embeddings with Large...](./papers/E5_mistral_7b_instruct_Improving_Text_Embeddings_with_Lar.md)
+- [Enhancing Transformer-Based Rerankers with Synthetic Data an...](./papers/Enhancing_Transformer_Based_Rerankers_with_Synthetic_Data.md)
+- [FlashRAG: A Modular Toolkit for Efficient Retrieval-Augmente...](./papers/FlashRAG_A_Modular_Toolkit_for_Efficient_Retrieval_Augmen.md)
+- [GRIT: Graph-based Recall Improvement for Task-oriented E-com...](./papers/GRIT_Graph_based_Recall_Improvement_for_Task_oriented_E_c.md)
+- [GTE: Towards General Text Embeddings with Multi-stage Contra...](./papers/GTE_Towards_General_Text_Embeddings_with_Multi_stage_Cont.md)
+- [Generative Query Expansion for E-Commerce Search at Scale](./papers/Generative_Query_Expansion_for_E_Commerce_Search_at_Scale.md)
+- [Hint-Augmented Re-ranking: Efficient Product Search using LL...](./papers/Hint_Augmented_Re_ranking_Efficient_Product_Search_using.md)
+- [Hybrid Search with LLM Re-ranking for Enhanced Retrieval Qua...](./papers/Hybrid_Search_with_LLM_Re_ranking_for_Enhanced_Retrieval.md)
+- [Intent-Aware Neural Query Reformulation for Behavior-Aligned...](./papers/Intent_Aware_Neural_Query_Reformulation_for_Behavior_Alig.md)
+- [Knowledge Graph Enhanced Product Search: Bridging Semantic G...](./papers/Knowledge_Graph_Enhanced_Product_Search_Bridging_Semantic.md)
+- [LLandMark: Multi-Agent Framework for Landmark-Aware Multimod...](./papers/LLandMark_Multi_Agent_Framework_for_Landmark_Aware_Multim.md)
+- [LMK > CLS：地标池化用于稠密 Embedding](./papers/LMK_CLS_Embedding.md)
+- [LMK > CLS: Landmark Pooling for Dense Embeddings](./papers/LMK_CLS_Landmark_Pooling_for_Dense_Embeddings.md)
+- [LURE-RAG: Lightweight Utility-driven Reranking for Efficient...](./papers/LURE_RAG_Lightweight_Utility_driven_Reranking_for_Efficie.md)
+- [LURE-RAG：轻量效用驱动的 RAG 高效重排序](./papers/LURE_RAG_RAG.md)
+- [Large Language Models for Information Retrieval: A Survey](./papers/Large_Language_Models_for_Information_Retrieval_A_Survey.md)
+- [Large Reasoning Embedding Models: Towards Next-Generation De...](./papers/Large_Reasoning_Embedding_Models_Towards_Next_Generation.md)
+- [LeSeR: Lexical-Semantic Retrieval for Regulatory Information...](./papers/LeSeR_Lexical_Semantic_Retrieval_for_Regulatory_Informati.md)
+- [LegalMALR: Multi-Agent Query Understanding LLM-Based Reranki...](./papers/LegalMALR_Multi_Agent_Query_Understanding_LLM_Based_Reran.md)
+- [LegalMALR: Multi-Agent Query Understanding and LLM-Based Rer...](./papers/LegalMALR_Multi_Agent_Query_Understanding_and_LLM_Based_R.md)
+- [Location Aware Embedding for Geotargeting in Sponsored Searc...](./papers/Location_Aware_Embedding_for_Geotargeting_in_Sponsored_Se.md)
+- [MA-RAG: Multi-Agent Retrieval-Augmented Generation via Colla...](./papers/MA_RAG_Multi_Agent_Retrieval_Augmented_Generation_via_Col.md)
+- [Naver Labs Europe @ WSDM CUP 2026：多语言检索](./papers/Naver_Labs_Europe_WSDM_CUP_2026.md)
+- [Naver Labs Europe @ WSDM CUP 2026: Multilingual Retrieval](./papers/Naver_Labs_Europe_WSDM_CUP_2026_Multilingual_Retrieval.md)
+- [OneSearch: A Preliminary Exploration of the Unified End-to-E...](./papers/OneSearch_A_Preliminary_Exploration_of_the_Unified_End_to.md)
+- [Query as Anchor: Scenario-Adaptive User Representation via L...](./papers/Query_as_Anchor_Scenario_Adaptive_User_Representation_via.md)
+- [Query as Anchor: Scenario-Adaptive User Representation via L...](./papers/Query_as_Anchor_Scenario_Adaptive_User_Representation_via_v2.md)
+- [RAG 检索优化：从 Naive RAG 到 Advanced RAG](./papers/RAG_Naive_RAG_Advanced_RAG.md)
+- [RETE: Retrieval-Enhanced Temporal Event Forecasting on Unifi...](./papers/RETE_Retrieval_Enhanced_Temporal_Event_Forecasting_on_Uni.md)
+- [RankLLM: Reranking with Large Language Models](./papers/RankLLM_Reranking_with_Large_Language_Models.md)
+- [RewriteGen: Autonomous Query Optimization for Retrieval-Augm...](./papers/RewriteGen_Autonomous_Query_Optimization_for_Retrieval_Au.md)
+- [SPLADE-v3: Advancing Sparse Retrieval with Deep Language Mod...](./papers/SPLADE_v3_Advancing_Sparse_Retrieval_with_Deep_Language_M.md)
+- [SPLADE-v3: New Baselines for SPLADE](./papers/SPLADE_v3_New_Baselines_for_SPLADE.md)
+- [SUNAR: Semantic Uncertainty based Neighborhood Aware Retriev...](./papers/SUNAR_Semantic_Uncertainty_based_Neighborhood_Aware_Retri.md)
+- [信息检索重排序的 Scaling Laws](./papers/ScalingLawsReranking.md)
+- [Scaling Laws for Reranking in Information Retrieval](./papers/Scaling_Laws_for_Reranking_in_Information_Retrieval.md)
+- [Single-Turn LLM Reformulation Multi-Stage Hybrid Re-Ranking ...](./papers/Single_Turn_LLM_Reformulation_Multi_Stage_Hybrid_Re_Ranki.md)
+- [Sparse Meets Dense: Unified Generative Recommendations with ...](./papers/Sparse_Meets_Dense_Unified_Generative_Recommendations_wit.md)
+- [单轮 LLM 改写驱动的多阶段混合重排序：舌尖上的检索](./papers/TipOfTongueRetrieval.md)
+- [Unified Generative Search and Recommendation](./papers/Unified_Generative_Search_and_Recommendation.md)
+- [Unlocking Multimodal Document Intelligence: Visual Document ...](./papers/Unlocking_Multimodal_Document_Intelligence_Visual_Documen.md)
+- [W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-Dom...](./papers/W_RAG_Weakly_Supervised_Dense_Retrieval_in_RAG_for_Open_D.md)
+- [稠密检索 DPR：原理、训练与工程实践](./papers/dpr_dense_retrieval.md)
+- [GEO：生成式搜索引擎优化深度研究](./papers/geo_generative_engine_optimization.md)
+- [搜索系统 LLM 应用项目创意库](./papers/llm_project_ideas.md)
+- [多模态搜索：图文音视频的统一检索](./papers/multimodal_search.md)
 - [搜索算法知识库](./papers/搜索算法知识库.md)
-- [LLM 项目创意](./papers/llm_project_ideas.md)
-- [地理生成引擎优化](./papers/geo_generative_engine_optimization.md)
-
-### 🏢 Practices (0篇 工业实践案例 - 待补充)
-
-当前知识库缺少大厂工业实践案例，建议补充：
-- Google Search System（AI Overview）
-- Perplexity AI Architecture
-- ChatGPT Browsing 功能
-- DuckDuckGo LLM 集成
-- Meta Search Infrastructure
-- Alibaba 搜索系统
-
-### 📖 Synthesis (12篇 提炼总结)
-
-#### 标准化文档 (std_*)
-- [混合检索](./synthesis/std_search_hybrid_retrieval.md)
-- [Learning to Rank](./synthesis/std_search_learning_to_rank.md)
-- [Query 理解](./synthesis/std_search_query_understanding.md)
-- [Reranker 演进](./synthesis/std_search_reranker_evolution.md)
-- [检索三角](./synthesis/std_search_retrieval_triangle.md)
-- [时序图](./synthesis/std_search_temporal_graph.md)
-
-#### 专题综合
-- [混合检索演进](./synthesis/20260320_hybrid_retrieval_evolution.md)
-- [稀疏 vs 稠密检索](./synthesis/20260321_sparse_dense_retrieval.md)
-- [稀疏 vs 稠密决策](./synthesis/20260322_sparse_vs_dense_retrieval_decision.md)
-- [检索三角：稠密-稀疏-Late Interaction](./synthesis/20260323_retrieval_triangle_dense_sparse_late.md)
-- [搜索排序系统概览](./synthesis/01_search_ranking.md)
-- [LLM 集成框架](./synthesis/llm_integration_framework.md)
-
----
-
-## 💡 使用指南
-
-### 对于不同角色
-
-**🎓 学生/初学者**
-1. 先读 [搜索排序系统概览](./synthesis/01_search_ranking.md)
-2. 理解基础概念（BM25、DPR、排序）
-3. 深入学习感兴趣的方向
-
-**🔬 研究者**
-1. 按研究方向查找 Papers
-2. 对比最新论文（2026年最新）
-3. 理解缩放律、LLM 集成等前沿
-
-**👨‍💼 工程师**
-1. 查看 [LLM 集成框架](./synthesis/llm_integration_framework.md)
-2. 参考工业实践案例（待补充）
-3. 实现系统组件
-
-**🤖 LLM 时代**
-1. 重点阅读 [LLM for IR 综述](./papers/20260316_llm-for-ir-survey.md)
-2. 理解 RAG、重排、查询改写
-3. 学习 LLM 系统集成
-
----
-
-## 🔗 关键论文快速链接
-
-| 方向 | 关键论文 |
-|------|---------|
-| **基础检索** | [DPR](./papers/20260316_dpr-dense-retrieval.md) \| [BM25](./papers/20260316_bm25-semantic-hybrid-retrieval.md) |
-| **排序重排** | [ColBERT v3](./papers/20260323_colbert_v3_efficient_neural_retrieval_with_late_int.md) \| [RankLLM](./papers/20260323_rankllm_reranking_with_large_language_models.md) |
-| **LLM集成** | [LLM for IR](./papers/20260316_llm-for-ir-survey.md) \| [RAG优化](./papers/20260316_rag-retrieval-optimization.md) |
-| **多模态** | [多模态综述](./papers/20260317_multimodal-document-retrieval-survey.md) |
-| **前沿** | [Wukong缩放律](./papers/20260323_wukong_towards_a_scaling_law_for_large-scale_recom.md) |
-
----
-
-## 📈 知识树状图
-
-```
-搜索系统
-├── 🔍 检索 (Retrieval)
-│   ├── 稀疏 (BM25, SPLADE)
-│   ├── 密集 (DPR, E5, GTE, BGE)
-│   └── 混合 (Hybrid Search)
-│
-├── 🔄 排序 (Ranking)
-│   ├── 传统排序
-│   ├── 神经排序 (ColBERT)
-│   └── LLM 重排
-│
-├── 🧠 高级特性
-│   ├── 图检索 (GRIT, RETE)
-│   ├── 多模态 (Landmark, 视频)
-│   └── 地理感知
-│
-└── 🤖 LLM 时代
-    ├── RAG 系统
-    ├── 查询改写
-    ├── 多智能体
-    └── 场景化应用
-```
-
----
-
-## 📝 最后更新
-
-- **最后更新**: 2026-03-24
-- **总文档数**: 74 篇
-- **近期更新**: 添加 2026 年最新论文（WSDM、稀疏检索突破）
-
-> 💡 **提示**: 点击侧边栏快速导航不同研究方向！

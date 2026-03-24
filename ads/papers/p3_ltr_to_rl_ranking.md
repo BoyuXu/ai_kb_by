@@ -355,7 +355,7 @@ NDCG 接近 0：排序很差
 
 ## 下一步阅读
 
-- `ads_ranking_evolution.md` — 完整演进路线
+- `广告排序系统演进路线图.md` — 完整演进路线
 - `p1_reranking_fundamentals.md` — 重排算法
 - `ctr-prediction-comprehensive-survey.md` — CTR 预估基础
 
