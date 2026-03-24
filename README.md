@@ -79,17 +79,21 @@ ai-kb/
 ├── 🤖 Agent 研究
 │   └── agent-context-management/  Agent 上下文管理研究（4 篇）
 │
-├── 🔧 运维文件
+├── 🔧 运维
 │   ├── scripts/                重构脚本 + 自动学习脚本
-│   ├── papers_queue.jsonl      每日学习队列
-│   ├── processed_log.jsonl     已处理记录
+│   ├── _data/                  运营数据
+│   │   ├── papers_queue.jsonl  每日学习队列
+│   │   ├── processed_log.jsonl 已处理记录
+│   │   └── learning_queue.json 学习源配置
 │   └── weekly/                 每日/周学习日报
 │
-├── 📋 导航文档
-│   ├── KNOWLEDGE_BASE_STRUCTURE.md  整体结构说明
-│   ├── CLASSIFICATION_RULES.md      文档分类规则
-│   ├── LLM_INTEGRATION_ROADMAP.md   LLM 集成全景导航
-│   └── reading-list.md              待读清单
+├── 📋 配置 & 导航
+│   └── _config/
+│       ├── CLASSIFICATION_RULES.md      文档分类规则
+│       ├── KNOWLEDGE_BASE_STRUCTURE.md  整体结构说明
+│       ├── LLM_INTEGRATION_ROADMAP.md   LLM 集成全景导航
+│       ├── LEARNING_CONFIG.md           学习策略配置
+│       └── reading-list.md              待读清单
 │
 └── 📦 归档
     └── _archive/               历史报告、边缘内容
@@ -124,7 +128,7 @@ Synthesis（提炼总结）
 - **LLM 应用** → `LLM_INTEGRATION_ROADMAP.md` → 各领域 `LLM集成框架.md`
 
 ### 按学习阶段使用
-1. **速览全貌** → 各领域 `INDEX.md` + `KNOWLEDGE_BASE_STRUCTURE.md`
+1. **速览全貌** → 各领域 `INDEX.md` + `_config/KNOWLEDGE_BASE_STRUCTURE.md`
 2. **深入学习** → `synthesis/` 提炼总结（含公式推导）
 3. **论文细节** → `papers/` 原始笔记
 4. **面试冲刺** → `interview/qa-bank.md` + `interview/cards/`
@@ -146,7 +150,7 @@ Synthesis（提炼总结）
 
 ## 📏 文档规范
 
-详见 [CLASSIFICATION_RULES.md](CLASSIFICATION_RULES.md)
+详见 [CLASSIFICATION_RULES.md](_config/CLASSIFICATION_RULES.md)
 
 - **Papers 文件名**：论文名英文 snake_case（`DIN_deep_interest_network.md`）
 - **Synthesis 文件名**：中文标题（`广告CTR_CVR预估与校准.md`）

@@ -28,3 +28,4 @@ credentials.json
 api_keys.json
 cron_jobs.json
 .env*
+*.log
