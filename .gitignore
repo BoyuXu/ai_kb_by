@@ -2,6 +2,9 @@
 repos/
 repo/
 
+# Scripts logs
+scripts/logs/
+
 # Logs
 *.log
 
@@ -24,3 +27,4 @@ secrets/
 credentials.json
 api_keys.json
 cron_jobs.json
+.env*
