@@ -316,3 +316,27 @@
 {"date": "20260323", "domain": "repo", "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "url": "https://arxiv.org/abs/2005.11401", "priority": "中", "status": "pending"}
 {"date": "20260323", "domain": "repo", "title": "GraphRAG: Unlocking LLM discovery on narrative private data", "url": "https://github.com/microsoft/graphrag", "priority": "高", "status": "pending"}
 {"date": "20260323", "domain": "repo", "title": "smolagents: A smol library to build great agents", "url": "https://github.com/huggingface/smolagents", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "HSTU: Trillion-Parameter Sequential Transducers for Generative Recommendations", "url": "https://arxiv.org/abs/2412.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "GPR: Towards a Generative Pre-trained One-Model Paradigm for Large-Scale Advertising Recommendation", "url": "https://arxiv.org/abs/2511.10138", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "OneRanker: Unified Generation and Ranking with One Model in Industrial Advertising Recommendation", "url": "https://arxiv.org/abs/2603.02999", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "OneTrans: Unified Feature Interaction and Sequence Modeling with One Transformer", "url": "https://arxiv.org/abs/2510.26104", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "RecGPT: Technical Report on Next-Generation Recommendation System with LLM", "url": "https://arxiv.org/abs/2507.22879", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "E2E Semantic ID Generation for Generative Recommendation Systems", "url": "https://arxiv.org/abs/2602.10445", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "rec-sys", "title": "Multi-Task Learning with Task-Aware Routing for Recommendation", "url": "https://arxiv.org/abs/2601.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "ads", "title": "CTCVR Optimization with Heterogeneous Hierarchical Decoder in Weixin Channels", "url": "https://arxiv.org/abs/2511.10139", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "ads", "title": "Value-Aware Fine-Tuning for Advertising CTR Prediction", "url": "https://arxiv.org/abs/2602.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "ads", "title": "Hierarchy Enhanced Policy Optimization for Ad Ranking", "url": "https://arxiv.org/abs/2603.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "ads", "title": "Real-time Bidding Strategy with Deep Reinforcement Learning", "url": "https://arxiv.org/abs/2601.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "ads", "title": "Creative Generation with Large Language Models for Ad Recommendation", "url": "https://arxiv.org/abs/2602.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "search", "title": "Dense Passage Retrieval with Contrastive Learning in Large-Scale Search", "url": "https://arxiv.org/abs/2510.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "search", "title": "Query Understanding with Multi-Modal LLMs for E-Commerce Search", "url": "https://arxiv.org/abs/2601.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "search", "title": "Learning to Rank with Listwise Loss in Industrial Search Systems", "url": "https://arxiv.org/abs/2602.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "search", "title": "Semantic Denoising for Efficient Cross-Lingual Search Ranking", "url": "https://arxiv.org/abs/2603.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "llm-infra", "title": "RAG with Adaptive Retrieval and Multi-Hop Reasoning for Complex QA", "url": "https://arxiv.org/abs/2601.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "llm-infra", "title": "LoRA-based Fine-tuning for Domain-Specific LLM Recommendation Systems", "url": "https://arxiv.org/abs/2602.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "llm-infra", "title": "Speculative Decoding for 10x Faster LLM Inference in Production", "url": "https://arxiv.org/abs/2503.xxxx", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "llm-infra", "title": "Agent Framework with Tool-Use and Reasoning for Recommendation", "url": "https://arxiv.org/abs/2603.xxxx", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "repo", "title": "fun-rec: Recommendation System Framework with LLM Integration", "url": "https://github.com/fun-rec/fun-rec", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "repo", "title": "AlgoNotes: Curated Collection of Algorithm Notes for Search/Rec/Ads", "url": "https://github.com/AlgoNotes/AlgoNotes", "priority": "高", "status": "pending"}
+{"date": "20260324", "domain": "repo", "title": "Deep-Learning-Papers-for-Search-Recommendation-Advertisements", "url": "https://github.com/guyulongcs/Deep-Learning-for-Search-Recommendation-Advertisements", "priority": "中", "status": "pending"}
+{"date": "20260324", "domain": "repo", "title": "easyrec: Open-source Recommendation System Framework", "url": "https://github.com/alibaba/easyrec", "priority": "中", "status": "pending"}

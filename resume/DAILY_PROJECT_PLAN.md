@@ -58,7 +58,7 @@
 
 ## Cron Job 配置
 
-**Job ID**: `9de0c595-bc2f-48b8-8624-73b8e359fbf7`  
+**Job ID**: `<CRON_JOB_ID_HIDDEN>` （存储在 `.env.local` 中，不提交到 git）  
 **Schedule**: `0 15 * * *` (每天下午 3 点，Shanghai 时区)  
 **Status**: ✅ 已启用
 
