@@ -1,0 +1,76 @@
+# 混合检索融合：多路召回的工业化实践
+
+> 创建：2026-03-24 | 领域：搜索 | 类型：综合分析
+> 来源：LeSeR, BGE-M3, Hybrid Search + LLM Re-ranking, RRF 实践系列
+
+---
+
+## 🎯 核心洞察（5条）
+
+1. **混合检索是搜索的"最终答案"**：没有单一检索方法在所有 query 类型上都最优，混合 BM25+Dense 几乎总是优于单一方法（Recall@100 提升 5-15%）
+2. **融合策略有三个层级**：Score-level（分数加权）→ Rank-level（RRF 排名融合）→ Feature-level（拼接特征让 Reranker 决策），工程复杂度递增但效果也递增
+3. **RRF 是"无脑好用"的基线**：Reciprocal Rank Fusion 无需训练、无需分数归一化，k=60 是经验最优值
+4. **Reranker 是精度的最后防线**：Cross-Encoder Reranker 在 top-100 上精排，NDCG@10 提升 5-10%，是从"召回了"到"排好了"的关键一步
+5. **LLM Reranker 正在崛起**：用 LLM（如 GPT-4/Claude）做 zero-shot 重排序，对长文档和复杂 query 效果惊艳但延迟和成本高
+
+---
+
+## 📈 技术演进脉络
+
+```
+BM25 单路检索（~2018）
+  → BM25 + Dense 双路 + 分数加权融合（2019-2020）
+    → 多路检索 + RRF 融合（2020-2022）
+      → 混合检索 + Cross-Encoder Reranker（2022-2024）
+        → 混合检索 + LLM Reranker（2024-2026）
+          → 统一模型 BGE-M3（2024+，一个模型输出多种表示）
+```
+
+**关键转折点**：
+- **RRF 普及（2020）**：让多路融合变得简单可靠
+- **Cross-Encoder Reranker（2022）**：NDCG 大幅提升，成为搜索系统标配
+- **BGE-M3（2024）**：一个模型同时输出 Dense+Sparse+ColBERT，简化工程架构
+
+---
+
+## 🔗 跨文献共性规律
+
+| 规律 | 体现 | 说明 |
+|------|------|------|
+| 多路互补优于单路精进 | 所有混合检索评测 | 投入在融合上的 ROI 通常高于优化单一路 |
+| Reranker 投入产出比最高 | Cross-Encoder | 只需在 top-100 上运行，精度提升显著 |
+| 融合权重需要按 query 类型适配 | Learned Fusion | 精确 query 偏重 BM25，语义 query 偏重 Dense |
+| 存储和延迟是主要约束 | ColBERT, 多路索引 | 每增加一路检索就增加一份索引存储 |
+
+---
+
+## 🎓 面试考点（5条）
+
+### Q1: 混合检索的常见架构？
+**30秒答案**：①BM25 路：Elasticsearch/Lucene 倒排索引；②Dense 路：双塔模型 + HNSW/Faiss 向量索引；③融合：RRF 或 Learned Fusion；④精排：Cross-Encoder Reranker。总延迟 <100ms。
+**追问方向**：怎么控制各路的召回数量？答：按离线评估的各路 Recall 贡献动态分配配额。
+
+### Q2: RRF vs 分数加权融合的区别？
+**30秒答案**：分数加权需要归一化（BM25 分数范围和 cosine 分数范围不同），RRF 只用排名不用分数，对分数尺度不敏感。RRF 更鲁棒，分数加权理论上限更高（可以学权重）。
+**追问方向**：什么时候用分数加权更好？答：当各路分数有良好校准时（如都经过 sigmoid 归一化）。
+
+### Q3: Cross-Encoder Reranker 的延迟怎么控制？
+**30秒答案**：①限制 Rerank 候选数（top-50~100）；②模型蒸馏（用大 Cross-Encoder 蒸馏小模型）；③量化（INT8/FP16）；④Batch 推理（GPU 并行处理多个 query-doc pair）。
+**追问方向**：Cross-Encoder 和 ColBERT 做 Reranker 哪个好？答：Cross-Encoder 精度更高，ColBERT 速度更快，通常用 Cross-Encoder。
+
+### Q4: LLM Reranker 的实现方式？
+**30秒答案**：将 top-K 候选拼成 prompt，让 LLM 输出排序。两种方式：①Pointwise（逐个打分）；②Listwise（一次性排序整个列表）。Listwise 更好但有 context length 限制。
+**追问方向**：成本怎么控制？答：只对高价值 query（商业搜索、广告触发的 query）使用 LLM Reranker。
+
+### Q5: 怎么评估混合检索的效果？
+**30秒答案**：①Recall@K（各路和融合后对比）；②NDCG@10（Reranker 前后对比）；③MRR（首位结果质量）；④分 query 类型评估（精确 vs 语义 vs 长尾）。
+**追问方向**：线上怎么评估？答：A/B Test 看 CTR（搜索结果点击率）、PQ（Purchase Quality，购买率）。
+
+---
+
+## 🌐 知识体系连接
+
+- **上游依赖**：BM25、Dense Retrieval、Cross-Encoder 预训练
+- **下游应用**：搜索引擎排序、RAG 系统、问答系统
+- **相关 synthesis**：std_search_retrieval_triangle.md, std_rec_recall_evolution.md
+- **相关论文笔记**：synthesis/20260320_hybrid_retrieval_evolution.md, search/20260316_bm25-semantic-hybrid-retrieval.md

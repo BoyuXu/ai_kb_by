@@ -1,19 +1,133 @@
 {
   "metadata": {
     "created_at": "2026-03-24T13:55:00+08:00",
-    "total_projects": 0,
-    "last_update": "2026-03-24T13:55:00+08:00",
+    "total_projects": 10,
+    "last_update": "2026-03-24T16:00:00+08:00",
     "daily_generation_enabled": true,
     "daily_generation_time": "15:00 (Asia/Shanghai)",
     "target_per_day": 10
   },
   "statistics": {
-    "ads_systems": 0,
-    "recommendation_systems": 0,
-    "search_systems": 0,
+    "ads_systems": 3,
+    "recommendation_systems": 4,
+    "search_systems": 3,
     "nlp_llm": 0,
-    "innovation": 0
+    "innovation": 10
   },
-  "daily_logs": [],
-  "projects": []
+  "daily_logs": [
+    {
+      "date": "2026-03-24",
+      "projects_generated": 10,
+      "file": "daily_projects_20260324.md",
+      "categories": {
+        "ads": ["项目3: 实时竞价学习框架", "项目7: 动态创意优化", "项目9: 上文老虎机竞价"],
+        "recommendation": ["项目1: 多目标融合排序", "项目2: 冷启动推荐", "项目4: 跨域图卷积", "项目6: 对话式推荐"],
+        "search": ["项目5: 点击重排", "项目8: 多模态排序", "项目10: 多意图融合"]
+      },
+      "highlights": [
+        "+18% GMV (项目1)",
+        "+35% 新用户留存 (项目2)",
+        "+22% 平台收益 (项目3)",
+        "+25% 稀疏用户覆盖 (项目4)",
+        "+17% 搜索转化 (项目5)",
+        "+40% 用户参与度 (项目6)",
+        "+31% 广告转化 (项目7)",
+        "+44% 搜索转化 (项目8)",
+        "+26% 竞价精准性 (项目9)",
+        "+21% 搜索转化 (项目10)"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "电商平台多目标融合排序系统",
+      "category": "recommendation_systems",
+      "business_impact": "+18% GMV",
+      "date": "2026-03-24",
+      "key_algorithms": ["Multi-task Learning", "MMOE", "Reinforcement Learning"],
+      "difficulty": 4
+    },
+    {
+      "id": 2,
+      "title": "视频平台冷启动用户推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+35% 新用户留存",
+      "date": "2026-03-24",
+      "key_algorithms": ["Feature Engineering", "Thompson Sampling", "Multi-Armed Bandit"],
+      "difficulty": 5
+    },
+    {
+      "id": 3,
+      "title": "广告竞价系统的实时学习框架",
+      "category": "ads_systems",
+      "business_impact": "+22% 平台收益",
+      "date": "2026-03-24",
+      "key_algorithms": ["Online Learning", "Inverse Auction", "Real-time Optimization"],
+      "difficulty": 4
+    },
+    {
+      "id": 4,
+      "title": "基于图卷积网络的跨域推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+25% 稀疏用户覆盖",
+      "date": "2026-03-24",
+      "key_algorithms": ["Heterogeneous GCN", "Meta-path", "Transfer Learning"],
+      "difficulty": 5
+    },
+    {
+      "id": 5,
+      "title": "搜索排序中的点击重排",
+      "category": "search_systems",
+      "business_impact": "+17% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": ["Learning-to-Rank", "LambdaMART", "Click Model", "Position Bias"],
+      "difficulty": 4
+    },
+    {
+      "id": 6,
+      "title": "短视频平台的对话式个性化推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+40% 用户参与度",
+      "date": "2026-03-24",
+      "key_algorithms": ["Contextual Bandits", "Fatigue Modeling", "Multi-faceted Preferences"],
+      "difficulty": 5
+    },
+    {
+      "id": 7,
+      "title": "电商广告的动态创意优化系统",
+      "category": "ads_systems",
+      "business_impact": "+31% 广告转化",
+      "date": "2026-03-24",
+      "key_algorithms": ["DCO", "User-Creative Matching", "Thompson Sampling", "Automated A/B Test"],
+      "difficulty": 4
+    },
+    {
+      "id": 8,
+      "title": "视频搜索的多模态相关性排序",
+      "category": "search_systems",
+      "business_impact": "+44% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": ["Multi-modal Encoding", "Cross-modal Retrieval", "BERT", "ViT", "Attention"],
+      "difficulty": 5
+    },
+    {
+      "id": 9,
+      "title": "实时竞价中的上文学习",
+      "category": "ads_systems",
+      "business_impact": "+26% 竞价精准性",
+      "date": "2026-03-24",
+      "key_algorithms": ["Contextual Bandit", "Thompson Sampling", "Real-time Bidding", "Neural Networks"],
+      "difficulty": 4
+    },
+    {
+      "id": 10,
+      "title": "搜索结果页的多意图融合排序",
+      "category": "search_systems",
+      "business_impact": "+21% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": ["Intent Classification", "Multi-task Learning", "Intent-Diversity", "Personalization"],
+      "difficulty": 5
+    }
+  ]
 }

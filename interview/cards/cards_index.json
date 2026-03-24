@@ -1,0 +1,59 @@
+{
+  "index_version": "1.0",
+  "created": "2026-03-24",
+  "description": "AI算法工程师面试知识卡片库索引",
+  "total_stats": {
+    "total_cards": 160,
+    "domains": 4,
+    "avg_cards_per_domain": 40
+  },
+  "domain_stats": [
+    {
+      "domain": "推荐系统",
+      "file": "cards_推荐系统.json",
+      "total_cards": 45,
+      "difficulty_distribution": {"★★★": 8, "★★★★": 22, "★★★★★": 15},
+      "frequency_distribution": {"high": 22, "medium": 18, "low": 5},
+      "categories": ["系统架构", "召回", "排序", "多任务学习", "用户建模", "特征工程", "重排", "冷启动", "Embedding", "偏差治理", "实验评估", "前沿", "模型训练", "系统设计"]
+    },
+    {
+      "domain": "广告系统",
+      "file": "cards_广告系统.json",
+      "total_cards": 42,
+      "difficulty_distribution": {"★★★": 5, "★★★★": 22, "★★★★★": 15},
+      "frequency_distribution": {"high": 18, "medium": 18, "low": 6},
+      "categories": ["系统架构", "竞价机制", "出价策略", "预算控制", "CTR预估", "CVR预估", "多任务学习", "冷启动", "定向", "偏差治理", "模型训练", "模型架构", "前沿", "归因", "创意优化", "多媒体", "因果推断", "排序", "广告质量", "实验评估", "商业策略"]
+    },
+    {
+      "domain": "搜索系统",
+      "file": "cards_搜索.json",
+      "total_cards": 38,
+      "difficulty_distribution": {"★★★": 8, "★★★★": 18, "★★★★★": 12},
+      "frequency_distribution": {"high": 17, "medium": 16, "low": 5},
+      "categories": ["系统架构", "词汇检索", "语义检索", "神经稀疏检索", "混合检索", "精排", "Query理解", "偏差治理", "重排", "Learning to Rank", "评估指标", "RAG", "时效性", "图检索", "基础设施", "排序特征", "搜索广告", "应用场景", "检索范式", "数据", "前沿", "评估"]
+    },
+    {
+      "domain": "LLM基础设施",
+      "file": "cards_llm_infra.json",
+      "total_cards": 35,
+      "difficulty_distribution": {"★★★": 4, "★★★★": 16, "★★★★★": 15},
+      "frequency_distribution": {"high": 14, "medium": 17, "low": 4},
+      "categories": ["基础架构", "推理优化", "推理系统", "模型压缩", "模型架构", "对齐训练", "微调技术", "预训练", "分布式训练", "训练优化", "评估", "应用方法"]
+    }
+  ],
+  "high_frequency_cards": {
+    "description": "按领域的高频面试题(frequency=high)统计",
+    "推荐系统": 22,
+    "广告系统": 18,
+    "搜索系统": 17,
+    "LLM基础设施": 14,
+    "total_high_frequency": 71
+  },
+  "usage_guide": {
+    "面试准备": "先看high频率的卡片(71张核心题)，再扩展medium，最后low",
+    "快速复习": "每张卡片的quick_answer可在30秒内回答",
+    "深度准备": "detailed_answer提供完整答案框架+追问方向",
+    "知识关联": "related_synthesis链接到综合文档深入学习",
+    "Anki导入": "可通过脚本将JSON转换为Anki卡片格式(TSV/APKG)"
+  }
+}
