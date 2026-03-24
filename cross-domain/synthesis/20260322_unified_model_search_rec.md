@@ -1,0 +1,104 @@
+# 统一模型做搜索+推荐：Spotify ULM 的工程哲学
+
+> 📚 参考文献
+> - [Counterfactual-Learning-For-Unbiased-Ad-Ranking...](../../ads/papers/20260321_counterfactual-learning-for-unbiased-ad-ranking-in-industrial-search-systems.md) — Counterfactual Learning for Unbiased Ad Ranking in Indust...
+> - [Spotify Unified Lm Search Rec](../../rec-sys/papers/20260322_spotify_unified_lm_search_rec.md) — A Unified Language Model for Large Scale Search, Recommen...
+> - [Linear-Item-Item-Session-Rec](../../rec-sys/papers/20260319_linear-item-item-session-rec.md) — Linear Item-Item Model with Neural Knowledge for Session-...
+> - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../rec-sys/papers/20260321_deploying-semantic-id-based-generative-retrieval-for-large-scale-podcast-discovery-at-spotify.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
+> - [A-Unified-Language-Model-For-Large-Scale-Search...](../../rec-sys/papers/20260321_a-unified-language-model-for-large-scale-search-recommendation-and-reasoning-at-spotify.md) — A Unified Language Model for Large Scale Search, Recommen...
+> - [Query-As-Anchor-Scenario-Adaptive-User-Represen...](../../search/papers/20260321_query-as-anchor-scenario-adaptive-user-representation-via-large-language-model-for-search.md) — Query as Anchor: Scenario-Adaptive User Representation vi...
+> - [Intent-Aware-Neural-Query-Reformulation-For-Beh...](../../search/papers/20260321_intent-aware-neural-query-reformulation-for-behavior-aligned-product-search.md) — Intent-Aware Neural Query Reformulation for Behavior-Alig...
+> - [Generative Query Expansion For E-Commerce Search A](../../search/papers/20260323_generative_query_expansion_for_e-commerce_search_a.md) — Generative Query Expansion for E-Commerce Search at Scale
+
+
+**一句话**：搜索和推荐本质上都是「给定用户意图，找最相关内容」——用一个模型同时服务两者，知识可以互相迁移，参数量减少 60%，效果反而更好。
+
+**类比**：一个公司的销售培训。以前搜索团队培训「如何回答精确问题」，推荐团队培训「如何猜测客户需求」，各练各的。统一培训就是：两组学员一起上课，训练「理解客户意图」——搜索客户的精确意图能让推荐更准，推荐的行为理解能让搜索更懂上下文。
+
+---
+
+## Spotify ULM 设计哲学
+
+### 为什么三任务可以统一？
+
+| 任务 | 输入 | 输出 | 共性 |
+|------|------|------|------|
+| 搜索 | query text | 相关 item | 用户意图 → 内容 |
+| 推荐 | 用户历史序列 | next item | 用户行为 → 内容 |
+| 内容推理 | 自然语言问题 | 答案/item | 语义理解 → 内容 |
+
+**共性**：都需要理解用户意图（显式 query 或隐式行为），都需要内容语义理解（item 是什么）。底层语义表示可以共享。
+
+### 关键设计决策
+
+**1. 统一文本序列格式**
+```
+搜索: [SEARCH] query: "好的跑步播客" → item_1, item_2, ...
+推荐: [REC] history: <pod_1> <pod_2> <pod_3> → next_pod
+推理: [REASON] question: "今天跑10km配什么音乐?" → playlist
+```
+任务前缀 token 让模型切换任务，共享底层理解能力。
+
+**2. 共享 backbone，独立轻量 head**
+```
+共享 Transformer (1B params)
+    ├── 搜索 head (5M params)
+    ├── 推荐 head (5M params)  
+    └── 推理 head (5M params)
+```
+总参数：1B + 15M（vs 原来 3.6B 独立模型）→ 节省 61%
+
+**3. 异构数据采样策略**
+- 搜索日志：推荐日志：播客文本 = 3:2:1
+- 不按数据量等比采样（搜索日志 >> 推荐日志）
+- 防止高频任务「淹没」低频任务的梯度
+
+---
+
+## 工程落地核心挑战（论文没讲够的）
+
+| 挑战 | 具体问题 | 解决方案 |
+|------|---------|---------|
+| 版本管理 | 三个系统共用一个模型，任何需求变化都触发重训 | Task head 级别灰度发布，head 可独立回滚 |
+| 延迟 SLA 隔离 | 搜索需要 <100ms，推理可以慢一些 | 同一 ULM 服务，按任务类型设不同超时 |
+| 特征对齐 | 歌名 vs 播客标题 format 不同 | 统一 normalization pipeline（小写/截断/去符号） |
+| 增量学习 | 新功能（如 Audiobook）上线 | Adapter 层微调，不重训 backbone |
+| 多语言 | 葡语/印尼语搜索量少，独立模型效果差 | ULM 跨语言迁移，低资源语言 +9.7% |
+
+---
+
+## 迁移学习的隐藏价值
+
+**最重要的收益**：不是效率，而是**互相增强**。
+
+- 搜索数据（query → 精确 item）教会模型：item 描述的关键词模式
+- 推荐数据（用户序列 → item）教会模型：用户偏好的长期规律  
+- 推理数据（自然语言 → 内容）教会模型：深层语义理解
+
+这三类知识在统一模型里互相迁移：搜索因为懂了用户行为变得更准，推荐因为懂了精确意图变得更相关。
+
+---
+
+## 技术演进脉络
+
+```
+2018 各系统独立 Embedding（搜索用 BERT，推荐用 CF）
+    ↓ 维护成本高，知识孤岛
+2020 多任务学习（Hard/Soft Parameter Sharing）
+    ↓ 任务数多时 sharing 不够灵活
+2022 Prompt-based 统一（T5 格式统一多任务）
+    ↓ LLM 规模化
+2024 ULM（Spotify）：生产级统一搜推推理
+    ↓ 方向
+2025+ Agent + 搜推统一（用工具调用搜索，推荐用 LLM 推理）
+```
+
+---
+
+## 面试考点
+
+**Q：搜索和推荐统一建模的最大挑战是什么？**  
+答：（1）数据不平衡：搜索日志远比推荐日志多，需要精心设计采样策略防止推荐任务欠优化；（2）延迟 SLA 不同：搜索要求实时 <100ms，推荐 <200ms，统一模型需要隔离不同任务的服务超时；（3）负迁移：某些任务数据分布差异大时，联合训练反而会互相干扰，需要监控各任务的独立指标。
+
+**Q：为什么 Spotify ULM 在低资源语言上收益更大？**  
+答：独立搜索模型在葡语/印尼语等低资源语言上训练数据少，模型质量差。ULM 的预训练包含跨语言内容（多语言播客文本），底层语义表示具有跨语言对齐能力，迁移到低资源语言搜索效果更好。本质是 transfer learning 的经典优势。

@@ -1,0 +1,45 @@
+# 推荐/广告 A/B 测试与在线实验：从假设到决策
+
+> 📚 参考文献
+> - [Onerec Unifying Retrieve And Rank With Generative ](../../rec-sys/papers/20260323_onerec_unifying_retrieve_and_rank_with_generative_.md) — OneRec: Unifying Retrieve and Rank with Generative Recomm...
+> - [Onerec Unifying Retrieve-And-Rank With Generative ](../../rec-sys/papers/20260323_onerec_unifying_retrieve-and-rank_with_generative_.md) — OneRec: Unifying Retrieve-and-Rank with Generative Recomm...
+
+
+> 创建：2026-03-24 | 领域：推荐系统 | 类型：综合分析
+> 来源：A/B Test 实践, Interleaving, Bandits, 因果推断系列
+
+---
+
+## 🎯 核心洞察（4条）
+
+1. **离线指标和线上效果经常不一致**：AUC 提升 0.5% 不一定带来线上 CTR 提升，A/B Test 是验证的唯一标准
+2. **分流粒度决定实验质量**：用户级分流（同一用户只看一个版本）最常用，但有网络效应的场景需要地域/时间分流
+3. **多重检验是常见陷阱**：同时看 10 个指标，期望有 1 个 p<0.05 是纯随机的。需要 Bonferroni 或 BH 校正
+4. **Interleaving 比传统 A/B Test 灵敏 10x**：将两个排序算法的结果交替展示给同一用户，用点击偏好判断优劣，所需样本量远小于传统 A/B
+
+---
+
+## 🎓 面试考点（5条）
+
+### Q1: A/B Test 的最小样本量怎么算？
+**30秒答案**：`n = (Z_α/2 + Z_β)² × 2σ² / δ²`，α=0.05（显著性）、β=0.2（功效80%）、δ=预期效果大小、σ²=指标方差。CTR 类指标通常需要每组 10K-100K 用户。
+
+### Q2: 常见的 A/B Test 陷阱？
+**30秒答案**：①新奇效应（新功能初期点击高但很快消退）；②辛普森悖论（整体效果好但某些子群效果差）；③网络效应/SUTVA 违背（用户间互相影响）；④过早停止（p 值刚到 0.05 就停，实际可能是噪声）。
+
+### Q3: Interleaving 实验怎么做？
+**30秒答案**：将 A、B 两个排序结果交替合并（Team Draft 方法：轮流从 A、B 各取一个），展示给同一用户。根据用户点击的是 A 的结果还是 B 的结果来判断哪个更好。优势：不受用户个体差异影响。
+
+### Q4: 推荐 A/B Test 看哪些核心指标？
+**30秒答案**：①短期指标：CTR、CVR、人均时长、人均播放数；②长期指标：次日/7日留存、MAU；③业务指标：GMV、广告收入。注意防止短期指标好但长期指标差（如标题党提升 CTR 但降低留存）。
+
+### Q5: 什么时候 A/B Test 不够用？
+**30秒答案**：①网络效应场景（社交推荐、双边市场）→ 用 cluster-based 实验；②个性化治疗效应（不同用户反应不同）→ 用 HTE（异质性治疗效应）分析；③多策略交互效应 → 用析因实验设计。
+
+---
+
+## 🌐 知识体系连接
+
+- **上游依赖**：统计检验、因果推断、实验设计
+- **下游应用**：模型上线决策、策略迭代、产品优化
+- **相关 synthesis**：std_cross_bias_governance.md, std_rec_ranking_evolution.md

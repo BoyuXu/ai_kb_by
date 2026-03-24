@@ -6,7 +6,7 @@
 |------|--------|------|
 | **Papers** (学术论文笔记) | 82篇 | CTR预估、竞拍机制、自动出价 |
 | **Practices** (工业实践案例) | 2篇 | 大厂广告系统设计 |
-| **Synthesis** (提炼总结) | 4篇 | 广告系统演进、框架总结 |
+| **Synthesis** (提炼总结) | 15篇 | 广告系统演进、框架总结、标准化文档 |
 | **总计** | 88篇 | - |
 
 ---
@@ -123,12 +123,26 @@
 - [P3 - LTR 到 RL 工业实践](./papers/p3_ltr_to_rl_ranking.md)
 - [P5 - 广告系统工业实践](./papers/p5_industrial_practice.md)
 
-### 📖 Synthesis (4篇 提炼总结)
+### 📖 Synthesis (15篇 提炼总结)
 
-- [LLM 集成框架](./synthesis/llm_integration_framework.md)
+#### 标准化文档 (std_*)
+- [广告归因体系](./synthesis/std_ads_attribution.md)
+- [竞价全景图](./synthesis/std_ads_bidding_landscape.md)
+- [广告冷启动](./synthesis/std_ads_cold_start.md)
+- [创意优化](./synthesis/std_ads_creative_optimization.md)
+- [CTR/CVR 校准](./synthesis/std_ads_ctr_cvr_calibration.md)
+- [多目标优化](./synthesis/std_ads_multi_objective.md)
+- [RTB 架构](./synthesis/std_ads_rtb_architecture.md)
+
+#### 专题综合
+- [广告预算 Pacing](./synthesis/20260320_ads_budget_pacing.md)
+- [竞价演进](./synthesis/20260321_ad_bidding_evolution.md)
+- [广告偏差矫正三部曲](./synthesis/20260322_ad_bias_correction_trilogy.md)
+- [广告系统综合](./synthesis/20260323_ads_synthesis.md)
+- [广告排序演进](./synthesis/ads_ranking_evolution.md)
 - [自动出价演进](./synthesis/auto_bidding_evolution.md)
-- [创意优化 LLM](./synthesis/creative_optimization_with_llm.md)
-- [广告系统概览](./synthesis/ads_overview.md) (待补充)
+- [LLM 集成框架](./synthesis/llm_integration_framework.md)
+- [混排演进](./synthesis/mixing_ranking_evolution.md)
 
 ---
 

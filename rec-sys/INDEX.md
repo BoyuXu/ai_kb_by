@@ -6,7 +6,7 @@
 |------|--------|------|
 | **Papers** (学术论文笔记) | 69篇 | 召回、排序、重排、协同过滤等 |
 | **Practices** (工业实践案例) | 0篇 | Netflix、YouTube、TikTok 等大厂案例（待补充） |
-| **Synthesis** (提炼总结) | 11篇 | 推荐系统演进、LLM 融合框架 |
+| **Synthesis** (提炼总结) | 26篇 | 推荐系统演进、LLM 融合框架、标准化文档 |
 | **总计** | 80篇 | - |
 
 ---
@@ -89,11 +89,38 @@ ls -la ~/Documents/ai-kb/rec-sys/papers/
 - Amazon 推荐系统
 - Meta 推荐系统
 
-### 📖 Synthesis (11篇 提炼总结)
+### 📖 Synthesis (26篇 提炼总结)
 
-- [LLM 集成框架](./synthesis/llm_integration_framework.md) - LLM 在推荐中的应用框架
-- [推荐系统演进](./synthesis/recommendation_evolution.md) - 从传统到 LLM 的演进历程
-- 其他总结文档（待整理）
+#### 标准化文档 (std_*)
+- [冷启动](./synthesis/std_rec_cold_start.md)
+- [Embedding 学习](./synthesis/std_rec_embedding_learning.md)
+- [特征工程](./synthesis/std_rec_feature_engineering.md)
+- [图神经网络](./synthesis/std_rec_graph_neural_network.md)
+- [在线实验](./synthesis/std_rec_online_experiment.md)
+- [排序演进](./synthesis/std_rec_ranking_evolution.md)
+- [召回演进](./synthesis/std_rec_recall_evolution.md)
+- [重排与多样性](./synthesis/std_rec_rerank_diversity.md)
+- [用户行为建模](./synthesis/std_rec_user_behavior_modeling.md)
+
+#### 专题综合
+- [Semantic ID 生成式检索](./synthesis/20260321_semantic_id_generative_retrieval.md)
+- [生成式推荐范式对比](./synthesis/20260322_generative_rec_paradigm_comparison.md)
+- [Semantic ID 全景](./synthesis/20260322_semantic_id_full_picture.md)
+- [生成式推荐全谱](./synthesis/20260323_generative_rec_full_spectrum.md)
+- [推荐系统综合](./synthesis/20260323_rec_sys_synthesis.md)
+- [Wukong 推荐 Scaling Law](./synthesis/20260323_recommendation_scaling_law_wukong.md)
+- [LLM 集成框架](./synthesis/llm_integration_framework.md)
+
+#### 基础总结
+- [概览](./synthesis/00_overview.md)
+- [CTR 模型深度](./synthesis/01_ctr_models_deep_dive.md)
+- [特征工程](./synthesis/03_feature_engineering.md)
+- [工业排序论文](./synthesis/05_industry_ranking_papers.md)
+- [排序深度](./synthesis/05_ranking_deep.md)
+- [工业召回论文](./synthesis/06_industry_recall_papers.md)
+- [因果推断](./synthesis/07_causal_inference.md)
+- [重排多样性](./synthesis/08_rerank_diversity.md)
+- [特征存储实践](./synthesis/09_feature_store_practice.md)
 
 ---
 

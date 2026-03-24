@@ -6,7 +6,7 @@
 |------|--------|------|
 | **Papers** (学术论文笔记) | 72篇 | arXiv 论文、学术研究、算法基础 |
 | **Practices** (工业实践案例) | 0篇 | 大厂系统设计、生产案例（待补充） |
-| **Synthesis** (提炼总结) | 2篇 | 搜索系统演进、框架总结 |
+| **Synthesis** (提炼总结) | 12篇 | 搜索系统演进、框架总结、标准化文档 |
 | **总计** | 74篇 | - |
 
 ---
@@ -173,10 +173,23 @@
 - Meta Search Infrastructure
 - Alibaba 搜索系统
 
-### 📖 Synthesis (2篇 提炼总结)
+### 📖 Synthesis (12篇 提炼总结)
 
-- [搜索排序系统概览](./synthesis/01_search_ranking.md) - 搜索系统从传统到 LLM 的演进
-- [LLM 集成框架](./synthesis/llm_integration_framework.md) - LLM 在搜索中的应用框架
+#### 标准化文档 (std_*)
+- [混合检索](./synthesis/std_search_hybrid_retrieval.md)
+- [Learning to Rank](./synthesis/std_search_learning_to_rank.md)
+- [Query 理解](./synthesis/std_search_query_understanding.md)
+- [Reranker 演进](./synthesis/std_search_reranker_evolution.md)
+- [检索三角](./synthesis/std_search_retrieval_triangle.md)
+- [时序图](./synthesis/std_search_temporal_graph.md)
+
+#### 专题综合
+- [混合检索演进](./synthesis/20260320_hybrid_retrieval_evolution.md)
+- [稀疏 vs 稠密检索](./synthesis/20260321_sparse_dense_retrieval.md)
+- [稀疏 vs 稠密决策](./synthesis/20260322_sparse_vs_dense_retrieval_decision.md)
+- [检索三角：稠密-稀疏-Late Interaction](./synthesis/20260323_retrieval_triangle_dense_sparse_late.md)
+- [搜索排序系统概览](./synthesis/01_search_ranking.md)
+- [LLM 集成框架](./synthesis/llm_integration_framework.md)
 
 ---
 

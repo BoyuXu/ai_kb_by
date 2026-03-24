@@ -1,0 +1,42 @@
+# 广告效果归因：从 Last-Click 到 Multi-Touch 到因果推断
+
+> 📚 参考文献
+> - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../../ads/papers/20260321_real-time-bidding-optimization-with-multi-agent-deep-reinforcement-learning.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
+> - [Multi-Objective-Ads-Ranking](../../ads/papers/20260316_multi-objective-ads-ranking.md) — 多目标广告排序：MMoE、PLE 与 Pareto 优化
+
+
+> 创建：2026-03-24 | 领域：广告系统 | 类型：综合分析
+> 来源：Attribution Modeling, Uplift Modeling, Causal Inference in Ads 系列
+
+---
+
+## 🎯 核心洞察（4条）
+
+1. **归因决定了广告主的投放决策**：用户看了搜索广告又看了展示广告最后买了，该归功于谁？归因模型直接影响各渠道的预算分配
+2. **Last-Click 简单但严重偏向底部漏斗**：最后一次点击（通常是搜索广告或品牌词）获得全部功劳，展示广告/视频广告的品牌曝光价值被低估
+3. **多触点归因（MTA）是理论最优方案**：Shapley Value 公平分配每个触点的贡献，但计算复杂度随触点数指数增长
+4. **增量性测试（Incrementality Test）是归因的金标准**：随机选择对照组"不展示广告"，对比实验组的转化增量，测量广告的真实因果效应
+
+---
+
+## 🎓 面试考点（4条）
+
+### Q1: 常见的归因模型？
+**30秒答案**：①Last-Click（最后点击归因，最简单）；②First-Click（首次接触归因）；③Linear（均匀分配）；④Time-Decay（越近的触点权重越大）；⑤Position-Based（首尾各 40%，中间均分 20%）；⑥Data-Driven（Shapley Value / Markov Chain 模型）。
+
+### Q2: Shapley Value 归因怎么算？
+**30秒答案**：对每个广告触点，计算它加入所有可能的触点组合时的边际贡献，取平均。公式保证公平性（对称性+边际贡献+效率）。近似方法：Monte Carlo 采样 + 随机排列。
+
+### Q3: 增量性测试（Lift Test）怎么做？
+**30秒答案**：随机分两组：实验组正常展示广告，对照组展示公益广告/不展示广告。对比两组的转化率差异 = 广告的增量效果。这是唯一能测量因果效应的方法。
+
+### Q4: 跨渠道归因的挑战？
+**30秒答案**：①用户身份跨设备打通（同一用户在手机/电脑/平板的行为关联）；②不同渠道的数据粒度不同（搜索有 query，展示只有曝光）；③隐私政策限制（GDPR/CCPA 限制用户追踪）。
+
+---
+
+## 🌐 知识体系连接
+
+- **上游依赖**：因果推断、博弈论（Shapley Value）、A/B 测试
+- **下游应用**：预算分配、渠道优化、广告主报告
+- **相关 synthesis**：std_ads_rtb_architecture.md, std_cross_bias_governance.md

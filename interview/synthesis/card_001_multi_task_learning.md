@@ -1,0 +1,101 @@
+# 知识卡片 #001：多任务学习（MMoE / PLE）
+
+> 📚 参考文献
+> - [Moe-Llama Mixture-Of-Experts For Efficient Larg...](../../llm-infra/20260323_moe-llama_mixture-of-experts_for_efficient_large_la.md) — MoE-LLaMA: Mixture-of-Experts for Efficient Large Languag...
+> - [Moe-Llama-Mixture-Of-Experts-Efficient-Llm-Serving](../../llm-infra/20260321_moe-llama-mixture-of-experts-efficient-llm-serving.md) — MoE-LLaMA: Mixture-of-Experts for Efficient Large Languag...
+> - [Moe-Llama-Mixture-Of-Experts-For-Efficient-Larg...](../../llm-infra/20260321_moe-llama-mixture-of-experts-for-efficient-large-language-model-serving.md) — MoE-LLaMA: Mixture-of-Experts for Efficient Large Languag...
+> - [Esmm-Cvr](../../ads/papers/20260317_esmm-cvr.md) — ESMM：全空间多任务 CVR 预估
+> - [Action Is All You Need Dual-Flow Generative Ran...](../../ads/papers/20260323_action_is_all_you_need_dual-flow_generative_ranking.md) — Action is All You Need: Dual-Flow Generative Ranking Netw...
+> - [Llm-Enhanced-Ad-Creative-Generation-And-Optimiz...](../../ads/papers/20260321_llm-enhanced-ad-creative-generation-and-optimization-for-e-commerce.md) — LLM-Enhanced Ad Creative Generation and Optimization for ...
+> - [Mmoe-Multi-Task-Learning](../../rec-sys/papers/20260317_mmoe-multi-task-learning.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
+> - [Llm-For-Ir-Survey](../../search/papers/20260316_llm-for-ir-survey.md) — Large Language Models for Information Retrieval: A Survey
+
+
+> 创建：2026-03-20 | 领域：推荐系统·排序 | 难度：⭐⭐⭐
+
+---
+
+## 🌟 一句话解释
+
+多任务学习让模型同时优化多个目标（点击率、转化率、时长），**MMoE 通过"多个专家 + 各任务独立门控"解决任务冲突导致的负迁移**。
+
+---
+
+## 🎭 生活类比
+
+想象一家餐厅需要同时做中餐、日料、西餐：
+- **Shared-Bottom（硬共享）**：三种厨师共用同一个厨房配方，做出来的东西四不像
+- **MMoE**：有8个专长不同的厨师（Experts），中餐主厨（任务门控）决定今天用哪3个厨师协作，日料主厨用另一组组合——各取所需，互不干扰
+- **PLE**：除了共用厨师，中餐还有专属的2个厨师，绝对不参与日料，防止技术污染
+
+---
+
+## ⚙️ 核心机制
+
+```
+输入 x
+  │
+  ├──▶ Expert_1(x)  ─┐
+  ├──▶ Expert_2(x)   │
+  ├──▶ Expert_3(x)   │  ← K个专家，每个是独立MLP
+  │  ...              │
+  └──▶ Expert_K(x)  ─┘
+          │
+    ┌─────┴──────┐
+    │            │
+  Gate_A(x)   Gate_B(x)  ← 每个任务的独立软注意力（Softmax(W·x)）
+    │            │
+  f_A(x)      f_B(x)    ← 加权融合各专家输出
+    │            │
+  Tower_A    Tower_B    ← 各任务独立预测头
+    │            │
+  y_CTR      y_CVR
+```
+
+**PLE 改进**：区分 Shared Experts（所有任务共用）和 Task-specific Experts（任务专属），层次化提取。
+
+---
+
+## 🔄 横向对比
+
+| 方法 | 参数共享方式 | 任务冲突处理 | 适用场景 |
+|------|------------|------------|---------|
+| Shared-Bottom | 完全共享底层 | ❌ 无 | 任务高度相关 |
+| One-gate MoE | 软共享（单门控） | 弱 | 一般场景 |
+| MMoE | 软共享（任务独立门控） | ✅ 强 | 任务相关性低 |
+| PLE | 硬+软混合，分层提取 | ✅✅ 最强 | 工业级多任务 |
+
+---
+
+## 🏭 工业落地
+
+- **阿里 ESMM**：CTR × CVR 联合建模，在全空间训练 CVR（解决样本偏差）
+- **腾讯 PLE**：微信视频号多目标排序，同时优化播放完成率、点赞、分享
+- **快手 AITM**：转化路径建模（展示→点击→关注→购买），用 Adaptive Information Transfer
+- **YouTube**：同时优化 CTR + 观看时长，时长用回归而非分类避免标签偏差
+
+**工程注意事项：**
+1. 专家数 K 通常 4~8，过多导致专家坍塌（collapse）
+2. 各任务 loss weight 需调优，梯度量级差距大时用 GradNorm
+3. 门控加温度参数防止 winner-take-all
+
+---
+
+## 🎯 面试考点
+
+**Q1（基础）：什么是负迁移？为什么 Shared-Bottom 会产生？**
+> 任务目标不一致时（如 CTR 与 CVR 梯度方向可能相反），共享参数被矛盾梯度拉扯，每个任务都无法学好。
+
+**Q2（中等）：MMoE 中如果所有任务门控权重都集中在同一个 Expert，会怎样？**
+> 退化成 Shared-Bottom，其他 Expert 梯度稀疏、参数得不到训练。解决：Expert 均衡损失（类 Switch Transformer）、Expert Dropout。
+
+**Q3（高难）：PLE 和 MMoE 最本质的区别是什么？**
+> PLE 将 Shared 和 Task-specific Experts 物理隔离，task-specific experts 的梯度不会流向其他任务，从根本上杜绝梯度污染；MMoE 虽然多门控，但所有 Expert 对所有任务都可见，梯度依然会交叉影响。
+
+---
+
+## 🔗 知识关联
+
+- 上游：特征工程 → 用户行为序列建模（DIN/SIM）
+- 同层：ESMM（CVR 偏差修正）、MMOE 变体（MoE-LLM）
+- 下游：排序后的重排（MMR、DPP 多样性）

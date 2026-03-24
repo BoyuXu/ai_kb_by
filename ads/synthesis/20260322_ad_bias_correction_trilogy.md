@@ -1,0 +1,112 @@
+# 广告系统偏差治理三部曲：从位置偏差到样本偏差到全空间建模
+
+> 📚 参考文献
+> - [Din Deep Interest Network](../../ads/papers/20260322_din_deep_interest_network.md) — DIN: Deep Interest Network for Click-Through Rate Prediction
+> - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../../ads/papers/20260321_real-time-bidding-optimization-with-multi-agent-deep-reinforcement-learning.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
+> - [Esmm Entire Space Multitask](../../ads/papers/20260322_esmm_entire_space_multitask.md) — ESMM: Entire Space Multi-Task Model for Post-Click Conver...
+> - [Esmm-Cvr](../../ads/papers/20260317_esmm-cvr.md) — ESMM：全空间多任务 CVR 预估
+> - [Multiple-Hypothesis-Bias-Ctr](../../ads/papers/20260319_multiple-hypothesis-bias-ctr.md) — Addressing Multiple Hypothesis Bias in CTR Prediction for...
+> - [Est-Ctr-Scaling](../../ads/papers/20260316_est-ctr-scaling.md) — EST: Efficient Scaling Laws in CTR Prediction via Unified...
+> - [Learn Knowledge Adaptation From Large Language Mod](../../ads/papers/20260323_learn_knowledge_adaptation_from_large_language_mod.md) — LEARN: Knowledge Adaptation from Large Language Model to ...
+> - [Counterfactual-Learning-For-Unbiased-Ad-Ranking...](../../ads/papers/20260321_counterfactual-learning-for-unbiased-ad-ranking-in-industrial-search-systems.md) — Counterfactual Learning for Unbiased Ad Ranking in Indust...
+
+
+**一句话**：广告系统的训练数据天然带偏——排第一的广告被点击不代表它最好，被点击的广告转化了不代表没点击的就不会转化。偏差治理就是「让数据说实话」。
+
+**类比**：想象你要评估一个老师的教学水平。如果只统计「考上重点高中的学生对该老师的评价」，那选择偏差就很严重——能考上重点的可能本来就是优等生，老师好坏样本已经偏了。广告系统面临同样的问题。
+
+---
+
+## 三类核心偏差（串联理解）
+
+### 第一类：位置偏差（Position Bias）
+**现象**：排在第1位的广告点击率系统性偏高，不反映真实相关性  
+**问题**：用有偏数据训练 → 模型倾向于给「已经排第一」的广告打高分 → 马太效应，强者愈强  
+
+**解决方案：反事实学习（Counterfactual Learning）**
+```
+P(click) = P(examine | position) × P(click | examine, relevance)
+           ↑ 位置决定「被看到」     ↑ 相关性决定「被点击」
+```
+- 用 IPS（逆倾向评分）对样本重加权：被看到概率低的 click 权重高
+- 用随机化实验估计 P(examine | position)（让广告出现在随机位置）
+- 关键问题：IPS 高方差 → 用 Clipped IPS 截断极值
+
+**工业常见做法**：不真正做位置随机化（代价太大），而是用位置特征作为倾向模型的输入，用历史数据统计估计
+
+### 第二类：样本选择偏差（Sample Selection Bias）  
+**现象**：CVR（转化率）模型只在「被点击」的样本上训练，但需要预测「全部曝光」的转化概率  
+**问题**：没点击的曝光没有转化标签，CVR 模型活在「点击泡泡」里，泛化差  
+
+**解决方案：ESMM（Entire Space Multi-Task Model）**
+```
+P(CTR) = 模型直接预测（全曝光空间训练）
+P(CVR) = P(CTCVR) / P(CTR)  ← 全空间建模
+P(CTCVR) = P(CTR) × P(CVR)  ← 联合监督
+```
+- CTR 和 CVR 共享底层 Embedding（利用 CTR 丰富数据缓解 CVR 数据稀疏）
+- CVR 通过 CTCVR 信号在全曝光空间隐式训练
+
+**效果**：
+- CVR AUC +3.4%（vs 独立 CVR 模型）
+- 数据稀疏场景（冷启动商品）CVR AUC +5.2%
+
+### 第三类：兴趣偏差（Interest Collapse in Pooling）
+**现象**：传统 CTR 模型对用户历史做简单 avg/sum pooling，丢失「与当前广告最相关的兴趣」  
+**问题**：用户历史里有「买过跑鞋、看过西装、搜索过书包」，当推荐一双跑鞋时，西装和书包的历史是噪声  
+
+**解决方案：DIN（Deep Interest Network）**  
+- Attention 机制：用目标广告和每条历史行为计算相关性权重
+- 加权聚合：相关历史权重高，不相关历史权重低
+- 不用 Softmax（局部激活）：避免相关兴趣之间相互竞争
+
+---
+
+## 三类偏差对比
+
+| 偏差类型 | 来源 | 解决思路 | 代表方法 |
+|---------|------|---------|---------|
+| 位置偏差 | 展示位置影响点击 | IPS 重加权 | Counterfactual Learning |
+| 样本选择偏差 | CVR 只在点击样本训练 | 全空间建模 | ESMM |
+| 兴趣坍塌 | 历史行为简单平均 | 注意力机制 | DIN/DIEN |
+
+---
+
+## 工业常见做法 vs 论文
+
+| 论文 | 工业实际 |
+|------|---------|
+| 随机化实验估计位置倾向 | 多用"蜘蛛流量"（爬虫模拟随机曝光）或位置统计 |
+| 纯 IPS 重加权 | IPS + 截断（Clipped IPS），通常 max clip = 5-10 |
+| ESMM 双塔共享 Embedding | 实际工业：3-5 任务联合学习（CVR、CTCVR、GMV、NMV...） |
+| 精确归因转化 | 延迟反馈模型（转化延迟窗口内做不确定性建模） |
+
+---
+
+## 面试考点
+
+**Q：ESMM 如何解决 CVR 的样本选择偏差？**  
+答：通过乘法分解 P(CTCVR) = P(CTR) × P(CVR)，把 CVR 的监督信号放到全曝光空间——CTCVR 在所有曝光上都有标签（是否既被点击又转化），通过联合训练，CVR 隐式地在全空间学习，消除了只在点击样本训练的选择偏差。
+
+**Q：DIN 为什么用 Sigmoid 而不是 Softmax 计算 attention？**  
+答：Softmax 会让所有历史行为的权重和为 1（互相竞争），而用户可能对多个历史行为同时相关。Sigmoid 实现局部激活——相关的历史权重高，不相关的权重低，但不强制归一化，允许多个历史行为同时被激活。
+
+**Q：广告系统里为什么不直接用真实展示位置作为特征训练 CTR？**  
+答：训练时 position 已知，但预测时 position 未确定（要先预测 CTR 才能决定排序位置）。两种处理：①训练时加位置特征，预测时用默认位置（position=0）；②用双塔解耦：位置塔 + 相关性塔，只用相关性塔做在线预测。
+
+---
+
+## 技术演进脉络
+
+```
+2014 LR/GBDT 时代：直接用点击率训练，无偏差意识
+    ↓ 深度学习兴起
+2017 Wide&Deep / DeepFM：简单 pooling 历史行为
+    ↓ 兴趣坍塌问题显现
+2018 DIN (KDD'18)：Attention 激活相关历史
+2018 ESMM (SIGIR'18)：全空间 CVR 建模
+    ↓ 偏差来源被系统性识别
+2020+ 反事实学习：位置偏差去除
+    ↓ 多任务 + 约束优化
+2024+ 多目标 Pareto 优化：收入 vs 体验 vs ROI 三角
+```
