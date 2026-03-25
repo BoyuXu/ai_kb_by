@@ -13,10 +13,11 @@
 
 ## 📝 Synthesis 总结文档
 
-- [Auto Bidding 技术演进：从规则出价到强化学习](./synthesis/AutoBidding技术演进_从规则到RL.md)
+- [**Auto Bidding 技术演进：从规则出价到强化学习**](./synthesis/AutoBidding技术演进_从规则到RL.md) ⭐ **主文档** (1392 行)
+  - 包含完整的 5 阶段演进、深度理论分析、工业实践、15 题面试考点
 - [广告 CTR/CVR 预估与校准：从模型到上线的全链路](./synthesis/广告CTR_CVR预估与校准.md)
-- [广告出价体系：从手动规则到 RL 自动出价](./synthesis/广告出价体系_从手动规则到RL自动出价.md)
-- [广告出价体系全景：从规则到 RL 的完整演进](./synthesis/广告出价体系全景.md)
+- [广告出价体系：从手动规则到 RL 自动出价](./synthesis/广告出价体系_从手动规则到RL自动出价.md) → **[已整合至主文档]**
+- [广告出价体系全景：从规则到 RL 的完整演进](./synthesis/广告出价体系全景.md) → **[已整合至主文档]**
 - [广告创意优化：从人工制作到 AI 自动化](./synthesis/广告创意优化.md)
 - [广告排序系统演进路线图](./synthesis/广告排序系统演进路线图.md)
 - [广告效果归因：从 Last-Click 到 Multi-Touch 到因果推断](./synthesis/广告效果归因.md)
@@ -27,7 +28,7 @@
 - [广告系统多目标优化：从人工调权到 Pareto 自动化](./synthesis/广告系统多目标优化.md)
 - [广告系统混排演进路线：从硬规则到强化学习](./synthesis/广告系统混排演进路线.md)
 - [广告系统综合总结（20260323）](./synthesis/广告系统综合总结.md)
-- [知识卡片 #010：广告预算 Pacing 算法全景](./synthesis/广告预算Pacing算法全景.md)
+- [知识卡片 #010：广告预算 Pacing 算法全景](./synthesis/广告预算Pacing算法全景.md) → **[已整合至主文档]**
 
 ## 📚 论文笔记
 
