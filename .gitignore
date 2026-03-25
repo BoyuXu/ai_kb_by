@@ -2,6 +2,18 @@
 repos/
 repo/
 
+# 运营数据 & 配置（不是知识内容）
+_data/
+_config/
+_archive/
+scripts/
+weekly/
+
+# 处理日志
+**/processed_log.jsonl
+**/papers_queue.jsonl
+**/learning_queue.json
+
 # Scripts logs
 scripts/logs/
 
