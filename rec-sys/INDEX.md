@@ -15,12 +15,11 @@
 - [Boyu 个人学习档案](./synthesis/Boyu个人学习档案.md)
 - [N个Expert网络（每个是独立的全连接网络）](./synthesis/CTR模型深度解析.md)
 - [Embedding 学习：推荐系统的表示基石](./synthesis/Embedding学习_推荐系统表示基石.md)
-- [Semantic ID + 生成式检索：推荐系统的"下一代召回"](./synthesis/SemanticID与生成式检索.md)
-- [Semantic ID：从论文到 Spotify 大规模部署的完整画像](./synthesis/SemanticID从论文到Spotify部署.md)
+- [Semantic ID：从论文到 Spotify 大规模部署的完整画像](./synthesis/SemanticID从论文到Spotify部署.md)（包含生成式检索内容）
 - [召回系统工业界最佳实践](./synthesis/召回系统工业界最佳实践.md)
 - [图神经网络在推荐中的应用：从 PinSage 到 GNN4Rec](./synthesis/图神经网络在推荐中的应用.md)
 - [推荐/广告 A/B 测试与在线实验：从假设到决策](./synthesis/推荐广告AB测试与在线实验.md)
-- [推荐系统 + LLM 集成框架](./synthesis/推荐系统LLM集成框架.md)
+- [推荐系统 + LLM 集成框架](../../cross-domain/synthesis/LLM集成框架_推荐搜索广告统一.md)（详见统一框架）
 - [推荐系统的 Scaling Law：Wukong（Meta）](./synthesis/推荐系统ScalingLaw_Wukong.md)
 - [推荐系统全链路架构概览](./synthesis/推荐系统全链路架构概览.md)
 - [推荐系统冷启动：新用户、新物品、新场景的破冰](./synthesis/推荐系统冷启动.md)
