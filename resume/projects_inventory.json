@@ -1,18 +1,18 @@
 {
   "metadata": {
     "created_at": "2026-03-24T13:55:00+08:00",
-    "total_projects": 10,
-    "last_update": "2026-03-24T16:00:00+08:00",
+    "total_projects": 20,
+    "last_update": "2026-03-25T16:00:00+09:00",
     "daily_generation_enabled": true,
-    "daily_generation_time": "15:00 (Asia/Shanghai)",
+    "daily_generation_time": "16:00 (Asia/Tokyo)",
     "target_per_day": 10
   },
   "statistics": {
-    "ads_systems": 3,
-    "recommendation_systems": 4,
-    "search_systems": 3,
+    "ads_systems": 7,
+    "recommendation_systems": 8,
+    "search_systems": 5,
     "nlp_llm": 0,
-    "innovation": 10
+    "innovation": 20
   },
   "daily_logs": [
     {
@@ -35,6 +35,28 @@
         "+44% 搜索转化 (项目8)",
         "+26% 竞价精准性 (项目9)",
         "+21% 搜索转化 (项目10)"
+      ]
+    },
+    {
+      "date": "2026-03-25",
+      "projects_generated": 10,
+      "file": "daily_projects_20260325.md",
+      "categories": {
+        "ads": ["项目3: LLM增强CTR预估", "项目4: AutoBid RL竞价", "项目5: Budget Pacing优化", "项目10: CADET上下文感知CTR"],
+        "recommendation": ["项目1: GEMs长序列推荐", "项目2: 语义ID生成式召回", "项目6: 多场景AIFS", "项目8: 扩散模型重排", "项目9: 公平性推荐"],
+        "search": ["项目7: ColBERT混合检索"]
+      },
+      "highlights": [
+        "+14.6% GMV, -77%延迟 (项目1)",
+        "+562% 新内容召回覆盖率 (项目2)",
+        "+5.5% AUC (稀疏广告) (项目3)",
+        "+25.4% ROI达标率 (项目4)",
+        "预算偏差 ±35%→±8.3% (项目5)",
+        "模型参数 -91% (项目6)",
+        "+23.7% MRR@10 (项目7)",
+        "+16.8% 7日留存 (项目8)",
+        "公平性差距18%→3.8% (项目9)",
+        "+9.1% 搜索广告eCPM (项目10)"
       ]
     }
   ],
@@ -127,6 +149,96 @@
       "business_impact": "+21% 搜索转化",
       "date": "2026-03-24",
       "key_algorithms": ["Intent Classification", "Multi-task Learning", "Intent-Diversity", "Personalization"],
+      "difficulty": 5
+    },
+    {
+      "id": 11,
+      "title": "生成式序列推荐系统（GEMs框架）",
+      "category": "recommendation_systems",
+      "business_impact": "+14.6% GMV, 延迟-77%",
+      "date": "2026-03-25",
+      "key_algorithms": ["GEMs", "Memory Bank", "Cross-Attention", "Contrastive Learning"],
+      "difficulty": 5
+    },
+    {
+      "id": 12,
+      "title": "基于语义ID的生成式召回系统",
+      "category": "recommendation_systems",
+      "business_impact": "+562% 新内容召回覆盖率",
+      "date": "2026-03-25",
+      "key_algorithms": ["Semantic ID", "RQ-VAE", "Generative Retrieval", "Beam Search"],
+      "difficulty": 5
+    },
+    {
+      "id": 13,
+      "title": "LLM增强的CTR预估——生成式特征范式",
+      "category": "ads_systems",
+      "business_impact": "+5.5% AUC (稀疏广告), +8.3% 广告收入",
+      "date": "2026-03-25",
+      "key_algorithms": ["LLaMA", "Generative CTR", "Confidence Gating", "DIN"],
+      "difficulty": 4
+    },
+    {
+      "id": 14,
+      "title": "自动竞价系统的强化学习框架（AutoBid）",
+      "category": "ads_systems",
+      "business_impact": "+25.4% ROI达标率, -88%人工干预",
+      "date": "2026-03-25",
+      "key_algorithms": ["CMDP", "PPO", "Lagrangian Relaxation", "Actor-Critic"],
+      "difficulty": 5
+    },
+    {
+      "id": 15,
+      "title": "大规模广告预算分配的Pacing优化",
+      "category": "ads_systems",
+      "business_impact": "预算偏差±35%→±8.3%",
+      "date": "2026-03-25",
+      "key_algorithms": ["Budget Pacing", "Kalman Filter", "Throttling", "Floor Price"],
+      "difficulty": 4
+    },
+    {
+      "id": 16,
+      "title": "多场景多任务CTR模型的自动化信息流设计",
+      "category": "ads_systems",
+      "business_impact": "模型参数-91%, 更新周期72h→6h",
+      "date": "2026-03-25",
+      "key_algorithms": ["AIFS", "Learnable Gating", "Multi-scenario", "Transfer Learning"],
+      "difficulty": 5
+    },
+    {
+      "id": 17,
+      "title": "基于ColBERT晚交互的高效语义检索",
+      "category": "search_systems",
+      "business_impact": "+23.7% MRR@10",
+      "date": "2026-03-25",
+      "key_algorithms": ["ColBERT v2", "Late Interaction", "PLAID", "BM25S", "int8量化"],
+      "difficulty": 4
+    },
+    {
+      "id": 18,
+      "title": "扩散模型驱动的创意多样性推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+16.8% 7日留存, ILD+121.7%",
+      "date": "2026-03-25",
+      "key_algorithms": ["DiffGRM", "DDIM", "DPP", "Diffusion Reranking"],
+      "difficulty": 5
+    },
+    {
+      "id": 19,
+      "title": "基于公平性约束的分组推荐优化",
+      "category": "recommendation_systems",
+      "business_impact": "公平性差距18%→3.8%",
+      "date": "2026-03-25",
+      "key_algorithms": ["Max-Min Fairness", "Jensen Gap", "DPP", "CMDP"],
+      "difficulty": 4
+    },
+    {
+      "id": 20,
+      "title": "搜索广告的上下文感知CTR预估（CADET）",
+      "category": "ads_systems",
+      "business_impact": "+9.1% 搜索广告eCPM",
+      "date": "2026-03-25",
+      "key_algorithms": ["CADET", "Decoder Transformer", "Position-aware Context", "Cross-Attention"],
       "difficulty": 5
     }
   ]
