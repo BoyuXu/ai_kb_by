@@ -19,7 +19,7 @@
 - [召回系统工业界最佳实践](./synthesis/召回系统工业界最佳实践.md)
 - [图神经网络在推荐中的应用：从 PinSage 到 GNN4Rec](./synthesis/图神经网络在推荐中的应用.md)
 - [推荐/广告 A/B 测试与在线实验：从假设到决策](./synthesis/推荐广告AB测试与在线实验.md)
-- [推荐系统 + LLM 集成框架](../../cross-domain/synthesis/LLM集成框架_推荐搜索广告统一.md)（详见统一框架）
+- [推荐系统 + LLM 集成框架](../../../cross-domain/synthesis/LLM集成框架_推荐搜索广告统一.md)（详见统一框架）
 - [推荐系统的 Scaling Law：Wukong（Meta）](./synthesis/推荐系统ScalingLaw_Wukong.md)
 - [推荐系统全链路架构概览](./synthesis/推荐系统全链路架构概览.md)
 - [推荐系统冷启动：新用户、新物品、新场景的破冰](./synthesis/推荐系统冷启动.md)

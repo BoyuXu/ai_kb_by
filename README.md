@@ -28,7 +28,7 @@
 ```
 ai-kb/
 │
-├── 📚 核心领域（三层架构：papers → practices → synthesis）
+├── 🔎 rec-search-ads/          搜广推大域（搜索 + 广告 + 推荐）
 │   ├── ads/                    广告系统
 │   │   ├── papers/             论文精读笔记（76 篇）
 │   │   ├── practices/          工业实践案例（2 篇）
@@ -37,26 +37,15 @@ ai-kb/
 │   │
 │   ├── rec-sys/                推荐系统
 │   │   ├── papers/             论文精读笔记（64 篇）
-│   │   ├── practices/          工业实践案例
 │   │   ├── synthesis/          总结框架（26 篇）
 │   │   └── INDEX.md
 │   │
 │   ├── search/                 搜索系统
 │   │   ├── papers/             论文精读笔记（63 篇）
-│   │   ├── practices/          工业实践案例
 │   │   ├── synthesis/          总结框架（12 篇）
 │   │   └── INDEX.md
 │   │
-│   ├── llm-infra/              LLM 基础设施
-│   │   ├── synthesis/          总结框架（14 篇）
-│   │   └── INDEX.md
-│   │
-│   └── cross-domain/           跨域综合
-│       ├── synthesis/          总结框架（11 篇）
-│       └── INDEX.md
-│
-├── 🎤 面试准备
-│   ├── interview/              题库 + 面试卡片（28 篇）
+│   ├── interview/              面试准备（题库 + 卡片 + 策略，28 篇）
 │   │   ├── cards/              分层卡片库（L1-L5）
 │   │   ├── synthesis/          面试策略总结
 │   │   └── qa-bank.md          3000+ 行面试题库
@@ -66,38 +55,47 @@ ai-kb/
 │       ├── project_1_*.md ~ project_5_*.md
 │       └── daily_projects_*.md
 │
-├── 📈 技术演进
-│   └── tech-evolution/         6 篇完整技术演进脉络
-│       ├── 01_recall_evolution.md
-│       ├── 02_ranking_evolution.md
-│       └── ...
-│
-├── 📚 开源项目
-│   └── repos/                  GitHub 项目笔记 + 仓库索引（147 篇）
-│       └── notes/              日期前缀项目笔记（55 篇）
-│
-├── 🤖 Agent 研究
+├── 🤖 llm-agent/               LLM + Agent 大域
+│   ├── llm-infra/              LLM 基础设施
+│   │   ├── synthesis/          总结框架（14 篇）
+│   │   └── INDEX.md
+│   │
 │   └── agent-context-management/  Agent 上下文管理研究（4 篇）
 │
-├── 🔧 运维
+├── 🔗 cross-domain/            跨域综合（不动）
+│   ├── synthesis/              总结框架（11 篇）
+│   └── INDEX.md
+│
+├── 📚 unified/                 统一知识框架（不动）
+│
+├── 📐 fundamentals/            基础知识（不动）
+│
+├── 📈 tech-evolution/          技术演进脉络（6 篇，暂不移动）
+│
+├── 📚 repos/                   GitHub 项目笔记（147 篇）
+│   └── notes/                  日期前缀项目笔记（55 篇）
+│
+├── 🔧 运维（不纳入版本控制）
 │   ├── scripts/                重构脚本 + 自动学习脚本
-│   ├── _data/                  运营数据
-│   │   ├── papers_queue.jsonl  每日学习队列
-│   │   ├── processed_log.jsonl 已处理记录
-│   │   └── learning_queue.json 学习源配置
+│   ├── _data/                  运营数据（papers_queue、processed_log 等）
 │   └── weekly/                 每日/周学习日报
 │
-├── 📋 配置 & 导航
-│   └── _config/
-│       ├── CLASSIFICATION_RULES.md      文档分类规则
-│       ├── KNOWLEDGE_BASE_STRUCTURE.md  整体结构说明
-│       ├── LLM_INTEGRATION_ROADMAP.md   LLM 集成全景导航
-│       ├── LEARNING_CONFIG.md           学习策略配置
-│       └── reading-list.md              待读清单
+├── 📋 _meta/                   内部元数据
+│   └── _config/                分类规则 + 结构说明 + 学习配置
 │
-└── 📦 归档
-    └── _archive/               历史报告、边缘内容
+└── README.md                   本文件
 ```
+
+## 🏗️ 两大域说明
+
+### 搜广推大域 `rec-search-ads/`
+搜索（search）、广告（ads）、推荐（rec-sys）三个核心业务方向，
+加上面试准备（interview）和项目案例（resume）。
+这三个方向在工业界高度耦合，共享召回→粗排→精排→重排的通用架构范式。
+
+### LLM + Agent 大域 `llm-agent/`
+LLM 基础设施（llm-infra）和 Agent 研究（agent-context-management）。
+专注 LLM 推理优化、微调、部署，以及 Agent 系统设计与上下文管理。
 
 ## 🏗️ 知识架构
 
@@ -122,17 +120,18 @@ Synthesis（提炼总结）
 ## 🔍 快速入门
 
 ### 按面试方向查找
-- **CTR 预估** → `ads/synthesis/广告CTR_CVR预估与校准.md`
-- **推荐排序** → `rec-sys/synthesis/推荐排序模型演进.md`
-- **语义检索** → `search/synthesis/混合检索技术演进.md`
-- **LLM 应用** → `LLM_INTEGRATION_ROADMAP.md` → 各领域 `LLM集成框架.md`
+- **CTR 预估** → `rec-search-ads/ads/synthesis/广告CTR_CVR预估与校准.md`
+- **推荐排序** → `rec-search-ads/rec-sys/synthesis/推荐排序模型演进.md`
+- **语义检索** → `rec-search-ads/search/synthesis/混合检索技术演进.md`
+- **LLM 推理** → `llm-agent/llm-infra/synthesis/LLM推理优化完整版.md`
+- **Agent 系统** → `llm-agent/agent-context-management/01-foundations.md`
 
 ### 按学习阶段使用
-1. **速览全貌** → 各领域 `INDEX.md` + `_config/KNOWLEDGE_BASE_STRUCTURE.md`
+1. **速览全貌** → 各领域 `INDEX.md` + `_meta/_config/KNOWLEDGE_BASE_STRUCTURE.md`
 2. **深入学习** → `synthesis/` 提炼总结（含公式推导）
 3. **论文细节** → `papers/` 原始笔记
-4. **面试冲刺** → `interview/qa-bank.md` + `interview/cards/`
-5. **项目准备** → `resume/30_projects_portfolio.md`
+4. **面试冲刺** → `rec-search-ads/interview/qa-bank.md` + `rec-search-ads/interview/cards/`
+5. **项目准备** → `rec-search-ads/resume/30_projects_portfolio.md`
 
 ## 📅 自动化
 
@@ -150,7 +149,7 @@ Synthesis（提炼总结）
 
 ## 📏 文档规范
 
-详见 [CLASSIFICATION_RULES.md](_config/CLASSIFICATION_RULES.md)
+详见 [CLASSIFICATION_RULES.md](_meta/_config/CLASSIFICATION_RULES.md)
 
 - **Papers 文件名**：论文名英文 snake_case（`DIN_deep_interest_network.md`）
 - **Synthesis 文件名**：中文标题（`广告CTR_CVR预估与校准.md`）
