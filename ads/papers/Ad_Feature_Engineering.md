@@ -40,7 +40,7 @@
 
 1. **统计特征平滑（CTR Smoothing）**
    $$\hat{CTR} = \frac{\text{click} + \alpha \cdot \mu}{\text{impression} + \alpha}$$
-   - $\alpha$ 为平滑参数，$\mu$ 为全局平均 CTR
+   - $$\alpha$$ 为平滑参数，$$\mu$$ 为全局平均 CTR
    - 低展示量广告 CTR 估计更保守，避免过拟合
 
 2. **特征交叉**

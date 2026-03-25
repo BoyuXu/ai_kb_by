@@ -1,161 +1,140 @@
-# Agent Memory & Context Management Papers — Index
+# Agent Memory Papers — Index & Reading Progress
 
-## 📚 核心论文库（Curated Collection）
+> 完整论文清单 & 阅读进度跟踪
 
-### Tier-1: Must-Read Foundation Papers
-
-#### 1. Memori: A Persistent Memory Layer for Efficient, Context-Aware LLM Agents
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-20
-- **Authors:** Luiz C. Borro, Luiz A. B. Macarini, Gordon Tindall, Michael Montero, Adam B. Struck
-- **Status:** 📌 To Read
-- **Why:** 核心持久化内存架构，直接解决 context window 问题
-- **Key Ideas:**
-  - Persistent Memory Layer（PML）
-  - Context-aware retrieval
-  - Efficiency optimization for long-horizon tasks
-
-#### 2. All-Mem: Agentic Lifelong Memory via Dynamic Topology Evolution
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-19
-- **Authors:** Can Lv, Heng Chang, Yuchen Guo, Shengyu Tao, Shiji Zhou
-- **Status:** 📌 To Read
-- **Why:** 解决终身 Agent 的内存问题，months/years 尺度
-- **Key Ideas:**
-  - Dynamic Topology（非静态设计）
-  - Continual Writing & Retrieval
-  - Token efficiency
-
-#### 3. D-Mem: A Dual-Process Memory System for LLM Agents
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-19
-- **Authors:** Zhixing You, Jiachen Yuan, Jason Cai
-- **Status:** 📌 To Read
-- **Why:** 认知科学启发的双流程内存架构
-- **Key Ideas:**
-  - Dual-process (System 1 & System 2 thinking in memory)
-  - High-fidelity persistent storage
-  - Self-adapting mechanism
-
-#### 4. Graph-Native Cognitive Memory for AI Agents
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-17
-- **Authors:** Young Bin Park
-- **Status:** 📌 To Read
-- **Why:** 形式化的知识表示与信念修正
-- **Key Ideas:**
-  - Graph-based representation
-  - Belief Revision Semantics
-  - Versioned Memory Architectures
-
-### Tier-2: Application & Optimization Papers
-
-#### 5. Chronos: Temporal-Aware Conversational Agents with Structured Event Retrieval
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-17
-- **Authors:** Sahil Sen, Elias Lumer, Anmol Gulati, Vamse Kumar Subbiah
-- **Status:** 📌 To Read
-- **Why:** 时间感知的记忆检索，对多轮对话很关键
-- **Key Ideas:**
-  - Temporal indexing
-  - Structured event representation
-  - Long-term conversational memory
-
-#### 6. AdaMem: Adaptive User-Centric Memory for Long-Horizon Dialogue Agents
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-17
-- **Authors:** Shannan Yan, Jingchen Ni, Leqi Zheng, Jiajun Zhang, Peixi Wu, Dacheng Yin, Jing Lyu, Chun Yuan, Fengyun Rao
-- **Status:** 📌 To Read
-- **Why:** 个性化内存的自适应更新机制
-- **Key Ideas:**
-  - User-centric design
-  - Adaptive summarization
-  - Long-horizon dialogue retention
-
-#### 7. CraniMem: Cranial Inspired Gated and Bounded Memory for Agentic Systems
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-03-03
-- **Authors:** Pearl Mody, Mihir Panchal, Rishit Kar, Kiran Bhowmick, Ruhina Karani
-- **Status:** 📌 To Read
-- **Why:** 生物启发的门控内存，解决内存爆炸问题
-- **Key Ideas:**
-  - Gating mechanism (biological inspiration)
-  - Bounded memory (容量限制)
-  - Selective retention
-
-#### 8. NextMem: Towards Latent Factual Memory for LLM-based Agents
-- **ArXiv:** https://arxiv.org/abs/[待补]
-- **Date:** 2026-02-26
-- **Authors:** Zeyu Zhang, Rui Li, Xiaoyan Zhao, Yang Zhang, Wenjie Wang, Xu Chen, Tat-Seng Chua
-- **Status:** 📌 To Read
-- **Why:** 事实一致性与潜在知识表示
-- **Key Ideas:**
-  - Latent factual representation
-  - Consistency maintenance
-  - Knowledge retention over long interactions
-
-### Tier-3: Emerging & Specialized Topics
-
-#### 9. MemMA: Coordinating the Memory Cycle
-- **Date:** 2026-03-19
-- **Key Contribution:** Memory cycle coordination in multi-agent settings
-- **Status:** 📌 To Read
-
-#### 10. D-MEM: Dopamine-Gated Agentic Memory
-- **Date:** 2026-03-15
-- **Key Contribution:** RL-driven selective memory via RPE routing
-- **Status:** 📌 To Read
-
-#### 11. Structured Distillation for Personalized Agent Memory
-- **Date:** 2026-03-13
-- **Key Contribution:** 11x token reduction with retrieval preservation
-- **Status:** 📌 To Read
-
-#### 12. MemArchitect: A Policy Driven Memory Governance Layer
-- **Date:** 2026-03-18
-- **Key Contribution:** Governance framework for persistent LLM memory
-- **Status:** 📌 To Read
+**更新时间：** 2026-03-25  
+**收集来源：** arXiv (2026-03-19 ~ 2026-03-25)  
+**总数：** 16+ 篇
 
 ---
 
-## 🎯 Reading Schedule (Proposed)
+## 📊 论文分类
 
-### Week 1 (Mar 24-30)
-- Mon-Tue: Memori + D-Mem (2 papers)
-- Wed: All-Mem + CraniMem (2 papers)
-- Thu-Fri: Chronos + AdaMem (2 papers)
-- Weekend: Summary + notes
+### **Tier-1：基础理论 (Must Read)**
 
-### Week 2 (Mar 31 - Apr 6)
-- Mon-Tue: Graph-Native Cognitive Memory + NextMem (2 papers)
-- Wed-Thu: MemMA + D-MEM + MemArchitect (3 papers)
-- Fri: Structured Distillation + others
-- Weekend: Cross-paper analysis
+| # | 论文标题 | 作者 | 发布日期 | 核心创新 | 状态 | 优先级 |
+|---|---------|------|---------|---------|------|--------|
+| 1 | **Memori: A Persistent Memory Layer for Efficient, Context-Aware LLM Agents** | Luiz C. Borro, et al. | 2026-03-20 | 持久化内存层 + Context-aware 推理 | 📋 待读 | ⭐⭐⭐⭐⭐ |
+| 2 | **All-Mem: Agentic Lifelong Memory via Dynamic Topology Evolution** | Can Lv, et al. | 2026-03-19 | 动态拓扑进化 + 连续学习 | 📋 待读 | ⭐⭐⭐⭐⭐ |
+| 3 | **GSEM: Graph-based Self-Evolving Memory for Experience Augmented Clinical Reasoning** | Xiao Han, et al. | 2026-03-23 | 图结构化自演进内存 | 📋 待读 | ⭐⭐⭐⭐ |
+| 4 | **Conversation Tree Architecture: A Structured Framework for Context-Aware Multi-Branch LLM Conversations** | Pranav Hemanth, Sampriti Saha | 2026-03-22 | 树形结构化对话 + 动态剪枝 | 📋 待读 | ⭐⭐⭐⭐ |
 
-### Week 3-4
-- Deep dive into selected papers
-- Implement toy examples
-- Prepare interview materials
+### **Tier-2：应用与个性化 (Important)**
+
+| # | 论文标题 | 作者 | 发布日期 | 核心创新 | 状态 | 优先级 |
+|---|---------|------|---------|---------|------|--------|
+| 5 | **Memento-Skills: Let Agents Design Agents** | Huichi Zhou, et al. (12+ authors) | 2026-03-19 | Agent 自主设计 + 持续学习 | 📋 待读 | ⭐⭐⭐⭐ |
+| 6 | **User Preference Modeling for Conversational LLM Agents: Weak Rewards from Retrieval-Augmented Interaction** | Yuren Hao, et al. | 2026-03-21 | 长期/短期偏好向量 + 弱奖励学习 | 📋 待读 | ⭐⭐⭐⭐ |
+| 7 | **Multi-Agent Debate with Memory Masking** | Hongduan Tian, et al. | 2026-03-03 | 多 Agent 推理 + 内存掩码 | 📋 待读 | ⭐⭐⭐⭐ |
+
+### **Tier-3：安全与隐私 (Important for Security)**
+
+| # | 论文标题 | 作者 | 发布日期 | 核心创新 | 状态 | 优先级 |
+|---|---------|------|---------|---------|------|--------|
+| 8 | **A Framework for Formalizing LLM Agent Security** | Vincent Siu, et al. | 2026-03-19 | Agent 安全正式化框架 | 📋 待读 | ⭐⭐⭐⭐ |
+| 9 | **Memory poisoning and secure multi-agent systems** | Vicenç Torra, Maria Bras-Amorós | 2026-03-20 | 内存投毒攻击防御 | 📋 待读 | ⭐⭐⭐ |
+| 10 | **CIPL: A Target-Independent Framework for Channel-Inversion Privacy Leakage in Agents** | （待完整信息） | 2026-03-23 | 通道反演隐私防护 | 📋 待读 | ⭐⭐⭐ |
+
+### **Tier-4：系统架构与优化 (Reference)**
+
+| # | 论文标题 | 作者 | 发布日期 | 核心创新 | 状态 | 优先级 |
+|---|---------|------|---------|---------|------|--------|
+| 11 | **From Static Templates to Dynamic Runtime Graphs: A Survey of Workflow Optimization for LLM Agents** | Ling Yue, et al. | 2026-03-23 | 动态执行图 + 实时优化 | 📋 待读 | ⭐⭐⭐ |
+| 12 | **The Workload-Router-Pool Architecture for LLM Inference Optimization: A Vision Paper from the vLLM Semantic Router Project** | Huamin Chen, et al. | 2026-03-22 | 推理优化 + 语义路由 | 📋 待读 | ⭐⭐⭐ |
+
+### **Tier-5：跨域应用 (Domain-Specific)**
+
+| # | 论文标题 | 作者 | 发布日期 | 领域 | 状态 | 优先级 |
+|---|---------|------|---------|------|------|--------|
+| 13 | **Aerial Agentic AI: Synergizing LLM and SLM for Low-Altitude Wireless Networks** | Li Dong, et al. | 2026-03-24 | 边缘 Agent | 📋 待读 | ⭐⭐ |
+| 14 | **TrustTrade: Human-Inspired Selective Consensus Reduces Decision Uncertainty in LLM Trading Agents** | Minghan Li, et al. | 2026-03-23 | 金融 Agent | 📋 待读 | ⭐⭐ |
+| 15 | **Synthetic or Authentic? Building Mental Patient Simulators from Longitudinal Evidence** | Baihan Li, et al. | 2026-03-23 | 医疗 Agent | 📋 待读 | ⭐⭐ |
+| 16 | **PowerLens: Taming LLM Agents for Safe and Personalized Mobile Power Management** | Xingyu Feng, et al. | 2026-03-19 | 设备 Agent | 📋 待读 | ⭐ |
 
 ---
 
-## 📊 Tracking
+## 📖 阅读进度
 
-### Paper Categories
-- **Memory Architecture:** Memori, D-Mem, All-Mem, CraniMem, MemArchitect
-- **Retrieval & Indexing:** Chronos, Graph-Native
-- **Personalization:** AdaMem, NextMem
-- **Multi-Agent:** MemMA
-- **Optimization:** Structured Distillation, D-MEM (RL-driven)
+### **Week 1 计划（2026-03-25 ~ 2026-03-31）**
 
-### Interview Prep
-- [ ] Summarize 5-min pitch for each Tier-1 paper
-- [ ] Identify trade-offs (accuracy vs efficiency)
-- [ ] Compare with recommendation systems memory (CTR modeling)
-- [ ] Design question: "如何为搜索系统设计 Agent Memory?"
+```
+Mon (03-25): ✅ 论文收集 & 分类完成
+Tue (03-26): ⏳ Memori + All-Mem 深入阅读
+Wed (03-27): ⏳ GSEM + Conversation Tree 深入阅读
+Thu (03-28): ⏳ User Preference + Memento-Skills
+Fri (03-29): ⏳ 安全论文 3 篇
+Sat (03-30): ⏳ 综合笔记 + 知识图谱
+Sun (03-31): ⏳ 面试题库生成
+```
+
+### **阅读检查表**
+
+#### Tier-1（基础）
+- [ ] Memori（计划 3/26）
+- [ ] All-Mem（计划 3/26）
+- [ ] GSEM（计划 3/27）
+- [ ] Conversation Tree（计划 3/27）
+
+#### Tier-2（应用）
+- [ ] Memento-Skills（计划 3/28）
+- [ ] User Preference Modeling（计划 3/28）
+- [ ] Multi-Agent Debate（计划 3/29）
+
+#### Tier-3（安全）
+- [ ] LLM Agent Security（计划 3/29）
+- [ ] Memory Poisoning（计划 3/29）
+- [ ] CIPL（计划 3/29）
+
+#### Tier-4（系统）
+- [ ] Workflow Optimization（后续）
+- [ ] vLLM Semantic Router（后续）
 
 ---
 
-**Last Updated:** 2026-03-24  
-**Total Papers:** 12+ (expanding)  
-**Status:** 🔄 Active Collection
+## 🔗 **论文链接（待补充）**
+
+### 快速导航
+1. **Memori** — https://arxiv.org/abs/2403.xxxxx（待获取）
+2. **All-Mem** — https://arxiv.org/abs/2403.xxxxx（待获取）
+3. **GSEM** — https://arxiv.org/abs/2403.xxxxx（待获取）
+4. **Conversation Tree** — https://arxiv.org/abs/2403.xxxxx（待获取）
+5. **Memento-Skills** — https://arxiv.org/abs/2403.xxxxx（待获取）
+
+---
+
+## 📝 **论文总结位置**
+
+阅读完成后，将 2-page 总结保存至：
+```
+papers/summaries/
+├── memori.md
+├── all-mem.md
+├── gsem.md
+├── conversation-tree.md
+├── memento-skills.md
+├── user-preference-modeling.md
+├── security-framework.md
+└── ...
+```
+
+---
+
+## 🎯 **交叉学习目标**
+
+### 与推荐系统的对标
+- [ ] 内存架构 vs CTR 预估模型
+- [ ] 动态拓扑 vs 推荐系统中的兴趣图演变
+- [ ] User Preference Vectors vs 用户向量表示
+- [ ] 检索优化 vs 召回算法
+
+### 面试准备
+- [ ] 10+ 高频面试问题
+- [ ] 代码实现示例（Python）
+- [ ] 对比分析表（Agent 内存 vs 推荐系统）
+- [ ] 项目应用案例
+
+---
+
+**Maintained by:** MelonEggLearn  
+**Last Updated:** 2026-03-25 01:05 UTC+8  
+**Next Update:** 2026-03-26（阅读进度更新）

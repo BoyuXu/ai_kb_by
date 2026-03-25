@@ -340,3 +340,44 @@
 {"date": "20260324", "domain": "repo", "title": "AlgoNotes: Curated Collection of Algorithm Notes for Search/Rec/Ads", "url": "https://github.com/AlgoNotes/AlgoNotes", "priority": "高", "status": "pending"}
 {"date": "20260324", "domain": "repo", "title": "Deep-Learning-Papers-for-Search-Recommendation-Advertisements", "url": "https://github.com/guyulongcs/Deep-Learning-for-Search-Recommendation-Advertisements", "priority": "中", "status": "pending"}
 {"date": "20260324", "domain": "repo", "title": "easyrec: Open-source Recommendation System Framework", "url": "https://github.com/alibaba/easyrec", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "OneSug: The Unified End-to-End Generative Framework for E-commerce Query Suggestion", "url": "https://arxiv.org/abs/2506.06913", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "Align³GR: Unified Multi-Level Alignment for LLM-based Generative Recommendation", "url": "https://arxiv.org/abs/2511.11255", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "MTMH: Multi-Task Multi-Head Approach for Item-to-Item Retrieval", "url": "https://arxiv.org/abs/2506.06239", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "GRank: Target-Aware and Streamlined Industrial Retrieval", "url": "https://arxiv.org/abs/2510.15299", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "RankMixer: Scaling Up Ranking Models in Industrial Recommenders", "url": "https://arxiv.org/abs/2507.15551", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "PinRec: Outcome-Conditioned Multi-Token Generative Retrieval", "url": "https://arxiv.org/abs/2504.10507", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "PreferRec: Learning and Transferring Pareto Preferences for Multi-objective Re-ranking", "url": "https://arxiv.org/abs/2603.22073", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "Congrats: Consistent Graph-structured Generative Recommendation", "url": "https://arxiv.org/abs/2510.10127", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "HoME: Hierarchy of Multi-Gate Experts for Multi-Task Learning at Kuaishou", "url": "https://arxiv.org/abs/2408.05430", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "rec-sys", "title": "MTORL: Multi-task Offline Reinforcement Learning for Advertising Optimization", "url": "https://arxiv.org/abs/2506.23090", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "GPR: A Generative Pre-training Approach for Ads Ranking", "url": "https://arxiv.org/abs/2506.07634", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "OneTrans: Scaling Up One-Stage Transformers for CTR Prediction", "url": "https://arxiv.org/abs/2505.02866", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "IDProxy: Online Embedding via Identity-Aware Decomposition", "url": "https://arxiv.org/abs/2602.00589", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "Enhancing Generative Auto-bidding with Prompt-Based Constraints", "url": "https://arxiv.org/abs/2503.08602", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "RTBAgent: LLM Agent for Real-Time Bidding", "url": "https://arxiv.org/abs/2506.08.02002", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "HiGR: Efficient Generative Slate Recommendation via Hierarchical Planning", "url": "https://arxiv.org/abs/2512.24787", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "Multi-Object Advertisement Creative Generation", "url": "https://arxiv.org/abs/2603.13745", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "BannerAgency: Advertising Banner Design with Multimodal LLM Agents", "url": "https://arxiv.org/abs/2503.11060", "priority": "低", "status": "pending"}
+{"date": "20260325", "domain": "ads", "title": "Adaptable Budget Planner for Budget-Constrained Auto-bidding", "url": "https://arxiv.org/abs/2502.05187", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "Modern Dense Retrieval with ColBERT and GTE Embeddings", "url": "https://huggingface.co/lightonai/GTE-ModernColBERT-v1", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "Semantic Search At LinkedIn: LLM-based Semantic Search Framework", "url": "https://arxiv.org/abs/2602.07309", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "PyLate: Flexible Training and Retrieval for Late Interaction Models", "url": "https://arxiv.org/abs/2508.03555", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "BRIGHT: A Realistic and Challenging Benchmark for Reasoning-Intensive Retrieval", "url": "https://openreview.net/forum?id=us-kxq531b", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "Rank-R1: Enhancing Reasoning in LLM-based Document Rerankers", "url": "https://arxiv.org/abs/2503.06034", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "search", "title": "JacoColBERT v2.5: Optimising Multi-Vector Retrievers", "url": "https://arxiv.org/abs/2410.16550", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG", "url": "https://arxiv.org/abs/2501.09136", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL", "url": "https://arxiv.org/abs/2501.12948", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "Qwen3 Technical Report", "url": "https://arxiv.org/abs/2505.09388", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "Collab-RAG: White-Box and Black-Box LLM Collaboration for RAG", "url": "https://arxiv.org/abs/2504.04915", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "LIMO: Less is More for Reasoning", "url": "https://arxiv.org/abs/2502.03387", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "LCD: Extreme Low-Bit Clustering for LLMs via Knowledge Distillation", "url": "https://arxiv.org/abs/2506.12038", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "Double: Double Retrieval Speculative Parallelism", "url": "https://arxiv.org/abs/2601.05524", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "FastMTP: Enhanced Multi-Token Prediction for Inference Acceleration", "url": "https://arxiv.org/abs/2509.18362", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "A Framework for Formalizing LLM Agent Security", "url": "https://arxiv.org/abs/2603.19469", "priority": "高", "status": "pending"}
+{"date": "20260325", "domain": "llm-infra", "title": "Google Agent Development Kit (ADK)", "url": "https://github.com/google/adk-docs", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "Awesome-LLM-for-RecSys - LLM推荐系统综述", "url": "https://github.com/CHIANGEL/Awesome-LLM-for-RecSys", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "FunRec - 推荐系统入门到实战", "url": "https://github.com/datawhalechina/fun-rec", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "Agentic Adaptive RAG - LangGraph智能RAG框架", "url": "https://github.com/shaadclt/Agentic-Adaptive-RAG", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "Microsoft Recommenders - 推荐系统最佳实践", "url": "https://github.com/recommenders-team/recommenders", "priority": "中", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "LLM4Rec Survey", "url": "https://github.com/Ruyu-Li/LLM4Rec", "priority": "低", "status": "pending"}
+{"date": "20260325", "domain": "repo", "title": "Agentic RAG for Dummies", "url": "https://github.com/GiovanniPasq/agentic-rag-for-dummies", "priority": "低", "status": "pending"}
