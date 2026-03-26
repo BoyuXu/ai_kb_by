@@ -104,3 +104,18 @@
 - [推荐系统冷启动（Cold Start）](./papers/recommendation_cold_start.md)
 - [推荐系统 - 排序模型知识库](./papers/排序模型.md)
 - [生成式推荐（Generative Recommendation）知识库](./papers/生成式推荐.md)
+
+## 20260326 新增论文
+
+| 文件 | 标题 | 领域 |
+|------|------|------|
+| hstu_trillion_parameter_sequential_transducers_for_generative_recommendations.md | HSTU: Trillion-Parameter Sequential Transducers | rec-sys |
+| gpr_generative_pre_trained_one_model_paradigm_for_large_scale_advertising_recommendation.md | GPR: Generative Pre-trained One-Model Paradigm | rec-sys |
+| oneranker_unified_generation_and_ranking_with_one_model_in_industrial_advertising_recommendation.md | OneRanker: Unified Generation and Ranking | rec-sys |
+| onetrans_unified_feature_interaction_and_sequence_modeling_with_one_transformer.md | OneTrans: Feature Interaction + Sequence Modeling | rec-sys |
+| recgpt_technical_report_on_next_generation_recommendation_system_with_llm.md | RecGPT: Next-Generation Recommendation with LLM | rec-sys |
+| e2e_semantic_id_generation_for_generative_recommendation_systems.md | E2E Semantic ID Generation | rec-sys |
+| onesug_unified_end_to_end_generative_framework_for_e_commerce_query_suggestion.md | OneSug: E-commerce Query Suggestion | rec-sys |
+| align3gr_unified_multi_level_alignment_for_llm_based_generative_recommendation.md | Align³GR: Multi-Level Alignment | rec-sys |
+| mtmh_multi_task_multi_head_approach_for_item_to_item_retrieval.md | MTMH: Multi-Task Multi-Head I2I Retrieval | rec-sys |
+| multi_task_learning_with_task_aware_routing_for_recommendation.md | Multi-Task Learning with Task-Aware Routing | rec-sys |

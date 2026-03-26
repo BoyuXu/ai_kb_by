@@ -90,3 +90,15 @@
 - [搜索系统 LLM 应用项目创意库](./papers/llm_project_ideas.md)
 - [多模态搜索：图文音视频的统一检索](./papers/multimodal_search.md)
 - [搜索算法知识库](./papers/搜索算法知识库.md)
+
+## 20260326 新增论文
+
+| 文件 | 标题 | 领域 |
+|------|------|------|
+| dense_passage_retrieval_with_contrastive_learning_in_large_scale_search.md | DPR with Contrastive Learning | search |
+| query_understanding_with_multi_modal_llms_for_e_commerce_search.md | MM-QU: Multi-Modal Query Understanding | search |
+| learning_to_rank_with_listwise_loss_in_industrial_search_systems.md | LTR with Listwise Loss | search |
+| semantic_search_at_linkedin_llm_based_semantic_search_framework.md | LinkedIn Semantic Search | search |
+| pylate_flexible_training_and_retrieval_for_late_interaction_models.md | PyLate: Late Interaction Models | search |
+| rank_r1_enhancing_reasoning_in_llm_based_document_rerankers.md | Rank-R1: Reasoning LLM Reranker | search |
+| bright_a_realistic_and_challenging_benchmark_for_reasoning_intensive_retrieval.md | BRIGHT: Reasoning-Intensive Retrieval Benchmark | search |

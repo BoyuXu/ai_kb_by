@@ -292,11 +292,11 @@ $$a(e_i, e_{ad}) = \text{MLP}([e_i, e_{ad}, e_i - e_{ad}, e_i \odot e_{ad}])$$
 
 Softmax 有几个关键性质：(1) 输出值在 (0,1) 之间，可解释为概率；(2) 指数函数对大值有放大效果，更容易学习到"稀疏注意力"；(3) 梯度计算方便（Jacobian 有闭合解）。理论上也可以用 sparsemax（产生真正的稀疏分布）或 sigmoid（独立归一化），但 softmax 实践效果最好。
 
-### Q2：KV Cache 怎么工作？
+### Q2：KV Cache 怎么工作？（详见 kv_cache_inference.md）
 
 自回归生成中，每生成一个 token，需要将所有历史 token 的 K/V 重新计算一遍，开销是 $O(nL)$（n 层，L 为当前长度）。KV Cache 将每层的 K/V 矩阵缓存起来，新 token 只需计算自己的 K/V，然后 append 到缓存，整体计算降为 $O(n)$ per token。代价是内存随序列长度线性增长。
 
-### Q3：MHA vs MQA vs GQA 怎么选？
+### Q3：MHA vs MQA vs GQA 怎么选？（另见 kv_cache_inference.md Q2）
 
 MHA 效果最好，但 KV Cache 大、推理慢；MQA KV Cache 最小（仅 1/h），但效果损失明显；GQA 是折中，4-8 个 KV 组可在接近 MHA 效果的同时减少 75%+ KV Cache。LLaMA-3、Mistral 均使用 GQA，是当前工业部署的主流选择。
 

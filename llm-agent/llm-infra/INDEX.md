@@ -25,3 +25,16 @@
 - [MoE 架构设计：从稀疏激活到分布式推理](./synthesis/MoE架构设计.md)
 - [RAG 系统全景：检索增强生成的工程实践](./synthesis/RAG系统全景.md)
 - [RLVR vs RLHF：LLM 后训练的两条路](./synthesis/RLVR_vs_RLHF后训练路线.md)
+
+## 20260326 新增论文
+
+| 文件 | 标题 | 领域 |
+|------|------|------|
+| agentic_retrieval_augmented_generation_a_survey_on_agentic_rag.md | Agentic RAG Survey | llm-infra |
+| deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl.md | DeepSeek-R1 | llm-infra |
+| qwen3_technical_report.md | Qwen3 Technical Report | llm-infra |
+| collab_rag_white_box_and_black_box_llm_collaboration_for_rag.md | Collab-RAG | llm-infra |
+| limo_less_is_more_for_reasoning.md | LIMO: Less is More for Reasoning | llm-infra |
+| rag_with_adaptive_retrieval_and_multi_hop_reasoning_for_complex_qa.md | Adaptive Multi-Hop RAG | llm-infra |
+| lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems.md | LoRA for Domain LLM | llm-infra |
+| speculative_decoding_for_10x_faster_llm_inference_in_production.md | Speculative Decoding 10x | llm-infra |

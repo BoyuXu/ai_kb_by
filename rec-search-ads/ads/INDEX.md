@@ -115,3 +115,18 @@
 
 - [计算广告系统深度笔记](./practices/01_ads_system.md)
 - [广告系统进阶技术笔记](./practices/02_ads_advanced.md)
+
+## 20260326 新增论文
+
+| 文件 | 标题 | 领域 |
+|------|------|------|
+| ctcvr_optimization_with_heterogeneous_hierarchical_decoder_in_weixin_channels.md | CTCVR HHD - Weixin Channels | ads |
+| value_aware_fine_tuning_for_advertising_ctr_prediction.md | Value-Aware Fine-Tuning (VAFT) | ads |
+| hierarchy_enhanced_policy_optimization_for_ad_ranking.md | HEPO: Hierarchy Enhanced Policy Optimization | ads |
+| real_time_bidding_strategy_with_deep_reinforcement_learning.md | RTB with Deep RL | ads |
+| creative_generation_with_large_language_models_for_ad_recommendation.md | LLM Creative Generation for Ads | ads |
+| gpr_generative_pre_training_approach_for_ads_ranking.md | GPR: Generative Pre-training for Ads | ads |
+| onetrans_scaling_up_one_stage_transformers_for_ctr_prediction.md | OneTrans for CTR Prediction | ads |
+| idproxy_online_embedding_via_identity_aware_decomposition.md | IDProxy: Identity-Aware Decomposition | ads |
+| enhancing_generative_auto_bidding_with_prompt_based_constraints.md | Generative Auto-bidding with Prompt Constraints | ads |
+| rtbagent_llm_agent_for_real_time_bidding.md | RTBAgent: LLM Agent for RTB | ads |

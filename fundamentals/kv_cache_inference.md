@@ -304,7 +304,7 @@ System Prompt（所有请求共享，1000 tokens）:
 
 公式：Memory = 2（K/V）× 层数 × KV头数 × 头维度 × 序列长度 × 数据类型字节数。以 LLaMA-3-70B（80层，8 KV头，128维头，BF16）为例，每 token 约 2×80×8×128×2 = 327680 bytes ≈ 320KB。batch=100，最长 4096 tokens：320KB × 100 × 4096 ≈ 131GB，已超出单卡容量，需要 Paged Memory 或序列长度限制。
 
-### Q2：为什么 MQA/GQA 能减少 KV Cache？
+### Q2：为什么 MQA/GQA 能减少 KV Cache？（另见 attention_transformer.md Q3）
 
 MQA 所有 Q 头共享一组 K/V，KV Cache 大小从 n_heads 变为 1（减少 n_heads 倍）。GQA 按组共享，KV Cache 大小为 n_kv_heads（减少 n_heads/n_kv_heads 倍）。LLaMA-3-70B 使用 GQA 8 组，KV Cache 是 MHA 的 1/8，大幅提升可服务的并发数。推理速度也提升，因为 KV 矩阵更小，内存带宽消耗更少（LLM 推理通常是内存带宽瓶颈而非算力瓶颈）。
 
