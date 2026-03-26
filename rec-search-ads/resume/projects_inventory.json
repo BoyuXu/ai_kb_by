@@ -1,18 +1,18 @@
 {
   "metadata": {
     "created_at": "2026-03-24T13:55:00+08:00",
-    "total_projects": 20,
-    "last_update": "2026-03-25T16:00:00+09:00",
+    "total_projects": 30,
+    "last_update": "2026-03-26T16:00:00+09:00",
     "daily_generation_enabled": true,
     "daily_generation_time": "16:00 (Asia/Tokyo)",
     "target_per_day": 10
   },
   "statistics": {
-    "ads_systems": 7,
-    "recommendation_systems": 8,
-    "search_systems": 5,
+    "ads_systems": 10,
+    "recommendation_systems": 13,
+    "search_systems": 7,
     "nlp_llm": 0,
-    "innovation": 20
+    "innovation": 30
   },
   "daily_logs": [
     {
@@ -57,6 +57,28 @@
         "+16.8% 7日留存 (项目8)",
         "公平性差距18%→3.8% (项目9)",
         "+9.1% 搜索广告eCPM (项目10)"
+      ]
+    },
+    {
+      "date": "2026-03-26",
+      "projects_generated": 10,
+      "file": "daily_projects_20260326.md",
+      "categories": {
+        "ads": ["项目6: 多模态广告创意质量评估", "项目7: GSP→VCG混合拍卖优化", "项目10: CTR模型自适应在线学习"],
+        "recommendation": ["项目2: 因果去偏推荐(IPS/位置偏差)", "项目3: 知识图谱路径推理召回", "项目4: 联邦学习跨设备推荐", "项目5: 硬负样本挖掘双塔召回", "项目8: 用户长短期兴趣解耦"],
+        "search": ["项目1: Flink实时流式特征CTR", "项目9: LLM查询改写搜索召回"]
+      },
+      "highlights": [
+        "大促CTR偏差31%→8.3%, GMV+11.4% (项目1)",
+        "长尾内容召回+126%, NPS+8.4pts (项目2)",
+        "低活跃用户Recall@50+90% (项目3)",
+        "联邦精度与中心化差距23pts→2.8pts (项目4)",
+        "双塔Recall@200从51%→68.4% (项目5)",
+        "人工审核量减少79%, 广告库CTR+8.9% (项目6)",
+        "平台收益+14.7%, 中小广告主留存+18.3% (项目7)",
+        "热点响应时间4h→45min, 7日留存+9.6% (项目8)",
+        "Recall@20从34.1%→57.8% (+69.5%) (项目9)",
+        "峰值CTR偏差26%→8.3%, 全天AUC+0.018 (项目10)"
       ]
     }
   ],
@@ -239,6 +261,96 @@
       "business_impact": "+9.1% 搜索广告eCPM",
       "date": "2026-03-25",
       "key_algorithms": ["CADET", "Decoder Transformer", "Position-aware Context", "Cross-Attention"],
+      "difficulty": 5
+    },
+    {
+      "id": 21,
+      "title": "实时流式用户行为特征建模（Flink + CTR）",
+      "category": "search_systems",
+      "business_impact": "大促CTR偏差31%→8.3%, GMV+11.4%",
+      "date": "2026-03-26",
+      "key_algorithms": ["Flink", "Streaming Features", "Real-time Session Embedding", "GRU", "Lazy-update"],
+      "difficulty": 4
+    },
+    {
+      "id": 22,
+      "title": "因果去偏推荐系统（Exposure Bias & Position Bias）",
+      "category": "recommendation_systems",
+      "business_impact": "长尾召回率+126%, NPS+8.4pts",
+      "date": "2026-03-26",
+      "key_algorithms": ["IPS", "Doubly Robust", "Position Bias", "Causal Inference", "Counterfactual"],
+      "difficulty": 5
+    },
+    {
+      "id": 23,
+      "title": "知识图谱路径推理增强召回系统",
+      "category": "recommendation_systems",
+      "business_impact": "低活跃用户Recall@50+90%, GMV+7.8%",
+      "date": "2026-03-26",
+      "key_algorithms": ["KGNN", "Path Reasoning", "Relation-aware Gating", "BPR", "KG Embedding"],
+      "difficulty": 4
+    },
+    {
+      "id": 24,
+      "title": "联邦学习跨设备个性化推荐（隐私保护）",
+      "category": "recommendation_systems",
+      "business_impact": "精度差距23pts→2.8pts, 零数据上传",
+      "date": "2026-03-26",
+      "key_algorithms": ["Federated Learning", "FedAvg", "FedProx", "DP-SGD", "Gradient Compression"],
+      "difficulty": 5
+    },
+    {
+      "id": 25,
+      "title": "硬负样本挖掘提升双塔召回质量",
+      "category": "recommendation_systems",
+      "business_impact": "双塔Recall@200从51%→68.4%, CTR+5.8%",
+      "date": "2026-03-26",
+      "key_algorithms": ["Hard Negative Mining", "IHN", "In-batch Negatives", "Popularity Sampling", "False Negative Rejection"],
+      "difficulty": 4
+    },
+    {
+      "id": 26,
+      "title": "多模态广告创意质量自动评估系统",
+      "category": "ads_systems",
+      "business_impact": "人工审核量减79%, 广告库CTR+8.9%, CPM+12.3%",
+      "date": "2026-03-26",
+      "key_algorithms": ["CLIP", "ViT", "CreativeScore", "Image-Text Consistency", "Aesthetic Scoring"],
+      "difficulty": 4
+    },
+    {
+      "id": 27,
+      "title": "搜索广告拍卖机制优化（GSP → VCG混合）",
+      "category": "ads_systems",
+      "business_impact": "平台收益+14.7%, 中小广告主留存+18.3%",
+      "date": "2026-03-26",
+      "key_algorithms": ["VCG Auction", "GSP", "Incentive Compatibility", "Quality Score", "Bayesian Update"],
+      "difficulty": 5
+    },
+    {
+      "id": 28,
+      "title": "用户长短期兴趣解耦推荐框架（LSIM）",
+      "category": "recommendation_systems",
+      "business_impact": "热点响应4h→45min, 7日留存+9.6%",
+      "date": "2026-03-26",
+      "key_algorithms": ["Long-Short Interest Model", "Attention Gate", "GRU", "Time-aware Weighting", "Dual Tower"],
+      "difficulty": 5
+    },
+    {
+      "id": 29,
+      "title": "LLM查询改写提升搜索召回多样性",
+      "category": "search_systems",
+      "business_impact": "Recall@20从34.1%→57.8%, MRR@10+43.9%",
+      "date": "2026-03-26",
+      "key_algorithms": ["Query Rewriting", "LLM", "RRF", "Intent Classification", "BM25+Vector Hybrid"],
+      "difficulty": 4
+    },
+    {
+      "id": 30,
+      "title": "CTR模型自适应在线学习（样本时效性优化）",
+      "category": "ads_systems",
+      "business_impact": "峰值CTR偏差26%→8.3%, 全天AUC+0.018",
+      "date": "2026-03-26",
+      "key_algorithms": ["Online Learning", "Sample Temporal Weighting", "Layer-wise Update", "Gradient Clipping", "Auto-rollback"],
       "difficulty": 5
     }
   ]

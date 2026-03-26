@@ -74,8 +74,67 @@ $$P(q|d) = \prod_{t \in q} P(t|d)$$
 
 ### Q10: E5 和 BGE 嵌入模型的区别？
 **30秒答案**：E5（微软）：通用文本嵌入，支持 instruct 前缀。BGE-M3（BAAI）：多语言+多粒度+多功能（dense+sparse+ColBERT 三合一）。BGE-M3 更全面但模型更大。
+---
+
+## 🆕 2026-03-26 更新：Rank-R1 — 推理增强重排序
+
+### 新参考文献
+> - [Rank-R1](../papers/rank_r1_enhancing_reasoning_in_llm_based_document_rerankers.md) — Enhancing Reasoning in LLM-based Document Rerankers via RL
+
+### 核心创新：CoT + RL 的推理重排序
+
+**问题**：标准 LLM Reranker 直接输出相关性分数，对复杂查询（多跳推理/领域知识密集）缺乏中间推理过程，排序精度低。
+
+**Rank-R1 方法**：
+```python
+# 标准 LLM Reranker（无推理）
+score = LLM(f"Query: {q}\nDoc: {d}\nScore:")
+
+# Rank-R1（带 CoT 推理链）
+output = LLM(f"""
+Query: {q}, Doc: {d}
+
+<think>
+1. 这个 query 需要什么信息？
+2. 这篇文档提供了什么内容？
+3. query 需求和文档内容的匹配度如何？
+</think>
+相关性分数：
+""")
+# RL 优化：用 NDCG 改善量作为奖励信号，训练模型输出更准确的推理链
+```
+
+**为什么 RL 而非 SFT？**
+- SFT 需要人工标注推理链（成本极高）
+- RL 只需相关性标签（0/1/多级），自动从奖励学习推理策略
+- 奖励：NDCG 提升量（列表级），梯度传播到整个推理链
+
+**与 DeepSeek-R1 的技术迁移关系**：
+```
+DeepSeek-R1（推理 LLM）→ Rank-R1（推理 Reranker）
+共同点：
+  - 相同技术：CoT 格式 + RL 优化（GRPO/PPO）
+  - 相同原理：推理链让注意力聚焦于相关信息
+差异：
+  - R1：奖励 = 数学答案正确性（0/1）
+  - Rank-R1：奖励 = NDCG 改善量（连续值）
+```
+
+**BRIGHT 基准评测结果**（推理密集型检索）：
+- 标准 LLM Reranker NDCG@10：~0.35
+- Rank-R1 NDCG@10：~0.43（+23%，复杂推理查询提升更显著）
+
+### 工程落地注意事项
+1. **延迟**：CoT 输出更长（2-5x tokens），Reranker 延迟从 100ms → 300-500ms
+2. **解决方案**：只对 Top-20 候选使用 Rank-R1，其余用轻量 Cross-Encoder
+3. **蒸馏**：用 Rank-R1 生成推理链标注 → 蒸馏到 7B 模型，延迟降回 100ms
+4. **适用场景**：复杂长尾查询（推理密集），不必对所有查询都用推理链
+
+---
+
 ## 🌐 知识体系连接
 
-- **上游依赖**：BERT/LLM、Knowledge Distillation
+- **上游依赖**：BERT/LLM、Knowledge Distillation、DeepSeek-R1/GRPO
 - **下游应用**：搜索引擎精排、RAG 系统、电商搜索
 - **相关 synthesis**：检索三角形深析.md, LearningToRank搜索排序三大范式.md
+- **跨域连接**：[强化学习跨域统一视角](../../../cross-domain/synthesis/强化学习跨域统一视角_LLM推理到广告出价.md)

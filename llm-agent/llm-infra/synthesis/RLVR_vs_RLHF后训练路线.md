@@ -10,7 +10,59 @@
 > - [Efficiently-Aligning-Draft-Models-Via-Parameter...](../../llm-infra/20260321_efficiently-aligning-draft-models-via-parameter-and-data-efficient-adaptation-for-speculative-decoding.md) — Efficiently Aligning Draft Models via Parameter- and Data...
 
 
-> 知识卡片 | 创建：2026-03-23 | 领域：llm-infra
+> 知识卡片 | 创建：2026-03-23 | 更新：2026-03-26 | 领域：llm-infra
+
+---
+
+## 🆕 2026-03-26 深度整合更新
+
+### DeepSeek-R1：RLVR 路线的里程碑验证
+**三阶段训练流程**（今日新增细节）：
+```
+Phase 1 - Cold Start（SFT，~1000 样本）
+  → 学会 <think>...</think> 格式，否则 RL 训练初期格式崩塌
+  
+Phase 2 - GRPO（纯 RL，无 Critic）
+  → 奖励 = 答案正确性（0/1）+ 格式完整性奖励
+  → 自发出现：自我反思、回溯、多步探索等"涌现"行为
+  → AIME 2024：9% → 80%（无任何推理过程标注！）
+  
+Phase 3 - Rejection Sampling + SFT（蒸馏）
+  → 用 R1 生成高质量 CoT 数据，蒸馏到 7B/14B 小模型
+  → R1-Distill-7B 超越 GPT-4o（数学）
+```
+
+**R1 的关键技术选择**：
+- 格式奖励（Format Reward）= `<think>` 必须正确闭合，防止格式退化
+- Token-level KL 惩罚：防止 policy 漂离 reference model 太远（避免语言退化）
+- 拒绝 Reward Hacking：监控异常长度的输出（极短或极长的推理链）
+
+### LIMO 的反直觉发现
+```
+传统假设：教会模型数学推理需要 10万+ CoT 样本
+LIMO 发现：817 个高质量样本 > 10万+ 低质量样本
+
+原因：Qwen2.5-32B 预训练时已见过大量数学内容
+     推理能力已内化，SFT 只需"格式激活"
+     
+工程含义：
+  - 数据质量 >> 数据数量（对强预训练模型）
+  - 高质量样本标准：难度适中 + 步骤完整 + 多样化主题
+  - 可以用 R1/GPT-4 生成合成高质量 CoT 数据替代人工标注
+```
+
+### Qwen3 的混合推理创新
+```
+Qwen3 核心设计：统一 thinking / non-thinking 两种模式
+  - thinking=True：激活 <think> 推理链（类 R1）
+  - thinking=False：直接输出（类 GPT-4，适合日常对话）
+  
+为什么重要：
+  - 不需要维护两个独立模型（推理模型 + 对话模型）
+  - 用户可按 API 参数按需控制计算成本
+  - Qwen3-235B-A22B（MoE）：235B 参数，每次只激活 22B
+    → 推理成本 = 22B Dense 模型，容量 = 235B
+```
 
 
 ## 📐 核心公式与原理
