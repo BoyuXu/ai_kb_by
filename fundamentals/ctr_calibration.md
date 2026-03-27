@@ -59,7 +59,7 @@ $$
 
 **ECE 的计算步骤**：
 
-1. 将预测概率范围 $\left[0, 1\right]$ 分成 $M$ 个等宽区间（bucket）
+1. 将预测概率范围 $[0, 1]$ 分成 $M$ 个等宽区间（bucket）
 2. 对每个 bucket $B_m$ 计算：
    - `conf(Bm)`：bucket 内预测概率的均值
    - `acc(Bm)`：bucket 内真实点击率

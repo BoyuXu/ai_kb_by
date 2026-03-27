@@ -304,7 +304,7 @@ SFT 只能学习"示范者给的答案"，受限于标注数据质量。RLHF 可
 
 ### Q3：PPO 中为什么需要 Clip？不用行不行？
 
-Clip 是 PPO 对 TRPO 的简化替代。TRPO 直接约束 KL 散度（$D_{KL}(\pi_{new}||\pi_{old}) \leq \delta$），但计算二阶导数代价极高。PPO-Clip 通过限制重要性权重 $r_t(\theta) \in \left[1-\epsilon, 1+\epsilon\right]$ 间接约束更新幅度，近似实现 TRPO 的效果。不 Clip 的后果：单步更新过大，策略崩溃（policy collapse），表现为生成退化到重复 token 或固定模式。
+Clip 是 PPO 对 TRPO 的简化替代。TRPO 直接约束 KL 散度（$D_{KL}(\pi_{new}||\pi_{old}) \leq \delta$），但计算二阶导数代价极高。PPO-Clip 通过限制重要性权重 $r_t(\theta) \in [1-\epsilon, 1+\epsilon]$ 间接约束更新幅度，近似实现 TRPO 的效果。不 Clip 的后果：单步更新过大，策略崩溃（policy collapse），表现为生成退化到重复 token 或固定模式。
 
 ### Q4：GRPO 和 PPO 的核心区别？
 

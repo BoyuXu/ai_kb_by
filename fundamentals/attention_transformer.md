@@ -16,10 +16,12 @@ $$
 
 ### 1.2 为什么除以 $\sqrt{d_k}$：点积方差分析
 
-**问题起源**：若 Q、K 的每个分量均服从均值 0、方差 1 的独立分布，则点积 $q \cdot k = \sum_{i=1}^{d_k} q_i k_i$ 的：
+**问题起源**：若 Q、K 的每个分量均服从均值 0、方差 1 的独立分布，则点积 $q \cdot k = \sum_{i=1}^{d_k} q_i k_i$ 满足：
 
-- 均值：$\mathbb{E}\left[q \cdot k\right] = \sum_i \mathbb{E}\left[q_i\right]\mathbb{E}\left[k_i\right] = 0$
-- 方差：$\text{Var}\left[q \cdot k\right] = \sum_i \text{Var}\left[q_i k_i\right] = \sum_i \text{Var}\left[q_i\right]\text{Var}\left[k_i\right] = d_k$
+$$
+\mathbb{E}[q \cdot k] = \sum_i \mathbb{E}[q_i]\mathbb{E}[k_i] = 0, \quad
+\text{Var}[q \cdot k] = \sum_i \text{Var}[q_i]\text{Var}[k_i] = d_k
+$$
 
 因此标准差为 $\sqrt{d_k}$，当 $d_k$ 较大（如 512），点积值域会很大。
 

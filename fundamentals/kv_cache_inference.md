@@ -235,7 +235,7 @@ class ContinuousBatchScheduler:
 **加速原理**：
 - Draft Model 生成速度极快（如 7B vs 70B）
 - Target Model 可以一次前向计算并行验证 K 个 token
-- 期望接受长度：$\mathbb{E}\left[K_{accept}\right] = \frac{1}{1-\alpha}$（$\alpha$ 为平均接受率）
+- 期望接受长度：$\mathbb{E}[K_{accept}] = \frac{1}{1-\alpha}$（$\alpha$ 为平均接受率）
 
 **加速比计算**：若接受率 $\alpha = 0.8$，单步生成 K=5 个 draft token：
 - 期望接受：$\frac{1}{1-0.8} = 5$ 个 token

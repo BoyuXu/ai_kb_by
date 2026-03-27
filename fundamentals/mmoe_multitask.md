@@ -224,7 +224,7 @@ $$
 其中：
 - $G_W^i(t) = \|\nabla_W (w_i L_i)\|_2$：任务 i 的加权梯度范数
 - $\bar{G}_W(t) = \frac{1}{K}\sum_i G_W^i(t)$：所有任务梯度范数的均值
-- $r_i(t) = \frac{\tilde{L}_i(t)}{\mathbb{E}\left[\tilde{L}_i\right]}$：任务 i 的相对训练速度（$\tilde{L}_i$ 为相对损失）
+- $r_i(t) = \frac{\tilde{L}_i(t)}{\mathbb{E}[\tilde{L}_i]}$：任务 i 的相对训练速度（$\tilde{L}_i$ 为相对损失）
 - $\alpha$：超参数，控制平衡强度（通常 0.12-1.5）
 
 ```python

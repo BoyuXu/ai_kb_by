@@ -377,7 +377,7 @@ Prompt格式（few-shot）：
 
 **PPO目标函数（clip版本）：**
 
-$$L^{CLIP}(\theta) = \mathbb{E}_t\left[\min\left(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)\right]$$
+$$L^{CLIP}(\theta) = \mathbb{E}_t[\min\left(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)]$$
 
 - $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$ 概率比
 - $\hat{A}_t$：优势函数估计
@@ -507,7 +507,7 @@ $$p^*(y_w \succ y_l | x) = \sigma(r^*(x,y_w) - r^*(x,y_l))$$
 
 **DPO最终目标（无需RM）：**
 
-$$\mathcal{L}_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x,y_w,y_l) \sim D}\left[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]$$
+$$\mathcal{L}_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x,y_w,y_l) \sim D}[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)]$$
 
 **DPO vs PPO 对比：**
 
@@ -889,7 +889,7 @@ DeepSeek-R1-Zero（纯RL）：
 
 **GRPO（Group Relative Policy Optimization）：**
 
-$$\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_{i=1}^{G} \frac{r_i - \bar{r}}{\sigma_r} \cdot \log \pi_\theta(o_i|q) - \beta \cdot KL(\pi_\theta || \pi_{ref})\right]$$
+$$\mathcal{L}_{GRPO} = -\mathbb{E}[\sum_{i=1}^{G} \frac{r_i - \bar{r}}{\sigma_r} \cdot \log \pi_\theta(o_i|q) - \beta \cdot KL(\pi_\theta || \pi_{ref})]$$
 
 - 对同一问题生成G个输出，相对排名作为奖励
 - 避免了PRM需要大量步骤标注的问题
