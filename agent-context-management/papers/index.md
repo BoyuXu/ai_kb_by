@@ -58,8 +58,34 @@
 
 ---
 
+## 🧩 个性化记忆 & 用户偏好 (Personalized Memory)
+
+| 论文 | arXiv | 日期 | 重要性 | 笔记 |
+|------|-------|------|--------|------|
+| User Preference Modeling for Conversational LLM Agents: Weak Rewards from Retrieval-Augmented Interaction | 近期 | 2026-03-21 | ⭐⭐⭐⭐⭐ | 长短期偏好向量+弱奖励在线更新，推荐系统双塔迁移！ |
+
+---
+
+## 🗺️ 图结构记忆 (Graph-based Memory)
+
+| 论文 | arXiv | 日期 | 重要性 | 笔记 |
+|------|-------|------|--------|------|
+| GSEM: Graph-based Self-Evolving Memory for Experience Augmented Clinical Reasoning | 近期 | 2026-03-23 | ⭐⭐⭐⭐ | 图演化记忆，经验节点动态合并/拆分 |
+| All-Mem: Agentic Lifelong Memory via Dynamic Topology Evolution | 近期 | 2026-03-19 | ⭐⭐⭐⭐ | 终身记忆，拓扑演化=神经记忆巩固 |
+
+---
+
+## 🔒 记忆安全 (Memory Security)
+
+| 论文 | arXiv | 日期 | 重要性 | 笔记 |
+|------|-------|------|--------|------|
+| Memory Poisoning and Secure Multi-Agent Systems | 近期 | 2026-03-20 | ⭐⭐⭐ | 记忆投毒攻击分类 + 防御框架 |
+
+---
+
 ## 📈 更新记录
 
 | 日期 | 新增 | 操作 |
 |------|------|------|
 | 2026-03-26 | 10 篇 | 初始化索引，覆盖持久化记忆、跨 Agent 协作、长上下文、Benchmark、对话结构 |
+| 2026-03-27 | 5 篇 | 新增：个性化记忆、图结构记忆、记忆安全三个子类别 |
