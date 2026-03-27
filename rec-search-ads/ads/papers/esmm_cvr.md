@@ -10,7 +10,9 @@ CVR（Conversion Rate）预估面临两大挑战：
 
 2. **稀疏数据（Data Sparsity）**：转化样本（购买/下单）远少于点击样本（通常少 1~2 个数量级），传统 CVR 模型因数据稀疏而难以训练。
 
-$$\text{pCTCVR} = p(\text{click}|\text{impression}) \times p(\text{conversion}|\text{click}) = \text{pCTR} \times \text{pCVR}$$
+$$
+\text{pCTCVR} = p(\text{click}|\text{impression}) \times p(\text{conversion}|\text{click}) = \text{pCTR} \times \text{pCVR}
+$$
 
 ## 核心方法与创新点
 
@@ -28,7 +30,9 @@ $$\text{pCTCVR} = p(\text{click}|\text{impression}) \times p(\text{conversion}|\
    - CVR Tower 借助 CTR 的丰富点击数据学习更好的特征表征（解决数据稀疏）
 
 4. **训练目标**
-   $$\mathcal{L} = \mathcal{L}_{CTR} + \mathcal{L}_{CTCVR} = \sum \text{BCE}(y_{click}, \hat{pCTR}) + \sum \text{BCE}(y_{convert}, \hat{pCTCVR})$$
+$$
+\mathcal{L} = \mathcal{L}_{CTR} + \mathcal{L}_{CTCVR} = \sum \text{BCE}(y_{click}, \hat{pCTR}) + \sum \text{BCE}(y_{convert}, \hat{pCTCVR})
+$$
 
 ## 实验结论
 

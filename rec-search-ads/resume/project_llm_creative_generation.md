@@ -190,7 +190,9 @@ index_params = {
 
 **CTR 加权检索策略：**
 
-$$\text{score}_{final} = \alpha \cdot \text{sim}_{semantic} + (1-\alpha) \cdot \text{ctr}_{norm}$$
+$$
+\text{score}_{final} = \alpha \cdot \text{sim}_{semantic} + (1-\alpha) \cdot \text{ctr}_{norm}
+$$
 
 其中：
 - $\text{sim}_{semantic}$：当前商品与历史创意的语义相似度（余弦相似度）
@@ -241,7 +243,9 @@ def retrieve_reference_creatives(query_embedding, category_id, top_k=10):
 
 **CTR 预估用于创意评分：**
 
-$$\text{CTR}_{pred} = \text{Model}(\mathbf{e}_{user}, \mathbf{e}_{creative}, \mathbf{x}_{context})$$
+$$
+\text{CTR}_{pred} = \text{Model}(\mathbf{e}_{user}, \mathbf{e}_{creative}, \mathbf{x}_{context})
+$$
 
 其中 $\mathbf{e}_{creative}$ 是生成创意的 embedding，通过 CTR 模型的文本塔提取
 
@@ -249,7 +253,9 @@ $$\text{CTR}_{pred} = \text{Model}(\mathbf{e}_{user}, \mathbf{e}_{creative}, \ma
 
 最大边际相关性（Maximal Marginal Relevance）：
 
-$$\text{MMR} = \arg\max_{d_i \in R \setminus S} \left[ \lambda \cdot \text{CTR}(d_i) - (1-\lambda) \cdot \max_{d_j \in S} \text{Sim}(d_i, d_j) \right]$$
+$$
+\text{MMR} = \arg\max_{d_i \in R \setminus S} \left[ \lambda \cdot \text{CTR}(d_i) - (1-\lambda) \cdot \max_{d_j \in S} \text{Sim}(d_i, d_j) \right]
+$$
 
 其中：
 - $R$：所有候选创意集合（20个候选）

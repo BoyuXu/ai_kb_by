@@ -14,24 +14,32 @@
 ### 1. 离线RL框架（CQL）
 使用Conservative Q-Learning (CQL) 防止分布偏移：
 
-$$Q_{CQL}(s, a) = Q(s, a) - \alpha \mathbb{E}_{a\sim\pi}[Q(s, a)] + \alpha \mathbb{E}_{a\sim\beta}[Q(s, a)]$$
+$$
+Q_{CQL}(s, a) = Q(s, a) - \alpha \mathbb{E}_{a\sim\pi}[Q(s, a)] + \alpha \mathbb{E}_{a\sim\beta}[Q(s, a)]
+$$
 
 CQL在离线数据中的动作上增加Q值，在OOD（out-of-distribution）动作上减少Q值，防止模型对未见过的动作过度自信。
 
 ### 2. 多任务Q函数
 共享状态编码器，每个任务有独立的Q函数头：
-$$Q^{(t)}(s, a) = W^{(t)} \cdot h(s, a)$$
+$$
+Q^{(t)}(s, a) = W^{(t)} \cdot h(s, a)
+$$
 
 其中 h(s, a) 是共享的状态-动作表示，$W^{(t)}$ 是任务特定的线性投影。
 
 ### 3. 多任务奖励聚合
-$$r_{multi} = \sum_{t=1}^{T} w_t \cdot r_t(s, a)$$
+$$
+r_{multi} = \sum_{t=1}^{T} w_t \cdot r_t(s, a)
+$$
 
 权重 $w_t$ 根据任务重要性和Pareto前沿设定。
 
 ### 4. 数据增强对抗OOD
 使用扩散模型（Diffusion Model）在离线数据周围生成"合理的"轨迹数据，扩充训练集，提高离线RL的泛化性：
-$$\tilde{x} = \text{Diffusion}(x_{offline}, \epsilon), \quad \epsilon \sim \mathcal{N}(0, \sigma^2)$$
+$$
+\tilde{x} = \text{Diffusion}(x_{offline}, \epsilon), \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
+$$
 
 ## 实验结论
 - **CTR提升**：+2.1%

@@ -19,15 +19,21 @@
 ## 📐 核心公式与原理
 
 ### 1. 最优出价
-$$bid^* = v \cdot pCTR \cdot pCVR$$
+$$
+bid^* = v \cdot pCTR \cdot pCVR
+$$
 - 出价 = 价值 × 点击率 × 转化率
 
 ### 2. 预算约束
-$$\sum_{t=1}^T c_t \leq B$$
+$$
+\sum_{t=1}^T c_t \leq B
+$$
 - 总花费不超过预算 B
 
 ### 3. Lagrangian 松弛
-$$L = \sum_t v_t x_t - \lambda(\sum_t c_t x_t - B)$$
+$$
+L = \sum_t v_t x_t - \lambda(\sum_t c_t x_t - B)
+$$
 - λ 控制预算约束的松紧
 
 ---
@@ -205,31 +211,47 @@ def pid_pacing(t, actual_spend, target_spend, prev_error, integral):
 
 **优化问题**：
 
-$$\max_{b_1, \ldots, b_n} \sum_{i=1}^{n} v_i \cdot w_i(b_i)$$
+$$
+\max_{b_1, \ldots, b_n} \sum_{i=1}^{n} v_i \cdot w_i(b_i)
+$$
 
-$$\text{s.t.} \quad \sum_{i=1}^{n} m_i \cdot w_i(b_i) \leq B$$
+$$
+\text{s.t.} \quad \sum_{i=1}^{n} m_i \cdot w_i(b_i) \leq B
+$$
 
-$$b_i \geq 0, \quad \forall i$$
+$$
+b_i \geq 0, \quad \forall i
+$$
 
 **拉格朗日函数**：
 
-$$\mathcal{L}(b, \lambda) = \sum_{i=1}^{n} v_i \cdot w_i(b_i) - \lambda \left( \sum_{i=1}^{n} m_i \cdot w_i(b_i) - B \right)$$
+$$
+\mathcal{L}(b, \lambda) = \sum_{i=1}^{n} v_i \cdot w_i(b_i) - \lambda \left( \sum_{i=1}^{n} m_i \cdot w_i(b_i) - B \right)
+$$
 
 **KKT 条件**：
 
 对每个 $b_i$ 求偏导并令其为零：
 
-$$\frac{\partial \mathcal{L}}{\partial b_i} = v_i \cdot w_i'(b_i) - \lambda \cdot m_i \cdot w_i'(b_i) = 0$$
+$$
+\frac{\partial \mathcal{L}}{\partial b_i} = v_i \cdot w_i'(b_i) - \lambda \cdot m_i \cdot w_i'(b_i) = 0
+$$
 
-$$w_i'(b_i)(v_i - \lambda \cdot m_i) = 0$$
+$$
+w_i'(b_i)(v_i - \lambda \cdot m_i) = 0
+$$
 
 由于 $w_i'(b_i) > 0$（赢得概率关于出价单调递增），得：
 
-$$v_i = \lambda \cdot m_i$$
+$$
+v_i = \lambda \cdot m_i
+$$
 
 等价于：
 
-$$b_i^* = v_i / \lambda = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA\_target}}{\lambda}$$
+$$
+b_i^* = v_i / \lambda = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA\_target}}{\lambda}
+$$
 
 **关键结论**：
 - **最优出价 = 期望价值 / 拉格朗日乘子 λ**
@@ -331,13 +353,19 @@ def find_optimal_lambda(v_list, m_list, B, tol=1e-6):
 #### 数学框架
 
 **原始问题**：
-$$\max_{bid_1, \ldots, bid_T} \sum_{t=1}^{T} value(bid_t) \quad \text{s.t.} \quad \sum_{t=1}^{T} cost(bid_t) \leq Budget$$
+$$
+\max_{bid_1, \ldots, bid_T} \sum_{t=1}^{T} value(bid_t) \quad \text{s.t.} \quad \sum_{t=1}^{T} cost(bid_t) \leq Budget
+$$
 
 **引入拉格朗日乘子 λ**（预算的边际价值）：
-$$L(bid, \lambda) = \sum_{t=1}^{T} value(bid_t) - \lambda \left( \sum_{t=1}^{T} cost(bid_t) - Budget \right)$$
+$$
+L(bid, \lambda) = \sum_{t=1}^{T} value(bid_t) - \lambda \left( \sum_{t=1}^{T} cost(bid_t) - Budget \right)
+$$
 
 **关键结论**：最优出价满足
-$$bid_t^* = \arg\max_{bid} [value(bid) - \lambda \times cost(bid)]$$
+$$
+bid_t^* = \arg\max_{bid} [value(bid) - \lambda \times cost(bid)]
+$$
 
 **λ 的直觉**：
 - λ 代表"1元预算能带来的边际价值"，即预算的影子价格
@@ -346,7 +374,9 @@ $$bid_t^* = \arg\max_{bid} [value(bid) - \lambda \times cost(bid)]$$
 
 #### 在线更新规则
 
-$$\lambda_{t+1} = \lambda_t + \eta \cdot (cost(bid_t) - \frac{Budget}{T})$$
+$$
+\lambda_{t+1} = \lambda_t + \eta \cdot (cost(bid_t) - \frac{Budget}{T})
+$$
 
 - 若实际消耗 > 目标消耗 → 增大 λ → 出价降低 → 减少竞争
 - 若实际消耗 < 目标消耗 → 减小 λ → 出价提高 → 赢更多
@@ -379,7 +409,9 @@ $$\lambda_{t+1} = \lambda_t + \eta \cdot (cost(bid_t) - \frac{Budget}{T})$$
 
 设对手出价分布为 F(·)，概率密度为 f(·)，我方真实估值为 v，则最优出价为：
 
-$$bid^* = v - \frac{1 - F(bid^*)}{f(bid^*)}$$
+$$
+bid^* = v - \frac{1 - F(bid^*)}{f(bid^*)}
+$$
 
 **直觉**：
 - 分子 $(1 - F(bid^*))$ 是以该出价赢的概率
@@ -413,7 +445,9 @@ def update_bid_landscape(market_prices_history):
 **TV 距离问题**：对任何不重叠的分布都给出最大值 1，对小幅位置偏移过于激进。
 
 **Wasserstein 距离优势**：
-$$W_1(F_t, F_{t-1}) = \int_0^\infty |F_t(b) - F_{t-1}(b)| db$$
+$$
+W_1(F_t, F_{t-1}) = \int_0^\infty |F_t(b) - F_{t-1}(b)| db
+$$
 
 - 考虑分布的几何结构，小幅位移只产生小的 W 值
 - 直觉：将一个分布变换为另一个分布的最小"地球搬运成本"
@@ -422,7 +456,9 @@ $$W_1(F_t, F_{t-1}) = \int_0^\infty |F_t(b) - F_{t-1}(b)| db$$
 
 在非平稳 FPA 环境中，遗憾界为：
 
-$$\text{Regret}(T) = O\left(\sqrt{T} + \sum_{t=1}^{T} W_1(F_t, F_{t-1})\right)$$
+$$
+\text{Regret}(T) = O\left(\sqrt{T} + \sum_{t=1}^{T} W_1(F_t, F_{t-1})\right)
+$$
 
 - 第一项 $\sqrt{T}$ 是静态情况下的标准 regret
 - 第二项 $\sum W_1$ 是分布变化带来的额外遗憾
@@ -446,11 +482,17 @@ Bid Landscape 是对市场竞价环境的建模——给定一个广告机会，
 
 在 Bid Landscape 已知的前提下，对每个广告机会建立 LP：
 
-$$\max \sum_{i} v_i \cdot P_i(\text{win}|b_i)$$
+$$
+\max \sum_{i} v_i \cdot P_i(\text{win}|b_i)
+$$
 
-$$\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}_i | b_i] \leq B$$
+$$
+\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}_i | b_i] \leq B
+$$
 
-$$\text{其中 } \mathbb{E}[\text{cost}_i | b_i] = \int_0^{b_i} x \cdot f_i(x) dx$$
+$$
+\text{其中 } \mathbb{E}[\text{cost}_i | b_i] = \int_0^{b_i} x \cdot f_i(x) dx
+$$
 
 **Bidding Machine 框架**（TKDE 2018, arXiv:1803.02194）：
 
@@ -475,7 +517,9 @@ optimal_bid_i = argmax_b [v_i × P(win|b) - E[cost|b]]
 
 在一价拍卖中，最优出价满足：
 
-$$b^* = v - \frac{1 - F(b^*)}{f(b^*)}$$
+$$
+b^* = v - \frac{1 - F(b^*)}{f(b^*)}
+$$
 
 其中 $F(\cdot)$ 是对手出价的 CDF，$f(\cdot)$ 是 PDF。
 
@@ -494,9 +538,13 @@ $$b^* = v - \frac{1 - F(b^*)}{f(b^*)}$$
 
 回到第二阶段的 KKT 推导，对偶变量 λ 的更新：
 
-$$\lambda^{(t+1)} = \lambda^{(t)} - \alpha \cdot \nabla_\lambda \mathcal{L}$$
+$$
+\lambda^{(t+1)} = \lambda^{(t)} - \alpha \cdot \nabla_\lambda \mathcal{L}
+$$
 
-$$\nabla_\lambda \mathcal{L} = B - \sum_i m_i \cdot w_i(b_i^*)$$
+$$
+\nabla_\lambda \mathcal{L} = B - \sum_i m_i \cdot w_i(b_i^*)
+$$
 
 即：
 ```
@@ -514,11 +562,17 @@ $$\nabla_\lambda \mathcal{L} = B - \sum_i m_i \cdot w_i(b_i^*)$$
 
 **多约束对偶问题**：
 
-$$\max_{b_i} \sum_i v_i w_i(b_i)$$
+$$
+\max_{b_i} \sum_i v_i w_i(b_i)
+$$
 
-$$\text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B \quad (\text{预算})$$
+$$
+\text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B \quad (\text{预算})
+$$
 
-$$\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI\_target} \quad (\text{ROI约束})$$
+$$
+\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI\_target} \quad (\text{ROI约束})
+$$
 
 拉格朗日：$\mathcal{L} = \sum_i (v_i - \lambda_1 c_i - \lambda_2(c_i \cdot \text{ROI} - v_i)) w_i(b_i) + \lambda_1 B$
 
@@ -528,15 +582,21 @@ $$\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI\_target} 
 
 **通用框架**：
 
-$$\max_{b} \text{ROI}(b) = \frac{\sum_i v_i w_i(b_i)}{\sum_i c_i w_i(b_i)}$$
+$$
+\max_{b} \text{ROI}(b) = \frac{\sum_i v_i w_i(b_i)}{\sum_i c_i w_i(b_i)}
+$$
 
-$$\text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B$$
+$$
+\text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B
+$$
 
 **分形式转化**（Dinkelbach 方法）：
 
 迭代求解，每轮固定 ROI 值 $\rho^{(k)}$，求解：
 
-$$\max_b \sum_i (v_i - \rho^{(k)} c_i) w_i(b_i) \quad \text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B$$
+$$
+\max_b \sum_i (v_i - \rho^{(k)} c_i) w_i(b_i) \quad \text{s.t.} \quad \sum_i c_i w_i(b_i) \leq B
+$$
 
 该子问题变为标准的线性约束凸优化，用对偶方法求解，然后更新 $\rho$。
 
@@ -1012,7 +1072,9 @@ def safe_bid(raw_bid, context):
 
 广告系统中的出价通常采用如下统一公式：
 
-$$\text{bid}_{\text{final}} = k \times pCVR \times \text{CPA}_{\text{target}}$$
+$$
+\text{bid}_{\text{final}} = k \times pCVR \times \text{CPA}_{\text{target}}
+$$
 
 其中：
 - $k$ 是 Pacing 系数（由 PID 或对偶方法计算，通常 0.1 ~ 3.0）

@@ -4620,7 +4620,9 @@ RL 在广告排序中的未来是"辅助决策层"而非"替代排序"：
 **直接结论**：τ 控制负样本区分的"难度"。τ 小→分布更尖锐→模型专注难负样本但梯度方差大；τ 大→分布更平滑→学习稳定但区分度下降。
 
 **公式**：
-$$\mathcal{L} = -\log \frac{e^{s(q,k^+)/\tau}}{e^{s(q,k^+)/\tau} + \sum_j e^{s(q,k_j^-)/\tau}}$$
+$$
+\mathcal{L} = -\log \frac{e^{s(q,k^+)/\tau}}{e^{s(q,k^+)/\tau} + \sum_j e^{s(q,k_j^-)/\tau}}
+$$
 
 **τ 的作用机制（梯度视角）**：
 
@@ -4707,7 +4709,9 @@ CTR Tower | CR Tower | Like Tower | Follow Tower
 问题：各 task 的损失量纲不同（CTR AUC=0.75，完播率 AUC=0.72），简单加权会让大 loss 主导。
 
 **GradNorm 方法**：动态调整 $w_t$ 使各任务的梯度 L2 范数趋于一致：
-$$\hat{w}_t = w_t \cdot \frac{\bar{g}}{\|g_t\|}$$
+$$
+\hat{w}_t = w_t \cdot \frac{\bar{g}}{\|g_t\|}
+$$
 
 其中 $\bar{g}$ 是所有任务梯度范数的均值。
 

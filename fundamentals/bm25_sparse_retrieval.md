@@ -12,7 +12,9 @@
 
 **定义**：词 $t$ 在文档 $d$ 中的词频（Term Frequency）：
 
-$$\text{TF}(t, d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}$$
+$$
+\text{TF}(t, d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}
+$$
 
 - $f_{t,d}$：词 $t$ 在文档 $d$ 中的原始出现次数
 - 分母：文档 $d$ 中所有词的出现次数之和（归一化，消除长文档偏差）
@@ -24,7 +26,7 @@ $$\text{TF}(t, d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}$$
 | 原始词频 | $f_{t,d}$ | 简单，但受文档长度影响 |
 | 归一化 TF | $\frac{f_{t,d}}{\max_{t'} f_{t',d}}$ | 除以最高频词，缩放到 [0,1] |
 | 对数 TF | $1 + \log(f_{t,d})$ | 抑制高频词的超线性增长 |
-| 布尔 TF | $\mathbb{1}[f_{t,d} > 0]$ | 只看是否出现，不看次数 |
+| 布尔 TF | $\mathbb{1}\left[f_{t,d} > 0\right]$ | 只看是否出现，不看次数 |
 
 ### 1.2 逆文档频率（IDF）
 
@@ -32,7 +34,9 @@ $$\text{TF}(t, d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}$$
 
 **定义**：词 $t$ 的逆文档频率（Inverse Document Frequency）：
 
-$$\text{IDF}(t) = \log \frac{N}{|\{d : t \in d\}|}$$
+$$
+\text{IDF}(t) = \log \frac{N}{|\{d : t \in d\}|}
+$$
 
 - $N$：文档集合的总数量
 - $|\{d : t \in d\}|$：包含词 $t$ 的文档数量
@@ -41,21 +45,29 @@ $$\text{IDF}(t) = \log \frac{N}{|\{d : t \in d\}|}$$
 
 **IDF 平滑**（防止除以零）：
 
-$$\text{IDF}(t) = \log \frac{N + 1}{|\{d : t \in d\}| + 1} + 1$$
+$$
+\text{IDF}(t) = \log \frac{N + 1}{|\{d : t \in d\}| + 1} + 1
+$$
 
 ### 1.3 TF-IDF 组合
 
-$$\text{TF-IDF}(t, d) = \text{TF}(t, d) \times \text{IDF}(t)$$
+$$
+\text{TF-IDF}(t, d) = \text{TF}(t, d) \times \text{IDF}(t)
+$$
 
 **查询-文档相关性**：
 
-$$\text{Score}(q, d) = \sum_{t \in q} \text{TF-IDF}(t, d)$$
+$$
+\text{Score}(q, d) = \sum_{t \in q} \text{TF-IDF}(t, d)
+$$
 
 ### 1.4 TF-IDF 的向量空间模型
 
 每个文档表示为 $|V|$ 维稀疏向量（$V$ 是词汇表大小），第 $i$ 维是词 $v_i$ 的 TF-IDF 值。查询同样表示为稀疏向量，通过余弦相似度计算相关性：
 
-$$\text{cosine\_sim}(q, d) = \frac{q \cdot d}{\|q\| \|d\|}$$
+$$
+\text{cosine\_sim}(q, d) = \frac{q \cdot d}{\|q\| \|d\|}
+$$
 
 ---
 
@@ -68,7 +80,9 @@ $$\text{cosine\_sim}(q, d) = \frac{q \cdot d}{\|q\| \|d\|}$$
 
 ### 2.2 BM25 公式
 
-$$\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f_{t,d} \cdot (k_1 + 1)}{f_{t,d} + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}$$
+$$
+\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f_{t,d} \cdot (k_1 + 1)}{f_{t,d} + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}
+$$
 
 其中：
 - $k_1$：词频饱和参数（通常 1.2-2.0）
@@ -78,7 +92,9 @@ $$\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f_{t,d} \cdot (k_
 
 **BM25 的 IDF 公式**（更稳定的变体）：
 
-$$\text{IDF}(t) = \log \frac{N - df_t + 0.5}{df_t + 0.5}$$
+$$
+\text{IDF}(t) = \log \frac{N - df_t + 0.5}{df_t + 0.5}
+$$
 
 其中 $df_t = |\{d : t \in d\}|$ 是文档频率。
 
@@ -163,7 +179,9 @@ top_k = np.argsort(scores)[::-1][:10]
 
 **Reciprocal Rank Fusion（互惠秩融合）**：将稀疏和稠密检索的结果融合：
 
-$$\text{RRF\_score}(d | q) = \sum_{r \in \{\text{sparse}, \text{dense}\}} \frac{1}{k + r_r(d)}$$
+$$
+\text{RRF\_score}(d | q) = \sum_{r \in \{\text{sparse}, \text{dense}\}} \frac{1}{k + r_r(d)}
+$$
 
 其中：
 - $r_r(d)$：文档 $d$ 在检索系统 $r$ 中的排名（从 1 开始）
@@ -204,7 +222,9 @@ def reciprocal_rank_fusion(sparse_results, dense_results, k=60):
 
 **方案**：用 BERT 为词汇表中每个词预测权重，非零权重的词构成稀疏向量：
 
-$$w_{i}^d = \log(1 + \text{ReLU}(E_d^T \cdot W_{MLM} + b)_{v_i})$$
+$$
+w_{i}^d = \log(1 + \text{ReLU}(E_d^T \cdot W_{MLM} + b)_{v_i})
+$$
 
 其中：
 - $E_d$：文档通过 BERT 得到的 [CLS] 或 token 级表示
@@ -221,12 +241,16 @@ $$w_{i}^d = \log(1 + \text{ReLU}(E_d^T \cdot W_{MLM} + b)_{v_i})$$
 
 训练目标（对比学习）：
 
-$$L = L_{contrastive}(q, d^+, d^-) + \lambda_q \cdot L_{FLOPS}(q) + \lambda_d \cdot L_{FLOPS}(d)$$
+$$
+L = L_{contrastive}(q, d^+, d^-) + \lambda_q \cdot L_{FLOPS}(q) + \lambda_d \cdot L_{FLOPS}(d)
+$$
 
 - $L_{contrastive}$：InfoNCE 对比损失，使正例得分高于负例
 - $L_{FLOPS}$：正则化项，鼓励稀疏（减少非零维度数量）
 
-$$L_{FLOPS} = \sum_{i=1}^{|V|} \left(\frac{1}{N} \sum_{j=1}^N |w_i^j|\right)^2$$
+$$
+L_{FLOPS} = \sum_{i=1}^{|V|} \left(\frac{1}{N} \sum_{j=1}^N |w_i^j|\right)^2
+$$
 
 **FLOPS 正则的直觉**：若某维度的权重均值很大，该维度对所有文档都重要（类似高频词），通过正则使其趋向 0，相当于 TF-IDF 的 IDF 惩罚。
 

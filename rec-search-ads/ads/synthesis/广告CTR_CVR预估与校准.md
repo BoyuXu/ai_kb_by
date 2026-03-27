@@ -18,15 +18,21 @@
 ## 📐 核心公式与原理
 
 ### 1. CTR 预估
-$$P(click|x) = \sigma(f(x; \theta))$$
+$$
+P(click|x) = \sigma(f(x; \theta))
+$$
 - 深度模型预估点击概率，sigmoid 输出
 
 ### 2. 交叉熵损失
-$$L = -\frac{1}{N}\sum_{i=1}^N [y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)]$$
+$$
+L = -\frac{1}{N}\sum_{i=1}^N [y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)]
+$$
 - CTR 模型标准训练目标
 
 ### 3. AUC
-$$AUC = P(\hat{y}_{pos} > \hat{y}_{neg})$$
+$$
+AUC = P(\hat{y}_{pos} > \hat{y}_{neg})
+$$
 - 正样本得分高于负样本的概率
 
 ---

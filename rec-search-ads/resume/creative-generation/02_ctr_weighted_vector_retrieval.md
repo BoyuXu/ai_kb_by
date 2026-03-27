@@ -43,7 +43,9 @@
 
 **公式：**
 
-$$\text{score}(q, d) = \alpha \cdot \cos(q, d) + (1-\alpha) \cdot \text{CTR\_norm}(d)$$
+$$
+\text{score}(q, d) = \alpha \cdot \cos(q, d) + (1-\alpha) \cdot \text{CTR\_norm}(d)
+$$
 
 其中 $\text{CTR\_norm}(d) = \frac{\text{CTR}(d)}{\text{CTR}_{max}}$ 将CTR归一化到 [0,1]
 
@@ -79,11 +81,15 @@ def direct_weighted_score(
 
 **加权公式：**
 
-$$\tilde{v}_d = v_d \cdot \sqrt{\frac{\text{CTR}(d)}{\bar{\text{CTR}}}}$$
+$$
+\tilde{v}_d = v_d \cdot \sqrt{\frac{\text{CTR}(d)}{\bar{\text{CTR}}}}
+$$
 
 **检索时的等效得分：**
 
-$$\text{score}(q, d) = q \cdot \tilde{v}_d = \|q\| \cdot \|v_d\| \cdot \cos(q, v_d) \cdot \sqrt{\frac{\text{CTR}(d)}{\bar{\text{CTR}}}}$$
+$$
+\text{score}(q, d) = q \cdot \tilde{v}_d = \|q\| \cdot \|v_d\| \cdot \cos(q, v_d) \cdot \sqrt{\frac{\text{CTR}(d)}{\bar{\text{CTR}}}}
+$$
 
 **公式含义：**
 - 若 $\text{CTR}(d) > \bar{\text{CTR}}$（高于均值），则权重 $> 1$，向量被放大，与查询的点积得分更高
@@ -168,7 +174,9 @@ CTR加权重排（全量计算N条的加权分）
 
 **重排公式：**
 
-$$\text{final\_score}(q, d) = \text{sem\_score}(q, d)^{\gamma} \cdot \text{CTR\_smooth}(d)^{1-\gamma}$$
+$$
+\text{final\_score}(q, d) = \text{sem\_score}(q, d)^{\gamma} \cdot \text{CTR\_smooth}(d)^{1-\gamma}
+$$
 
 使用乘法（而非加法）的好处：语义完全不相关的创意，无论CTR多高，分数也接近0
 
@@ -213,13 +221,19 @@ def ctr_rerank(
 
 **公式：**
 
-$$\text{CTR\_smooth} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}$$
+$$
+\text{CTR\_smooth} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}
+$$
 
 其中 $\alpha, \beta$ 是全局Beta分布的参数，由历史数据MLE估计：
 
-$$\alpha = \bar{\text{CTR}} \cdot \left(\frac{\bar{\text{CTR}}(1-\bar{\text{CTR}})}{\text{Var}(\text{CTR})} - 1\right)$$
+$$
+\alpha = \bar{\text{CTR}} \cdot \left(\frac{\bar{\text{CTR}}(1-\bar{\text{CTR}})}{\text{Var}(\text{CTR})} - 1\right)
+$$
 
-$$\beta = (1 - \bar{\text{CTR}}) \cdot \left(\frac{\bar{\text{CTR}}(1-\bar{\text{CTR}})}{\text{Var}(\text{CTR})} - 1\right)$$
+$$
+\beta = (1 - \bar{\text{CTR}}) \cdot \left(\frac{\bar{\text{CTR}}(1-\bar{\text{CTR}})}{\text{Var}(\text{CTR})} - 1\right)
+$$
 
 **代码实现：**
 ```python
@@ -266,7 +280,9 @@ print(f"原始CTR: 0.300, 平滑CTR: {smooth_ctr:.4f}")
 
 **公式：**
 
-$$\text{lower} = \frac{\hat{p} + \frac{z^2}{2n} - z\sqrt{\frac{\hat{p}(1-\hat{p})}{n} + \frac{z^2}{4n^2}}}{1 + \frac{z^2}{n}}$$
+$$
+\text{lower} = \frac{\hat{p} + \frac{z^2}{2n} - z\sqrt{\frac{\hat{p}(1-\hat{p})}{n} + \frac{z^2}{4n^2}}}{1 + \frac{z^2}{n}}
+$$
 
 其中 $\hat{p} = \text{click/impression}$，$z=1.96$（95%置信度），$n=\text{impression}$
 

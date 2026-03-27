@@ -68,15 +68,21 @@ Qwen3 核心设计：统一 thinking / non-thinking 两种模式
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
-$$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 - Transformer 核心计算
 
 ### 2. KV Cache
-$$\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size$$
+$$
+\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
+$$
 - KV Cache 内存占用公式
 
 ### 3. LoRA
-$$W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}$$
+$$
+W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+$$
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---

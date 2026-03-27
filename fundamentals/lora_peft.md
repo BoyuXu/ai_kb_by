@@ -16,7 +16,9 @@ LoRA 的出发点：**预训练模型权重在微调时的变化矩阵 $\Delta W
 
 对于预训练权重矩阵 $W_0 \in \mathbb{R}^{d \times k}$，修改后的权重为：
 
-$$W' = W_0 + \Delta W = W_0 + BA$$
+$$
+W' = W_0 + \Delta W = W_0 + BA
+$$
 
 其中：
 - $W_0 \in \mathbb{R}^{d \times k}$：**冻结**，不参与梯度更新
@@ -31,7 +33,9 @@ $$W' = W_0 + \Delta W = W_0 + BA$$
 原始前向：$h = W_0 x$
 
 LoRA 前向：
-$$h = W_0 x + \Delta W x = W_0 x + B A x$$
+$$
+h = W_0 x + \Delta W x = W_0 x + B A x
+$$
 
 两路计算可以**并行**，推理时可以合并：$W' = W_0 + BA$，不增加推理延迟。
 
@@ -86,7 +90,9 @@ print(f"前10个奇异值占比: {S[:10].sum() / S.sum():.2%}")
 
 给定秩约束 $r$，最优的低秩近似由 SVD 截断给出（Eckart-Young 定理）：
 
-$$\Delta W \approx \sum_{i=1}^r \sigma_i u_i v_i^T = B_r A_r$$
+$$
+\Delta W \approx \sum_{i=1}^r \sigma_i u_i v_i^T = B_r A_r
+$$
 
 LoRA 通过梯度下降学习这个低秩近似，虽然不能保证找到全局最优，但实践效果接近理论上界。
 
@@ -96,7 +102,9 @@ LoRA 通过梯度下降学习这个低秩近似，虽然不能保证找到全局
 
 ### 3.1 带 Scaling 的完整公式
 
-$$h = W_0 x + \frac{\alpha}{r} B A x$$
+$$
+h = W_0 x + \frac{\alpha}{r} B A x
+$$
 
 - $\alpha$：scaling 超参数（通常与 r 相关）
 - $\frac{\alpha}{r}$：有效的学习率缩放因子
@@ -129,7 +137,9 @@ $$h = W_0 x + \frac{\alpha}{r} B A x$$
 **问题**：不同层、不同权重矩阵的重要性不同，固定秩 r 不是最优分配。
 
 **方案**：对权重更新进行 SVD 参数化：
-$$\Delta W = P \Lambda Q$$
+$$
+\Delta W = P \Lambda Q
+$$
 
 其中 $P, Q$ 是正交矩阵，$\Lambda$ 是对角矩阵（奇异值）。
 
@@ -144,12 +154,16 @@ $$\Delta W = P \Lambda Q$$
 
 **创新点**：将权重分解为方向（direction）和幅度（magnitude）两个分量：
 
-$$W = m \cdot \frac{V}{\|V\|_c}$$
+$$
+W = m \cdot \frac{V}{\|V\|_c}
+$$
 
 其中 $m \in \mathbb{R}^{1 \times k}$ 是幅度（每列的 L2 范数），$\frac{V}{\|V\|_c}$ 是方向（列归一化）。
 
 **DoRA 的微调方式**：
-$$W' = (m + \Delta m) \cdot \frac{V_0 + \Delta V}{\|V_0 + \Delta V\|_c}$$
+$$
+W' = (m + \Delta m) \cdot \frac{V_0 + \Delta V}{\|V_0 + \Delta V\|_c}
+$$
 
 - $\Delta m$：直接学习幅度的变化
 - $\Delta V$：用 LoRA 学习方向的变化
@@ -189,7 +203,9 @@ $$W' = (m + \Delta m) \cdot \frac{V_0 + \Delta V}{\|V_0 + \Delta V\|_c}$$
 
 **原理**：在每层 Transformer 的 K/V 前面拼接可学习的"软提示"向量：
 
-$$[P_K; K], \quad [P_V; V]$$
+$$
+[P_K; K], \quad [P_V; V]
+$$
 
 其中 $P_K, P_V \in \mathbb{R}^{l \times d_{model}}$，$l$ 为 prefix 长度（通常 10-100）。
 
@@ -201,7 +217,9 @@ $$[P_K; K], \quad [P_V; V]$$
 
 **原理**：在每个 Transformer 层的 FFN 之后插入两层瓶颈网络：
 
-$$h \leftarrow h + W_{up} \cdot \text{ReLU}(W_{down} \cdot h)$$
+$$
+h \leftarrow h + W_{up} \cdot \text{ReLU}(W_{down} \cdot h)
+$$
 
 其中 $W_{down} \in \mathbb{R}^{d_{model} \times r}$，$W_{up} \in \mathbb{R}^{r \times d_{model}}$，$r \ll d_{model}$。
 
@@ -213,7 +231,9 @@ $$h \leftarrow h + W_{up} \cdot \text{ReLU}(W_{down} \cdot h)$$
 
 **原理**：只在输入 embedding 层加可学习 token，不改变任何模型权重：
 
-$$\text{Input} = [\text{soft\_tokens}; \text{actual\_tokens}]$$
+$$
+\text{Input} = [\text{soft\_tokens}; \text{actual\_tokens}]
+$$
 
 **参数量**：$l \times d_{model}$（极少，约原模型的 0.01%）
 
@@ -279,7 +299,9 @@ model.print_trainable_parameters()
 
 微调完成后，将 LoRA 参数合并到原始权重，消除推理额外开销：
 
-$$W' = W_0 + \frac{\alpha}{r} B A$$
+$$
+W' = W_0 + \frac{\alpha}{r} B A
+$$
 
 ```python
 # 方法1：使用 PEFT 内置合并

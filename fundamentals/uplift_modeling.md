@@ -12,7 +12,9 @@
 
 **潜在结果框架（Potential Outcomes / Rubin Causal Model）**：
 
-$$\tau_i = Y_i(1) - Y_i(0)$$
+$$
+\tau_i = Y_i(1) - Y_i(0)
+$$
 
 - $Y_i(1)$：用户 $i$ 接受广告（treatment=1）后的结果（如是否转化）
 - $Y_i(0)$：用户 $i$ 不接受广告（treatment=0）后的结果
@@ -23,19 +25,25 @@ $$\tau_i = Y_i(1) - Y_i(0)$$
 
 **ATE（平均处理效应）**：
 
-$$\text{ATE} = \tau = \mathbb{E}[Y(1) - Y(0)] = \mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]$$
+$$
+\text{ATE} = \tau = \mathbb{E}[Y(1) - Y(0)] = \mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]
+$$
 
 在随机对照实验（RCT）中，ATE 可以直接通过处理组均值 - 对照组均值估计。
 
 **ATT（处理组的平均处理效应）**：
 
-$$\text{ATT} = \mathbb{E}[Y(1) - Y(0) | T = 1]$$
+$$
+\text{ATT} = \mathbb{E}[Y(1) - Y(0) | T = 1]
+$$
 
 只关心实际接收广告的用户中，广告的平均效果。
 
 **CATE（条件平均处理效应）**：
 
-$$\text{CATE} = \tau(x) = \mathbb{E}[Y(1) - Y(0) | X = x]$$
+$$
+\text{CATE} = \tau(x) = \mathbb{E}[Y(1) - Y(0) | X = x]
+$$
 
 在具有特征 $x$ 的用户群体中，广告的平均效果。**Uplift 建模的核心目标就是估计 CATE**。
 
@@ -55,11 +63,15 @@ CATE 可估计需要以下假设：
 
 **思路**：将 treatment $T$ 作为一个普通特征，训练单一预测模型：
 
-$$\hat{\mu}(x, t) = \mathbb{E}[Y | X=x, T=t]$$
+$$
+\hat{\mu}(x, t) = \mathbb{E}[Y | X=x, T=t]
+$$
 
 **Uplift 估计**：
 
-$$\hat{\tau}(x) = \hat{\mu}(x, 1) - \hat{\mu}(x, 0)$$
+$$
+\hat{\tau}(x) = \hat{\mu}(x, 1) - \hat{\mu}(x, 0)
+$$
 
 **训练过程**：
 
@@ -97,12 +109,18 @@ class SLearner:
 
 **思路**：分别在处理组和对照组数据上训练两个独立模型：
 
-$$\hat{\mu}_1(x) = \mathbb{E}[Y | X=x, T=1]$$
-$$\hat{\mu}_0(x) = \mathbb{E}[Y | X=x, T=0]$$
+$$
+\hat{\mu}_1(x) = \mathbb{E}[Y | X=x, T=1]
+$$
+$$
+\hat{\mu}_0(x) = \mathbb{E}[Y | X=x, T=0]
+$$
 
 **Uplift 估计**：
 
-$$\hat{\tau}(x) = \hat{\mu}_1(x) - \hat{\mu}_0(x)$$
+$$
+\hat{\tau}(x) = \hat{\mu}_1(x) - \hat{\mu}_0(x)
+$$
 
 ```python
 class TLearner:
@@ -134,21 +152,31 @@ class TLearner:
 **第二阶段**：构造伪处理效应标签（pseudo treatment effect）：
 
 对处理组用户（$T=1$）：
-$$\tilde{\tau}_i^1 = Y_i - \hat{\mu}_0(X_i)$$
+$$
+\tilde{\tau}_i^1 = Y_i - \hat{\mu}_0(X_i)
+$$
 即：实际观测结果 - 如果没有处理的预期结果
 
 对对照组用户（$T=0$）：
-$$\tilde{\tau}_i^0 = \hat{\mu}_1(X_i) - Y_i$$
+$$
+\tilde{\tau}_i^0 = \hat{\mu}_1(X_i) - Y_i
+$$
 即：如果有处理的预期结果 - 实际观测结果
 
 **第三阶段**：分别在处理组和对照组上训练 Uplift 预测模型：
 
-$$\hat{\tau}_1(x) = \mathbb{E}[\tilde{\tau}^1 | X=x] \quad \text{（在处理组上训练）}$$
-$$\hat{\tau}_0(x) = \mathbb{E}[\tilde{\tau}^0 | X=x] \quad \text{（在对照组上训练）}$$
+$$
+\hat{\tau}_1(x) = \mathbb{E}[\tilde{\tau}^1 | X=x] \quad \text{（在处理组上训练）}
+$$
+$$
+\hat{\tau}_0(x) = \mathbb{E}[\tilde{\tau}^0 | X=x] \quad \text{（在对照组上训练）}
+$$
 
 **第四阶段**：加权融合：
 
-$$\hat{\tau}(x) = g(x) \hat{\tau}_0(x) + (1 - g(x)) \hat{\tau}_1(x)$$
+$$
+\hat{\tau}(x) = g(x) \hat{\tau}_0(x) + (1 - g(x)) \hat{\tau}_1(x)
+$$
 
 - $g(x) = P(T=1|X=x)$：倾向得分（propensity score）
 - 用处理组比例大的地方更信任 $\hat{\tau}_1$，对照组比例大的地方更信任 $\hat{\tau}_0$
@@ -167,7 +195,9 @@ $$\hat{\tau}(x) = g(x) \hat{\tau}_0(x) + (1 - g(x)) \hat{\tau}_1(x)$$
 
 **KL 散度分裂准则**：
 
-$$\text{Gain}_{KL}(T) = D_{KL}(P^T || P^C)$$
+$$
+\text{Gain}_{KL}(T) = D_{KL}(P^T || P^C)
+$$
 
 其中：
 - $P^T$：处理组的结果分布 $P(Y|T=1)$
@@ -176,7 +206,9 @@ $$\text{Gain}_{KL}(T) = D_{KL}(P^T || P^C)$$
 
 **Euclidean Distance 分裂**（二元结果）：
 
-$$\text{Gain}_{ED} = 2 \left[p_t \log \frac{p_t}{p_c} + (1-p_t) \log \frac{1-p_t}{1-p_c}\right]$$
+$$
+\text{Gain}_{ED} = 2 \left[p_t \log \frac{p_t}{p_c} + (1-p_t) \log \frac{1-p_t}{1-p_c}\right]
+$$
 
 其中 $p_t = P(Y=1|T=1)$，$p_c = P(Y=1|T=0)$。
 
@@ -232,7 +264,9 @@ uplift_pred = uplift_rf.predict(X_test)
 
 给定预算 $B$，目标是最大化转化增量：
 
-$$\max \sum_i \hat{\tau}_i \cdot z_i \quad \text{s.t.} \sum_i c_i z_i \leq B,\ z_i \in \{0, 1\}$$
+$$
+\max \sum_i \hat{\tau}_i \cdot z_i \quad \text{s.t.} \sum_i c_i z_i \leq B,\ z_i \in \{0, 1\}
+$$
 
 **贪心解**：按 $\hat{\tau}_i / c_i$（单位成本 Uplift）排序，从高到低选取直到预算耗尽。
 
@@ -261,7 +295,9 @@ def optimize_targeting(uplift_scores, costs, budget):
 
 **解决方案**：倾向得分加权（IPW）：
 
-$$\hat{\tau}_{IPW} = \mathbb{E}\left[\frac{TY}{e(X)} - \frac{(1-T)Y}{1-e(X)}\right]$$
+$$
+\hat{\tau}_{IPW} = \mathbb{E}\left[\frac{TY}{e(X)} - \frac{(1-T)Y}{1-e(X)}\right]
+$$
 
 其中 $e(X) = P(T=1|X)$ 是倾向得分。IPW 通过给少数组样本更高权重来修正选择偏差。
 
@@ -293,14 +329,18 @@ def uplift_curve(y_true, treatment, uplift_pred):
 
 **Qini 曲线（Radcliffe, 2007）**：横轴为按 Uplift 排序后的人群比例（0到1），纵轴为累积增量转化人数：
 
-$$Q(t) = \left(\frac{n_{t,1}}{n_1} - \frac{n_{t,0}}{n_0}\right) \cdot (n_1 + n_0) \cdot t$$
+$$
+Q(t) = \left(\frac{n_{t,1}}{n_1} - \frac{n_{t,0}}{n_0}\right) \cdot (n_1 + n_0) \cdot t
+$$
 
 - $n_{t,1}$：前 $t$ 比例人群中处理组的转化人数
 - $n_{t,0}$：前 $t$ 比例人群中对照组的转化人数
 
 **Qini 系数**：Qini 曲线与随机基线（对角线）之间的面积之比：
 
-$$\text{Qini} = \frac{\text{Qini 曲线下面积} - \text{随机基线面积}}{\text{理想曲线面积} - \text{随机基线面积}}$$
+$$
+\text{Qini} = \frac{\text{Qini 曲线下面积} - \text{随机基线面积}}{\text{理想曲线面积} - \text{随机基线面积}}
+$$
 
 ### 5.3 与 ROC AUC 的类比
 

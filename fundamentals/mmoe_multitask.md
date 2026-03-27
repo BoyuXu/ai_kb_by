@@ -27,7 +27,9 @@
 
 **梯度冲突条件**：两任务梯度的余弦相似度为负，即
 
-$$\cos\theta = \frac{g_1 \cdot g_2}{\|g_1\| \|g_2\|} < 0$$
+$$
+\cos\theta = \frac{g_1 \cdot g_2}{\|g_1\| \|g_2\|} < 0
+$$
 
 即夹角 $\theta > 90°$。
 
@@ -35,7 +37,9 @@ $$\cos\theta = \frac{g_1 \cdot g_2}{\|g_1\| \|g_2\|} < 0$$
 
 联合梯度 $g = g_1 + g_2$。对任务 1 的优化方向影响：
 
-$$\frac{dL_1}{d\text{update}} \propto g_1 \cdot g = g_1 \cdot (g_1 + g_2) = \|g_1\|^2 + g_1 \cdot g_2$$
+$$
+\frac{dL_1}{d\text{update}} \propto g_1 \cdot g = g_1 \cdot (g_1 + g_2) = \|g_1\|^2 + g_1 \cdot g_2
+$$
 
 当 $g_1 \cdot g_2 < -\|g_1\|^2$ 时，更新方向实际上**增大** $L_1$，即优化 T2 反而伤害了 T1。
 
@@ -58,11 +62,17 @@ $$\frac{dL_1}{d\text{update}} \propto g_1 \cdot g = g_1 \cdot (g_1 + g_2) = \|g_
 
 MMOE（Multi-gate Mixture-of-Experts）引入 n 个专家网络，每个任务通过独立的门控网络对专家输出做软选择：
 
-$$y_k = h^k(f^k(x))$$
+$$
+y_k = h^k(f^k(x))
+$$
 
-$$f^k(x) = \sum_{i=1}^n g^k_i(x) \cdot e_i(x)$$
+$$
+f^k(x) = \sum_{i=1}^n g^k_i(x) \cdot e_i(x)
+$$
 
-$$g^k(x) = \text{softmax}(W_{gk} x)$$
+$$
+g^k(x) = \text{softmax}(W_{gk} x)
+$$
 
 其中：
 - $e_i(x)$：第 $i$ 个专家网络（独立的 MLP），$i = 1, \ldots, n$
@@ -174,9 +184,13 @@ MMOE 中所有专家都是共享的，理论上每个专家可以被任意任务
 
 PLE 支持堆叠多个 Extraction Network 层：
 
-$$E^{(l,k)}(x) = \text{CGC}^{(l,k)}(x) \quad \text{（第 l 层，任务 k 的输出）}$$
+$$
+E^{(l,k)}(x) = \text{CGC}^{(l,k)}(x) \quad \text{（第 l 层，任务 k 的输出）}
+$$
 
-$$\text{CGC}^{(l,k)} = \sum_{i} g^{(l,k)}_i \cdot e^{(l,k)}_i + \sum_j g^{(l,k)}_j \cdot e^{(l,s)}_j$$
+$$
+\text{CGC}^{(l,k)} = \sum_{i} g^{(l,k)}_i \cdot e^{(l,k)}_i + \sum_j g^{(l,k)}_j \cdot e^{(l,s)}_j
+$$
 
 - $e^{(l,k)}_i$：任务 k 在第 l 层的私有专家输出
 - $e^{(l,s)}_j$：第 l 层的共享专家输出
@@ -202,12 +216,14 @@ $$\text{CGC}^{(l,k)} = \sum_{i} g^{(l,k)}_i \cdot e^{(l,k)}_i + \sum_j g^{(l,k)}
 **GradNorm 的思路**：动态调整 $w_k$，使每个任务的梯度范数保持在期望水平。
 
 损失函数：
-$$L_{GradNorm} = \sum_i \left| G_W^i(t) - \bar{G}_W(t) \cdot r_i(t) \right|_1$$
+$$
+L_{GradNorm} = \sum_i \left| G_W^i(t) - \bar{G}_W(t) \cdot r_i(t) \right|_1
+$$
 
 其中：
 - $G_W^i(t) = \|\nabla_W (w_i L_i)\|_2$：任务 i 的加权梯度范数
 - $\bar{G}_W(t) = \frac{1}{K}\sum_i G_W^i(t)$：所有任务梯度范数的均值
-- $r_i(t) = \frac{\tilde{L}_i(t)}{\mathbb{E}[\tilde{L}_i]}$：任务 i 的相对训练速度（$\tilde{L}_i$ 为相对损失）
+- $r_i(t) = \frac{\tilde{L}_i(t)}{\mathbb{E}\left[\tilde{L}_i\right]}$：任务 i 的相对训练速度（$\tilde{L}_i$ 为相对损失）
 - $\alpha$：超参数，控制平衡强度（通常 0.12-1.5）
 
 ```python
@@ -234,7 +250,9 @@ def grad_norm_loss(task_losses, weights, shared_params, alpha=0.12):
 
 另一种自动平衡方案，基于同方差不确定性（homoscedastic uncertainty）：
 
-$$L = \sum_{i=1}^K \frac{1}{2\sigma_i^2} L_i + \log \sigma_i$$
+$$
+L = \sum_{i=1}^K \frac{1}{2\sigma_i^2} L_i + \log \sigma_i
+$$
 
 - $\sigma_i$：任务 i 的不确定性（可学习参数）
 - 不确定性高的任务自动获得较小权重（$\frac{1}{\sigma_i^2}$ 小）
@@ -246,7 +264,9 @@ $$L = \sum_{i=1}^K \frac{1}{2\sigma_i^2} L_i + \log \sigma_i$$
 
 当不同任务的训练数据量差异巨大时，需要设置采样比例：
 
-$$p_k \propto (N_k)^\beta, \quad \beta \in [0, 1]$$
+$$
+p_k \propto (N_k)^\beta, \quad \beta \in [0, 1]
+$$
 
 - $\beta = 0$：均匀采样，小数据任务过采样
 - $\beta = 1$：按数据量采样，小数据任务欠采样
@@ -269,7 +289,9 @@ $$p_k \propto (N_k)^\beta, \quad \beta \in [0, 1]$$
 
 **ESMM（Entire Space Multi-task Model）**：解决 CVR 样本选择偏差问题：
 
-$$P(\text{CVR}) = P(\text{CTR}) \cdot P(\text{CTCVR}) / P(\text{CTR})$$
+$$
+P(\text{CVR}) = P(\text{CTR}) \cdot P(\text{CTCVR}) / P(\text{CTR})
+$$
 
 在全空间（曝光）上训练 CTR 和 CTCVR，然后用 $\text{CVR} = \text{CTCVR} / \text{CTR}$ 推导。
 

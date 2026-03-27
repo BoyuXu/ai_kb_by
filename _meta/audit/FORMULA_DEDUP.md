@@ -1,7 +1,13 @@
 # 公式重复检测与去重方案
 
 **生成日期**: 2025-03-25  
-**扫描方式**: 正则表达式匹配 `$$...$$`  
+**扫描方式**: 正则表达式匹配 `
+
+$$
+...
+$$
+
+`
 **总公式数**: 76 个唯一公式  
 **重复公式组**: 24 组 (占 31.6%)  
 **重复率**: 某些公式出现 19 次  
@@ -40,7 +46,11 @@
 
 #### **1. Embedding 内积评分** (19 个重复)
 ```
-公式: $$\hat{r}_{ui} = p_u^T q_i$$
+公式:
+
+$$
+\hat{r}_{ui} = p_u^T q_i
+$$
 ```
 
 **当前位置**:
@@ -75,7 +85,11 @@
 
 #### **2. BPR 损失函数** (19 个重复)
 ```
-公式: $$L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})$$
+公式:
+
+$$
+L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
+$$
 ```
 
 **当前位置**: 同上 (与 Embedding 公式在相同 19 个文件中)
@@ -91,7 +105,11 @@
 
 #### **3. 序列 RNN 注意力公式** (19 个重复)
 ```
-公式: $$P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)$$
+公式:
+
+$$
+P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
+$$
 ```
 
 **当前位置**: 同上 (与前两个公式在相同 19 个文件中)
@@ -106,7 +124,11 @@
 
 #### **4. eCPM 计算公式** (10 个重复)
 ```
-公式: $$\text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}$$
+公式:
+
+$$
+\text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}
+$$
 ```
 
 **当前位置** (ads):
@@ -132,7 +154,11 @@
 
 #### **5. 质量分公式** (10 个重复)
 ```
-公式: $$Q = \alpha \cdot \text{pCTR} + \beta \cdot \text{relevance} + \gamma \cdot \text{landing\_quality}$$
+公式:
+
+$$
+Q = \alpha \cdot \text{pCTR} + \beta \cdot \text{relevance} + \gamma \cdot \text{landing\_quality}
+$$
 ```
 
 **当前位置**: 同 eCPM (10 个 ads 文件中)
@@ -147,7 +173,11 @@
 
 #### **6. ROI 约束** (10 个重复)
 ```
-公式: $$\text{ROI} = \frac{\text{revenue}}{\text{cost}} \geq \text{target}$$
+公式:
+
+$$
+\text{ROI} = \frac{\text{revenue}}{\text{cost}} \geq \text{target}
+$$
 ```
 
 **当前位置**: 同 eCPM (10 个 ads 文件中)
@@ -164,7 +194,11 @@
 
 #### **7. Transformer 自注意力** (14 个重复)
 ```
-公式: $$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+公式:
+
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 ```
 
 **当前位置** (llm-infra):
@@ -202,7 +236,11 @@
 
 #### **8. KV Cache 内存计算** (14 个重复)
 ```
-公式: $$\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{seq\_len} \times \text{dtype\_size}$$
+公式:
+
+$$
+\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{seq\_len} \times \text{dtype\_size}
+$$
 ```
 
 **当前位置**: 同 Attention (14 个 llm-infra 文件中)
@@ -217,7 +255,11 @@
 
 #### **9. LoRA 参数化** (14 个重复)
 ```
-公式: $$W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}$$
+公式:
+
+$$
+W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+$$
 ```
 
 **当前位置**: 同 Attention (14 个 llm-infra 文件中)
@@ -234,7 +276,11 @@
 
 #### **10. 多目标优化加权求和** (11 个重复)
 ```
-公式: $$\min_{\theta} \sum_k \lambda_k L_k(\theta)$$
+公式:
+
+$$
+\min_{\theta} \sum_k \lambda_k L_k(\theta)
+$$
 ```
 
 **当前位置** (cross-domain):
@@ -266,7 +312,11 @@
 
 #### **11. Pareto 最优定义** (11 个重复)
 ```
-公式: $$x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i$$
+公式:
+
+$$
+x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i
+$$
 ```
 
 **当前位置**: 同上 (11 个 cross-domain 文件中)
@@ -277,7 +327,11 @@
 
 #### **12. IPS 无偏估计** (11 个重复)
 ```
-公式: $$\hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}$$
+公式:
+
+$$
+\hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}
+$$
 ```
 
 **当前位置**: 同上 (11 个 cross-domain 文件中)
@@ -290,7 +344,11 @@
 
 #### **13. BM25 公式** (7 个重复)
 ```
-公式: $$\text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}$$
+公式:
+
+$$
+\text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}
+$$
 ```
 
 **当前位置** (search):
@@ -376,7 +434,9 @@ done
 
 ```markdown
 ### 原始方式（不推荐）
-$$\hat{r}_{ui} = p_u^T q_i$$
+$$
+\hat{r}_{ui} = p_u^T q_i
+$$
 这是推荐系统中最基础的协同过滤评分公式...（详细讲解 5 段）
 
 ### 改进方式（推荐）

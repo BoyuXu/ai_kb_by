@@ -24,17 +24,23 @@
 - 奖励：即时CTR + 出价效率
 
 ### 2. 高层Policy网络
-$$\pi_{high}(g | s_{session}) = \text{softmax}(W_h \cdot \text{LSTM}(s_{session}))$$
+$$
+\pi_{high}(g | s_{session}) = \text{softmax}(W_h \cdot \text{LSTM}(s_{session}))
+$$
 
 g 是高层目标向量（Goal Vector），指导低层执行。
 
 ### 3. 低层Policy网络
-$$\pi_{low}(a | s_{req}, g) = \text{softmax}(W_l \cdot [\text{DNN}(s_{req}); g])$$
+$$
+\pi_{low}(a | s_{req}, g) = \text{softmax}(W_l \cdot [\text{DNN}(s_{req}); g])
+$$
 
 低层网络接收高层目标g作为条件，动作a是广告的排序调整向量。
 
 ### 4. 目标函数
-$$\mathcal{L} = \mathcal{L}_{high}(\theta_h) + \lambda \mathcal{L}_{low}(\theta_l)$$
+$$
+\mathcal{L} = \mathcal{L}_{high}(\theta_h) + \lambda \mathcal{L}_{low}(\theta_l)
+$$
 
 高层奖励 = Σ低层奖励（低层奖励的累计），形成自然的层次奖励传递。
 

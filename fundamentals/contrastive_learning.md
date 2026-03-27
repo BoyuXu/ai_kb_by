@@ -22,11 +22,15 @@
 
 **InfoNCE Loss**：
 
-$$\mathcal{L}_{\text{InfoNCE}} = -\frac{1}{N} \sum_{i=1}^N \log \frac{\exp(z_i \cdot z_i^+ / \tau)}{\exp(z_i \cdot z_i^+ / \tau) + \sum_{j=1}^{N-1} \exp(z_i \cdot z_j^- / \tau)}$$
+$$
+\mathcal{L}_{\text{InfoNCE}} = -\frac{1}{N} \sum_{i=1}^N \log \frac{\exp(z_i \cdot z_i^+ / \tau)}{\exp(z_i \cdot z_i^+ / \tau) + \sum_{j=1}^{N-1} \exp(z_i \cdot z_j^- / \tau)}
+$$
 
 等价地：
 
-$$\mathcal{L} = -\mathbb{E}_{(q, k^+, \{k_j^-\})} \left[\log \frac{e^{s(q, k^+)/\tau}}{e^{s(q, k^+)/\tau} + \sum_j e^{s(q, k_j^-)/\tau}}\right]$$
+$$
+\mathcal{L} = -\mathbb{E}_{(q, k^+, \{k_j^-\})} \left[\log \frac{e^{s(q, k^+)/\tau}}{e^{s(q, k^+)/\tau} + \sum_j e^{s(q, k_j^-)/\tau}}\right]
+$$
 
 其中 $s(u, v) = u \cdot v$（点积相似度，如已 L2 归一化则等于余弦相似度）。
 
@@ -38,7 +42,9 @@ $$\mathcal{L} = -\mathbb{E}_{(q, k^+, \{k_j^-\})} \left[\log \frac{e^{s(q, k^+)/
 
 对 $q$ 的梯度：
 
-$$\frac{\partial \mathcal{L}}{\partial q} = \frac{1}{\tau}\left[\underbrace{(p^+ - 1) \cdot k^+}_{\text{正样本：拉近 q 和 k^+}} + \underbrace{\sum_j p_j \cdot k_j^-}_{\text{负样本：推开 q 和 k\_j^-}}\right]$$
+$$
+\frac{\partial \mathcal{L}}{\partial q} = \frac{1}{\tau}\left[\underbrace{(p^+ - 1) \cdot k^+}_{\text{正样本：拉近 q 和 k^+}} + \underbrace{\sum_j p_j \cdot k_j^-}_{\text{负样本：推开 q 和 k\_j^-}}\right]
+$$
 
 其中 $p^+ = \text{softmax}(s(q, k^+)/\tau)$。
 
@@ -46,7 +52,9 @@ $$\frac{\partial \mathcal{L}}{\partial q} = \frac{1}{\tau}\left[\underbrace{(p^+
 
 **$\tau$ 的信息论含义**：
 
-$$\mathcal{L}_{\text{InfoNCE}} \geq -I(q; k^+)$$
+$$
+\mathcal{L}_{\text{InfoNCE}} \geq -I(q; k^+)
+$$
 
 InfoNCE Loss 是互信息 $I(q; k^+)$ 的下界（van den Oord et al. 2018），最大化互信息等价于最小化 InfoNCE。温度参数影响下界的紧凑程度：小 $\tau$ 使下界更紧（但梯度方差更大）。
 
@@ -114,7 +122,9 @@ def in_batch_contrastive_loss(q_embeddings, k_embeddings, tau=0.07):
 
 **修正（Frequency-Based Correction）**：
 
-$$\text{score}_{corrected}(q, k_j) = \text{score}(q, k_j) - \log P(k_j)$$
+$$
+\text{score}_{corrected}(q, k_j) = \text{score}(q, k_j) - \log P(k_j)
+$$
 
 其中 $P(k_j)$ 是物品 $k_j$ 的采样概率（正比于出现频率）。
 
@@ -149,9 +159,13 @@ def mine_hard_negatives(query_embs, item_embs, positive_ids, top_k=50, hard_n=5)
 
 修正损失（Chuang et al. 2020）：
 
-$$\mathcal{L}_{debiased} = -\log \frac{e^{s(q, k^+)/\tau}}{e^{s(q, k^+)/\tau} + N \cdot g(q, \{k_j^-\})}$$
+$$
+\mathcal{L}_{debiased} = -\log \frac{e^{s(q, k^+)/\tau}}{e^{s(q, k^+)/\tau} + N \cdot g(q, \{k_j^-\})}
+$$
 
-$$g(q, \{k_j^-\}) = \max\left(\frac{1}{N}\sum_j e^{s(q, k_j^-)/\tau} - \tau^+ \cdot e^{1/\tau}, 0\right)$$
+$$
+g(q, \{k_j^-\}) = \max\left(\frac{1}{N}\sum_j e^{s(q, k_j^-)/\tau} - \tau^+ \cdot e^{1/\tau}, 0\right)
+$$
 
 其中 $\tau^+$ 是正样本的先验概率，减去了负样本中可能混入的正样本贡献。
 
@@ -260,7 +274,9 @@ class MoCo(nn.Module):
 2. **Predictor**（额外的预测头）：在线网络预测目标网络的输出
 3. **不对称性**：在线网络有 predictor，目标网络没有，打破对称性防止坍塌
 
-$$\mathcal{L}_{BYOL} = \left\| q_\theta(z_q) - z_k \right\|_2^2$$
+$$
+\mathcal{L}_{BYOL} = \left\| q_\theta(z_q) - z_k \right\|_2^2
+$$
 
 其中 $q_\theta$ 是 predictor，$z_q$ 来自在线编码器，$z_k$ 来自动量编码器（stop gradient）。
 
@@ -323,7 +339,9 @@ class TwoTowerModel(nn.Module):
 
 修正后的 logit：
 
-$$\text{logit}_{corrected}(u, v) = \text{logit}(u, v) - \log(\hat{p}(v))$$
+$$
+\text{logit}_{corrected}(u, v) = \text{logit}(u, v) - \log(\hat{p}(v))
+$$
 
 其中 $\hat{p}(v)$ 是物品 $v$ 的采样概率（从训练数据频率估计）。
 

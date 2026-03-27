@@ -40,7 +40,9 @@ $$\begin{align}
 #### Pareto 支配
 
 设两个解 $x^a$ 和 $x^b$，若对所有目标 $i$：
-$$f_i(x^a) \geq f_i(x^b)$$
+$$
+f_i(x^a) \geq f_i(x^b)
+$$
 
 且至少有一个目标严格不等，则说 $x^a$ **Pareto 支配** $x^b$。
 
@@ -68,7 +70,9 @@ CTR
 
 #### 方法 1：加权求和（最简单、最常用）
 
-$$\text{maximize} \quad \sum_{i=1}^K w_i \times f_i(x), \quad \sum w_i = 1$$
+$$
+\text{maximize} \quad \sum_{i=1}^K w_i \times f_i(x), \quad \sum w_i = 1
+$$
 
 **优点**：
 - 实现简单（转化为单目标优化）
@@ -184,7 +188,9 @@ $$\begin{align}
 \end{align}$$
 
 加入约束：
-$$\text{diversity\_constraint}(x) \geq \text{threshold}$$
+$$
+\text{diversity\_constraint}(x) \geq \text{threshold}
+$$
 
 **求解**：通常用贪心近似，精确解 NP-hard
 
@@ -240,7 +246,9 @@ else:
 
 **方案 2：不确定性加权（Uncertainty Weighting）**
 
-$$w_i \propto \frac{1}{\sigma_i^2}$$
+$$
+w_i \propto \frac{1}{\sigma_i^2}
+$$
 
 其中 $\sigma_i$ 是任务 i 的不确定性（模型预测方差）。
 
@@ -326,20 +334,28 @@ else:
 ### 4.1 目标函数的量化
 
 **目标 1：收入相关**
-$$f_{\text{revenue}} = \text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}$$
+$$
+f_{\text{revenue}} = \text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}
+$$
 
 **目标 2：用户体验**
-$$f_{\text{satisfaction}} = \text{CTR} - \text{penalty}(\text{广告density})$$
+$$
+f_{\text{satisfaction}} = \text{CTR} - \text{penalty}(\text{广告density})
+$$
 
 **目标 3：多样性**
-$$f_{\text{diversity}} = \frac{1}{K} \sum_{i=1}^K \text{novelty}(\text{item}_i)$$
+$$
+f_{\text{diversity}} = \frac{1}{K} \sum_{i=1}^K \text{novelty}(\text{item}_i)
+$$
 
 其中 novelty 可以是：
 - Category 多样性（不能全是同一类）
 - Semantic 多样性（embedding 相似度不能太高）
 
 **目标 4：公平性（广告主侧）**
-$$f_{\text{fairness}} = \text{min}(\text{impression}(\text{advertiser}_i)) \quad \forall i$$
+$$
+f_{\text{fairness}} = \text{min}(\text{impression}(\text{advertiser}_i)) \quad \forall i
+$$
 
 最大化最小的广告主曝光数，保证没有广告主被忽视。
 

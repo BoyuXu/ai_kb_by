@@ -17,19 +17,55 @@
 **目标**：将 B 元预算均匀分配到 T 个时间槽，避免早耗尽或浪费
 
 **经典方案：Throttling**
-- 对每次展示机会以概率 $$p_t$$ 参与竞价
-- $$p_t$$ 根据剩余预算和剩余时间动态调整：$$p_t = \min(1, \frac{B_t}{B_0} \times \frac{T}{T_t})$$
+- 对每次展示机会以概率
+
+$$
+p_t
+$$
+
+参与竞价
+-
+
+$$
+p_t
+$$
+
+根据剩余预算和剩余时间动态调整：$$p_t = \min(1, \frac{B_t}{B_0} \times \frac{T}{T_t})$$
 
 **Online Primal-Dual Pacing**
-- 将预算约束转化为拉格朗日乘子 $$\lambda$$（影子价格）
-- 竞价时出价调整：$$b'_i = \frac{v_i}{1 + \lambda}$$，其中 $$v_i$$ 为真实价值
-- $$\lambda$$ 随预算消耗动态更新：预算消耗过快则提高 $$\lambda$$（降低出价）
+- 将预算约束转化为拉格朗日乘子
+
+$$
+\lambda
+$$
+
+（影子价格）
+- 竞价时出价调整：
+
+$$
+b'_i = \frac{v_i}{1 + \lambda}
+$$
+
+，其中 $$v_i$$ 为真实价值
+-
+
+$$
+\lambda
+$$
+
+随预算消耗动态更新：预算消耗过快则提高 $$\lambda$$（降低出价）
 
 ### 2. Auto Bidding / 智能出价
 
 **目标**：给定预算和目标 CPA/ROI，系统自动优化每次出价
 
-- **基于预测的出价**：$$b_i = v_i \times \text{pConversion}_i$$，用预测转化率乘以目标转化价值
+- **基于预测的出价**：
+
+$$
+b_i = v_i \times \text{pConversion}_i
+$$
+
+，用预测转化率乘以目标转化价值
 - **强化学习出价**：状态（剩余预算、剩余时间、历史消耗速率）→ 出价系数
 - **LinUCB / Bandit 方法**：在探索-利用均衡下优化出价策略
 
@@ -43,7 +79,9 @@
 ### 4. 多目标预算优化
 
 同时满足广告主 ROI 约束和平台收益约束：
-$$\max \sum_i r_i \cdot x_i \quad s.t. \quad \sum_i c_i \cdot x_i \leq B, \quad \text{ROI}_i \geq \text{target}_i$$
+$$
+\max \sum_i r_i \cdot x_i \quad s.t. \quad \sum_i c_i \cdot x_i \leq B, \quad \text{ROI}_i \geq \text{target}_i
+$$
 
 ## 实验结论
 

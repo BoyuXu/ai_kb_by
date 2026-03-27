@@ -33,10 +33,14 @@ LLM在离线阶段进行CoT推理，生成策略：
 
 ### 3. 实时用户价值函数
 在线执行时，用轻量级模型实时估计用户价值：
-$$v_{user} = f_{lightweight}(user\_features) \quad \text{(<1ms)}$$
+$$
+v_{user} = f_{lightweight}(user\_features) \quad \text{(<1ms)}
+$$
 
 最终出价：
-$$b_{final} = \text{base\_bid} \times v_{user} / v_{avg} \times \text{budget\_pacing}$$
+$$
+b_{final} = \text{base\_bid} \times v_{user} / v_{avg} \times \text{budget\_pacing}
+$$
 
 ### 4. 策略更新频率
 - LLM策略生成：每5-15分钟更新一次

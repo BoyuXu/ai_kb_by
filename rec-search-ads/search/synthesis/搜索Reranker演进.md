@@ -18,15 +18,21 @@
 ## 📐 核心公式与原理
 
 ### 1. NDCG
-$$NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}$$
+$$
+NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}
+$$
 - 搜索排序核心评估指标
 
 ### 2. Cross-Encoder
-$$score = \text{MLP}(\text{BERT}_{CLS}([q;d]))$$
+$$
+score = \text{MLP}(\text{BERT}_{CLS}([q;d]))
+$$
 - Query-Doc 联合编码
 
 ### 3. Query Likelihood
-$$P(q|d) = \prod_{t \in q} P(t|d)$$
+$$
+P(q|d) = \prod_{t \in q} P(t|d)
+$$
 - 概率语言模型检索
 
 ---

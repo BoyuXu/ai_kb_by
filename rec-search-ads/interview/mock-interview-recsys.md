@@ -85,7 +85,9 @@ Score：dot(User_emb, Item_emb)
 - **AUC**：全局排序能力，反映模型把正样本排在负样本前面的概率
 - **GAUC（Group AUC）**：分用户计算AUC后加权平均
 
-$$GAUC = \frac{\sum_{u} w_u \cdot AUC_u}{\sum_u w_u}$$
+$$
+GAUC = \frac{\sum_{u} w_u \cdot AUC_u}{\sum_u w_u}
+$$
 
 **为什么用GAUC**：
 1. **用户差异大**：全局AUC会被活跃用户主导，无法反映长尾用户效果

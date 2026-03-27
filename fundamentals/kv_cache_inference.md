@@ -10,7 +10,9 @@
 
 LLM 生成文本的方式是逐 token 的自回归过程：
 
-$$p(y_1, y_2, \ldots, y_T | x) = \prod_{t=1}^T p(y_t | x, y_1, \ldots, y_{t-1})$$
+$$
+p(y_1, y_2, \ldots, y_T | x) = \prod_{t=1}^T p(y_t | x, y_1, \ldots, y_{t-1})
+$$
 
 每生成一个 token $y_t$，需要完整的上下文 $(x, y_1, \ldots, y_{t-1})$ 作为输入。
 
@@ -40,7 +42,9 @@ $$p(y_1, y_2, \ldots, y_T | x) = \prod_{t=1}^T p(y_t | x, y_1, \ldots, y_{t-1})$
 
 ### 2.1 单 token 的 KV Cache 大小
 
-$$\text{Memory per token} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{dtype\_size}$$
+$$
+\text{Memory per token} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{dtype\_size}
+$$
 
 其中：
 - 系数 2：K 和 V 各一份
@@ -59,7 +63,9 @@ $$\text{Memory per token} = 2 \times n_{layers} \times n_{heads} \times d_{head}
 
 假设 batch_size=32，最大序列长度=4096，LLaMA-2-70B（GQA）：
 
-$$\text{KV Cache} = 32 \times 4096 \times 5\text{KB} = 655\text{MB}$$
+$$
+\text{KV Cache} = 32 \times 4096 \times 5\text{KB} = 655\text{MB}
+$$
 
 A100（80GB）上：
 - 模型权重（BF16）：70B × 2 bytes = 140GB → 需要 2 × A100 或量化
@@ -147,7 +153,9 @@ output = attention(Q, K, V)
 
 将 FP32/BF16 权重映射到 INT8（-128~127）：
 
-$$W_{int8} = \text{round}\left(\frac{W_{fp}}{s}\right), \quad s = \frac{\max(|W_{fp}|)}{127}$$
+$$
+W_{int8} = \text{round}\left(\frac{W_{fp}}{s}\right), \quad s = \frac{\max(|W_{fp}|)}{127}
+$$
 
 **逆量化**：$W_{fp} \approx W_{int8} \times s$
 
@@ -168,7 +176,9 @@ AWQ 相比 Round-to-Nearest INT4 减少约 50% 的量化误差。
 
 **核心思想**：逐层量化，对每层使用 Hessian 信息最小化量化前后的输出差异：
 
-$$\min_{W_{int}} \|WX - W_{int}X\|_F^2$$
+$$
+\min_{W_{int}} \|WX - W_{int}X\|_F^2
+$$
 
 **OBQ（Optimal Brain Quantization）**子程序：
 - 逐列量化权重，每量化一列后更新剩余列（补偿量化误差）
@@ -225,7 +235,7 @@ class ContinuousBatchScheduler:
 **加速原理**：
 - Draft Model 生成速度极快（如 7B vs 70B）
 - Target Model 可以一次前向计算并行验证 K 个 token
-- 期望接受长度：$\mathbb{E}[K_{accept}] = \frac{1}{1-\alpha}$（$\alpha$ 为平均接受率）
+- 期望接受长度：$\mathbb{E}\left[K_{accept}\right] = \frac{1}{1-\alpha}$（$\alpha$ 为平均接受率）
 
 **加速比计算**：若接受率 $\alpha = 0.8$，单步生成 K=5 个 draft token：
 - 期望接受：$\frac{1}{1-0.8} = 5$ 个 token

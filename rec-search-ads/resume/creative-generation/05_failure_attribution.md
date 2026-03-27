@@ -62,7 +62,9 @@ Level 3 - 严重失败（立即下线+根因分析）：
 
 **Shapley值公式：**
 
-$$\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N|-|S|-1)!}{|N|!} [v(S \cup \{i\}) - v(S)]$$
+$$
+\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N|-|S|-1)!}{|N|!} [v(S \cup \{i\}) - v(S)]
+$$
 
 **直观理解：**
 - $v(S)$：特征子集S对应的模型预测值
@@ -194,7 +196,9 @@ SHAP分解：
 
 **优化目标：**
 
-$$\xi(x) = \arg\min_{g \in G} \underbrace{\mathcal{L}(f, g, \pi_x)}_{\text{局部忠实度}} + \underbrace{\Omega(g)}_{\text{模型复杂度}}$$
+$$
+\xi(x) = \arg\min_{g \in G} \underbrace{\mathcal{L}(f, g, \pi_x)}_{\text{局部忠实度}} + \underbrace{\Omega(g)}_{\text{模型复杂度}}
+$$
 
 - $f$：复杂黑盒模型（CTR预测模型）
 - $g$：简单解释模型（线性回归）

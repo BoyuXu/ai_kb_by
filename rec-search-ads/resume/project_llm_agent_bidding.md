@@ -280,21 +280,29 @@ HARD_RULES = [
 
 基于历史数据训练的轻量级预估模型（非实时 RTB，用于策略层）：
 
-$$\text{CTR}_{pred} = \sigma\left(\mathbf{w}^T \mathbf{x}_{ad} + \mathbf{v}^T \mathbf{x}_{user} + b\right)$$
+$$
+\text{CTR}_{pred} = \sigma\left(\mathbf{w}^T \mathbf{x}_{ad} + \mathbf{v}^T \mathbf{x}_{user} + b\right)
+$$
 
 其中特征 $\mathbf{x}$ 包括：广告类目、历史点击率、用户兴趣标签、时段特征
 
-$$\text{CVR}_{pred} = \frac{\text{转化次数}}{\text{点击次数}} \cdot \text{平滑系数}$$
+$$
+\text{CVR}_{pred} = \frac{\text{转化次数}}{\text{点击次数}} \cdot \text{平滑系数}
+$$
 
 平滑处理（防止小样本过拟合）：
-$$\text{CVR}_{smooth} = \frac{n \cdot \text{CVR}_{obs} + m \cdot \text{CVR}_{prior}}{n + m}$$
+$$
+\text{CVR}_{smooth} = \frac{n \cdot \text{CVR}_{obs} + m \cdot \text{CVR}_{prior}}{n + m}
+$$
 
 其中 $n$ 为样本量，$m$ 为平滑参数（通常取 10~50），$\text{CVR}_{prior}$ 为类目均值
 
 ### 4.2 传统 PID 控制器的局限性
 
 传统 PID 出价调整：
-$$\text{bid}_{t+1} = \text{bid}_t + K_p \cdot e_t + K_i \sum_{j=0}^{t} e_j + K_d (e_t - e_{t-1})$$
+$$
+\text{bid}_{t+1} = \text{bid}_t + K_p \cdot e_t + K_i \sum_{j=0}^{t} e_j + K_d (e_t - e_{t-1})
+$$
 
 其中误差 $e_t = \text{ROI}_{target} - \text{ROI}_{actual}$
 
@@ -313,27 +321,41 @@ $$\text{bid}_{t+1} = \text{bid}_t + K_p \cdot e_t + K_i \sum_{j=0}^{t} e_j + K_d
 
 目标函数：
 
-$$\max_{\text{bid}} \quad \text{Conversions}(\text{bid})$$
+$$
+\max_{\text{bid}} \quad \text{Conversions}(\text{bid})
+$$
 
 约束条件：
 
-$$\text{ROI}(\text{bid}) = \frac{\text{Revenue}}{\text{Cost}} \geq \text{ROI}_{target}$$
+$$
+\text{ROI}(\text{bid}) = \frac{\text{Revenue}}{\text{Cost}} \geq \text{ROI}_{target}
+$$
 
-$$\text{Cost}(\text{bid}) \leq \text{Budget}_{daily}$$
+$$
+\text{Cost}(\text{bid}) \leq \text{Budget}_{daily}
+$$
 
-$$\text{Impressions}(\text{bid}) \geq \text{Volume}_{min} \quad \text{（跑量约束）}$$
+$$
+\text{Impressions}(\text{bid}) \geq \text{Volume}_{min} \quad \text{（跑量约束）}
+$$
 
 ### 4.4 oCPC/oCPA 目标出价公式
 
 oCPC（目标转化出价）：
 
-$$\text{出价}_{\text{oCPC}} = \text{目标CPA} \times \text{预估CVR}$$
+$$
+\text{出价}_{\text{oCPC}} = \text{目标CPA} \times \text{预估CVR}
+$$
 
-$$\text{出价}_{\text{oCPC}} = \text{CPA}_{target} \times p(\text{convert} | \text{click})$$
+$$
+\text{出价}_{\text{oCPC}} = \text{CPA}_{target} \times p(\text{convert} | \text{click})
+$$
 
 oCPA（目标行为出价，平台侧竞价）：
 
-$$\text{ecpm} = \text{出价}_{\text{oCPA}} \times \text{pCVR} \times 1000$$
+$$
+\text{ecpm} = \text{出价}_{\text{oCPA}} \times \text{pCVR} \times 1000
+$$
 
 其中 $\text{ecpm}$ 用于广告竞价排序，平台保证广告主按 CPA 计费
 

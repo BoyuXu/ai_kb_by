@@ -101,7 +101,9 @@
 **答：**
 
 **加权公式：**
-$$\tilde{v}_d = v_d \times \left(\frac{\text{CTR}(d)}{\overline{\text{CTR}}}\right)^{1.5}$$
+$$
+\tilde{v}_d = v_d \times \left(\frac{\text{CTR}(d)}{\overline{\text{CTR}}}\right)^{1.5}
+$$
 
 指数选 **1.5** 而非 1.0，是为了放大高 CTR 创意的优势，防止权重过于线性平坦。
 

@@ -21,7 +21,9 @@
 **校准（Calibration）**：模型输出的预测概率 $\hat{p}$ 应与真实事件发生的频率 $p_{true}$ 一致。
 
 数学定义——**完美校准**：
-$$P(\hat{p} = p) = p, \quad \forall p \in [0, 1]$$
+$$
+P(\hat{p} = p) = p, \quad \forall p \in [0, 1]
+$$
 
 即"模型说概率是0.3的样本，在现实中确实有30%会发生"。
 
@@ -45,7 +47,9 @@ $$P(\hat{p} = p) = p, \quad \forall p \in [0, 1]$$
 
 ### 1.3 ECE（Expected Calibration Error）——校准误差度量
 
-$$ECE = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|$$
+$$
+ECE = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|
+$$
 
 - $B_m$：第 m 个 bin 内的样本集合
 - $\text{acc}(B_m)$：bin 内真实正例率
@@ -89,11 +93,15 @@ $$ECE = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{conf}(B_m)
 
 在 SVM 的 decision function 输出 $f(x)$（原始得分）上，拟合一个 Sigmoid 函数：
 
-$$\hat{p} = \sigma(Af(x) + B) = \frac{1}{1 + e^{Af(x) + B}}$$
+$$
+\hat{p} = \sigma(Af(x) + B) = \frac{1}{1 + e^{Af(x) + B}}
+$$
 
 其中 $A, B$ 是通过在**验证集**（calibration set，与训练集独立）上最大化似然来估计的：
 
-$$\min_{A, B} \sum_i -y_i \log(\hat{p}_i) - (1-y_i)\log(1-\hat{p}_i)$$
+$$
+\min_{A, B} \sum_i -y_i \log(\hat{p}_i) - (1-y_i)\log(1-\hat{p}_i)
+$$
 
 #### 关键概念
 
@@ -198,7 +206,9 @@ Bin 10:[0.9, 1.0) → 真实正例率 = 0.87
 
 引入贝叶斯框架，自动选择最优 bin 数量：
 
-$$P(\text{bins}|D) \propto P(D|\text{bins}) \cdot P(\text{bins})$$
+$$
+P(\text{bins}|D) \propto P(D|\text{bins}) \cdot P(\text{bins})
+$$
 
 用 BIC（Bayesian Information Criterion）作为近似，平衡拟合度（bins 多 → 拟合好）和复杂度（bins 多 → 过拟合）。实验结果比固定 bin 数的 Histogram Binning 更稳定。
 
@@ -211,7 +221,9 @@ $$P(\text{bins}|D) \propto P(D|\text{bins}) \cdot P(\text{bins})$$
 
 Platt Scaling 用 Sigmoid 校准，但 Sigmoid 假设是对称的。实际中很多分类器（如随机森林、朴素贝叶斯）的输出分布是非对称的（偏向0或1）。Beta Calibration 用 Beta 分布的 CDF 做校准函数，更灵活：
 
-$$\hat{p}_{cal} = \frac{1}{1 + e^{-a \log \hat{p} - b \log(1-\hat{p}) - c}}$$
+$$
+\hat{p}_{cal} = \frac{1}{1 + e^{-a \log \hat{p} - b \log(1-\hat{p}) - c}}
+$$
 
 其中 $a, b, c$ 是三个参数（Platt Scaling 是特殊情况，$a=b$，参数退化为 2 个）。
 
@@ -238,7 +250,9 @@ $$\hat{p}_{cal} = \frac{1}{1 + e^{-a \log \hat{p} - b \log(1-\hat{p}) - c}}$$
 
 最简单有效的校准方法——在 softmax 之前除以温度 $T$：
 
-$$\hat{p}_i = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}$$
+$$
+\hat{p}_i = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}
+$$
 
 **$T$ 的作用**：
 - $T > 1$：**软化**概率分布（降低置信度），使 overconfident 模型变校准
@@ -279,12 +293,16 @@ $$\hat{p}_i = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}$$
 
 设原始正负比例为 $r_{real}$（如 0.01），训练集正负比例为 $r_{train}$（如 0.5），则对模型输出的原始分 $\hat{p}$ 做修正：
 
-$$\hat{p}_{calibrated} = \frac{\hat{p}}{\ \hat{p} + \frac{1-\hat{p}}{q}}$$
+$$
+\hat{p}_{calibrated} = \frac{\hat{p}}{\ \hat{p} + \frac{1-\hat{p}}{q}}
+$$
 
 其中 $q = \frac{r_{real}}{r_{train}}$ 是负采样率（正例保留比例为1，负例保留比例为 q）。
 
 **直觉推导**（贝叶斯视角）：
-$$\text{true odd} = \frac{p}{1-p} \cdot \frac{q}{1} = \frac{\hat{p}_{train}}{1-\hat{p}_{train}} \cdot q$$
+$$
+\text{true odd} = \frac{p}{1-p} \cdot \frac{q}{1} = \frac{\hat{p}_{train}}{1-\hat{p}_{train}} \cdot q
+$$
 
 转换回概率即得上述公式。
 
@@ -322,7 +340,9 @@ p_calibrated = calibrate_negative_sampling(p_hat, 0.1)
 
 **方法2：Propensity Score 校正（逆概率加权）**
 
-$$L_{unbiased} = \sum_i \frac{1}{\theta(pos_i)} \cdot \mathbb{1}[click_i] \cdot \log \hat{p}_i$$
+$$
+L_{unbiased} = \sum_i \frac{1}{\theta(pos_i)} \cdot \mathbb{1}[click_i] \cdot \log \hat{p}_i
+$$
 
 其中 $\theta(pos_i)$ 是位置 $pos_i$ 被用户实际看到的概率（曝光倾向分），用随机化实验（随机打乱展示位置）来估计。
 
@@ -347,7 +367,9 @@ P(click | item, pos) = P(click | item) × θ(pos)
 
 **协变量偏移校准（Covariate Shift）**：
 
-$$\hat{p}_{calibrated}(x) = \frac{P_{train}(x)}{P_{test}(x)} \cdot \hat{p}_{train}(x)$$
+$$
+\hat{p}_{calibrated}(x) = \frac{P_{train}(x)}{P_{test}(x)} \cdot \hat{p}_{train}(x)
+$$
 
 用密度比估计（Density Ratio Estimation）来纠正分布偏移：
 ```python
@@ -407,7 +429,9 @@ calibration_table[user_segment][item_category] = (A, B)
 - 新冠疫情期间所有消费行为突变
 
 **Label Shift 校准（BBSE 方法）**：
-$$P_{test}(y) = \mathbf{W} \cdot P_{train}(y)$$
+$$
+P_{test}(y) = \mathbf{W} \cdot P_{train}(y)
+$$
 估计标签分布变化矩阵 $\mathbf{W}$，对模型后验做修正。
 
 **8.2 因果视角的校准（Counterfactual Calibration）**
@@ -415,7 +439,9 @@ $$P_{test}(y) = \mathbf{W} \cdot P_{train}(y)$$
 传统校准只处理"观察到的点击"，但有些曝光根本没被用户看到（滑过去了）。
 
 **IPS 加权校准**（逆概率加权，Inverse Propensity Scoring）：
-$$\text{ECE}_{debiased} = \sum_{i} \frac{1}{e(x_i)} \cdot |\hat{p}_i - y_i|$$
+$$
+\text{ECE}_{debiased} = \sum_{i} \frac{1}{e(x_i)} \cdot |\hat{p}_i - y_i|
+$$
 其中 $e(x_i)$ 是样本 $i$ 被真正观察到的概率（曝光倾向分）。
 
 ---

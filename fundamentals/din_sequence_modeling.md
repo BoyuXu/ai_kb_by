@@ -10,7 +10,9 @@
 
 传统 CTR 预估模型（如 Wide & Deep）对用户历史行为序列的处理方式：
 
-$$e_u = \text{Pooling}(\{e_i\}_{i=1}^L) = \frac{1}{L}\sum_{i=1}^L e_i$$
+$$
+e_u = \text{Pooling}(\{e_i\}_{i=1}^L) = \frac{1}{L}\sum_{i=1}^L e_i
+$$
 
 **问题**：用户历史行为多样（买过手机壳、买过书、看过运动视频...），当前广告可能只与部分历史相关。均匀 Pooling 会稀释相关历史的信号。
 
@@ -20,11 +22,15 @@ $$e_u = \text{Pooling}(\{e_i\}_{i=1}^L) = \frac{1}{L}\sum_{i=1}^L e_i$$
 
 DIN 用**目标广告**对历史行为做软注意力加权：
 
-$$e_u = \sum_{i=1}^L a(e_i, e_{ad}) \cdot e_i$$
+$$
+e_u = \sum_{i=1}^L a(e_i, e_{ad}) \cdot e_i
+$$
 
 注意力权重：
 
-$$a(e_i, e_{ad}) = \text{MLP}\left([e_i,\ e_{ad},\ e_i - e_{ad},\ e_i \odot e_{ad}]\right)$$
+$$
+a(e_i, e_{ad}) = \text{MLP}\left([e_i,\ e_{ad},\ e_i - e_{ad},\ e_i \odot e_{ad}]\right)
+$$
 
 其中：
 - $e_i \in \mathbb{R}^d$：用户历史行为 $i$ 的 embedding
@@ -110,7 +116,9 @@ class DINAttention(nn.Module):
 
 **GAUC（Group AUC）**：DIN 论文提出用 GAUC 替代全局 AUC 评估 CTR 模型：
 
-$$\text{GAUC} = \frac{\sum_u \text{impression}_u \times \text{AUC}_u}{\sum_u \text{impression}_u}$$
+$$
+\text{GAUC} = \frac{\sum_u \text{impression}_u \times \text{AUC}_u}{\sum_u \text{impression}_u}
+$$
 
 动机：全局 AUC 会被高活跃用户主导（他们的样本多），GAUC 对每个用户独立计算 AUC 后加权平均，更能反映对每个用户的个性化排序能力。
 
@@ -131,11 +139,15 @@ DIN 将所有历史行为视为无序集合，忽略了兴趣的时间演化：
 
 用 GRU 捕获行为序列的时序信息：
 
-$$h_t = \text{GRU}(h_{t-1}, e_t)$$
+$$
+h_t = \text{GRU}(h_{t-1}, e_t)
+$$
 
 **辅助损失（Auxiliary Loss）**：每个时间步 $t$ 的隐状态 $h_t$ 应该能预测下一个行为（监督每个时间步的兴趣质量）：
 
-$$L_{aux} = -\sum_t \left[\log \sigma(h_t \cdot e_{t+1}^+) + \log(1 - \sigma(h_t \cdot e_{t+1}^-))\right]$$
+$$
+L_{aux} = -\sum_t \left[\log \sigma(h_t \cdot e_{t+1}^+) + \log(1 - \sigma(h_t \cdot e_{t+1}^-))\right]
+$$
 
 其中 $e_{t+1}^+$ 是用户实际的下一个行为，$e_{t+1}^-$ 是随机采样的负样本。
 
@@ -143,9 +155,13 @@ $$L_{aux} = -\sum_t \left[\log \sigma(h_t \cdot e_{t+1}^+) + \log(1 - \sigma(h_t
 
 AUGRU（Attention Update GRU）：在 GRU 的更新门上加入注意力权重，使与目标广告相关度高的历史时刻有更强的状态更新：
 
-$$\tilde{u}_t = a_t \cdot u_t$$
+$$
+\tilde{u}_t = a_t \cdot u_t
+$$
 
-$$h_t' = (1 - \tilde{u}_t) \odot h_{t-1}' + \tilde{u}_t \odot \tilde{h}_t$$
+$$
+h_t' = (1 - \tilde{u}_t) \odot h_{t-1}' + \tilde{u}_t \odot \tilde{h}_t
+$$
 
 其中 $a_t = a(h_t, e_{ad})$ 是当前时刻的注意力权重，$u_t$ 是原始 GRU 的更新门。
 
@@ -182,7 +198,9 @@ DIN 的注意力计算复杂度：$O(L \cdot d)$（L 为序列长度，d 为 emb
 
 对第一阶段返回的 Top-K（如 K=50）行为做 DIN 风格的精确注意力：
 
-$$e_u = \text{DIN}(\{b_{i_1}, b_{i_2}, \ldots, b_{i_K}\}, e_{ad})$$
+$$
+e_u = \text{DIN}(\{b_{i_1}, b_{i_2}, \ldots, b_{i_K}\}, e_{ad})
+$$
 
 ### 3.3 复杂度对比
 
@@ -281,11 +299,15 @@ top_k_indices = distances.argsort()[:K]
 
 将注意力核函数化：
 
-$$\text{Attention}(Q, K, V) = \text{softmax}(QK^T / \sqrt{d}) V \approx \phi(Q) (\phi(K)^T V)$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}(QK^T / \sqrt{d}) V \approx \phi(Q) (\phi(K)^T V)
+$$
 
 通过核函数 $\phi$（如 ELU 等）将 softmax 替换为可以改变矩阵乘法顺序的形式：
 
-$$\text{LinearAttn} = \phi(Q) \underbrace{(\phi(K)^T V)}_{\text{先算这个！O(nd^2)}}$$
+$$
+\text{LinearAttn} = \phi(Q) \underbrace{(\phi(K)^T V)}_{\text{先算这个！O(nd^2)}}
+$$
 
 复杂度从 $O(n^2 d)$ 降至 $O(nd^2)$（d 固定时线性于 n）。
 

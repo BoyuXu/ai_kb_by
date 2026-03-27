@@ -184,16 +184,24 @@ bid_i = k × CPA_target × pCVR_i
 
 **问题：** 在预算 B 内，最大化总转化价值
 
-$$\max \sum_i v_i \cdot w_i(b_i) \quad \text{s.t.} \quad \sum_i m_i \cdot w_i(b_i) \leq B$$
+$$
+\max \sum_i v_i \cdot w_i(b_i) \quad \text{s.t.} \quad \sum_i m_i \cdot w_i(b_i) \leq B
+$$
 
 **拉格朗日函数：**
-$$\mathcal{L} = \sum_i v_i w_i(b_i) - \lambda(\sum_i m_i w_i(b_i) - B)$$
+$$
+\mathcal{L} = \sum_i v_i w_i(b_i) - \lambda(\sum_i m_i w_i(b_i) - B)
+$$
 
 **对 b_i 求导 = 0：**
-$$w_i'(b_i)(v_i - \lambda m_i) = 0$$
+$$
+w_i'(b_i)(v_i - \lambda m_i) = 0
+$$
 
 **结论（因为 w'_i > 0）：**
-$$b^*_i = \frac{v_i}{\lambda}$$
+$$
+b^*_i = \frac{v_i}{\lambda}
+$$
 
 λ 是"预算影子价格"，反映预算紧张程度。用二分搜索找满足预算约束的 λ。
 

@@ -10,14 +10,18 @@
 ### 1.1 基本概念
 
 **条件概率与贝叶斯：**
-$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$
+$$
+P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+$$
 
 - 先验概率 P(A)：观测前的概率
 - 似然 P(B|A)：给定A时观测到B的概率
 - 后验概率 P(A|B)：观测B后A的概率
 
 **全概率公式：**
-$$P(B) = \sum_i P(B|A_i)P(A_i)$$
+$$
+P(B) = \sum_i P(B|A_i)P(A_i)
+$$
 
 ### 1.2 常见分布
 
@@ -31,20 +35,32 @@ $$P(B) = \sum_i P(B|A_i)P(A_i)$$
 
 ### 1.3 期望、方差
 
-$$E[X] = \sum_x x P(X=x)$$
-$$Var(X) = E[(X-\mu)^2] = E[X^2] - (E[X])^2$$
-$$Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2ab\cdot Cov(X,Y)$$
+$$
+E[X] = \sum_x x P(X=x)
+$$
+$$
+Var(X) = E[(X-\mu)^2] = E[X^2] - (E[X])^2
+$$
+$$
+Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2ab\cdot Cov(X,Y)
+$$
 
 ### 1.4 信息论
 
 **熵（Entropy）：** 衡量不确定性
-$$H(X) = -\sum_x P(x)\log P(x)$$
+$$
+H(X) = -\sum_x P(x)\log P(x)
+$$
 
 **交叉熵：**
-$$H(P,Q) = -\sum_x P(x)\log Q(x)$$
+$$
+H(P,Q) = -\sum_x P(x)\log Q(x)
+$$
 
 **KL散度（相对熵）：** 两分布的差异
-$$D_{KL}(P||Q) = \sum_x P(x)\log\frac{P(x)}{Q(x)} \geq 0$$
+$$
+D_{KL}(P||Q) = \sum_x P(x)\log\frac{P(x)}{Q(x)} \geq 0
+$$
 
 注意：$H(P,Q) = H(P) + D_{KL}(P||Q)$（分类任务最小化CE等价于最小化KL）
 
@@ -72,7 +88,9 @@ $$D_{KL}(P||Q) = \sum_x P(x)\log\frac{P(x)}{Q(x)} \geq 0$$
 
 ### 2.2 特征值与特征向量
 
-$$Av = \lambda v$$
+$$
+Av = \lambda v
+$$
 
 - $\lambda$：特征值，$v$：特征向量
 - 实对称矩阵的特征向量正交
@@ -86,7 +104,9 @@ $$Av = \lambda v$$
 
 ### 2.3 SVD（奇异值分解）
 
-$$A = U\Sigma V^T$$
+$$
+A = U\Sigma V^T
+$$
 
 - $U$：左奇异向量（m×m）
 - $\Sigma$：对角奇异值矩阵
@@ -120,15 +140,25 @@ $$A = U\Sigma V^T$$
 | Adam | 自适应lr | 快速收敛 |
 
 **Adam更新规则：**
-$$m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t$$
-$$v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2$$
-$$\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1-\beta_2^t}$$
-$$\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\hat{m}_t$$
+$$
+m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t
+$$
+$$
+v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
+$$
+$$
+\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1-\beta_2^t}
+$$
+$$
+\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\hat{m}_t
+$$
 
 ### 3.2 约束优化
 
 **拉格朗日乘数法：**
-$$\mathcal{L}(x,\lambda) = f(x) + \lambda g(x)$$
+$$
+\mathcal{L}(x,\lambda) = f(x) + \lambda g(x)
+$$
 
 **KKT条件（不等式约束）：**
 1. 原始可行性：$g(x) \leq 0$

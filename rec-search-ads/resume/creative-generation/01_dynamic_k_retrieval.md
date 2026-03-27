@@ -134,11 +134,15 @@ def compute_diversity(embeddings: np.ndarray) -> float:
 
 **置信度公式：**
 
-$$\text{confidence\_score}(k) = \alpha \cdot \text{sim}(q, d_k) + (1-\alpha) \cdot \text{diversity}(D_{1:k})$$
+$$
+\text{confidence\_score}(k) = \alpha \cdot \text{sim}(q, d_k) + (1-\alpha) \cdot \text{diversity}(D_{1:k})
+$$
 
 停止条件：
 
-$$\text{stop if} \quad \text{sim}(q, d_1) - \text{sim}(q, d_k) > \theta$$
+$$
+\text{stop if} \quad \text{sim}(q, d_1) - \text{sim}(q, d_k) > \theta
+$$
 
 其中 θ 为超参数（推荐0.05~0.1）
 
@@ -210,7 +214,9 @@ def compute_avg_pairwise_similarity(embeddings: np.ndarray) -> float:
 
 **信息密度公式（余弦相似度矩阵）：**
 
-$$\text{density}(D_k) = \frac{2}{k(k-1)} \sum_{i < j} \cos(d_i, d_j)$$
+$$
+\text{density}(D_k) = \frac{2}{k(k-1)} \sum_{i < j} \cos(d_i, d_j)
+$$
 
 决策规则：
 - $\text{density} > 0.85$ → 同质化，增大K（或切换多样性策略）

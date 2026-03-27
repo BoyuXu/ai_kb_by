@@ -22,7 +22,9 @@
 
 ### 2. RLHF双目标对齐
 **奖励函数设计**：
-$$r(text) = \alpha \cdot \text{CTR\_Reward}(text) + \beta \cdot \text{Compliance\_Reward}(text)$$
+$$
+r(text) = \alpha \cdot \text{CTR\_Reward}(text) + \beta \cdot \text{Compliance\_Reward}(text)
+$$
 
 - **CTR奖励**：用离线CTR预测模型评估文案的预期点击率
 - **合规奖励**：用文本分类器识别违规内容（-1表示违规，0-1表示合规程度）

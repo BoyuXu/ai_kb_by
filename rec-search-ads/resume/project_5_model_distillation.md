@@ -75,16 +75,22 @@
 关键是如何生成"好的"软标签。
 
 硬标签：
-$$\text{hard label} = \begin{cases} 1 & \text{if } y_i = 1 \\ 0 & \text{otherwise} \end{cases}$$
+$$
+\text{hard label} = \begin{cases} 1 & \text{if } y_i = 1 \\ 0 & \text{otherwise} \end{cases}
+$$
 
 软标签（未缩放）：
-$$p_i = \sigma(z_i) = \frac{1}{1 + e^{-z_i}}$$
+$$
+p_i = \sigma(z_i) = \frac{1}{1 + e^{-z_i}}
+$$
 
 问题：如果模型对某个样本很有信心（z=10，p=0.99999），软标签就接近 hard label，信息少。
 
 解决：加入温度参数 $T$，"平滑"概率分布
 
-$$p_i^T = \frac{1}{1 + e^{-z_i / T}}$$
+$$
+p_i^T = \frac{1}{1 + e^{-z_i / T}}
+$$
 
 当 $T$ 增大时，分布变平滑（soft）：
 
@@ -240,11 +246,15 @@ Int8：
 
 **线性量化**：
 
-$$x_{\text{int8}} = \text{round}\left( \frac{x_{\text{float32}} - x_{\min}}{x_{\max} - x_{\min}} \times 127 \right)$$
+$$
+x_{\text{int8}} = \text{round}\left( \frac{x_{\text{float32}} - x_{\min}}{x_{\max} - x_{\min}} \times 127 \right)
+$$
 
 反量化：
 
-$$x_{\text{float32}} = \frac{x_{\text{int8}}}{127} \times (x_{\max} - x_{\min}) + x_{\min}$$
+$$
+x_{\text{float32}} = \frac{x_{\text{int8}}}{127} \times (x_{\max} - x_{\min}) + x_{\min}
+$$
 
 ### 3.2 量化感知训练（QAT）
 

@@ -23,7 +23,9 @@ Input → Embedding + Position Encoding
 
 **核心公式：**
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 - $Q, K, V$ 来自输入的线性变换：$Q=XW_Q, K=XW_K, V=XW_V$
 - $\sqrt{d_k}$ 缩放防止点积过大导致梯度消失
@@ -44,7 +46,9 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 ### 1.4 FFN（前馈神经网络）
 
-$$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$
+$$
+\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2
+$$
 
 - 两层线性变换 + ReLU（或SwiGLU/GELU）
 - 中间维度通常是 $4d_{model}$
@@ -116,7 +120,9 @@ $$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$
 
 **核心思想：** 参数更新具有低秩特性，将 $\Delta W$ 分解为 $\Delta W = AB$
 
-$$W' = W_0 + \frac{\alpha}{r} AB$$
+$$
+W' = W_0 + \frac{\alpha}{r} AB
+$$
 
 - $A \in \mathbb{R}^{d \times r}$（随机初始化），$B \in \mathbb{R}^{r \times k}$（全零初始化）
 - $r$（rank）越小，训练参数越少

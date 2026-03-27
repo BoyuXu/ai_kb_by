@@ -128,7 +128,9 @@ instance_group [{ count: 1, kind: KIND_GPU, gpus: [0] }]
 - **LLM.int8()**：混合精度，异常值FP16，其余INT8
 
 **量化等式：**
-$$W_{int} = \text{clamp}\left(\text{round}\left(\frac{W}{s}\right), -128, 127\right)$$
+$$
+W_{int} = \text{clamp}\left(\text{round}\left(\frac{W}{s}\right), -128, 127\right)
+$$
 
 ### 3.2 剪枝（Pruning）
 
@@ -153,7 +155,9 @@ Student Model（小）← 监督学习（Hard Labels + Soft Labels）
 ```
 
 **损失函数：**
-$$L = (1-\alpha)\cdot L_{CE}(y, \hat{y}) + \alpha \cdot T^2 \cdot L_{KL}(p_T, p_S)$$
+$$
+L = (1-\alpha)\cdot L_{CE}(y, \hat{y}) + \alpha \cdot T^2 \cdot L_{KL}(p_T, p_S)
+$$
 
 - $T$：温度参数，T越大软标签越平滑
 - $\alpha$：软标签权重

@@ -12,7 +12,9 @@
 
 优化目标函数（负采样版本）：
 
-$$J = -\sum_{(w,c) \in D} \left[\log \sigma(v_w \cdot u_c) + k \cdot \mathbb{E}_{w' \sim P_n}[\log \sigma(-v_{w'} \cdot u_c)]\right]$$
+$$
+J = -\sum_{(w,c) \in D} \left[\log \sigma(v_w \cdot u_c) + k \cdot \mathbb{E}_{w' \sim P_n}[\log \sigma(-v_{w'} \cdot u_c)]\right]
+$$
 
 其中：
 - $v_w \in \mathbb{R}^d$：中心词 $w$ 的嵌入向量
@@ -22,7 +24,9 @@ $$J = -\sum_{(w,c) \in D} \left[\log \sigma(v_w \cdot u_c) + k \cdot \mathbb{E}_
 - $P_n(w) \propto f(w)^{3/4}$：负样本采样分布（频率的 3/4 次方，平衡高频低频词）
 
 **梯度推导**：
-$$\frac{\partial J}{\partial v_w} = u_c(\sigma(v_w \cdot u_c) - 1) + k \sum_{w'} \sigma(v_{w'} \cdot u_c) \cdot u_{w'}$$
+$$
+\frac{\partial J}{\partial v_w} = u_c(\sigma(v_w \cdot u_c) - 1) + k \sum_{w'} \sigma(v_{w'} \cdot u_c) \cdot u_{w'}
+$$
 
 第一项：正样本梯度，使 $v_w$ 与 $u_c$ 内积趋向 1（sigmoid 值为 1）
 第二项：负样本梯度，使 $v_w$ 与负样本内积趋向 -∞（sigmoid 值为 0）
@@ -33,7 +37,9 @@ $$\frac{\partial J}{\partial v_w} = u_c(\sigma(v_w \cdot u_c) - 1) + k \sum_{w'}
 
 InfoNCE Loss 是现代 Embedding 训练的核心目标：
 
-$$\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(q \cdot k^+ / \tau)}{\exp(q \cdot k^+ / \tau) + \sum_{i=1}^{N-1} \exp(q \cdot k_i^- / \tau)}$$
+$$
+\mathcal{L}_{\text{InfoNCE}} = -\log \frac{\exp(q \cdot k^+ / \tau)}{\exp(q \cdot k^+ / \tau) + \sum_{i=1}^{N-1} \exp(q \cdot k_i^- / \tau)}
+$$
 
 - $q$：查询向量（如用户）
 - $k^+$：正样本键向量（用户实际点击的物品）
@@ -99,13 +105,17 @@ def evaluate_embedding(embeddings, labels):
 ### 2.2 训练目标对比
 
 **BPR Loss（Bayesian Personalized Ranking）**：
-$$\mathcal{L}_{BPR} = -\sum_{(u,i,j)} \log \sigma(s_{ui} - s_{uj})$$
+$$
+\mathcal{L}_{BPR} = -\sum_{(u,i,j)} \log \sigma(s_{ui} - s_{uj})
+$$
 - $s_{ui}$：用户 u 与正样本 i 的相似度
 - $s_{uj}$：用户 u 与负样本 j 的相似度
 - 只关注相对顺序，不限制绝对值
 
 **Sampled Softmax（大规模推荐标配）**：
-$$\mathcal{L}_{SS} = -\log \frac{\exp(u \cdot v^+ / \tau)}{\sum_{v' \in \mathcal{V}'} \exp(u \cdot v' / \tau)}$$
+$$
+\mathcal{L}_{SS} = -\log \frac{\exp(u \cdot v^+ / \tau)}{\sum_{v' \in \mathcal{V}'} \exp(u \cdot v' / \tau)}
+$$
 - $\mathcal{V}'$：采样的负样本集合（子集，而非全量物品库）
 - 支持大规模训练，通过调整采样数量控制训练速度
 

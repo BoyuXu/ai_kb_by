@@ -47,7 +47,9 @@
 
 **BLEU公式（Papineni et al., ACL 2002）：**
 
-$$\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log p_n\right)$$
+$$
+\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log p_n\right)
+$$
 
 各项含义：
 - $p_n$：n-gram精确率，候选文本中n-gram出现在参考文本中的比例
@@ -56,7 +58,9 @@ $$\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log p_n\right)$$
 
 **简短惩罚因子：**
 
-$$BP = \begin{cases} 1 & \text{if } c > r \\ e^{1 - r/c} & \text{if } c \leq r \end{cases}$$
+$$
+BP = \begin{cases} 1 & \text{if } c > r \\ e^{1 - r/c} & \text{if } c \leq r \end{cases}
+$$
 
 其中 $c$ 是候选文本长度，$r$ 是最近参考文本长度
 
@@ -101,7 +105,9 @@ def compute_inter_bleu(creatives: List[str]) -> float:
 
 **定义：** 对集合中的每条创意，以其他所有创意为参考，计算BLEU得分，取平均
 
-$$\text{Self-BLEU} = \frac{1}{N} \sum_{i=1}^{N} \text{BLEU}(d_i, \{d_j\}_{j \neq i})$$
+$$
+\text{Self-BLEU} = \frac{1}{N} \sum_{i=1}^{N} \text{BLEU}(d_i, \{d_j\}_{j \neq i})
+$$
 
 **实现代码：**
 
@@ -228,7 +234,9 @@ class SemanticDiversityAnalyzer:
 
 **ILD公式：**
 
-$$\text{ILD} = \frac{2}{K(K-1)} \sum_{i<j} d(d_i, d_j)$$
+$$
+\text{ILD} = \frac{2}{K(K-1)} \sum_{i<j} d(d_i, d_j)
+$$
 
 其中 $d(d_i, d_j) = 1 - \cos(d_i, d_j)$
 
@@ -247,7 +255,9 @@ $$\text{ILD} = \frac{2}{K(K-1)} \sum_{i<j} d(d_i, d_j)$$
 
 **MMR（Maximum Marginal Relevance，Li et al., 2016）：**
 
-$$\text{MMR} = \arg\max_{d_i \in C \setminus S} \left[\lambda \cdot \text{sim}(d_i, q) - (1-\lambda) \cdot \max_{d_j \in S} \text{sim}(d_i, d_j)\right]$$
+$$
+\text{MMR} = \arg\max_{d_i \in C \setminus S} \left[\lambda \cdot \text{sim}(d_i, q) - (1-\lambda) \cdot \max_{d_j \in S} \text{sim}(d_i, d_j)\right]
+$$
 
 **各项含义：**
 - $C$：候选集合（全部生成的创意，如50条）

@@ -10,7 +10,9 @@
 
 1. **注意力机制（Attention-based Pooling）**
    - 对每条历史行为 $e_i$，计算与候选商品 $e_a$ 的相关性得分：
-     $$a_i = \text{Attention}(e_i, e_a) = \text{MLP}([e_i; e_a; e_i \odot e_a; e_i - e_a])$$
+$$
+a_i = \text{Attention}(e_i, e_a) = \text{MLP}([e_i; e_a; e_i \odot e_a; e_i - e_a])
+$$
    - 加权求和：$v_u = \sum_i a_i \cdot e_i$
    - 不做 softmax normalization（保留原始得分幅度，反映绝对兴趣强度）
 

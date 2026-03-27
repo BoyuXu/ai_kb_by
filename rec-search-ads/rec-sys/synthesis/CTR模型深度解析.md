@@ -179,24 +179,36 @@ MMOE:
 
 **Expert输出：**
 
-$$f_i(x) = \text{Expert}_i(x), \quad i = 1, 2, ..., N$$
+$$
+f_i(x) = \text{Expert}_i(x), \quad i = 1, 2, ..., N
+$$
 
 **Gating Network（任务k）：**
 
-$$g_k(x) = \text{Softmax}(W_{g_k} \cdot x + b_{g_k})$$
-$$g_k(x) = [g_{k1}, g_{k2}, ..., g_{kN}], \quad \sum_{i=1}^{N} g_{ki} = 1$$
+$$
+g_k(x) = \text{Softmax}(W_{g_k} \cdot x + b_{g_k})
+$$
+$$
+g_k(x) = [g_{k1}, g_{k2}, ..., g_{kN}], \quad \sum_{i=1}^{N} g_{ki} = 1
+$$
 
 **融合表示（任务k）：**
 
-$$f_k(x) = \sum_{i=1}^{N} g_{ki}(x) \cdot f_i(x)$$
+$$
+f_k(x) = \sum_{i=1}^{N} g_{ki}(x) \cdot f_i(x)
+$$
 
 **任务输出：**
 
-$$y_k = \text{Tower}_k(f_k(x))$$
+$$
+y_k = \text{Tower}_k(f_k(x))
+$$
 
 **多任务损失（不确定性加权/动态加权）：**
 
-$$L = \sum_{k=1}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)$$
+$$
+L = \sum_{k=1}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)
+$$
 
 ### 5.4 与前代模型对比
 
@@ -255,15 +267,21 @@ $$L = \sum_{k=1}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)$$
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
-$$\hat{r}_{ui} = p_u^T q_i$$
+$$
+\hat{r}_{ui} = p_u^T q_i
+$$
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
-$$L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})$$
+$$
+L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
+$$
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
-$$P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)$$
+$$
+P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
+$$
 - 基于历史序列预测下一次交互
 
 ---
@@ -449,7 +467,9 @@ class PLE(nn.Module):
 
 **任务k在第l层的Expert输出：**
 
-$$E_{k,l} = \{E_{k,l}^1, ..., E_{k,l}^{m_k}\} \cup \{E_{S,l}^1, ..., E_{S,l}^{m_s}\}$$
+$$
+E_{k,l} = \{E_{k,l}^1, ..., E_{k,l}^{m_k}\} \cup \{E_{S,l}^1, ..., E_{S,l}^{m_s}\}
+$$
 
 其中：
 - $E_{k,l}^i$：任务k在第l层的第i个私有Expert
@@ -457,11 +477,15 @@ $$E_{k,l} = \{E_{k,l}^1, ..., E_{k,l}^{m_k}\} \cup \{E_{S,l}^1, ..., E_{S,l}^{m_
 
 **Gating Network输出：**
 
-$$g_{k,l}(x) = \text{Softmax}(W_{k,l} \cdot x)$$
+$$
+g_{k,l}(x) = \text{Softmax}(W_{k,l} \cdot x)
+$$
 
 **融合表示：**
 
-$$x_{k,l+1} = \sum_{i=1}^{m_k} g_{k,l}^i \cdot E_{k,l}^i(x_{k,l}) + \sum_{j=1}^{m_s} g_{k,l}^{m_k+j} \cdot E_{S,l}^j(x_{k,l})$$
+$$
+x_{k,l+1} = \sum_{i=1}^{m_k} g_{k,l}^i \cdot E_{k,l}^i(x_{k,l}) + \sum_{j=1}^{m_s} g_{k,l}^{m_k+j} \cdot E_{S,l}^j(x_{k,l})
+$$
 
 ### 6.4 与前代模型对比
 
@@ -792,13 +816,19 @@ User Tower                    Item Tower
 ### 8.3 关键公式
 
 **语义向量**：
-$$y = f(x; W) = \tanh(W_L \cdot \tanh(...\tanh(W_1 x)))$$
+$$
+y = f(x; W) = \tanh(W_L \cdot \tanh(...\tanh(W_1 x)))
+$$
 
 **余弦相似度**：
-$$R(Q, D) = \frac{y_Q^T y_D}{\|y_Q\| \cdot \|y_D\|}$$
+$$
+R(Q, D) = \frac{y_Q^T y_D}{\|y_Q\| \cdot \|y_D\|}
+$$
 
 **后验概率**：
-$$P(D|Q) = \frac{\exp(\gamma R(Q, D))}{\sum_{D'} \exp(\gamma R(Q, D'))}$$
+$$
+P(D|Q) = \frac{\exp(\gamma R(Q, D))}{\sum_{D'} \exp(\gamma R(Q, D'))}
+$$
 
 ### 8.4 与前代模型对比
 

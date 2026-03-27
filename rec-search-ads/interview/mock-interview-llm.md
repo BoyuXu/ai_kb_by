@@ -174,7 +174,9 @@ $$
 **候选人高质量答案：**
 
 **标准NTP (Next Token Prediction)：**
-$$\mathcal{L} = -\sum_{i=1}^{N} \log P(x_i | x_{<i})$$
+$$
+\mathcal{L} = -\sum_{i=1}^{N} \log P(x_i | x_{<i})
+$$
 
 **改进Loss设计：**
 
@@ -255,7 +257,11 @@ RL Optimization (PPO/DPO)
 
 原理：
 - 最大化奖励同时约束与参考模型的KL散度
-- $$\mathcal{L}_{PPO} = \mathbb{E}[\min(r_t A_t, \text{clip}(r_t, 1-\epsilon, 1+\epsilon) A_t)]$$
+-
+
+$$
+\mathcal{L}_{PPO} = \mathbb{E}[\min(r_t A_t, \text{clip}(r_t, 1-\epsilon, 1+\epsilon) A_t)]
+$$
 - 其中 $r_t = \frac{\pi_\theta}{\pi_{ref}}$
 
 优点：
@@ -274,7 +280,9 @@ RL Optimization (PPO/DPO)
 - 绕过显式奖励模型，直接从偏好数据优化
 - 推导出最优策略与奖励的关系：$r(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{ref}(y|x)}$
 - 目标函数：
-$$\mathcal{L}_{DPO} = -\mathbb{E}[\log \sigma(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)})]$$
+$$
+\mathcal{L}_{DPO} = -\mathbb{E}[\log \sigma(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)})]
+$$
 
 优点：
 - 只需2个模型 (Policy + Ref)
