@@ -12,7 +12,10 @@
 
 ### 1. 统一生成框架
 将query suggestion建模为条件文本生成：
-$$P(q | q_{prefix}, u_{hist}, ctx) = \prod_{i=|prefix|+1}^{|q|} P(q_i | q_{<i}, q_{prefix}, u_{hist})$$
+
+$$
+P(q | q_{prefix}, u_{hist}, ctx) = \prod_{i=|prefix|+1}^{|q|} P(q_i | q_{<i}, q_{prefix}, u_{hist})
+$$
 
 输入：用户输入的前缀 + 用户历史行为 + 会话上下文
 输出：完整的搜索query
@@ -23,7 +26,9 @@ $$P(q | q_{prefix}, u_{hist}, ctx) = \prod_{i=|prefix|+1}^{|q|} P(q_i | q_{<i}, 
 2. 每个解码步只允许选择Trie中合法的下一个字符/token
 3. 保留了生成的个性化能力，同时约束了生成空间
 
-$$\text{NextTokens}(q_{<i}) = \{t : \text{Trie.has\_prefix}(q_{<i} + t)\}$$
+$$
+\text{NextTokens}(q_{<i}) = \{t : \text{Trie.has}_{\text{prefix}}(q_{<i} + t)\}
+$$
 
 ### 3. 个性化生成
 用户历史搜索序列作为prompt前缀：
@@ -34,7 +39,10 @@ $$\text{NextTokens}(q_{<i}) = \{t : \text{Trie.has\_prefix}(q_{<i} + t)\}$$
 
 ### 4. 质量奖励微调
 用点击率作为奖励信号，通过RLHF微调生成质量：
-$$r(q) = \text{CTR}(q) \cdot \text{商业价值}(q)$$
+
+$$
+r(q) = \text{CTR}(q) \cdot \text{商业价值}(q)
+$$
 
 ## 实验结论
 - **用户点击率**：+8%（相比基于统计的前缀匹配方案）

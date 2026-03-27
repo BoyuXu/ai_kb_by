@@ -42,7 +42,10 @@ Final Answer: [Garmin跑步手表, Nike跑步鞋, Bose运动耳机...]
 
 ### 3. 多步推理链接
 对复杂意图进行多步拆解：
-$$\text{Recommend}(u, intent) = f(Tool_1(u) \to Tool_2(result_1) \to ... \to \text{Final\_List})$$
+
+$$
+\text{Recommend}(u, intent) = f(Tool_1(u) \to Tool_2(result_1) \to ... \to \text{Final}_{\text{List}})
+$$
 
 每步工具调用的结果作为下一步的输入，实现信息聚合。
 

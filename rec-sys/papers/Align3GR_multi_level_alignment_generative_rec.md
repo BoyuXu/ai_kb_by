@@ -12,7 +12,10 @@ LLM用于生成式推荐面临**对齐（Alignment）**问题：
 
 ### 1. Item-Level对齐
 使用对比学习对齐LLM的item表示与推荐信号：
-$$\mathcal{L}_{item} = -\log \frac{\exp(\text{sim}(h_u, h_{i^+})/\tau)}{\sum_{j} \exp(\text{sim}(h_u, h_{i^j})/\tau)}$$
+
+$$
+\mathcal{L}_{item} = -\log \frac{\exp(\text{sim}(h_u, h_{i^+})/\tau)}{\sum_{j} \exp(\text{sim}(h_u, h_{i^j})/\tau)}
+$$
 
 正样本 $i^+$ = 用户实际点击/购买的物品，负样本来自曝光未点击。
 
@@ -20,18 +23,32 @@ $$\mathcal{L}_{item} = -\log \frac{\exp(\text{sim}(h_u, h_{i^+})/\tau)}{\sum_{j}
 推荐列表应满足：
 - **相关性**：每个item与用户需求相关
 - **多样性**：列表内item不过于相似
-$$\mathcal{L}_{list} = \mathcal{L}_{relevance} - \lambda \cdot \text{Diversity}(List)$$
+
+$$
+\mathcal{L}_{list} = \mathcal{L}_{relevance} - \lambda \cdot \text{Diversity}(List)
+$$
 
 多样性通过MMR（Maximal Marginal Relevance）度量：
-$$\text{MMR} = \lambda \cdot \text{Relevance}(i, u) - (1-\lambda) \cdot \max_{j \in S} \text{Sim}(i, j)$$
+
+$$
+\text{MMR} = \lambda \cdot \text{Relevance}(i, u) - (1-\lambda) \cdot \max_{j \in S} \text{Sim}(i, j)
+$$
 
 ### 3. User-Level对齐（RLHF）
 使用PPO算法，以用户长期满意度为奖励：
-$$r(List) = \text{CTR} \cdot w_1 + \text{Retention} \cdot w_2 + \text{Diversity} \cdot w_3$$
+
+$$
+r(List) = \text{CTR} \cdot w_1 + \text{Retention} \cdot w_2 + \text{Diversity} \cdot w_3
+$$
+
 其中Retention为用户次日留存率，捕获长期满意度。
 
 ### 4. 三层联合训练
-$$\mathcal{L}_{total} = \mathcal{L}_{item} + \alpha \mathcal{L}_{list} + \beta \mathcal{L}_{user}$$
+
+$$
+\mathcal{L}_{total} = \mathcal{L}_{item} + \alpha \mathcal{L}_{list} + \beta \mathcal{L}_{user}
+$$
+
 三层损失联合反向传播，层次化对齐LLM的推荐能力。
 
 ## 实验结论

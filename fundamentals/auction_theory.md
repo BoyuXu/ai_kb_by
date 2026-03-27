@@ -131,13 +131,13 @@ $$
 oCPC 让广告主出每次转化的目标成本（CPA_target），平台代为估算合适的点击出价：
 
 $$
-\text{CPC\_bid} = \text{CPA\_target} \times \hat{p}(\text{CVR})
+\text{CPC}_{\text{bid}} = \text{CPA}_{\text{target}} \times \hat{p}(\text{CVR})
 $$
 
 进一步展开到每次展示的 eCPM：
 
 $$
-\text{eCPM} = \text{CPC\_bid} \times \hat{p}(\text{CTR}) = \text{CPA\_target} \times \hat{p}(\text{CVR}) \times \hat{p}(\text{CTR})
+\text{eCPM} = \text{CPC}_{\text{bid}} \times \hat{p}(\text{CTR}) = \text{CPA}_{\text{target}} \times \hat{p}(\text{CVR}) \times \hat{p}(\text{CTR})
 $$
 
 **系统架构**：

@@ -41,7 +41,7 @@ $$
 最终出价：
 
 $$
-b_{final} = \text{base\_bid} \times v_{user} / v_{avg} \times \text{budget\_pacing}
+b_{final} = \text{base}_{\text{bid}} \times v_{user} / v_{avg} \times \text{budget}_{\text{pacing}}
 $$
 
 ### 4. 策略更新频率

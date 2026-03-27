@@ -155,7 +155,7 @@ def prepare_training_data(events_log, observation_window_days=7):
 广告主的目标：
 
 $$
-\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target\_CPA}
+\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target}_{\text{CPA}}
 $$
 
 其中：
@@ -171,19 +171,19 @@ $$
 使用拉格朗日乘数法，转化为无约束问题：
 
 $$
-L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}_i(\text{bid}_i) - \lambda \left( \sum_i \text{bid}_i - \text{target\_CPA} \sum_i \text{conversion}_i(\text{bid}_i) \right)
+L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}_i(\text{bid}_i) - \lambda \left( \sum_i \text{bid}_i - \text{target}_{\text{CPA}} \sum_i \text{conversion}_i(\text{bid}_i) \right)
 $$
 
 展开：
 
 $$
-L = \sum_i [\text{conversion}_i(\text{bid}_i) \cdot (1 + \lambda \cdot \text{target\_CPA}) - \lambda \cdot \text{bid}_i]
+L = \sum_i [\text{conversion}_i(\text{bid}_i) \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) - \lambda \cdot \text{bid}_i]
 $$
 
 对 $\text{bid}_i$ 求偏导，在最优点：
 
 $$
-\frac{\partial \text{conversion}_i}{\partial \text{bid}_i} \cdot (1 + \lambda \cdot \text{target\_CPA}) = \lambda
+\frac{\partial \text{conversion}_i}{\partial \text{bid}_i} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) = \lambda
 $$
 
 假设转化与出价成对数关系（常见假设）：
@@ -195,19 +195,19 @@ $$
 则：
 
 $$
-\frac{\alpha_i}{\text{bid}_i} \cdot (1 + \lambda \cdot \text{target\_CPA}) = \lambda
+\frac{\alpha_i}{\text{bid}_i} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) = \lambda
 $$
 
 解得最优出价：
 
 $$
-\text{bid}_i^* = \frac{\alpha_i}{\lambda} \cdot (1 + \lambda \cdot \text{target\_CPA})
+\text{bid}_i^* = \frac{\alpha_i}{\lambda} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}})
 $$
 
-进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target\_CPA}}{\lambda}$，得：
+进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target}_{\text{CPA}}}{\lambda}$，得：
 
 $$
-\text{bid}_i^* = \beta \cdot \text{target\_CPA} \cdot \text{pCVR}_i
+\text{bid}_i^* = \beta \cdot \text{target}_{\text{CPA}} \cdot \text{pCVR}_i
 $$
 
 **直观理解**：最优出价 = 目标 CPA × 预估转化率 × 调整系数 $\beta$

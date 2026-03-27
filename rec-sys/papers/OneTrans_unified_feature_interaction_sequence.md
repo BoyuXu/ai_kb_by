@@ -15,7 +15,11 @@
 
 ### 1. Field Tokenization
 将每个特征field（用户年龄、商品类目、价格等）转化为token：
-$$\text{token}_i = \text{Embedding}(\text{field}_i) + \text{FieldTypeEmbedding}(i)$$
+
+$$
+\text{token}_i = \text{Embedding}(\text{field}_i) + \text{FieldTypeEmbedding}(i)
+$$
+
 序列行为同样token化，与结构化特征拼接成统一序列。
 
 ### 2. 统一注意力
@@ -30,7 +34,11 @@ $$\text{token}_i = \text{Embedding}(\text{field}_i) + \text{FieldTypeEmbedding}(
 - 混合场景下两类token的位置编码不共享
 
 ### 4. 参数效率
-$$\text{参数量} = \text{OneTrans} \approx 0.7 \times (\text{DCN-v2} + \text{SASRec})$$
+
+$$
+\text{参数量} = \text{OneTrans} \approx 0.7 \times (\text{DCN-v2} + \text{SASRec})
+$$
+
 参数量减少约30%，因为共享了底层特征提取层。
 
 ## 实验结论

@@ -191,7 +191,7 @@ $$\begin{align}
 加入约束：
 
 $$
-\text{diversity\_constraint}(x) \geq \text{threshold}
+\text{diversity}_{\text{constraint}}(x) \geq \text{threshold}
 $$
 
 **求解**：通常用贪心近似，精确解 NP-hard

@@ -24,7 +24,7 @@
 **奖励函数设计**：
 
 $$
-r(text) = \alpha \cdot \text{CTR\_Reward}(text) + \beta \cdot \text{Compliance\_Reward}(text)
+r(text) = \alpha \cdot \text{CTR}_{\text{Reward}}(text) + \beta \cdot \text{Compliance}_{\text{Reward}}(text)
 $$
 
 - **CTR奖励**：用离线CTR预测模型评估文案的预期点击率

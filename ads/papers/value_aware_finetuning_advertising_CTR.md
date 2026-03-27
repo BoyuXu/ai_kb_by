@@ -18,13 +18,13 @@ $$
 $$
 
 其中 $v_i$ 是样本的商业价值权重：
-- 正样本（点击）：$v_i = f(\text{GMV}_i, \text{margin}_i, \text{advertiser\_value}_i)$
+- 正样本（点击）：$v_i = f(\text{GMV}_i, \text{margin}_i, \text{advertiser}_{\text{value}}_i)$
 - 负样本（未点击）：$v_i = 1$（标准权重）
 
 ### 2. 价值权重计算
 
 $$
-v_i = 1 + \alpha \cdot \log(1 + \text{GMV}_i) + \beta \cdot \text{CPM}_i + \gamma \cdot \text{advertiser\_budget\_ratio}_i
+v_i = 1 + \alpha \cdot \log(1 + \text{GMV}_i) + \beta \cdot \text{CPM}_i + \gamma \cdot \text{advertiser}_{\text{budget}}_{\text{ratio}}_i
 $$
 
 多维度价值融合：成交额、CPM出价、广告主预算达成情况。

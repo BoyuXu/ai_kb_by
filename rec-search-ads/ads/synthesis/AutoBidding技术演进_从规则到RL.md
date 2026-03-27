@@ -210,7 +210,7 @@ def pid_pacing(t, actual_spend, target_spend, prev_error, integral):
 设：
 - $n$ 个广告展示机会
 - 对第 $i$ 个机会出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增）
-- 每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA\_target}$
+- 每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$
 - 赢得时的支付（二价拍卖中约为对手最高价 $m_i$）
 
 **优化问题**：
@@ -254,7 +254,7 @@ $$
 等价于：
 
 $$
-b_i^* = v_i / \lambda = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA\_target}}{\lambda}
+b_i^* = v_i / \lambda = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}}{\lambda}
 $$
 
 **关键结论**：
@@ -579,7 +579,7 @@ $$
 $$
 
 $$
-\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI\_target} \quad (\text{ROI约束})
+\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI}_{\text{target}} \quad (\text{ROI约束})
 $$
 
 拉格朗日：$\mathcal{L} = \sum_i (v_i - \lambda_1 c_i - \lambda_2(c_i \cdot \text{ROI} - v_i)) w_i(b_i) + \lambda_1 B$

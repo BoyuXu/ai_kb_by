@@ -13,20 +13,30 @@
 ### 1. RQ-VAE语义量化
 使用残差量化变分自编码器（Residual Quantization VAE）将物品内容特征量化为层次化语义ID：
 
-$$\text{SemanticID}(item) = [c_1, c_2, ..., c_L]$$
+$$
+\text{SemanticID}(item) = [c_1, c_2, ..., c_L]
+$$
 
 其中 L 为量化层数（通常3-4层），每层从大小为K的码本中选一个码字：
-$$c_l = \arg\min_{k} ||z_l - e_k||_2$$
+
+$$
+c_l = \arg\min_{k} ||z_l - e_k||_2
+$$
 
 ### 2. STE（Straight-Through Estimator）可微训练
 量化操作不可微，使用STE近似梯度：
 
-$$\frac{\partial \mathcal{L}}{\partial z_l} \approx \frac{\partial \mathcal{L}}{\partial \hat{z}_l}$$
+$$
+\frac{\partial \mathcal{L}}{\partial z_l} \approx \frac{\partial \mathcal{L}}{\partial \hat{z}_l}
+$$
 
 前向传播使用离散码字，反向传播梯度直接传过量化层，实现端到端训练。
 
 ### 3. 联合训练目标
-$$\mathcal{L}_{total} = \mathcal{L}_{rec} + \lambda_1 \mathcal{L}_{VQ} + \lambda_2 \mathcal{L}_{commit}$$
+
+$$
+\mathcal{L}_{total} = \mathcal{L}_{rec} + \lambda_1 \mathcal{L}_{VQ} + \lambda_2 \mathcal{L}_{commit}
+$$
 
 - $\mathcal{L}_{rec}$：推荐损失（next-item prediction）
 - $\mathcal{L}_{VQ}$：码本向量更新损失

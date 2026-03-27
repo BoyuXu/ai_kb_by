@@ -68,7 +68,9 @@
 
 **Scaled Dot-Product Attention（核心）：**
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
 
 - $Q \in \mathbb{R}^{n \times d_k}$：Query矩阵
 - $K \in \mathbb{R}^{m \times d_k}$：Key矩阵
@@ -82,17 +84,26 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 **Multi-Head Attention：**
 
-$$\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O$$
+$$
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O
+$$
 
-$$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
+$$
+\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+$$
 
 - h个头并行，每头维度 $d_k = d_{model}/h$
 - 不同头学习不同语义（句法/语义/指代等）
 
 **位置编码（正弦余弦）：**
 
-$$PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
-$$PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+$$
+PE_{(pos,2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)
+$$
+
+$$
+PE_{(pos,2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)
+$$
 
 **复杂度分析：**
 
@@ -151,7 +162,9 @@ Self-Attention对长序列O(n²)是后续优化的核心挑战。
 
 **BERT预训练目标：**
 
-$$\mathcal{L}_{MLM} = -\mathbb{E}[\log P(x_{mask} | x_{visible})]$$
+$$
+\mathcal{L}_{MLM} = -\mathbb{E}[\log P(x_{mask} | x_{visible})]
+$$
 
 - 随机遮盖15%的token（80%替换为[MASK]，10%随机词，10%原词）
 - NSP（Next Sentence Prediction）：判断两句是否相邻（后来被证明作用有限）
@@ -221,7 +234,9 @@ $$\mathcal{L}_{MLM} = -\mathbb{E}[\log P(x_{mask} | x_{visible})]$$
 
 **CLM预训练目标（因果语言模型）：**
 
-$$\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(x_t | x_1, ..., x_{t-1}; \theta)$$
+$$
+\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(x_t | x_1, ..., x_{t-1}; \theta)
+$$
 
 **因果掩码（Causal Mask）：**
 
@@ -233,17 +248,25 @@ M_{ij} =
 \end{cases}
 $$
 
-$$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T + M}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T + M}{\sqrt{d_k}}\right)V
+$$
 
 **Scaling Law（Kaplan et al., 2020）：**
 
 模型损失与计算量、参数量、数据量的幂律关系：
 
-$$L(N) \approx \left(\frac{N_c}{N}\right)^{\alpha_N}$$
+$$
+L(N) \approx \left(\frac{N_c}{N}\right)^{\alpha_N}
+$$
 
-$$L(D) \approx \left(\frac{D_c}{D}\right)^{\alpha_D}$$
+$$
+L(D) \approx \left(\frac{D_c}{D}\right)^{\alpha_D}
+$$
 
-$$L(C) \approx \left(\frac{C_c}{C_{min}}\right)^{\alpha_C}$$
+$$
+L(C) \approx \left(\frac{C_c}{C_{min}}\right)^{\alpha_C}
+$$
 
 其中 $N$=参数量，$D$=数据量，$C$=计算量（FLOPs）
 
@@ -377,7 +400,9 @@ Prompt格式（few-shot）：
 
 **PPO目标函数（clip版本）：**
 
-$$L^{CLIP}(\theta) = \mathbb{E}_t[\min\left(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)]$$
+$$
+L^{CLIP}(\theta) = \mathbb{E}_t[\min\left(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t\right)]
+$$
 
 - $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$ 概率比
 - $\hat{A}_t$：优势函数估计
@@ -491,23 +516,33 @@ Loss = CrossEntropy(output tokens only)
 
 RLHF目标函数：
 
-$$\max_{\pi_\theta} \mathbb{E}_{x \sim D, y \sim \pi_\theta}[r(x,y)] - \beta \cdot KL[\pi_\theta(y|x) || \pi_{ref}(y|x)]$$
+$$
+\max_{\pi_\theta} \mathbb{E}_{x \sim D, y \sim \pi_\theta}[r(x,y)] - \beta \cdot KL[\pi_\theta(y|x) || \pi_{ref}(y|x)]
+$$
 
 **最优解析解：**
 
-$$\pi^*(y|x) = \frac{\pi_{ref}(y|x) \exp(r(x,y)/\beta)}{Z(x)}$$
+$$
+\pi^*(y|x) = \frac{\pi_{ref}(y|x) \exp(r(x,y)/\beta)}{Z(x)}
+$$
 
 由此推导奖励可由策略表示：
 
-$$r(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{ref}(y|x)} + \beta \log Z(x)$$
+$$
+r(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{ref}(y|x)} + \beta \log Z(x)
+$$
 
 代入Bradley-Terry偏好模型：
 
-$$p^*(y_w \succ y_l | x) = \sigma(r^*(x,y_w) - r^*(x,y_l))$$
+$$
+p^*(y_w \succ y_l | x) = \sigma(r^*(x,y_w) - r^*(x,y_l))
+$$
 
 **DPO最终目标（无需RM）：**
 
-$$\mathcal{L}_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x,y_w,y_l) \sim D}[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)]$$
+$$
+\mathcal{L}_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x,y_w,y_l) \sim D}[\log \sigma\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)]
+$$
 
 **DPO vs PPO 对比：**
 
@@ -631,7 +666,9 @@ Step4: 构建偏好对
 
 预训练权重矩阵 $W_0 \in \mathbb{R}^{d \times k}$，更新：
 
-$$W = W_0 + \Delta W = W_0 + BA$$
+$$
+W = W_0 + \Delta W = W_0 + BA
+$$
 
 - $B \in \mathbb{R}^{d \times r}$，$A \in \mathbb{R}^{r \times k}$，秩 $r \ll \min(d,k)$
 - 初始化：A ~ 高斯，B = 0（训练开始时 $\Delta W = 0$）
@@ -639,8 +676,13 @@ $$W = W_0 + \Delta W = W_0 + BA$$
 
 **参数量对比：**
 
-$$\text{原始参数} = dk$$
-$$\text{LoRA参数} = r(d+k) \ll dk \quad \text{当 } r \ll \min(d,k)$$
+$$
+\text{原始参数} = dk
+$$
+
+$$
+\text{LoRA参数} = r(d+k) \ll dk \quad \text{当 } r \ll \min(d,k)
+$$
 
 例：$d=k=4096, r=16$：
 - 原始：16M参数
@@ -669,7 +711,9 @@ $$\text{LoRA参数} = r(d+k) \ll dk \quad \text{当 } r \ll \min(d,k)$$
 
 **NF4量化公式（Normalized Float 4）：**
 
-$$q_i = \frac{1}{2^{b-1}} \cdot \lfloor 2^{b-1} \cdot \text{quantile}\left(\mathcal{N}(0,1), \frac{i}{2^b}\right) \rceil$$
+$$
+q_i = \frac{1}{2^{b-1}} \cdot \lfloor 2^{b-1} \cdot \text{quantile}\left(\mathcal{N}(0,1), \frac{i}{2^b}\right) \rceil
+$$
 
 基于正态分布分位数均匀分布信息量（最优4bit量化for正态分布权重）
 
@@ -677,23 +721,33 @@ $$q_i = \frac{1}{2^{b-1}} \cdot \lfloor 2^{b-1} \cdot \text{quantile}\left(\math
 
 目标：最小化量化前后输出误差
 
-$$\min_{\hat{W}} || WX - \hat{W}X ||_2^2$$
+$$
+\min_{\hat{W}} || WX - \hat{W}X ||_2^2
+$$
 
 基于Optimal Brain Compression（OBC），利用Hessian矩阵：
 
-$$H_F = 2XX^T$$
+$$
+H_F = 2XX^T
+$$
 
 逐列量化，用逆Hessian传递误差补偿到未量化列：
 
-$$\delta_F = -\frac{w_q - \hat{w}_q}{[H_F^{-1}]_{qq}} (H_F^{-1})_{:,q}$$
+$$
+\delta_F = -\frac{w_q - \hat{w}_q}{[H_F^{-1}]_{qq}} (H_F^{-1})_{:,q}
+$$
 
 **AWQ（Activation-aware Weight Quantization）：**
 
 发现：约1%的"重要"权重（对应激活值大的输入通道）需要保护
 
-$$\text{重要性分数} = s_j = \mathbb{E}[|x_j|]$$
+$$
+\text{重要性分数} = s_j = \mathbb{E}[|x_j|]
+$$
 
-$$\hat{W}_{:,j} = W_{:,j} \cdot s_j, \quad \hat{x}_j = x_j / s_j$$
+$$
+\hat{W}_{:,j} = W_{:,j} \cdot s_j, \quad \hat{x}_j = x_j / s_j
+$$
 
 通过缩放保护重要通道，等效于高精度保留（实际量化仍是INT4）
 
@@ -721,17 +775,25 @@ $$\hat{W}_{:,j} = W_{:,j} \cdot s_j, \quad \hat{x}_j = x_j / s_j$$
 
 FFN替换为多个专家FFN + 路由器：
 
-$$\text{MoE}(x) = \sum_{i=1}^{K} G(x)_i \cdot E_i(x)$$
+$$
+\text{MoE}(x) = \sum_{i=1}^{K} G(x)_i \cdot E_i(x)
+$$
 
 **Top-K路由（Mixtral使用Top-2）：**
 
-$$G(x) = \text{TopK}(\text{softmax}(xW_g), K)$$
+$$
+G(x) = \text{TopK}(\text{softmax}(xW_g), K)
+$$
 
-$$\text{MoE输出} = G_1 E_1(x) + G_2 E_2(x)$$
+$$
+\text{MoE输出} = G_1 E_1(x) + G_2 E_2(x)
+$$
 
 **负载均衡损失（防止专家崩溃）：**
 
-$$\mathcal{L}_{aux} = \alpha \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i$$
+$$
+\mathcal{L}_{aux} = \alpha \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i
+$$
 
 - $f_i$：专家i处理的token比例
 - $P_i$：路由器分配给专家i的概率均值
@@ -740,9 +802,13 @@ $$\mathcal{L}_{aux} = \alpha \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i$$
 
 将K、V压缩到低维潜在向量，大幅减少KV-Cache：
 
-$$c_{KV} = W_{DKV} x \quad \text{（低维压缩，维度} d_c \ll h \cdot d_k\text{）}$$
+$$
+c_{KV} = W_{DKV} x \quad \text{（低维压缩，维度} d_c \ll h \cdot d_k\text{）}
+$$
 
-$$K = W_{UK} c_{KV}, \quad V = W_{UV} c_{KV}$$
+$$
+K = W_{UK} c_{KV}, \quad V = W_{UV} c_{KV}
+$$
 
 KV-Cache只存 $c_{KV}$（低维），减少5~13x显存
 
@@ -862,7 +928,9 @@ KV-Cache只存 $c_{KV}$（低维），减少5~13x显存
 
 原始RoPE在训练长度外性能下降，NTK方法：
 
-$$\theta_i' = \theta_i \cdot \left(\frac{L'}{L}\right)^{-\frac{2i}{d}}$$
+$$
+\theta_i' = \theta_i \cdot \left(\frac{L'}{L}\right)^{-\frac{2i}{d}}
+$$
 
 YaRN进一步分段：
 - 低频维度（位置相关）：插值缩放
@@ -889,7 +957,9 @@ DeepSeek-R1-Zero（纯RL）：
 
 **GRPO（Group Relative Policy Optimization）：**
 
-$$\mathcal{L}_{GRPO} = -\mathbb{E}[\sum_{i=1}^{G} \frac{r_i - \bar{r}}{\sigma_r} \cdot \log \pi_\theta(o_i|q) - \beta \cdot KL(\pi_\theta || \pi_{ref})]$$
+$$
+\mathcal{L}_{GRPO} = -\mathbb{E}[\sum_{i=1}^{G} \frac{r_i - \bar{r}}{\sigma_r} \cdot \log \pi_\theta(o_i|q) - \beta \cdot KL(\pi_\theta || \pi_{ref})]
+$$
 
 - 对同一问题生成G个输出，相对排名作为奖励
 - 避免了PRM需要大量步骤标注的问题
@@ -1073,7 +1143,10 @@ $$\mathcal{L}_{GRPO} = -\mathbb{E}[\sum_{i=1}^{G} \frac{r_i - \bar{r}}{\sigma_r}
 **答：**
 
 **Kaplan Scaling Law（2020）：**
-$$L(N,D) \approx \left(\frac{N_c}{N}\right)^{\alpha_N} + \left(\frac{D_c}{D}\right)^{\alpha_D}$$
+
+$$
+L(N,D) \approx \left(\frac{N_c}{N}\right)^{\alpha_N} + \left(\frac{D_c}{D}\right)^{\alpha_D}
+$$
 
 **Chinchilla Law（2022修正）：**
 - 最优：$N_{opt} \approx C^{0.5}$，$D_{opt} \approx C^{0.5}$

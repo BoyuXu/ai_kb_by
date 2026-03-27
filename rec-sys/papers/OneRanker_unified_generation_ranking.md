@@ -19,12 +19,18 @@
 
 ### 2. List-wise生成
 不同于传统point-wise或pair-wise，直接生成完整推荐列表：
-$$P(r_1, r_2, ..., r_k) = \prod_{i=1}^{k} P(r_i | r_1, ..., r_{i-1}, u, ctx)$$
+
+$$
+P(r_1, r_2, ..., r_k) = \prod_{i=1}^{k} P(r_i | r_1, ..., r_{i-1}, u, ctx)
+$$
 
 List-wise视角能考虑item之间的多样性和互补性。
 
 ### 3. 统一损失函数
-$$\mathcal{L} = \lambda_1 \mathcal{L}_{gen} + \lambda_2 \mathcal{L}_{rank} + \lambda_3 \mathcal{L}_{align}$$
+
+$$
+\mathcal{L} = \lambda_1 \mathcal{L}_{gen} + \lambda_2 \mathcal{L}_{rank} + \lambda_3 \mathcal{L}_{align}
+$$
 
 - $\mathcal{L}_{gen}$：自回归语言模型损失（交叉熵）
 - $\mathcal{L}_{rank}$：排序损失（ListNet/LambdaRank）

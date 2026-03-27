@@ -35,12 +35,20 @@ Until 最终答案生成
 
 ### 3. 检索质量自评估
 LLM评估检索结果是否与问题相关：
-$$\text{ISREL}(d, q) \in \{0, 1\}$$
+
+$$
+\text{ISREL}(d, q) \in \{0, 1\}
+$$
+
 不相关文档被过滤，防止噪声干扰推理。
 
 ### 4. 反思机制（Self-Reflection）
 生成答案后，LLM反思答案的可信度：
-$$\text{ISSUP}(\hat{a}, d_{retrieved}) \in \{\text{Fully Supported}, \text{Partially}, \text{Not Supported}\}$$
+
+$$
+\text{ISSUP}(\hat{a}, d_{retrieved}) \in \{\text{Fully Supported}, \text{Partially}, \text{Not Supported}\}
+$$
+
 不支持的答案触发重新检索。
 
 ## 实验结论

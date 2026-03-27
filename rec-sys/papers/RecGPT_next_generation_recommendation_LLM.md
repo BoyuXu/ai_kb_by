@@ -15,7 +15,9 @@
 - 输入：用户历史行为序列（物品标题/描述的自然语言表示）
 - 输出：预测下一个最可能交互的物品
 
-$$\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(item_t | item_1, ..., item_{t-1}; \theta)$$
+$$
+\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(item_t | item_1, ..., item_{t-1}; \theta)
+$$
 
 与BERT4Rec的MLM不同，CLM是单向的，更适合在线推理（无需双向上下文）。
 
@@ -29,7 +31,11 @@ $$\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(item_t | item_1, ..., item_{t-1}; \
 
 ### 3. 混合ID+文本表示
 纯文本方案召回效率低，工业落地使用混合方案：
-$$\text{ItemEmb} = \alpha \cdot \text{IDEmb} + (1-\alpha) \cdot \text{TextEmb}$$
+
+$$
+\text{ItemEmb} = \alpha \cdot \text{IDEmb} + (1-\alpha) \cdot \text{TextEmb}
+$$
+
 α由物品的历史曝光量决定（热门物品权重偏向ID，冷门/新物品权重偏向文本）。
 
 ### 4. 指令微调（Instruction Tuning）

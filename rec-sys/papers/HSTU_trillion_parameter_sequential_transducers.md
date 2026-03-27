@@ -11,7 +11,9 @@
 **1. 线性注意力机制**
 将标准点积注意力从 O(n²) 降低到 O(n)：
 
-$$\text{Attention}(Q, K, V) = \phi(Q) \cdot (\phi(K)^T V)$$
+$$
+\text{Attention}(Q, K, V) = \phi(Q) \cdot (\phi(K)^T V)
+$$
 
 其中 φ 是特征映射函数（如ReLU或ELU+1），利用矩阵乘法结合律先计算 K^T V（d×d矩阵），避免计算 n×n 注意力矩阵。
 
@@ -25,7 +27,11 @@ $$\text{Attention}(Q, K, V) = \phi(Q) \cdot (\phi(K)^T V)$$
 
 **4. 扩展律（Scaling Laws）**
 验证推荐系统也遵循LLM的扩展律：
-$$L(N) \propto N^{-\alpha}$$
+
+$$
+L(N) \propto N^{-\alpha}
+$$
+
 参数量从10亿扩展到万亿，性能持续提升。
 
 **5. 分布式训练**

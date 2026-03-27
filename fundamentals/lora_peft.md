@@ -235,7 +235,7 @@ $$
 **原理**：只在输入 embedding 层加可学习 token，不改变任何模型权重：
 
 $$
-\text{Input} = [\text{soft\_tokens}; \text{actual\_tokens}]
+\text{Input} = [\text{soft}_{\text{tokens}}; \text{actual}_{\text{tokens}}]
 $$
 
 **参数量**：$l \times d_{model}$（极少，约原模型的 0.01%）

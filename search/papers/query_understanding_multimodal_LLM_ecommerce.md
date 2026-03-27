@@ -13,7 +13,10 @@
 
 ### 1. 多模态Query表示
 融合文本和图片Query：
-$$Q_{mm} = \text{CrossAttn}(\text{TextEncoder}(q_{text}), \text{VisionEncoder}(q_{image}))$$
+
+$$
+Q_{mm} = \text{CrossAttn}(\text{TextEncoder}(q_{text}), \text{VisionEncoder}(q_{image}))
+$$
 
 用Cross-Attention融合文本和图片特征，文本作为Query，图片作为Key/Value（用图片信息增强文本理解）。
 
@@ -24,7 +27,9 @@ $$Q_{mm} = \text{CrossAttn}(\text{TextEncoder}(q_{text}), \text{VisionEncoder}(q
 - 交易类（直接购买）
 - 图片搜索类（以图搜图）
 
-$$P(\text{intent}) = \text{softmax}(W_i \cdot Q_{mm} + b_i)$$
+$$
+P(\text{intent}) = \text{softmax}(W_i \cdot Q_{mm} + b_i)
+$$
 
 ### 3. 结构化属性提取
 从多模态Query中提取商品属性，用于精准过滤：

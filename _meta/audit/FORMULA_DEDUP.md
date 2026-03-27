@@ -161,7 +161,7 @@ $$
 公式:
 
 $$
-Q = \alpha \cdot \text{pCTR} + \beta \cdot \text{relevance} + \gamma \cdot \text{landing\_quality}
+Q = \alpha \cdot \text{pCTR} + \beta \cdot \text{relevance} + \gamma \cdot \text{landing}_{\text{quality}}
 $$
 
 ```
@@ -246,7 +246,7 @@ $$
 公式:
 
 $$
-\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{seq\_len} \times \text{dtype\_size}
+\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{seq}_{\text{len}} \times \text{dtype}_{\text{size}}
 $$
 
 ```

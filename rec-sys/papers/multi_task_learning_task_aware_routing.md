@@ -14,7 +14,9 @@
 ### 1. Task Embedding引导的Expert路由
 每个任务有一个可学习的task embedding，用于动态决策expert选择：
 
-$$g_k^{(t)} = \text{softmax}(\text{MLP}([e_{task}^{(t)}; x]))$$
+$$
+g_k^{(t)} = \text{softmax}(\text{MLP}([e_{task}^{(t)}; x]))
+$$
 
 其中 $e_{task}^{(t)}$ 是第t个任务的embedding，x是输入特征，$g_k^{(t)}$ 是第k个expert对任务t的权重。
 
@@ -31,7 +33,10 @@ $$g_k^{(t)} = \text{softmax}(\text{MLP}([e_{task}^{(t)}; x]))$$
 
 ### 4. 梯度手术（Gradient Surgery）
 检测任务间梯度冲突，对冲突梯度进行投影：
-$$g_t' = g_t - \sum_{i \neq t} \max(0, \frac{g_t \cdot g_i}{||g_i||^2}) g_i$$
+
+$$
+g_t' = g_t - \sum_{i \neq t} \max(0, \frac{g_t \cdot g_i}{||g_i||^2}) g_i
+$$
 
 ## 实验结论
 - **CTR提升**：+2.3%

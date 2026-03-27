@@ -30,7 +30,10 @@ LLM自回归推理的核心瓶颈：
 ### 2. 速度提升分析
 传统自回归：每生成1 token = 1次目标模型前向传播
 Speculative Decoding：每次目标模型前向传播可以接受 α 个token（α = 期望接受率）
-$$\text{加速比} = \frac{1}{1 - \alpha \cdot (1 - \frac{1}{\gamma+1})} \approx \frac{\alpha \cdot \gamma}{1}$$
+
+$$
+\text{加速比} = \frac{1}{1 - \alpha \cdot (1 - \frac{1}{\gamma+1})} \approx \frac{\alpha \cdot \gamma}{1}
+$$
 
 当 α=0.8，γ=4 时，理论加速比约3.5x。
 

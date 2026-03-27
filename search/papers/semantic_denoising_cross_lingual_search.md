@@ -13,19 +13,31 @@
 
 ### 1. 跨语言对比学习
 将翻译对（中英文语义等价的句子）作为正样本进行对比训练：
-$$\mathcal{L}_{XL} = -\log \frac{e^{s(h_{zh}, h_{en})/\tau}}{e^{s(h_{zh}, h_{en})/\tau} + \sum_{k} e^{s(h_{zh}, h_k^-)/\tau}}$$
+
+$$
+\mathcal{L}_{XL} = -\log \frac{e^{s(h_{zh}, h_{en})/\tau}}{e^{s(h_{zh}, h_{en})/\tau} + \sum_{k} e^{s(h_{zh}, h_k^-)/\tau}}
+$$
 
 负样本：同batch内的其他语言文档。
 
 ### 2. 去噪自编码器（DAE）
 在翻译对的基础上加入语义噪声，让模型学会去噪：
-$$\tilde{x} = \text{Corrupt}(x, p_{mask}, p_{delete}, p_{insert})$$
-$$\mathcal{L}_{DAE} = -\log P(x | \tilde{x})$$
+
+$$
+\tilde{x} = \text{Corrupt}(x, p_{mask}, p_{delete}, p_{insert})
+$$
+
+$$
+\mathcal{L}_{DAE} = -\log P(x | \tilde{x})
+$$
 
 通过去噪任务，模型学习到鲁棒的语义表示，不被表面词汇噪声影响。
 
 ### 3. 联合目标
-$$\mathcal{L} = \mathcal{L}_{XL} + \alpha \mathcal{L}_{DAE} + \beta \mathcal{L}_{MLM}$$
+
+$$
+\mathcal{L} = \mathcal{L}_{XL} + \alpha \mathcal{L}_{DAE} + \beta \mathcal{L}_{MLM}
+$$
 
 MLM损失保留单语言的语言模型能力，防止跨语言对齐导致单语言效果退化。
 

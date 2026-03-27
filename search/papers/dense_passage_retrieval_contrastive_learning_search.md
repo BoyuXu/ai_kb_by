@@ -18,11 +18,17 @@
 - **Level 3（困难）**：DPR检索到的Top-K但不相关文档（向量相近但不相关）
 
 训练时从L1→L2→L3逐步提升难度（课程学习）：
-$$\mathcal{L} = -\log \frac{e^{s(q,d^+)/\tau}}{e^{s(q,d^+)/\tau} + \sum_{k} e^{s(q,d_k^-)/\tau}}$$
+
+$$
+\mathcal{L} = -\log \frac{e^{s(q,d^+)/\tau}}{e^{s(q,d^+)/\tau} + \sum_{k} e^{s(q,d_k^-)/\tau}}
+$$
 
 ### 2. BM25知识蒸馏
 将BM25的精确匹配能力蒸馏到DPR：
-$$\mathcal{L}_{distill} = \text{KL}(P_{BM25}(d|q) || P_{DPR}(d|q))$$
+
+$$
+\mathcal{L}_{distill} = \text{KL}(P_{BM25}(d|q) || P_{DPR}(d|q))
+$$
 
 让DPR学习BM25的词汇匹配模式，弥补语义模型在精确匹配上的劣势。
 
@@ -30,10 +36,17 @@ $$\mathcal{L}_{distill} = \text{KL}(P_{BM25}(d|q) || P_{DPR}(d|q))$$
 **异步负样本更新（MoCo风格）**：
 - 维护大规模负样本队列（64K~256K）
 - Query Encoder快速更新，Document Encoder用动量更新（更稳定）
-$$\theta_{doc} = m \cdot \theta_{doc} + (1-m) \cdot \theta_{query}$$
+
+$$
+\theta_{doc} = m \cdot \theta_{doc} + (1-m) \cdot \theta_{query}
+$$
 
 ### 4. 混合检索
-$$\text{score}_{hybrid} = \lambda \cdot s_{DPR} + (1-\lambda) \cdot s_{BM25}$$
+
+$$
+\text{score}_{hybrid} = \lambda \cdot s_{DPR} + (1-\lambda) \cdot s_{BM25}
+$$
+
 λ 通过验证集调优，通常0.6~0.8有利于DPR。
 
 ## 实验结论

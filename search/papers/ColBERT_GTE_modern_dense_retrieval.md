@@ -13,7 +13,10 @@
 
 ### 1. ColBERT Late Interaction
 不同于标准双塔的单向量表示，ColBERT保留每个token的向量：
-$$s(q, d) = \sum_{i \in q} \max_{j \in d} (E_q[i] \cdot E_d[j])$$
+
+$$
+s(q, d) = \sum_{i \in q} \max_{j \in d} (E_q[i] \cdot E_d[j])
+$$
 
 **MaxSim操作**：对Query中每个token，找到Doc中最相似的token，求和。
 这允许词级别的细粒度匹配，同时Doc的token向量可以预计算存储。
@@ -43,7 +46,10 @@ Stage 2: 精确打分
 - **MTEB基准优化**：在多任务基准上评估，优化通用embedding质量
 
 GTE的训练目标：
-$$\mathcal{L}_{GTE} = \mathcal{L}_{contrastive} + \lambda \mathcal{L}_{generative}$$
+
+$$
+\mathcal{L}_{GTE} = \mathcal{L}_{contrastive} + \lambda \mathcal{L}_{generative}
+$$
 
 生成式辅助损失（类MLM）提升表示质量。
 

@@ -93,7 +93,7 @@ Self-Attention的复杂度分析：
 **显存占用公式：**
 
 $$
-\text{KV Cache} = 2 \times \text{batch\_size} \times n \times n_{\text{layers}} \times d_{\text{head}} \times n_{\text{kv\_heads}} \times \text{bytes\_per\_param}
+\text{KV Cache} = 2 \times \text{batch}_{\text{size}} \times n \times n_{\text{layers}} \times d_{\text{head}} \times n_{\text{kv}_{\text{heads}}} \times \text{bytes}_{\text{per}}_{\text{param}}
 $$
 
 以LLaMA-70B为例：
