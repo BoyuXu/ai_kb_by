@@ -43,7 +43,7 @@ $$
 对 $q$ 的梯度：
 
 $$
-\frac{\partial \mathcal{L}}{\partial q} = \frac{1}{\tau}\left[\underbrace{(p^+ - 1) \cdot k^+}_{\text{正样本：拉近 q 和 k^+}} + \underbrace{\sum_j p_j \cdot k_j^-}_{\text{负样本：推开 q 和 k\_j^-}}\right]
+\frac{\partial \mathcal{L}}{\partial q} = \frac{1}{\tau}\left[\underbrace{(p^+ - 1) \cdot k^+}_{\text{正样本（拉近 q）}} + \underbrace{\sum_j p_j \cdot k_j^-}_{\text{负样本（推开 q）}}\right]
 $$
 
 其中 $p^+ = \text{softmax}(s(q, k^+)/\tau)$。

@@ -83,8 +83,10 @@ VCG 是社会福利最大化的机制设计：
 广告主 $i$ 的 VCG 价格 = 因有广告主 $i$ 参与而导致其他广告主损失的福利之和：
 
 $$
-p_i^{VCG} = \sum_{j \neq i, j \text{ 获得广告位}} \alpha_{k_j^{*}} v_j - \sum_{j \neq i, j \text{ 获得广告位（若 i 不参与）}} \alpha_{k_j^{**}} v_j
+p_i^{VCG} = \sum_{j \in W(N) \setminus \{i\}} \alpha_{k_j} v_j - \sum_{j \in W(N \setminus \{i\})} \alpha_{k_j} v_j
 $$
+
+其中 $W(N)$ 为全部广告主参与时赢得广告位的集合，$W(N \setminus \{i\})$ 为去掉广告主 $i$ 后赢得广告位的集合，$k_j$ 为广告主 $j$ 获得的位置编号。
 
 化简后（对于位置 $k$）：
 

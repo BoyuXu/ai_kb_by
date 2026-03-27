@@ -25,7 +25,11 @@ $$
 
 **Softmax 饱和问题**：若点积值过大，softmax 会将大部分概率集中在最大值上：
 $$
-\text{softmax}(x_i) = \frac{e^{x_i}}{\sum_j e^{x_j}} \approx \begin{cases} 1 & x_i \gg x_j \\ 0 & \text{otherwise} \end{cases}
+\text{softmax}(x_i) = \frac{e^{x_i}}{\sum_j e^{x_j}} \approx
+\begin{cases}
+1 & x_i \gg x_j \\
+0 & \text{otherwise}
+\end{cases}
 $$
 
 这导致梯度趋近于 0，训练困难。

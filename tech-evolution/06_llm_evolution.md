@@ -225,7 +225,13 @@ $$\mathcal{L}_{CLM} = -\sum_{t=1}^{T} \log P(x_t | x_1, ..., x_{t-1}; \theta)$$
 
 **因果掩码（Causal Mask）：**
 
-$$M_{ij} = \begin{cases} 0 & \text{if } i \geq j \\ -\infty & \text{if } i < j \end{cases}$$
+$$
+M_{ij} =
+\begin{cases}
+0 & \text{if } i \geq j \\
+-\infty & \text{if } i < j
+\end{cases}
+$$
 
 $$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T + M}{\sqrt{d_k}}\right)V$$
 

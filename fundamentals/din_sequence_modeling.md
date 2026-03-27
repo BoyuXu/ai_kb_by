@@ -306,7 +306,7 @@ $$
 通过核函数 $\phi$（如 ELU 等）将 softmax 替换为可以改变矩阵乘法顺序的形式：
 
 $$
-\text{LinearAttn} = \phi(Q) \underbrace{(\phi(K)^T V)}_{\text{先算这个！O(nd^2)}}
+\text{LinearAttn} = \phi(Q) \underbrace{(\phi(K)^T V)}_{\text{先算这个，}O(nd^2)}
 $$
 
 复杂度从 $O(n^2 d)$ 降至 $O(nd^2)$（d 固定时线性于 n）。
