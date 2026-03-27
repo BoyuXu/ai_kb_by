@@ -13,9 +13,11 @@
 
 ### 1. ID Proxy Embedding
 将ID embedding分解为内容部分和残差部分：
+
 $$
 e_{id} = e_{proxy} + \Delta e_{residual}
 $$
+
 - $e_{proxy}$：由内容特征（文本、图片）通过映射网络生成的代理embedding
 - $\Delta e_{residual}$：个体差异项，通过历史数据学习
 
@@ -23,9 +25,11 @@ $$
 
 ### 2. Proxy Network训练
 从老广告的(内容特征, ID embedding)对学习映射：
+
 $$
 e_{proxy} = f_\theta(\text{content\_features})
 $$
+
 $$
 \mathcal{L}_{proxy} = ||e_{proxy} - e_{id}^{target}||_2^2
 $$
@@ -34,14 +38,17 @@ $$
 
 ### 3. 渐进式过渡机制
 随着新广告积累历史数据，逐渐引入真实ID embedding：
+
 $$
 e_{final} = (1-w_t) \cdot e_{proxy} + w_t \cdot e_{id}^{learned}
 $$
 
 过渡权重 $w_t$ 随曝光次数增长：
+
 $$
 w_t = \min(1, \frac{\text{impression\_count}}{N_{threshold}})
 $$
+
 $N_{threshold}$ 一般设为1000~5000次曝光。
 
 ### 4. 多模态内容特征

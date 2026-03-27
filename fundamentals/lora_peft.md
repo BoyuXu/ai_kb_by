@@ -33,6 +33,7 @@ $$
 原始前向：$h = W_0 x$
 
 LoRA 前向：
+
 $$
 h = W_0 x + \Delta W x = W_0 x + B A x
 $$
@@ -137,6 +138,7 @@ $$
 **问题**：不同层、不同权重矩阵的重要性不同，固定秩 r 不是最优分配。
 
 **方案**：对权重更新进行 SVD 参数化：
+
 $$
 \Delta W = P \Lambda Q
 $$
@@ -161,6 +163,7 @@ $$
 其中 $m \in \mathbb{R}^{1 \times k}$ 是幅度（每列的 L2 范数），$\frac{V}{\|V\|_c}$ 是方向（列归一化）。
 
 **DoRA 的微调方式**：
+
 $$
 W' = (m + \Delta m) \cdot \frac{V_0 + \Delta V}{\|V_0 + \Delta V\|_c}
 $$

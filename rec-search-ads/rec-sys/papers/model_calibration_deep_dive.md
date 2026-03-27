@@ -21,6 +21,7 @@
 **校准（Calibration）**：模型输出的预测概率 $\hat{p}$ 应与真实事件发生的频率 $p_{true}$ 一致。
 
 数学定义——**完美校准**：
+
 $$
 P(\hat{p} = p) = p, \quad \forall p \in [0, 1]
 $$
@@ -300,6 +301,7 @@ $$
 其中 $q = \frac{r_{real}}{r_{train}}$ 是负采样率（正例保留比例为1，负例保留比例为 q）。
 
 **直觉推导**（贝叶斯视角）：
+
 $$
 \text{true odd} = \frac{p}{1-p} \cdot \frac{q}{1} = \frac{\hat{p}_{train}}{1-\hat{p}_{train}} \cdot q
 $$
@@ -429,9 +431,11 @@ calibration_table[user_segment][item_category] = (A, B)
 - 新冠疫情期间所有消费行为突变
 
 **Label Shift 校准（BBSE 方法）**：
+
 $$
 P_{test}(y) = \mathbf{W} \cdot P_{train}(y)
 $$
+
 估计标签分布变化矩阵 $\mathbf{W}$，对模型后验做修正。
 
 **8.2 因果视角的校准（Counterfactual Calibration）**
@@ -439,9 +443,11 @@ $$
 传统校准只处理"观察到的点击"，但有些曝光根本没被用户看到（滑过去了）。
 
 **IPS 加权校准**（逆概率加权，Inverse Propensity Scoring）：
+
 $$
 \text{ECE}_{debiased} = \sum_{i} \frac{1}{e(x_i)} \cdot |\hat{p}_i - y_i|
 $$
+
 其中 $e(x_i)$ 是样本 $i$ 被真正观察到的概率（曝光倾向分）。
 
 ---

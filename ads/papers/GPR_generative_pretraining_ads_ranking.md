@@ -21,6 +21,7 @@
 任务标识（Task Token）：`[CTR]`、`[CVR]`、`[RELEVANCE]`、`[COLDSTART]`
 
 ### 2. 多任务预训练目标
+
 $$
 \mathcal{L}_{pretrain} = \mathcal{L}_{MLM} + \mathcal{L}_{NSP} + \mathcal{L}_{task\_specific}
 $$
@@ -31,6 +32,7 @@ $$
 
 ### 3. 提示微调（Prompt Tuning）
 不同子任务通过不同的prompt适配，主干模型固定：
+
 $$
 h_{task} = \text{LLM}(\text{prompt}_{task} + x_{ad} + x_{user})
 $$

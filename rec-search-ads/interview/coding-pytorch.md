@@ -31,7 +31,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class FM(nn.Module):
     def __init__(self, num_features, embed_dim=8):
         """
@@ -83,7 +82,6 @@ class FM(nn.Module):
         # 最终输出
         output = self.first_order_bias + first_order.squeeze(-1) + second_order.squeeze(-1)
         return torch.sigmoid(output)
-
 
 # 使用示例
 if __name__ == "__main__":
@@ -152,7 +150,6 @@ DeepFM: Deep Factorization Machines
 
 import torch
 import torch.nn as nn
-
 
 class DeepFM(nn.Module):
     def __init__(self, field_dims, embed_dim=8, mlp_dims=[256, 128, 64], dropout=0.2):
@@ -234,7 +231,6 @@ class DeepFM(nn.Module):
         # 最终输出: FM + DNN
         output = torch.sigmoid(fm_out.squeeze(-1) + dnn_out.squeeze(-1))
         return output
-
 
 # 使用示例
 if __name__ == "__main__":
@@ -318,7 +314,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class ActivationUnit(nn.Module):
     """
     局部激活单元: 计算候选物品与用户历史行为的注意力权重
@@ -367,7 +362,6 @@ class ActivationUnit(nn.Module):
         weights = self.mlp(concat).squeeze(-1)  # [batch, seq_len]
         
         return weights
-
 
 class DIN(nn.Module):
     def __init__(self, feature_dims, embed_dim=8, seq_max_len=50, 
@@ -494,7 +488,6 @@ class DIN(nn.Module):
         logit = self.fc(fc_input).squeeze(-1)
         return torch.sigmoid(logit)
 
-
 # 使用示例
 if __name__ == "__main__":
     batch_size = 4
@@ -587,7 +580,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import random
-
 
 class TwoTowerRecall(nn.Module):
     def __init__(self, user_features, item_features, embed_dim=64, 
@@ -701,7 +693,6 @@ class TwoTowerRecall(nn.Module):
             # 推理时返回相似度
             return pos_sim
 
-
 class NegativeSampler:
     """
     负采样策略
@@ -744,7 +735,6 @@ class NegativeSampler:
                 mask = (neg_samples == exclude_pos)
                 
         return neg_samples
-
 
 # 使用示例
 if __name__ == "__main__":
@@ -871,7 +861,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class Expert(nn.Module):
     """单个Expert网络"""
     def __init__(self, input_dim, hidden_dim):
@@ -886,7 +875,6 @@ class Expert(nn.Module):
         
     def forward(self, x):
         return self.net(x)
-
 
 class MMOE(nn.Module):
     def __init__(self, num_features, num_experts=4, num_tasks=2, 
@@ -962,7 +950,6 @@ class MMOE(nn.Module):
             
         return outputs  # list of [batch] with length num_tasks
 
-
 class MMOEWithAuxLoss(MMOE):
     """
     MMOE + 辅助损失（可选，用于正则化Expert学习）
@@ -987,7 +974,6 @@ class MMOEWithAuxLoss(MMOE):
         balance_loss = F.mse_loss(mean_weights, target)
         
         return balance_loss
-
 
 # 使用示例: CTR和CVR联合训练
 if __name__ == "__main__":
@@ -1096,7 +1082,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import math
 
-
 class PositionalEncoding(nn.Module):
     """正弦位置编码"""
     def __init__(self, d_model, max_len=5000):
@@ -1119,7 +1104,6 @@ class PositionalEncoding(nn.Module):
             x: [batch, seq_len, d_model]
         """
         return x + self.pe[:, :x.size(1), :]
-
 
 class TransformerRec(nn.Module):
     def __init__(self, num_items, hidden_size=256, num_layers=2, 
@@ -1226,7 +1210,6 @@ class TransformerRec(nn.Module):
             scores = torch.softmax(next_logits, dim=-1)
         return scores
 
-
 def create_masked_inputs(item_seq, mask_prob=0.2, num_items=None, 
                          pad_token=None, mask_token=None):
     """
@@ -1285,7 +1268,6 @@ def create_masked_inputs(item_seq, mask_prob=0.2, num_items=None,
             labels[i, :m_len] = labels_list[i]
             
     return masked_seq, mask_positions, labels
-
 
 # 使用示例
 if __name__ == "__main__":

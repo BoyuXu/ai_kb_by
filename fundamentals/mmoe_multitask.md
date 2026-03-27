@@ -216,6 +216,7 @@ $$
 **GradNorm 的思路**：动态调整 $w_k$，使每个任务的梯度范数保持在期望水平。
 
 损失函数：
+
 $$
 L_{GradNorm} = \sum_i \left| G_W^i(t) - \bar{G}_W(t) \cdot r_i(t) \right|_1
 $$

@@ -101,6 +101,7 @@
 **答：**
 
 **加权公式：**
+
 $$
 \tilde{v}_d = v_d \times \left(\frac{\text{CTR}(d)}{\overline{\text{CTR}}}\right)^{1.5}
 $$

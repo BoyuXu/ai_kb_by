@@ -7,7 +7,6 @@
 > - [Flashattention-3-Fast-And-Accurate-Attention-Fo...](../../llm-infra/20260321_flashattention-3-fast-and-accurate-attention-for-llms-on-next-gen-accelerators.md) — FlashAttention-3: Fast and Accurate Attention for LLMs on...
 > - [Vllm Efficient Memory Management For Large Lang...](../../llm-infra/20260323_vllm_efficient_memory_management_for_large_language.md) — vLLM: Efficient Memory Management for Large Language Mode...
 
-
 **一句话**：GRPO 让模型对同一道题做多次尝试，通过"对答案们打相对分"来学习，不再需要单独养一个打分模型。
 
 **类比**：你学数学时，老师不是单独判断"这次比昨天进步了多少"（需要记住你历史表现的 Critic），而是把你班同学的答案都摊开比一比——你这次比班里平均水平好多少，就给多少奖励。组内排名就是 advantage。
@@ -42,25 +41,30 @@
 
 **演进脉络**：`REINFORCE (1992) → PPO (2017, 带 Critic + clip) → GRPO (2024, 去 Critic + 组内对比)`，核心驱动：LLM 训练的显存成本越来越贵，GRPO 用数学技巧绕开了 Critic。
 
-
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ### Q1: KV Cache 为什么是推理瓶颈？

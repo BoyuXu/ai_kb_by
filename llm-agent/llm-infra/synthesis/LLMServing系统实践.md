@@ -10,29 +10,33 @@
 > - [Speculative Decoding Draft Alignment](../../llm-infra/20260322_speculative_decoding_draft_alignment.md) — Efficiently Aligning Draft Models for Speculative Decoding
 > - [Recurrent-Drafter-Speculative-Decoding](../../llm-infra/20260319_recurrent-drafter-speculative-decoding.md) — Recurrent Drafter for Fast Speculative Decoding
 
-
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：vLLM, TensorRT-LLM, TGI, SGLang, Orca 系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---
@@ -64,7 +68,6 @@ $$
 **30秒答案**：①量化（FP16→INT8 节省一半显存和成本）；②Speculative Decoding（小模型猜大模型验，减少大模型推理次数）；③KV Cache 复用（相同 prefix 的请求共享 KV Cache）；④动态 batch size 调整。
 
 ---
-
 
 ### Q6: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

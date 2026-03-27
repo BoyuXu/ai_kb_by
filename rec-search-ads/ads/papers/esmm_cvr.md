@@ -30,6 +30,7 @@ $$
    - CVR Tower 借助 CTR 的丰富点击数据学习更好的特征表征（解决数据稀疏）
 
 4. **训练目标**
+
 $$
 \mathcal{L} = \mathcal{L}_{CTR} + \mathcal{L}_{CTCVR} = \sum \text{BCE}(y_{click}, \hat{pCTR}) + \sum \text{BCE}(y_{convert}, \hat{pCTCVR})
 $$

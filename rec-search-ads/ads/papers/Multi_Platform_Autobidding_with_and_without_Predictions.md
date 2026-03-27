@@ -35,11 +35,13 @@
 $$
 v_i(b_i)
 $$
+
 - 平台`i`的成本函数：
 
 $$
 c_i(b_i)
 $$
+
 - 收益递减假设：
 
 $$
@@ -49,12 +51,15 @@ $$
 关于`v`递增
 
 **优化问题**：
+
 $$
 \max_{b_1,...,b_m} \sum_{i=1}^m v_i(b_i)
 $$
+
 $$
 \text{s.t. } \sum_{i=1}^m c_i(b_i) \leq B \text{ (预算)}
 $$
+
 $$
 \frac{\sum v_i(b_i)}{\sum c_i(b_i)} \geq \rho \text{ (ROS)}
 $$
@@ -68,6 +73,7 @@ $$
 $$
 O(m \log(mn) \log n)
 $$
+
 - `m`: 平台数量
 - `n`: 每个平台的可能出价策略数
 
@@ -86,6 +92,7 @@ $$
 $$
 O(m \log(m\eta) \log \eta)
 $$
+
 -
 
 $$
@@ -107,6 +114,7 @@ $$
 $$
 O(m \log(mn) \log n)
 $$
+
 - 实现**"两全其美"（Best-of-Both-Worlds）**
 
 ### 主要创新点

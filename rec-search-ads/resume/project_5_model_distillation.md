@@ -75,11 +75,13 @@
 关键是如何生成"好的"软标签。
 
 硬标签：
+
 $$
 \text{hard label} = \begin{cases} 1 & \text{if } y_i = 1 \\ 0 & \text{otherwise} \end{cases}
 $$
 
 软标签（未缩放）：
+
 $$
 p_i = \sigma(z_i) = \frac{1}{1 + e^{-z_i}}
 $$

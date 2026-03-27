@@ -112,6 +112,7 @@ class SLearner:
 $$
 \hat{\mu}_1(x) = \mathbb{E}[Y | X=x, T=1]
 $$
+
 $$
 \hat{\mu}_0(x) = \mathbb{E}[Y | X=x, T=0]
 $$
@@ -152,15 +153,19 @@ class TLearner:
 **第二阶段**：构造伪处理效应标签（pseudo treatment effect）：
 
 对处理组用户（$T=1$）：
+
 $$
 \tilde{\tau}_i^1 = Y_i - \hat{\mu}_0(X_i)
 $$
+
 即：实际观测结果 - 如果没有处理的预期结果
 
 对对照组用户（$T=0$）：
+
 $$
 \tilde{\tau}_i^0 = \hat{\mu}_1(X_i) - Y_i
 $$
+
 即：如果有处理的预期结果 - 实际观测结果
 
 **第三阶段**：分别在处理组和对照组上训练 Uplift 预测模型：
@@ -168,6 +173,7 @@ $$
 $$
 \hat{\tau}_1(x) = \mathbb{E}[\tilde{\tau}^1 | X=x] \quad \text{（在处理组上训练）}
 $$
+
 $$
 \hat{\tau}_0(x) = \mathbb{E}[\tilde{\tau}^0 | X=x] \quad \text{（在对照组上训练）}
 $$

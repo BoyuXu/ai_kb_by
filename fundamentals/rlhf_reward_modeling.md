@@ -106,6 +106,7 @@ $$
 - $\beta$：惩罚系数（通常 0.01-0.1）
 
 **KL 散度展开**：
+
 $$
 \mathbb{E}_y \left[\log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}\right] = D_{KL}(\pi_\theta || \pi_{SFT})
 $$
@@ -271,6 +272,7 @@ def ad_creative_reward(generated_ad, context):
 - **无状态转移**（区别于完整 RL）
 
 **UCB（Upper Confidence Bound）策略**：
+
 $$
 a_t = \arg\max_a \left[\hat{r}(x_t, a) + \alpha \sqrt{\frac{\log t}{n_a}}\right]
 $$

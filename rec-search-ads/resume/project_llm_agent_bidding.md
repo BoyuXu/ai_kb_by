@@ -291,6 +291,7 @@ $$
 $$
 
 平滑处理（防止小样本过拟合）：
+
 $$
 \text{CVR}_{smooth} = \frac{n \cdot \text{CVR}_{obs} + m \cdot \text{CVR}_{prior}}{n + m}
 $$
@@ -300,6 +301,7 @@ $$
 ### 4.2 传统 PID 控制器的局限性
 
 传统 PID 出价调整：
+
 $$
 \text{bid}_{t+1} = \text{bid}_t + K_p \cdot e_t + K_i \sum_{j=0}^{t} e_j + K_d (e_t - e_{t-1})
 $$

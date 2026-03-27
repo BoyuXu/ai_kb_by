@@ -10,29 +10,33 @@
 > - [Hybrid-Search-Llm-Re-Ranking](../../search/papers/Hybrid_Search_with_LLM_Re_ranking_for_Enhanced_Retrieval.md) — Hybrid Search with LLM Re-ranking for Enhanced Retrieval ...
 > - [Multimodal-Visual-Document-Retrieval-Survey](../../search/papers/Unlocking_Multimodal_Document_Intelligence_Visual_Documen.md) — Unlocking Multimodal Document Intelligence: Visual Docume...
 
-
 > 创建：2026-03-24 | 领域：搜索 | 类型：综合分析
 > 来源：LambdaMART, RankNet, ListNet, BERT Reranker 系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. NDCG
+
 $$
 NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}
 $$
+
 - 搜索排序核心评估指标
 
 ### 2. Cross-Encoder
+
 $$
 score = \text{MLP}(\text{BERT}_{CLS}([q;d]))
 $$
+
 - Query-Doc 联合编码
 
 ### 3. Query Likelihood
+
 $$
 P(q|d) = \prod_{t \in q} P(t|d)
 $$
+
 - 概率语言模型检索
 
 ---
@@ -74,7 +78,6 @@ BM25 启发式排序（~2005）→ RankSVM/RankNet Pairwise（2005-2010）
 **30秒答案**：①Query 特征（长度、意图类型）；②文档特征（PageRank、长度、新鲜度）；③Query-Doc 交互特征（BM25 分数、term overlap、语义相似度）；④用户特征（历史点击偏好）；⑤上下文特征（设备、时间、地域）。
 
 ---
-
 
 ### Q6: 搜索系统的评估指标有哪些？
 **30秒答案**：离线：NDCG、MRR、MAP、Recall@K。在线：点击率、放弃率、首页满意度、查询改写率。注意：离线和在线可能不一致。

@@ -26,6 +26,7 @@
 ## 📐 核心公式与原理
 
 ### 1. 策略梯度通用形式（Policy Gradient）
+
 $$
 \nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\left[\sum_{t=0}^T \nabla_\theta \log \pi_\theta(a_t|s_t) \cdot \hat{A}_t\right]
 $$
@@ -33,6 +34,7 @@ $$
 三个领域的 $a_t$、$s_t$、$\hat{A}_t$ 含义不同，但梯度形式完全一样。
 
 ### 2. GRPO（LLM 推理领域的 RL 实现）
+
 $$
 \hat{A}_i = \frac{r_i - \mu_r}{\sigma_r}, \quad \mu_r = \frac{1}{G}\sum_{j=1}^G r_j
 $$
@@ -44,6 +46,7 @@ $$
 无需 Critic，组内相对优势，省显存约 40%。
 
 ### 3. 分层 PPO（广告排序领域 HEPO）
+
 $$
 \mathcal{L}_H = \mathbb{E}\left[\min\left(\frac{\pi_\theta(a|s)}{\pi_{\theta_\text{old}}(a|s)} \cdot \hat{A}_H, \text{clip}\left(\frac{\pi_\theta}{\pi_{\theta_\text{old}}}, 1\pm\epsilon\right) \hat{A}_H\right)\right]
 $$
@@ -51,6 +54,7 @@ $$
 分层动作空间：粗排层（选集合） × 精排层（排顺序）分别有独立 policy。
 
 ### 4. DDPG 出价策略（实时竞价 RTB）
+
 $$
 Q^*(s,a) = r + \gamma \max_{a'} Q^*(s', a')
 $$
@@ -62,6 +66,7 @@ $$
 Actor 输出出价 bid，Critic 估计 Q(state=市场状态, action=出价)。
 
 ### 5. RL 奖励函数统一形式
+
 $$
 r = \underbrace{r_\text{task}}_\text{任务奖励} + \underbrace{\lambda_f \cdot r_\text{format}}_\text{格式约束} - \underbrace{\beta \cdot D_\text{KL}(\pi||\pi_\text{ref})}_\text{漂移惩罚}
 $$

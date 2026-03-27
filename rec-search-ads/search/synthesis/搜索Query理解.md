@@ -10,29 +10,33 @@
 > - [Document Re-Ranking With Llm From Listwise To Pair](../../search/papers/Document_Re_ranking_with_LLM_From_Listwise_to_Pairwise_Ap.md) — Document Re-ranking with LLM: From Listwise to Pairwise A...
 > - [Dense-Passage-Retrieval-Conversational-Search](../../search/papers/Dense_Passage_Retrieval_in_Conversational_Search.md) — Dense Passage Retrieval in Conversational Search
 
-
 > 创建：2026-03-24 | 领域：搜索 | 类型：综合分析
 > 来源：Query Rewriting, Intent Classification, NER, LLM-based QU 系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. NDCG
+
 $$
 NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}
 $$
+
 - 搜索排序核心评估指标
 
 ### 2. Cross-Encoder
+
 $$
 score = \text{MLP}(\text{BERT}_{CLS}([q;d]))
 $$
+
 - Query-Doc 联合编码
 
 ### 3. Query Likelihood
+
 $$
 P(q|d) = \prod_{t \in q} P(t|d)
 $$
+
 - 概率语言模型检索
 
 ---
@@ -76,7 +80,6 @@ $$
 **追问方向**：怎么平衡？答：简单 query 用传统方法，复杂/模糊 query 才调用 LLM。
 
 ---
-
 
 ### Q6: 搜索系统的评估指标有哪些？
 **30秒答案**：离线：NDCG、MRR、MAP、Recall@K。在线：点击率、放弃率、首页满意度、查询改写率。注意：离线和在线可能不一致。

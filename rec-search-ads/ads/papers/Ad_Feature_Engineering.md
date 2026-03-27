@@ -39,9 +39,11 @@
 ## 核心技术
 
 1. **统计特征平滑（CTR Smoothing）**
+
 $$
 \hat{CTR} = \frac{\text{click} + \alpha \cdot \mu}{\text{impression} + \alpha}
 $$
+
 -
 
 $$

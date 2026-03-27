@@ -10,30 +10,34 @@
 > - [Llm-Enhanced-Ad-Creative-Generation-And-Optimiz...](../../ads/papers/LLM_Enhanced_Ad_Creative_Generation_and_Optimization_for.md) — LLM-Enhanced Ad Creative Generation and Optimization for ...
 > - [Generative Click-Through Rate Prediction With Appl](../../ads/papers/Generative_Click_through_Rate_Prediction_with_Application.md) — Generative Click-through Rate Prediction with Application...
 
-
 > 整理时间：2026-03-16  
 > 作者：MelonEggLearn  
 > 参考资料：Bidding Machine (TKDE 2018), wzhe06/Ad-papers, RTB Survey, 阿里/字节/美团公开工作
 
-
 ## 📐 核心公式与原理
 
 ### 1. 最优出价
+
 $$
 bid^* = v \cdot pCTR \cdot pCVR
 $$
+
 - 出价 = 价值 × 点击率 × 转化率
 
 ### 2. 预算约束
+
 $$
 \sum_{t=1}^T c_t \leq B
 $$
+
 - 总花费不超过预算 B
 
 ### 3. Lagrangian 松弛
+
 $$
 L = \sum_t v_t x_t - \lambda(\sum_t c_t x_t - B)
 $$
+
 - λ 控制预算约束的松紧
 
 ---
@@ -353,16 +357,19 @@ def find_optimal_lambda(v_list, m_list, B, tol=1e-6):
 #### 数学框架
 
 **原始问题**：
+
 $$
 \max_{bid_1, \ldots, bid_T} \sum_{t=1}^{T} value(bid_t) \quad \text{s.t.} \quad \sum_{t=1}^{T} cost(bid_t) \leq Budget
 $$
 
 **引入拉格朗日乘子 λ**（预算的边际价值）：
+
 $$
 L(bid, \lambda) = \sum_{t=1}^{T} value(bid_t) - \lambda \left( \sum_{t=1}^{T} cost(bid_t) - Budget \right)
 $$
 
 **关键结论**：最优出价满足
+
 $$
 bid_t^* = \arg\max_{bid} [value(bid) - \lambda \times cost(bid)]
 $$
@@ -445,6 +452,7 @@ def update_bid_landscape(market_prices_history):
 **TV 距离问题**：对任何不重叠的分布都给出最大值 1，对小幅位置偏移过于激进。
 
 **Wasserstein 距离优势**：
+
 $$
 W_1(F_t, F_{t-1}) = \int_0^\infty |F_t(b) - F_{t-1}(b)| db
 $$
@@ -1156,6 +1164,5 @@ bid_final = value × shading_factor × pacing_multiplier
 14. **PPO**: Schulman et al. "Proximal Policy Optimization Algorithms." *arXiv*, 2017.
 
 15. **TD3**: Fujimoto et al. "Addressing Function Approximation Error in Actor-Critic Methods." *ICML*, 2018.
-
 
 > 📝 面试考点见：[ads_qa_extracted.md](../../interview/ads_qa_extracted.md)

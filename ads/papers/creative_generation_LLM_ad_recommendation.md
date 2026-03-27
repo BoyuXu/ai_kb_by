@@ -22,6 +22,7 @@
 
 ### 2. RLHF双目标对齐
 **奖励函数设计**：
+
 $$
 r(text) = \alpha \cdot \text{CTR\_Reward}(text) + \beta \cdot \text{Compliance\_Reward}(text)
 $$

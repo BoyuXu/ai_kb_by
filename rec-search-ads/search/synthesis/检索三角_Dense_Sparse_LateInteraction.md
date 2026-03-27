@@ -9,28 +9,32 @@
 > - [Dense Passage Retrieval For Open-Domain Questio...](../../search/papers/Dense_Passage_Retrieval_for_Open_Domain_Question_Answerin.md) — Dense Passage Retrieval for Open-Domain Question Answerin...
 > - [Splade V3 Sparse Retrieval](../../search/papers/SPLADE_v3_Advancing_Sparse_Retrieval_with_Deep_Language_M.md) — SPLADE-v3: Advancing Sparse Retrieval with Deep Language ...
 
-
 > 知识卡片 | 创建：2026-03-23 | 领域：search
-
 
 ## 📐 核心公式与原理
 
 ### 1. BM25
+
 $$
 BM25(q,d) = \sum_{t \in q} IDF(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}
 $$
+
 - 经典稀疏检索评分
 
 ### 2. Dense Retrieval
+
 $$
 score = E_q^T E_d
 $$
+
 - 双塔编码器的向量内积
 
 ### 3. ColBERT MaxSim
+
 $$
 score = \sum_i \max_j E_q^i \cdot E_d^j
 $$
+
 - 每个 query token 找最相似的 doc token
 
 ---

@@ -10,29 +10,33 @@
 > - [Multi-Agent Llm Systems Coordination Protocols ...](../../llm-infra/20260323_multi-agent_llm_systems_coordination_protocols_and_.md) — Multi-Agent LLM Systems: Coordination Protocols and Emerg...
 > - [Flashattention-3-Fast-And-Accurate-Attention-Fo...](../../llm-infra/20260321_flashattention-3-fast-and-accurate-attention-for-llms-on-next-gen-accelerators.md) — FlashAttention-3: Fast and Accurate Attention for LLMs on...
 
-
 > 创建：2026-03-20 | 领域：LLM推理·MoE | 难度：⭐⭐⭐⭐
 > 来源：MegaScale-Infer (2504.02263) | 字节跳动出品
-
 
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---

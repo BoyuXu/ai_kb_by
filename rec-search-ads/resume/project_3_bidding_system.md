@@ -159,6 +159,7 @@ $$
 $$
 
 其中：
+
 $$
 CPA = \frac{\text{Total Cost}}{\text{Total Conversions}} = \frac{\sum \text{bid}_i}{\sum \text{conversion}_i}
 $$

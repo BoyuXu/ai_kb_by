@@ -10,30 +10,34 @@
 > - [Intent-Aware-Neural-Query-Reformulation-For-Beh...](../../search/papers/Intent_Aware_Neural_Query_Reformulation_for_Behavior_Alig.md) — Intent-Aware Neural Query Reformulation for Behavior-Alig...
 > - [Generative Query Expansion For E-Commerce Search A](../../search/papers/Generative_Query_Expansion_for_E_Commerce_Search_at_Scale.md) — Generative Query Expansion for E-Commerce Search at Scale
 
-
 **一句话**：搜索和推荐本质上都是「给定用户意图，找最相关内容」——用一个模型同时服务两者，知识可以互相迁移，参数量减少 60%，效果反而更好。
 
 **类比**：一个公司的销售培训。以前搜索团队培训「如何回答精确问题」，推荐团队培训「如何猜测客户需求」，各练各的。统一培训就是：两组学员一起上课，训练「理解客户意图」——搜索客户的精确意图能让推荐更准，推荐的行为理解能让搜索更懂上下文。
 
-
 ## 📐 核心公式与原理
 
 ### 1. 多目标优化
+
 $$
 \min_{\theta} \sum_k \lambda_k L_k(\theta)
 $$
+
 - Scalarization 方法，λ 控制任务权重
 
 ### 2. Pareto 最优
+
 $$
 x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i
 $$
+
 - 不存在在所有目标上都更好的解
 
 ### 3. 偏差校正 (IPW)
+
 $$
 \hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}
 $$
+
 - 逆倾向加权消除选择偏差
 
 ---

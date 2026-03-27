@@ -79,6 +79,7 @@ $$
 ### 4. 多目标预算优化
 
 同时满足广告主 ROI 约束和平台收益约束：
+
 $$
 \max \sum_i r_i \cdot x_i \quad s.t. \quad \sum_i c_i \cdot x_i \leq B, \quad \text{ROI}_i \geq \text{target}_i
 $$

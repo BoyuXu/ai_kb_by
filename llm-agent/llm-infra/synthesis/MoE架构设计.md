@@ -10,29 +10,33 @@
 > - [Moe-Llama-Mixture-Of-Experts-For-Efficient-Larg...](../../llm-infra/20260321_moe-llama-mixture-of-experts-for-efficient-large-language-model-serving.md) — MoE-LLaMA: Mixture-of-Experts for Efficient Large Languag...
 > - [Flashinfer-Attention-Engine-Llm-Inference](../../llm-infra/20260319_flashinfer-attention-engine-llm-inference.md) — FlashInfer: Efficient and Customizable Attention Engine f...
 
-
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：Mixtral, DeepSeek-V2/V3, MegaScale-Infer, Switch Transformer
-
 
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---
@@ -102,7 +106,6 @@ Switch Transformer（Google, 2021）
 **追问方向**：MoE 的总参数量大不影响内存吗？答：推理时需要加载所有 Expert 到内存/显存，即使每次只激活一部分，所以内存需求和总参数量成正比。
 
 ---
-
 
 ### Q7: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

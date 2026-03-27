@@ -19,28 +19,34 @@ MDP形式化：
 - **策略** $\pi(s_t) \to a_t$：Actor网络输出出价
 
 DDPG使用确定性策略，适合连续动作空间：
+
 $$
 a_t = \mu(s_t | \theta^\mu) + \mathcal{N}(0, \sigma^2) \quad \text{（训练时加噪声探索）}
 $$
 
 ### 2. 预算约束处理
 引入Lagrangian约束将预算限制纳入优化：
+
 $$
 \mathcal{L}(\mu, \lambda) = \mathbb{E}[\sum_t r_t] - \lambda(\mathbb{E}[\sum_t a_t] - B)
 $$
+
 λ 是对偶变量，自适应控制出价力度。
 
 ### 3. Critic网络
 估计Q值（状态-动作对的期望总回报）：
+
 $$
 Q(s_t, a_t) = r_t + \gamma \max_{a'} Q(s_{t+1}, a') \quad \text{（Bellman方程）}
 $$
 
 ### 4. 竞争感知出价
 引入竞争对手出价分布估计：
+
 $$
 P(\text{win} | a_t) = F(a_t) \approx \text{CDF}_{\text{market\_price}}(a_t)
 $$
+
 让模型感知市场竞争强度，动态调整出价。
 
 ## 实验结论

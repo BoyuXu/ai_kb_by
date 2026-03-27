@@ -24,6 +24,7 @@ $$
 - $P_n(w) \propto f(w)^{3/4}$：负样本采样分布（频率的 3/4 次方，平衡高频低频词）
 
 **梯度推导**：
+
 $$
 \frac{\partial J}{\partial v_w} = u_c(\sigma(v_w \cdot u_c) - 1) + k \sum_{w'} \sigma(v_{w'} \cdot u_c) \cdot u_{w'}
 $$
@@ -105,17 +106,21 @@ def evaluate_embedding(embeddings, labels):
 ### 2.2 训练目标对比
 
 **BPR Loss（Bayesian Personalized Ranking）**：
+
 $$
 \mathcal{L}_{BPR} = -\sum_{(u,i,j)} \log \sigma(s_{ui} - s_{uj})
 $$
+
 - $s_{ui}$：用户 u 与正样本 i 的相似度
 - $s_{uj}$：用户 u 与负样本 j 的相似度
 - 只关注相对顺序，不限制绝对值
 
 **Sampled Softmax（大规模推荐标配）**：
+
 $$
 \mathcal{L}_{SS} = -\log \frac{\exp(u \cdot v^+ / \tau)}{\sum_{v' \in \mathcal{V}'} \exp(u \cdot v' / \tau)}
 $$
+
 - $\mathcal{V}'$：采样的负样本集合（子集，而非全量物品库）
 - 支持大规模训练，通过调整采样数量控制训练速度
 

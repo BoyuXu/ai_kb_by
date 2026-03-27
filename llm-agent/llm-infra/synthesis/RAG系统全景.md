@@ -10,29 +10,33 @@
 > - [Beyond-Rag-Agent-Memory](../../llm-infra/20260316_beyond-rag-agent-memory.md) — Beyond RAG for Agent Memory: Retrieval by Decoupling and ...
 > - [Grpo-Group-Relative-Policy-Optimization-Llm-Rea...](../../llm-infra/20260321_grpo-group-relative-policy-optimization-llm-reasoning.md) — GRPO: Group Relative Policy Optimization for Large Langua...
 
-
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：RAG Survey, HyDE, Self-RAG, CRAG, Chunk 策略系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---
@@ -68,7 +72,6 @@ $$
 **30秒答案**：RAG——知识频繁更新、需要引用来源、知识量大（>100K tokens）；Fine-tuning——任务特定（特定格式/风格）、知识相对固定；长上下文——知识量适中（<128K）、需要全局理解。三者可组合使用。
 
 ---
-
 
 ### Q7: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

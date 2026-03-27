@@ -51,6 +51,7 @@ $$
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 ```
 
 **当前位置**:
@@ -90,6 +91,7 @@ $$
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 ```
 
 **当前位置**: 同上 (与 Embedding 公式在相同 19 个文件中)
@@ -110,6 +112,7 @@ $$
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 ```
 
 **当前位置**: 同上 (与前两个公式在相同 19 个文件中)
@@ -129,6 +132,7 @@ $$
 $$
 \text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}
 $$
+
 ```
 
 **当前位置** (ads):
@@ -159,6 +163,7 @@ $$
 $$
 Q = \alpha \cdot \text{pCTR} + \beta \cdot \text{relevance} + \gamma \cdot \text{landing\_quality}
 $$
+
 ```
 
 **当前位置**: 同 eCPM (10 个 ads 文件中)
@@ -178,6 +183,7 @@ $$
 $$
 \text{ROI} = \frac{\text{revenue}}{\text{cost}} \geq \text{target}
 $$
+
 ```
 
 **当前位置**: 同 eCPM (10 个 ads 文件中)
@@ -199,6 +205,7 @@ $$
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 ```
 
 **当前位置** (llm-infra):
@@ -241,6 +248,7 @@ $$
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{seq\_len} \times \text{dtype\_size}
 $$
+
 ```
 
 **当前位置**: 同 Attention (14 个 llm-infra 文件中)
@@ -260,6 +268,7 @@ $$
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 ```
 
 **当前位置**: 同 Attention (14 个 llm-infra 文件中)
@@ -281,6 +290,7 @@ $$
 $$
 \min_{\theta} \sum_k \lambda_k L_k(\theta)
 $$
+
 ```
 
 **当前位置** (cross-domain):
@@ -317,6 +327,7 @@ $$
 $$
 x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i
 $$
+
 ```
 
 **当前位置**: 同上 (11 个 cross-domain 文件中)
@@ -332,6 +343,7 @@ $$
 $$
 \hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}
 $$
+
 ```
 
 **当前位置**: 同上 (11 个 cross-domain 文件中)
@@ -349,6 +361,7 @@ $$
 $$
 \text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}
 $$
+
 ```
 
 **当前位置** (search):
@@ -434,9 +447,11 @@ done
 
 ```markdown
 ### 原始方式（不推荐）
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 这是推荐系统中最基础的协同过滤评分公式...（详细讲解 5 段）
 
 ### 改进方式（推荐）

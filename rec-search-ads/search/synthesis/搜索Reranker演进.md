@@ -10,29 +10,33 @@
 > - [Document Re-Ranking With Llm From Listwise To Pair](../../search/papers/Document_Re_ranking_with_LLM_From_Listwise_to_Pairwise_Ap.md) — Document Re-ranking with LLM: From Listwise to Pairwise A...
 > - [Dllm-Searcher-Adapting-Diffusion-Large-Language...](../../search/papers/DLLM_Searcher_Adapting_Diffusion_Large_Language_Model_for.md) — DLLM-Searcher: Adapting Diffusion Large Language Model fo...
 
-
 > 创建：2026-03-24 | 领域：搜索 | 类型：综合分析
 > 来源：monoT5, RankGPT, ColBERT Reranker, Cross-Encoder 系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. NDCG
+
 $$
 NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}
 $$
+
 - 搜索排序核心评估指标
 
 ### 2. Cross-Encoder
+
 $$
 score = \text{MLP}(\text{BERT}_{CLS}([q;d]))
 $$
+
 - Query-Doc 联合编码
 
 ### 3. Query Likelihood
+
 $$
 P(q|d) = \prod_{t \in q} P(t|d)
 $$
+
 - 概率语言模型检索
 
 ---
@@ -61,7 +65,6 @@ $$
 **30秒答案**：①人工标注（query-doc 相关性标签 0-3 级）；②蒸馏标签（用 LLM 打分作为 soft label）；③点击数据（搜索日志中被点击的 doc 为正例）；④Hard Negative Mining（检索到但未被点击的作为难负例）。
 
 ---
-
 
 ### Q5: 搜索系统的评估指标有哪些？
 **30秒答案**：离线：NDCG、MRR、MAP、Recall@K。在线：点击率、放弃率、首页满意度、查询改写率。注意：离线和在线可能不一致。

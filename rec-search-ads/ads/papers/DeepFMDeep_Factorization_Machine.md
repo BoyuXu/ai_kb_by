@@ -9,9 +9,11 @@
 ## 核心方法与创新点
 
 1. **FM 组件（显式二阶交叉）**
+
 $$
 y_{FM} = \langle w, x \rangle + \sum_{i < j} \langle v_i, v_j \rangle x_i x_j
 $$
+
    - 所有特征共享 embedding $V \in \mathbb{R}^{n \times k}$
 
 2. **Deep 组件（隐式高阶交叉）**
@@ -24,6 +26,7 @@ $$
    - Wide&Deep 中 Wide 侧需要手工特征，DeepFM 完全自动化
 
 4. **输出层合并**
+
 $$
 \hat{y} = \sigma(y_{FM} + y_{DNN})
 $$

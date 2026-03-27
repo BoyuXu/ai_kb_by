@@ -40,6 +40,7 @@ $$\begin{align}
 #### Pareto 支配
 
 设两个解 $x^a$ 和 $x^b$，若对所有目标 $i$：
+
 $$
 f_i(x^a) \geq f_i(x^b)
 $$
@@ -188,6 +189,7 @@ $$\begin{align}
 \end{align}$$
 
 加入约束：
+
 $$
 \text{diversity\_constraint}(x) \geq \text{threshold}
 $$
@@ -334,16 +336,19 @@ else:
 ### 4.1 目标函数的量化
 
 **目标 1：收入相关**
+
 $$
 f_{\text{revenue}} = \text{eCPM} = \text{pCTR} \times \text{pCVR} \times \text{bid}
 $$
 
 **目标 2：用户体验**
+
 $$
 f_{\text{satisfaction}} = \text{CTR} - \text{penalty}(\text{广告density})
 $$
 
 **目标 3：多样性**
+
 $$
 f_{\text{diversity}} = \frac{1}{K} \sum_{i=1}^K \text{novelty}(\text{item}_i)
 $$
@@ -353,6 +358,7 @@ $$
 - Semantic 多样性（embedding 相似度不能太高）
 
 **目标 4：公平性（广告主侧）**
+
 $$
 f_{\text{fairness}} = \text{min}(\text{impression}(\text{advertiser}_i)) \quad \forall i
 $$

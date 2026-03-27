@@ -10,29 +10,33 @@
 > - [Gems Long Sequence Generative Rec](../../rec-sys/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
 > - [Contrastive-Learning-Recsys](../../rec-sys/papers/contrastive_learning_recsys.md) — 对比学习在推荐系统中的应用
 
-
 > 创建：2026-03-24 | 领域：推荐系统 | 类型：综合分析
 > 来源：Word2Vec, Item2Vec, EGES, Node2Vec, Contrastive Learning, Semantic ID 系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
+
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
+
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 - 基于历史序列预测下一次交互
 
 ---
@@ -64,7 +68,6 @@ $$
 **30秒答案**：传统 ID Embedding 是"查表"——每个 ID 一个独立向量，ID 之间没有语义关系。Semantic ID 是"编码"——用 RQ-VAE 将物品内容编码为多级 token，相似物品的 ID 也相似，天然支持泛化和冷启动。
 
 ---
-
 
 ### Q6: 推荐系统的实时性如何保证？
 **30秒答案**：①用户特征实时更新（Flink 流处理）；②模型增量更新（FTRL/天级重训）；③索引实时更新（新物品上架）；④特征缓存+预计算降低延迟。

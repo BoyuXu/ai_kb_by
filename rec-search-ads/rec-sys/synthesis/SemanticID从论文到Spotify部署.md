@@ -10,30 +10,34 @@
 > - [Spotify Semantic Id Podcast](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
 > - [Diffgrm-Diffusion-Based-Generative-Recommendati...](../../rec-sys/papers/DiffGRM_Diffusion_based_Generative_Recommendation_Model.md) — DiffGRM: Diffusion-based Generative Recommendation Model
 
-
 **一句话**：Semantic ID 就是给每个商品/内容起一个「有语义的身份证号」——这个号码不是随机的，而是根据内容特征层次化编码，使得推荐变成「生成正确的 ID 序列」问题。
 
 **类比**：想象图书馆的杜威十进制分类法。一本书的编号 512.64 意味着：5=自然科学、51=数学、512=代数、512.64=矩阵代数。这个编号本身就携带了「这本书是什么」的信息，而且相近编号的书内容相似。Semantic ID 就是为每个商品自动生成这样的「语义编号」。
 
-
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
+
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
+
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 - 基于历史序列预测下一次交互
 
 ---

@@ -409,7 +409,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import List
 
-
 class Expert(nn.Module):
     """单个Expert网络"""
     def __init__(self, input_dim: int, expert_dim: int, dropout: float = 0.1):
@@ -425,7 +424,6 @@ class Expert(nn.Module):
     
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.fc(x)
-
 
 class MMOELayer(nn.Module):
     """MMoE核心层：多Expert + Gate机制"""
@@ -473,7 +471,6 @@ class MMOELayer(nn.Module):
             task_outputs.append(weighted_output)
         
         return task_outputs
-
 
 class MMOE(nn.Module):
     """
@@ -553,7 +550,6 @@ class MMOE(nn.Module):
         
         return predictions
 
-
 def test_mmoe():
     """测试MMoE模型"""
     # 配置
@@ -610,7 +606,6 @@ def test_mmoe():
     print(f"总损失: {total_loss.item():.4f}")
     
     return model
-
 
 if __name__ == "__main__":
     test_mmoe()

@@ -10,29 +10,33 @@
 > - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../../ads/papers/Real_Time_Bidding_Optimization_with_Multi_Agent_Deep_Rein.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
 > - [Gsp-Vcg-Auction](../../ads/papers/gsp_vcg_auction_v2.md) — GSP/VCG 拍卖机制（广告竞价理论）
 
-
 > 创建：2026-03-24 | 领域：广告系统 | 类型：综合分析
 > 来源：RTB 实践系列, DSP/SSP/ADX 架构
-
 
 ## 📐 核心公式与原理
 
 ### 1. eCPM 排序
+
 $$
 eCPM = pCTR \times pCVR \times bid
 $$
+
 - 广告排序的核心公式
 
 ### 2. 质量得分
+
 $$
 Q = \alpha \cdot pCTR + \beta \cdot relevance + \gamma \cdot landing\_quality
 $$
+
 - 综合质量影响排序和计费
 
 ### 3. ROI 约束
+
 $$
 ROI = \frac{revenue}{cost} \geq target
 $$
+
 - 广告主的核心约束条件
 
 ---
@@ -73,7 +77,6 @@ $$
 **30秒答案**：①特征缓存（Redis 预存用户画像）；②模型轻量化（双塔模型 <1ms 推理）；③预计算（高频用户的出价预先计算好缓存）；④降级策略（超时返回默认出价或放弃竞价）。
 
 ---
-
 
 ### Q6: 广告系统的全链路延迟约束是什么？
 **30秒答案**：端到端 <100ms：召回 <10ms，粗排 <20ms，精排 <50ms，竞价 <10ms。关键优化：模型蒸馏/量化、特征缓存、异步预计算。

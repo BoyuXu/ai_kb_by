@@ -12,6 +12,7 @@
 
 ### 1. Value-Weighted Loss
 将每个训练样本的损失按其商业价值加权：
+
 $$
 \mathcal{L}_{value} = -\sum_{i} v_i \cdot [y_i \log \hat{p}_i + (1-y_i) \log(1-\hat{p}_i)]
 $$
@@ -21,6 +22,7 @@ $$
 - 负样本（未点击）：$v_i = 1$（标准权重）
 
 ### 2. 价值权重计算
+
 $$
 v_i = 1 + \alpha \cdot \log(1 + \text{GMV}_i) + \beta \cdot \text{CPM}_i + \gamma \cdot \text{advertiser\_budget\_ratio}_i
 $$

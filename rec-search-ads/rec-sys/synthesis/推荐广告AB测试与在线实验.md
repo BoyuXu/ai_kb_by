@@ -4,29 +4,33 @@
 > - [Onerec Unifying Retrieve And Rank With Generative ](../../rec-sys/papers/OneRec_Unifying_Retrieve_and_Rank_with_Generative_Recomme_v2.md) — OneRec: Unifying Retrieve and Rank with Generative Recomm...
 > - [Onerec Unifying Retrieve-And-Rank With Generative ](../../rec-sys/papers/OneRec_Unifying_Retrieve_and_Rank_with_Generative_Recomme.md) — OneRec: Unifying Retrieve-and-Rank with Generative Recomm...
 
-
 > 创建：2026-03-24 | 领域：推荐系统 | 类型：综合分析
 > 来源：A/B Test 实践, Interleaving, Bandits, 因果推断系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
+
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
+
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 - 基于历史序列预测下一次交互
 
 ---
@@ -58,7 +62,6 @@ $$
 **30秒答案**：①网络效应场景（社交推荐、双边市场）→ 用 cluster-based 实验；②个性化治疗效应（不同用户反应不同）→ 用 HTE（异质性治疗效应）分析；③多策略交互效应 → 用析因实验设计。
 
 ---
-
 
 ### Q6: 推荐系统的实时性如何保证？
 **30秒答案**：①用户特征实时更新（Flink 流处理）；②模型增量更新（FTRL/天级重训）；③索引实时更新（新物品上架）；④特征缓存+预计算降低延迟。

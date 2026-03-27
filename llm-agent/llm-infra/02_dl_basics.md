@@ -52,6 +52,7 @@
 | RMS Norm | 均方根归一化 | LLM | 更快（无均值） |
 
 **BN公式：**
+
 $$
 \hat{x} = \frac{x - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}, \quad y = \gamma\hat{x} + \beta
 $$
@@ -97,6 +98,7 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 ### 4.1 卷积操作
 
 **输出尺寸计算：**
+
 $$
 H_{out} = \lfloor\frac{H_{in} + 2P - K}{S}\rfloor + 1
 $$
@@ -104,6 +106,7 @@ $$
 - H: 高度，P: padding，K: kernel size，S: stride
 
 **参数量计算：**
+
 $$
 \text{params} = K \times K \times C_{in} \times C_{out} + C_{out}
 $$

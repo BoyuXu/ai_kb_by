@@ -8,8 +8,6 @@
 > - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
 > - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../rec-sys/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
 
-
-
 ## 5. MMOE (Multi-gate Mixture-of-Experts) - Google 2018
 
 ### 5.1 解决的问题
@@ -188,6 +186,7 @@ $$
 $$
 g_k(x) = \text{Softmax}(W_{g_k} \cdot x + b_{g_k})
 $$
+
 $$
 g_k(x) = [g_{k1}, g_{k2}, ..., g_{kN}], \quad \sum_{i=1}^{N} g_{ki} = 1
 $$
@@ -263,25 +262,30 @@ $$
    - 弱相关任务：各自选择不同的Expert组合
    - 极端情况：任务完全不相关时，可退化为独立单任务模型
 
-
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
+
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
+
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 - 基于历史序列预测下一次交互
 
 ---
@@ -542,7 +546,6 @@ $$
    - 层间通过Gating进行选择性信息传递
 
 ---
-
 
 ## 7. SIM (Search-based Interest Model) - 阿里2020
 
@@ -816,16 +819,19 @@ User Tower                    Item Tower
 ### 8.3 关键公式
 
 **语义向量**：
+
 $$
 y = f(x; W) = \tanh(W_L \cdot \tanh(...\tanh(W_1 x)))
 $$
 
 **余弦相似度**：
+
 $$
 R(Q, D) = \frac{y_Q^T y_D}{\|y_Q\| \cdot \|y_D\|}
 $$
 
 **后验概率**：
+
 $$
 P(D|Q) = \frac{\exp(\gamma R(Q, D))}{\sum_{D'} \exp(\gamma R(Q, D'))}
 $$
@@ -877,6 +883,5 @@ $$
 | **DCN-V2** | 2020 | 显式高阶交叉 | 精排 | 纯特征交叉 |
 | **PLE** | 2020 | 渐进式分离 | 多任务学习 | 参数量大 |
 | **SIM** | 2020 | 两阶段长序列 | 精排(超长序列) | 依赖索引质量 |
-
 
 > 📝 面试考点见：[rec_qa_extracted.md](../../interview/rec_qa_extracted.md)

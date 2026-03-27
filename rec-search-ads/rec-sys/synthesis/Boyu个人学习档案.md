@@ -10,30 +10,34 @@
 > - [Reg4Rec Reasoning-Enhanced Generative Model For La](../../rec-sys/papers/REG4Rec_Reasoning_Enhanced_Generative_Model_for_Large_Sca.md) — REG4Rec: Reasoning-Enhanced Generative Model for Large-Sc...
 > - [Multi-Behavior-Rec-Survey](../../rec-sys/papers/Multi_behavior_Recommender_Systems_A_Survey.md) — Multi-behavior Recommender Systems: A Survey
 
-
 > 📅 生成日期: 2026-03-12 | 🎯 分析师: MelonEggLearn
 > 
 > 基于学习笔记深度分析 + AI知识库整合
 
-
 ## 📐 核心公式与原理
 
 ### 1. 矩阵分解
+
 $$
 \hat{r}_{ui} = p_u^T q_i
 $$
+
 - 用户和物品的隐向量内积
 
 ### 2. BPR 损失
+
 $$
 L_{BPR} = -\sum_{(u,i,j)} \ln \sigma(\hat{r}_{ui} - \hat{r}_{uj})
 $$
+
 - 正样本得分 > 负样本得分
 
 ### 3. 序列推荐
+
 $$
 P(i_{t+1} | i_1, ..., i_t) = \text{softmax}(h_t^T E)
 $$
+
 - 基于历史序列预测下一次交互
 
 ---

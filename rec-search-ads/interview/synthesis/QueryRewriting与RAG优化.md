@@ -10,28 +10,32 @@
 > - [W-Rag-Weakly-Supervised-Dense-Retrieval](../../search/papers/W_RAG_Weakly_Supervised_Dense_Retrieval_in_RAG_for_Open_D.md) — W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-...
 > - [Dense Vs Sparse Retrieval Eval](../../search/papers/Dense_Retrieval_vs_Sparse_Retrieval_Unified_Evaluation_Fr.md) — Dense Retrieval vs Sparse Retrieval: Unified Evaluation F...
 
-
 > 创建：2026-03-20 | 领域：搜索·RAG | 难度：⭐⭐⭐
-
 
 ## 📐 核心公式与原理
 
 ### 1. 推荐系统漏斗
+
 $$
 \text{全量} \xrightarrow{召回} 10^3 \xrightarrow{粗排} 10^2 \xrightarrow{精排} 10^1 \xrightarrow{重排} \text{展示}
 $$
+
 - 逐层过滤，平衡效果和效率
 
 ### 2. CTR 预估
+
 $$
 pCTR = \sigma(f_{DNN}(x_{user}, x_{item}, x_{context}))
 $$
+
 - 排序核心：预估用户点击概率
 
 ### 3. 在线评估
+
 $$
 \Delta metric = \bar{X}_{treatment} - \bar{X}_{control}
 $$
+
 - A/B 测试量化策略效果
 
 ---

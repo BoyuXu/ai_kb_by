@@ -41,6 +41,7 @@ $$
 ### 主要理论结果
 
 **1. 无信息设置下的遗憾界**：
+
 $$
 \text{Regret} = \tilde{O}(\sqrt{T} + \mathcal{W}_T)
 $$
@@ -52,6 +53,7 @@ $$
 $$
 
 使用**Wasserstein距离**度量私有价值分布的非平稳性：
+
 $$
 \mathcal{W}_T = \sum_{t=2}^{T} W_1(F_t, F_{t-1})
 $$

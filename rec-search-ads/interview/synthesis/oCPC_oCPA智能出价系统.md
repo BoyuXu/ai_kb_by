@@ -10,28 +10,32 @@
 > - [Ocpc-Ocpa-Optimization](../../ads/papers/ocpc_ocpa_optimization.md) — oCPC/oCPA 优化：原理、工程实现与调优
 > - [Gsp-Vcg-Auction](../../ads/papers/gsp_vcg_auction_v2.md) — GSP/VCG 拍卖机制（广告竞价理论）
 
-
 > 创建：2026-03-20 | 领域：广告系统·出价 | 难度：⭐⭐⭐
-
 
 ## 📐 核心公式与原理
 
 ### 1. 推荐系统漏斗
+
 $$
 \text{全量} \xrightarrow{召回} 10^3 \xrightarrow{粗排} 10^2 \xrightarrow{精排} 10^1 \xrightarrow{重排} \text{展示}
 $$
+
 - 逐层过滤，平衡效果和效率
 
 ### 2. CTR 预估
+
 $$
 pCTR = \sigma(f_{DNN}(x_{user}, x_{item}, x_{context}))
 $$
+
 - 排序核心：预估用户点击概率
 
 ### 3. 在线评估
+
 $$
 \Delta metric = \bar{X}_{treatment} - \bar{X}_{control}
 $$
+
 - A/B 测试量化策略效果
 
 ---

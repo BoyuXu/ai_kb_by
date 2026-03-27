@@ -10,28 +10,32 @@
 > - [Mmoe-Multi-Task-Learning](../../rec-sys/papers/MMoEMulti_gate_Mixture_of_Experts.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
 > - [Llm-For-Ir-Survey](../../search/papers/Large_Language_Models_for_Information_Retrieval_A_Survey.md) — Large Language Models for Information Retrieval: A Survey
 
-
 > 创建：2026-03-20 | 领域：推荐系统·排序 | 难度：⭐⭐⭐
-
 
 ## 📐 核心公式与原理
 
 ### 1. 推荐系统漏斗
+
 $$
 \text{全量} \xrightarrow{召回} 10^3 \xrightarrow{粗排} 10^2 \xrightarrow{精排} 10^1 \xrightarrow{重排} \text{展示}
 $$
+
 - 逐层过滤，平衡效果和效率
 
 ### 2. CTR 预估
+
 $$
 pCTR = \sigma(f_{DNN}(x_{user}, x_{item}, x_{context}))
 $$
+
 - 排序核心：预估用户点击概率
 
 ### 3. 在线评估
+
 $$
 \Delta metric = \bar{X}_{treatment} - \bar{X}_{control}
 $$
+
 - A/B 测试量化策略效果
 
 ---

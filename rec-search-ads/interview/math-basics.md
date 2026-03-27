@@ -10,6 +10,7 @@
 ### 1.1 基本概念
 
 **条件概率与贝叶斯：**
+
 $$
 P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 $$
@@ -19,6 +20,7 @@ $$
 - 后验概率 P(A|B)：观测B后A的概率
 
 **全概率公式：**
+
 $$
 P(B) = \sum_i P(B|A_i)P(A_i)
 $$
@@ -38,9 +40,11 @@ $$
 $$
 E[X] = \sum_x x P(X=x)
 $$
+
 $$
 Var(X) = E[(X-\mu)^2] = E[X^2] - (E[X])^2
 $$
+
 $$
 Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2ab\cdot Cov(X,Y)
 $$
@@ -48,16 +52,19 @@ $$
 ### 1.4 信息论
 
 **熵（Entropy）：** 衡量不确定性
+
 $$
 H(X) = -\sum_x P(x)\log P(x)
 $$
 
 **交叉熵：**
+
 $$
 H(P,Q) = -\sum_x P(x)\log Q(x)
 $$
 
 **KL散度（相对熵）：** 两分布的差异
+
 $$
 D_{KL}(P||Q) = \sum_x P(x)\log\frac{P(x)}{Q(x)} \geq 0
 $$
@@ -140,15 +147,19 @@ $$
 | Adam | 自适应lr | 快速收敛 |
 
 **Adam更新规则：**
+
 $$
 m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t
 $$
+
 $$
 v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2
 $$
+
 $$
 \hat{m}_t = \frac{m_t}{1-\beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1-\beta_2^t}
 $$
+
 $$
 \theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\hat{m}_t
 $$
@@ -156,6 +167,7 @@ $$
 ### 3.2 约束优化
 
 **拉格朗日乘数法：**
+
 $$
 \mathcal{L}(x,\lambda) = f(x) + \lambda g(x)
 $$

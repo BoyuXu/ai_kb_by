@@ -10,30 +10,34 @@
 > - [Dense Passage Retrieval For Open-Domain Questio...](../../search/papers/Dense_Passage_Retrieval_for_Open_Domain_Question_Answerin.md) — Dense Passage Retrieval for Open-Domain Question Answerin...
 > - [Intent-Aware-Neural-Query-Reformulation-For-Beh...](../../search/papers/Intent_Aware_Neural_Query_Reformulation_for_Behavior_Alig.md) — Intent-Aware Neural Query Reformulation for Behavior-Alig...
 
-
 **一句话**：稀疏检索（BM25/SPLADE）像「关键词控」——精确匹配词汇，快且可解释；密集检索（DPR/E5）像「语义理解者」——懂同义词但慢且黑盒。现代系统通常两者都要。
 
 **类比**：你去图书馆找书。稀疏检索像用目录索引——输入「机器学习」，直接找书名包含「机器学习」的书，精准快速。密集检索像问图书管理员——你说「我想学 AI 算法」，管理员理解你的意图，推荐《统计学习方法》《深度学习》等，语义匹配但可能偏。最佳体验是两者结合。
 
-
 ## 📐 核心公式与原理
 
 ### 1. BM25
+
 $$
 BM25(q,d) = \sum_{t \in q} IDF(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}
 $$
+
 - 经典稀疏检索评分
 
 ### 2. Dense Retrieval
+
 $$
 score = E_q^T E_d
 $$
+
 - 双塔编码器的向量内积
 
 ### 3. ColBERT MaxSim
+
 $$
 score = \sum_i \max_j E_q^i \cdot E_d^j
 $$
+
 - 每个 query token 找最相似的 doc token
 
 ---

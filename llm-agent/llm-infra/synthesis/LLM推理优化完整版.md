@@ -10,29 +10,33 @@
 > - [Megascale-Infer-Disaggregated-Expert-Parallelism](../../llm-infra/20260320_MegaScale-Infer-Disaggregated-Expert-Parallelism.md) — MegaScale-Infer: Serving Mixture-of-Experts at Scale with...
 > - [Grpo-Group-Relative-Policy-Optimization-For-Lar...](../../llm-infra/20260321_grpo-group-relative-policy-optimization-for-large-language-model-reasoning.md) — GRPO: Group Relative Policy Optimization for Large Langua...
 
-
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：FlashAttention-3, KV Cache 压缩系列, Speculative Decoding, MegaScale-Infer, vLLM
-
 
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---
@@ -117,7 +121,6 @@ $$
 **30秒答案**：KV Cache 内存爆炸（70B 模型 100K tokens 需要 ~1TB KV Cache），O(n²) 注意力计算时间增长。解决：①稀疏注意力（只看最近窗口 + 全局 token）；②KV Cache 分页到 CPU/SSD；③Ring Attention 分布式计算。
 
 ---
-
 
 ### Q9: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

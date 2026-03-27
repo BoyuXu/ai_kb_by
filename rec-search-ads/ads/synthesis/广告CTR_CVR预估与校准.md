@@ -10,29 +10,33 @@
 > - [Gnolr Generalized Nested Ordered Logistic Regre...](../../ads/papers/GNOLR_Generalized_Nested_Ordered_Logistic_Regression_for.md) — GNOLR: Generalized Nested Ordered Logistic Regression for...
 > - [Deepfm-Ctr](../../ads/papers/DeepFMDeep_Factorization_Machine.md) — DeepFM：深度因子分解机（Deep Factorization Machine）
 
-
 > 创建：2026-03-24 | 领域：广告系统 | 类型：综合分析
 > 来源：ESMM, GNOLR, Calibration 实践, 延迟转化处理系列
-
 
 ## 📐 核心公式与原理
 
 ### 1. CTR 预估
+
 $$
 P(click|x) = \sigma(f(x; \theta))
 $$
+
 - 深度模型预估点击概率，sigmoid 输出
 
 ### 2. 交叉熵损失
+
 $$
 L = -\frac{1}{N}\sum_{i=1}^N [y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)]
 $$
+
 - CTR 模型标准训练目标
 
 ### 3. AUC
+
 $$
 AUC = P(\hat{y}_{pos} > \hat{y}_{neg})
 $$
+
 - 正样本得分高于负样本的概率
 
 ---
@@ -79,7 +83,6 @@ LR + 手工特征（2010-2014）→ FM/FFM（2014-2016）→ Wide&Deep/DeepFM（
 **30秒答案**：①ESMM 多任务缓解（CTR 任务有大量样本辅助）；②过采样正样本 + 欠采样负样本 + 样本权重修正；③Focal Loss 聚焦难分样本；④数据增广（类似转化事件作为弱正样本）。
 
 ---
-
 
 ### Q7: 广告系统的全链路延迟约束是什么？
 **30秒答案**：端到端 <100ms：召回 <10ms，粗排 <20ms，精排 <50ms，竞价 <10ms。关键优化：模型蒸馏/量化、特征缓存、异步预计算。

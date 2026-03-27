@@ -12,11 +12,13 @@
 **数学定义：**
 
 二分类交叉熵（BCE）：
+
 $$
 L_{BCE} = -[y \log(\hat{y}) + (1-y) \log(1-\hat{y})]
 $$
 
 多分类交叉熵（CE）：
+
 $$
 L_{CE} = -\sum_{i=1}^{C} y_i \log(\hat{y}_i)
 $$
@@ -24,6 +26,7 @@ $$
 其中 $y$ 是真实标签，$\hat{y}$ 是预测概率。
 
 **与KL散度的关系：**
+
 $$
 KL(P||Q) = H(P,Q) - H(P)
 $$
@@ -46,6 +49,7 @@ $$
 **核心问题：** 解决类别不平衡和难易样本不平衡问题
 
 **数学定义：**
+
 $$
 FL(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)
 $$
@@ -68,11 +72,13 @@ $$
 ### 1.3 MSE (Mean Squared Error)
 
 **数学定义：**
+
 $$
 MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 $$
 
 **梯度推导：**
+
 $$
 \frac{\partial MSE}{\partial \hat{y}_i} = \frac{2}{n}(\hat{y}_i - y_i)
 $$
@@ -91,6 +97,7 @@ $$
 ### 1.4 Huber Loss
 
 **数学定义（分段函数）：**
+
 $$
 L_\delta(a) = \begin{cases} \frac{1}{2}a^2 & \text{if } |a| \leq \delta \\ \delta(|a| - \frac{1}{2}\delta) & \text{if } |a| > \delta \end{cases}
 $$
@@ -102,6 +109,7 @@ $$
 - 大误差（$|a| > \delta$）：使用MAE（线性），抑制异常值影响
 
 **梯度特性：**
+
 $$
 \frac{\partial L_\delta}{\partial a} = \begin{cases} a & \text{if } |a| \leq \delta \\ \delta \cdot \text{sign}(a) & \text{if } |a| > \delta \end{cases}
 $$
@@ -163,14 +171,17 @@ $$
 ### 2.1 SGD / Momentum
 
 **SGD更新公式：**
+
 $$
 \theta_{t+1} = \theta_t - \eta \cdot \nabla_\theta J(\theta_t)
 $$
 
 **Momentum更新公式：**
+
 $$
 v_t = \beta v_{t-1} + \nabla_\theta J(\theta_t)
 $$
+
 $$
 \theta_{t+1} = \theta_t - \eta \cdot v_t
 $$
@@ -184,15 +195,19 @@ $$
 **核心思想：** 自适应学习率，结合Momentum和RMSProp
 
 **更新公式：**
+
 $$
 m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t \quad \text{(一阶矩估计)}
 $$
+
 $$
 v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2 \quad \text{(二阶矩估计)}
 $$
+
 $$
 \hat{m}_t = \frac{m_t}{1-\beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1-\beta_2^t} \quad \text{(偏差修正)}
 $$
+
 $$
 \theta_{t+1} = \theta_t - \eta \cdot \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}
 $$
@@ -213,6 +228,7 @@ $$
 - 在Adam中，$\frac{1}{\sqrt{\hat{v}_t}}$ 会缩放梯度，导致权重衰减效果被削弱
 
 **AdamW正确做法：**
+
 $$
 \theta_{t+1} = \theta_t - \eta \cdot \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} - \eta \cdot \lambda \theta_t
 $$
@@ -230,9 +246,11 @@ $$
 **核心思想：** 层自适应学习率，支持大批量训练
 
 **更新公式：**
+
 $$
 r_t = \frac{m_t}{\sqrt{v_t} + \epsilon}
 $$
+
 $$
 \theta_{t+1} = \theta_t - \eta \cdot \frac{r_t}{||r_t||} \cdot ||\theta_t||
 $$
@@ -253,6 +271,7 @@ $$
 **目的：** 训练初期避免过大学习率导致震荡
 
 **实现：**
+
 $$
 \eta_t = \frac{t}{T_{warmup}} \cdot \eta_{max}, \quad t < T_{warmup}
 $$
@@ -260,6 +279,7 @@ $$
 **原因：** 初始化参数远离最优，梯度较大，需要小步长稳定
 
 #### Cosine Annealing
+
 $$
 \eta_t = \eta_{min} + \frac{1}{2}(\eta_{max} - \eta_{min})(1 + \cos(\frac{t}{T_{max}}\pi))
 $$
@@ -279,6 +299,7 @@ $$
 ### 2.6 梯度裁剪与权重衰减
 
 **梯度裁剪（Gradient Clipping）：**
+
 $$
 g \leftarrow \min(1, \frac{clip\_value}{||g||}) \cdot g
 $$
@@ -327,6 +348,7 @@ $$
 ### 3.1 偏差-方差权衡
 
 **误差分解：**
+
 $$
 Error = Bias^2 + Variance + Noise
 $$
@@ -358,6 +380,7 @@ Error
 ### 3.2 L1/L2正则化的几何解释
 
 **L1正则（Lasso）：**
+
 $$
 J(\theta) = L(\theta) + \lambda \sum_i |\theta_i|
 $$
@@ -368,6 +391,7 @@ $$
 - **产生稀疏性**
 
 **L2正则（Ridge）：**
+
 $$
 J(\theta) = L(\theta) + \lambda \sum_i \theta_i^2
 $$
@@ -419,6 +443,7 @@ L1 (菱形)          L2 (圆形)
 **物理意义：** 随机取一个正样本和一个负样本，正样本排在负样本前面的概率
 
 **计算方式：**
+
 $$
 AUC = \frac{\sum_{i \in P} rank_i - \frac{|P|(|P|+1)}{2}}{|P| \times |N|}
 $$
@@ -444,6 +469,7 @@ $$
 $$
 DCG@k = \sum_{i=1}^{k} \frac{2^{rel_i} - 1}{\log_2(i+1)}
 $$
+
 $$
 NDCG@k = \frac{DCG@k}{IDCG@k}
 $$
@@ -529,29 +555,35 @@ $$
 **基础指标：**
 
 **准确率（Accuracy）：**
+
 $$
 Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 $$
 
 **精准率/查准率（Precision）：**
+
 $$
 Precision = \frac{TP}{TP + FP}
 $$
 
 **召回率/查全率（Recall）：**
+
 $$
 Recall = \frac{TP}{TP + FN}
 $$
 
 **F1-Score：**
+
 $$
 F1 = \frac{2 \times Precision \times Recall}{Precision + Recall}
 $$
 
 **F-beta Score：**
+
 $$
 F_\beta = \frac{(1+\beta^2) \times Precision \times Recall}{\beta^2 \times Precision + Recall}
 $$
+
 - $\beta > 1$：更重视Recall
 - $\beta < 1$：更重视Precision
 

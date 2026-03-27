@@ -10,29 +10,33 @@
 > - [Rag-Retrieval-Optimization](../../search/papers/RAG_Naive_RAG_Advanced_RAG.md) — RAG 检索优化：从 Naive RAG 到 Advanced RAG
 > - [Dense-Retrieval-Vs-Sparse-Retrieval-Unified-Eva...](../../search/papers/Dense_Retrieval_vs_Sparse_Retrieval_A_Unified_Evaluation.md) — Dense Retrieval vs Sparse Retrieval: A Unified Evaluation...
 
-
 > 创建：2026-03-24 | 领域：跨域 | 类型：综合分析
 > 来源：SIM, ETA, GEMs, FlashAttention, Ring Attention, Mamba/S4
-
 
 ## 📐 核心公式与原理
 
 ### 1. 多目标优化
+
 $$
 \min_{\theta} \sum_k \lambda_k L_k(\theta)
 $$
+
 - Scalarization 方法，λ 控制任务权重
 
 ### 2. Pareto 最优
+
 $$
 x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i
 $$
+
 - 不存在在所有目标上都更好的解
 
 ### 3. 偏差校正 (IPW)
+
 $$
 \hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}
 $$
+
 - 逆倾向加权消除选择偏差
 
 ---
@@ -94,7 +98,6 @@ $$
 **30秒答案**：是——RAG 的本质是"不让 LLM 处理全部长文档，而是先检索相关片段再处理"，和 SIM 的"先筛后排"思路一致。但 RAG 有信息丢失风险（检索可能漏掉重要段落）。
 
 ---
-
 
 ### Q6: 搜广推三个领域的技术共性？
 **30秒答案**：①都需要召回+排序架构；②都用 CTR/CVR 预估模型；③都面临冷启动问题；④都需要实时特征系统；⑤都可以用 LLM 增强。差异主要在约束条件和评估指标。

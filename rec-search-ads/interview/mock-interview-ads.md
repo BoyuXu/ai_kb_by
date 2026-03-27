@@ -513,7 +513,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Dict, List, Optional
 
-
 class ESMM(nn.Module):
     """
     Entire Space Multi-Task Model
@@ -661,7 +660,6 @@ class ESMM(nn.Module):
             
         return result
 
-
 class ESMMLoss(nn.Module):
     """ESMM联合损失函数"""
     
@@ -715,7 +713,6 @@ class ESMMLoss(nn.Module):
             'loss_ctcvr': loss_ctcvr.item(),
             'loss_total': total_loss.item()
         }
-
 
 # ========== 使用示例 ==========
 
@@ -792,7 +789,6 @@ def demo():
     print(f"转化率: {labels_ctcvr.sum() / labels_ctr.sum():.4f}" if labels_ctr.sum() > 0 else "N/A")
     
     return model, predictions
-
 
 if __name__ == "__main__":
     demo()

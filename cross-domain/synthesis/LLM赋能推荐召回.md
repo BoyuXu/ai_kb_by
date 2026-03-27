@@ -10,29 +10,33 @@
 > - [Web-Scale-Llm-Recsys](../../rec-sys/papers/Towards_Web_scale_Recommendations_with_LLMs_From_Quality.md) — Towards Web-scale Recommendations with LLMs: From Quality...
 > - [Dense Passage Retrieval For Open-Domain Questio...](../../search/papers/Dense_Passage_Retrieval_for_Open_Domain_Question_Answerin.md) — Dense Passage Retrieval for Open-Domain Question Answerin...
 
-
 > 创建：2026-03-20 | 领域：推荐系统·召回 | 难度：⭐⭐⭐⭐
 > 来源：LLM Universal Retriever (2502.03041，广告平台)、Web-scale LLM Rec (3690624，Bing)
-
 
 ## 📐 核心公式与原理
 
 ### 1. 多目标优化
+
 $$
 \min_{\theta} \sum_k \lambda_k L_k(\theta)
 $$
+
 - Scalarization 方法，λ 控制任务权重
 
 ### 2. Pareto 最优
+
 $$
 x^* \text{ is Pareto optimal } \iff \nexists x: f_i(x) \leq f_i(x^*) \forall i
 $$
+
 - 不存在在所有目标上都更好的解
 
 ### 3. 偏差校正 (IPW)
+
 $$
 \hat{R} = \frac{1}{n}\sum_i \frac{r_i}{P(O=1|x_i)}
 $$
+
 - 逆倾向加权消除选择偏差
 
 ---

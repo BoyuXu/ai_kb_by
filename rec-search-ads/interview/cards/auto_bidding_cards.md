@@ -189,16 +189,19 @@ $$
 $$
 
 **拉格朗日函数：**
+
 $$
 \mathcal{L} = \sum_i v_i w_i(b_i) - \lambda(\sum_i m_i w_i(b_i) - B)
 $$
 
 **对 b_i 求导 = 0：**
+
 $$
 w_i'(b_i)(v_i - \lambda m_i) = 0
 $$
 
 **结论（因为 w'_i > 0）：**
+
 $$
 b^*_i = \frac{v_i}{\lambda}
 $$

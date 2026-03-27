@@ -9,7 +9,6 @@
 > - [Kvcache Compression For Long-Context Llm Infere...](../../llm-infra/20260323_kvcache_compression_for_long-context_llm_inference_.md) — KVCache Compression for Long-Context LLM Inference: Metho...
 > - [Efficiently-Aligning-Draft-Models-Via-Parameter...](../../llm-infra/20260321_efficiently-aligning-draft-models-via-parameter-and-data-efficient-adaptation-for-speculative-decoding.md) — Efficiently Aligning Draft Models via Parameter- and Data...
 
-
 > 知识卡片 | 创建：2026-03-23 | 更新：2026-03-26 | 领域：llm-infra
 
 ---
@@ -64,25 +63,30 @@ Qwen3 核心设计：统一 thinking / non-thinking 两种模式
     → 推理成本 = 22B Dense 模型，容量 = 235B
 ```
 
-
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
+
 $$
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
+
 - Transformer 核心计算
 
 ### 2. KV Cache
+
 $$
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
 $$
+
 - KV Cache 内存占用公式
 
 ### 3. LoRA
+
 $$
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
 $$
+
 - 低秩适配，r << d 大幅减少可训练参数
 
 ---
