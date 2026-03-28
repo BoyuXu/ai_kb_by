@@ -5139,3 +5139,101 @@ OneSug 价值最大的场景是「Long-tail 和新兴 query」（传统 Trie 无
 **面试官点评：** 高分要点：① 准确识别「幻觉控制」是核心风险（而非泛泛说效果不好）② 验证方案具体（明确指标、阶段、门槛）③ 指出 OneSug 的适用边界（Long-tail vs Head）④ 加分：「混合策略」是务实的落地路径
 
 ---
+
+---
+
+## 2026-03-28 面试题组 — LLM推理×对比学习×生成式推荐
+
+---
+
+### Q1 | 初级 | KV Cache 基础与显存计算
+
+**Q: 解释 KV Cache 的作用，并计算 LLaMA-2-70B（GQA）在 4096 token 序列下的 KV Cache 显存占用。**
+
+**A:** KV Cache 将自回归生成的总计算量从 O(T²·L·d²) 降至 O(T·L·d²)，以显存换计算。
+
+GQA 计算：n_layers=80, n_kv_heads=8（GQA）, d_head=128, BF16(2B)
+- 每 token = 2×8×128×2×80 = 327,680 bytes ≈ **5 KB/token**
+- 4096 tokens 总 = 5×4096 ≈ **20 MB**（vs 非GQA的160MB，差8倍）
+- vLLM PagedAttention 通过 16-token block 分页，GPU利用率从~40%提升到~90%
+
+**面试官点评：** 高分：① O(T²)→O(T) 公式 ② GQA 减少 kv_heads 的意义 ③ 5KB/token 数量级 ④ PagedAttention 工程价值
+
+---
+
+### Q2 | 中级 | InfoNCE 温度参数 + 工业负样本策略
+
+**Q: InfoNCE Loss 中温度参数 τ 的作用？工业双塔召回的负样本采样标准做法？**
+
+**A:** τ 小（0.05）→ softmax 尖锐，梯度集中于 hard negative，精细但对噪声敏感；τ 大（1.0）→ 梯度均匀分布，稳定但区分度低。工业经验值 0.05~0.2。
+
+工业负样本组合：
+- 随机负采样：覆盖面广，easy negative 为主
+- Batch 内负样本：0额外计算，隐式 hard negative（注意假负样本）
+- 热门修正：按 p(i)^0.75 调整采样频率，缓解热门 item 主导
+- Hard Negative Mining：模型预测高分但标注负的样本（计算贵，可能引入假负）
+- 标准做法：四者混合，假负样本用完播/收藏过滤
+
+**面试官点评：** 高分：① τ 梯度分析 ② 假负样本识别 ③ 热门修正公式(p^0.75)
+
+---
+
+### Q3 | 中级 | RQ-VAE + STE 端到端 Semantic ID
+
+**Q: RQ-VAE 如何生成层级 Semantic ID？STE 如何解决量化的梯度不连续？**
+
+**A:** RQ-VAE 残差量化：
+- 第1层 VQ：c1 = argmin||z - e_j||，r1 = z - e_{c1}（粗粒度，品类）
+- 第2层 VQ：c2 = argmin||r1 - e_j||，r2 = r1 - e_{c2}（子类别）
+- 第3层 VQ：c3 = argmin||r2 - e_j||（细粒度，具体 item）
+- Semantic ID = [c1, c2, c3]，层次越深越精细
+
+STE：`z_q = z + (z_q - z).detach()`
+- 前向：用量化值 z_q（离散，不可微）
+- 反向：梯度直接穿透，视 z_q ≈ z（绕过 argmin）
+- 代价：引入量化偏差；实践中有效（VQ-VAE 已验证）
+
+vs 分阶段训练：E2E+STE 让 codebook 随生成任务动态优化，冷启动 Recall@50 +40%（工业报告）
+
+**面试官点评：** 高分：① 残差量化层次直觉 ② STE 代码实现 ③ E2E vs 分阶段的核心差异 ④ Constrained Beam Search on Trie
+
+---
+
+### Q4 | 高级 | 系统设计：统一生成式推荐漏斗
+
+**Q: 设计亿级用户/百亿 item 统一生成式推荐系统，P99 < 50ms，支持冷启动和降级。**
+
+**A:** 核心矛盾：自回归生成串行慢（秒级），必须「离线大模型策略 + 在线轻量执行」。
+
+架构：
+- 离线：生成式统一模型每 15min 批量推断 User Semantic Profile（Top-200 Semantic Paths），存 Feature Store
+- 在线（50ms budget）：Feature Fetch(5ms) → Semantic Trie 召回1000 item(10ms) → 粗排LightGBM 200(10ms) → 精排小Transformer 50(20ms) → Response(5ms)
+
+冷启动：新 item 用 content encoder 映射到 Semantic ID 最近邻；新用户用人口属性查用户组 Profile
+
+降级：L1正常→L2 ANN双塔+MLP精排→L3协同过滤预计算→L4热门Top-100静态兜底
+
+**面试官点评：** 高分：① 离线解耦识别核心矛盾 ② 延迟分解具体 ③ Trie约束解码冷启动方案 ④ 分层降级可执行
+
+---
+
+### Q5 | 开放 | LLM 推理能力在推荐中的真实价值
+
+**Q: LLM 的推理能力在哪些推荐场景有真实价值？哪些是伪需求？最大技术障碍？**
+
+**A:** 
+有价值：冷启动（无协同信号时语义弥补）、复杂长尾 query 理解、跨域迁移、可解释性、对话式推荐
+
+伪需求：成熟用户精排（协同信号更强）、实时 CTR（<1ms 要求）、高频高并发（GPT-4 成本：QPS=10万/天 ≈ 百万美元）
+
+最大技术障碍：
+1. 延迟：GPT-4 P50 ~1s vs 工业精排 <5ms（差200×）→ 离线缓存或蒸馏
+2. 幻觉：生成不存在 item ID → Constrained Generation + 后处理验证
+3. 分布偏移：LLM 训练分布 vs 平台用户行为差异 → Instruction Tuning（样本效率低）
+4. 可控性：随机性高，A/B 难稳定 → 温度设0，固定seed
+
+最佳定位：LLM = 「语义 Feature 提取器 + 冷启动专家」，离线生成 embedding 注入现有排序模型，而非端到端替换
+
+**面试官点评：** 高分：① 有定量依据（成本计算）② 识别幻觉/分布偏移的具体风险 ③ 务实落地路径 ④ Feature提取器定位体现系统思维
+
+---
