@@ -11,6 +11,37 @@
 
 > 知识卡片 | 创建：2026-03-23 | 领域：search
 
+## 架构总览
+
+```mermaid
+graph TB
+    subgraph "稠密检索 Dense"
+        DD1[Query → Encoder → 768d向量]
+        DD2[Doc → Encoder → 768d向量]
+        DD3[余弦相似度]
+        DD1 --> DD3
+        DD2 --> DD3
+        DD4[✅ 语义理解强<br/>❌ 域外泛化弱]
+    end
+    subgraph "稀疏检索 Sparse"
+        SP1[Query → BM25/SPLADE → 词频向量]
+        SP2[倒排索引查找]
+        SP1 --> SP2
+        SP3[✅ 精确词匹配<br/>❌ 语义理解弱]
+    end
+    subgraph "晚交互 Late Interaction（ColBERT）"
+        LI1[Query Tokens → 128×768矩阵]
+        LI2[Doc Tokens → N×768矩阵]
+        LI3[MaxSim: 每个Query token取最大相似度求和]
+        LI1 --> LI3
+        LI2 --> LI3
+        LI4[✅ 精度≈Cross-encoder<br/>✅ 延迟≈Bi-encoder]
+    end
+    DD3 --> MH[混合融合 RRF/加权]
+    SP2 --> MH
+    LI3 --> MH
+```
+
 ## 📐 核心公式与原理
 
 ### 1. BM25

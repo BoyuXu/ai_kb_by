@@ -13,6 +13,25 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：LoRA, QLoRA, Prefix-Tuning, Adapter, P-Tuning 系列
 
+## 架构总览
+
+```mermaid
+graph LR
+    subgraph "全参数微调 Full Fine-tuning"
+        FF1[预训练权重 W₀<br/>冻结=False] --> FF2[梯度更新所有参数<br/>显存 ∝ 参数量]
+    end
+    subgraph "LoRA 低秩适配"
+        L1[预训练权重 W₀<br/>冻结=True]
+        L2[低秩矩阵 A<br/>r×d, 随机初始化]
+        L3[低秩矩阵 B<br/>d×r, 零初始化]
+        L1 --> L4[输出 = W₀x + BAx<br/>仅训练A和B]
+        L2 --> L4
+        L3 --> L4
+    end
+    FF2 -.->|显存: 70B模型需140GB| X1[❌ 大多数GPU无法承载]
+    L4 -.->|显存: r=8时减少99%参数| X2[✅ 单卡可训练]
+```
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention

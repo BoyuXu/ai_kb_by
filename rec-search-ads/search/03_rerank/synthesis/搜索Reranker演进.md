@@ -13,6 +13,30 @@
 > 创建：2026-03-24 | 领域：搜索 | 类型：综合分析
 > 来源：monoT5, RankGPT, ColBERT Reranker, Cross-Encoder 系列
 
+## 架构总览
+
+```mermaid
+graph TB
+    subgraph "范式1：Cross-Encoder"
+        CE1["输入: [CLS] Query [SEP] Doc"] --> CE2[BERT全交互]
+        CE2 --> CE3[相关性分数]
+        CE4[✅ 精度最高<br/>❌ O(N)推理，延迟高]
+    end
+    subgraph "范式2：LLM Pointwise"
+        LP1["Prompt: 该文档与Query相关吗？"] --> LP2[LLM判断 Yes/No]
+        LP2 --> LP3[按概率排序]
+        LP4[monoT5 / RankLLaMA]
+    end
+    subgraph "范式3：LLM Listwise"
+        LL1["Prompt: 对以下文档按相关性排序"] --> LL2[LLM直接输出排列]
+        LL2 --> LL3[滑动窗口处理长列表]
+        LL4[RankGPT / LRL]
+    end
+    CE3 --> R[最终排序结果]
+    LP3 --> R
+    LL3 --> R
+```
+
 ## 📐 核心公式与原理
 
 ### 1. NDCG

@@ -13,6 +13,32 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：RAG Survey, HyDE, Self-RAG, CRAG, Chunk 策略系列
 
+## 架构总览
+
+```mermaid
+graph LR
+    subgraph "离线索引"
+        D1[原始文档] --> D2[Chunking分块]
+        D2 --> D3[Embedding模型]
+        D3 --> D4[向量数据库<br/>FAISS/Milvus]
+    end
+    subgraph "在线检索"
+        Q1[用户Query] --> Q2[Query Embedding]
+        Q2 --> Q3[ANN近似检索]
+        Q4[BM25稀疏检索]
+        Q1 --> Q4
+        Q3 --> Q5[混合融合 RRF]
+        Q4 --> Q5
+        Q5 --> Q6[Reranker精排]
+    end
+    subgraph "生成"
+        Q6 --> G1[Prompt组装<br/>Context + Query]
+        G1 --> G2[LLM生成]
+        G2 --> G3[最终回答]
+    end
+    D4 --> Q3
+```
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
