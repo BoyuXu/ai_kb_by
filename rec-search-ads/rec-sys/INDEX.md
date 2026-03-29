@@ -119,3 +119,26 @@
 | align3gr_unified_multi_level_alignment_for_llm_based_generative_recommendation.md | Align³GR: Multi-Level Alignment | rec-sys |
 | mtmh_multi_task_multi_head_approach_for_item_to_item_retrieval.md | MTMH: Multi-Task Multi-Head I2I Retrieval | rec-sys |
 | multi_task_learning_with_task_aware_routing_for_recommendation.md | Multi-Task Learning with Task-Aware Routing | rec-sys |
+
+## 20260329 新增论文（深度整合批次）
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| Congrats_consistent_graph_structured_generative_recommendation.md | ConGRATS: 图结构生成重排 | 快手 3亿 DAU，双提升 Likelihood Trap 解决 |
+| PinRec_outcome_conditioned_multi_token_generative_retrieval.md | PinRec: Pinterest 工业生成式召回 | 亿级物品，结果条件生成，首个此规模验证 |
+| Align3GR_unified_multi_level_alignment_LLM_generative_recommendation.md | Align³GR: 三层对齐 LLM 生成式推荐 | 广告收入 +1.432%，40M 用户 A/B |
+| PreferRec_pareto_preferences_multi_objective_reranking.md | PreferRec: Pareto 偏好多目标重排 | Intent 级 Pareto 建模，跨用户迁移 |
+| rlmrec_representation_learning_llm_recommendation.md | RLMRec: LLM 增强表示学习 | WWW 2024，Recall@20 +5-10%，WWW 2024 |
+| GRank_target_aware_streamlined_industrial_retrieval.md | GRank: 目标感知工业召回 | Recall@500 +30%，4亿 DAU，2025 Q2 上线 |
+| RankMixer_scaling_up_ranking_models_industrial_recommenders.md | RankMixer: 精排 Scaling | MFU 4.5%→45%，1B 参数，时长 +1.08% |
+| LLM_CF_collaborative_filtering_LLM_recommendation.md | LLM-CF: LLM+协同过滤 | 综合研究整理，冷启动场景提升显著 |
+| scaling_laws_recommendation_models.md | 推荐系统 Scaling Laws | 综合研究整理，工业验证总结 |
+| HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou.md | HoME: 层次化 MoE MTL（快手）| Expert Collapse/Degradation/Underfitting 诊断与解决 |
+
+## 20260329 新增 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/生成式重排与LLM推理增强.md | GR2/ConGRATS/HiGR/PreferRec/LLM-Reranker | 新建 |
+| synthesis/推荐广告系统多任务学习与MoE专家混合.md | HoME/Meta Lattice/DHEN | 新建 |
+| synthesis/推荐系统召回范式演进.md | +GRank/PinRec/Align³GR/RLMRec | 更新 |

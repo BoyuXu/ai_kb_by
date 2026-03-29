@@ -130,3 +130,24 @@
 | idproxy_online_embedding_via_identity_aware_decomposition.md | IDProxy: Identity-Aware Decomposition | ads |
 | enhancing_generative_auto_bidding_with_prompt_based_constraints.md | Generative Auto-bidding with Prompt Constraints | ads |
 | rtbagent_llm_agent_for_real_time_bidding.md | RTBAgent: LLM Agent for RTB | ads |
+
+## 20260329 新增论文（深度整合批次）
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| Wukong_CTR_scalable_deep_CTR_prediction_parallel_training.md | Wukong CTR: 大规模并行 CTR 训练 | 低秩交互 + 并行训练，Scaling Law 验证 |
+| BannerAgency_advertising_banner_design_multimodal_LLM_agents.md | BannerAgency: 多模态 LLM 广告 Banner 设计 | Training-Free，Figma/SVG 输出，400 测试案例 |
+| HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md | HiGR: 层次规划生成式 Slate 推荐 | 推理 5×，腾讯 +1.22% 观看时长 |
+| Meta_Lattice_model_space_redesign_industry_scale_ads.md | Meta Lattice: 多产品多目标统一模型 | 收入 +10%，用户满意度 +11.5%，算力 -20% |
+| hierarchy_enhanced_policy_optimization_ad_ranking.md | HEPO: 层次化策略优化广告排序 | RPM +2-5%，三层层次化 RL |
+| DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md | DHEN: 深层异构 CTR 集成网络 | NE -0.27%，Facebook 工业验证 |
+| generative_reasoning_reranker.md | GR2: 生成推理重排器 | NDCG@5 +1.3%，DAPO RL，Semantic ID 中训 |
+| MaskNet_feature_wise_multiplication_CTR_instance_guided_mask.md | MaskNet: 实例引导特征乘法 | 乘性特征交互，LayerNorm 稳定，可即插即用 |
+| DAPO_open_source_LLM_reinforcement_learning_at_scale.md | DAPO: 开源 LLM RL 系统 | 解耦裁剪+动态采样，verl 框架，完全开源 |
+| llm_explainable_reranker_recommendation.md | LLM 可解释重排器 | 混合架构，消除 Popularity Bias，两阶段训练 |
+
+## 20260329 新增/更新 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/CTR预估模型工业级实践进展.md | +RankMixer/Scaling Laws | 更新 |
