@@ -14,6 +14,27 @@
 > 作者：MelonEggLearn  
 > 参考资料：Bidding Machine (TKDE 2018), wzhe06/Ad-papers, RTB Survey, 阿里/字节/美团公开工作
 
+## 架构总览
+
+```mermaid
+graph TB
+    subgraph "阶段1：规则出价"
+        R1[人工设置出价] --> R2[固定出价/分时出价]
+    end
+    subgraph "阶段2：目标ROAS出价"
+        T1[设定目标ROAS] --> T2[预算分配器]
+        T2 --> T3[实时出价 = pCVR×价值/目标CPA]
+    end
+    subgraph "阶段3：RL AutoBidding"
+        RL1[状态: 预算消耗率/历史转化/竞争情况] --> RL2[Actor Network]
+        RL2 --> RL3[出价倍率 bid_ratio]
+        RL3 --> RL4[环境反馈: 转化/花费]
+        RL4 --> RL1
+    end
+    R2 --> T1
+    T3 --> RL1
+```
+
 ## 📐 核心公式与原理
 
 ### 1. 最优出价

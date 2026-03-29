@@ -8,6 +8,27 @@
 > - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
 > - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../rec-sys/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
 
+## 架构总览
+
+```mermaid
+timeline
+    title CTR预估模型演进
+    2016 : Wide & Deep (Google)
+         : DNN + LR 组合
+    2017 : DeepFM
+         : FM + DNN 端到端
+    2018 : DIN (阿里)
+         : 注意力机制建模用户兴趣
+    2019 : DIEN
+         : GRU建模兴趣演化
+    2021 : DCN V2
+         : 显式特征交叉网络
+    2023 : HSTU (Meta)
+         : Transformer序列建模
+    2024 : Wukong (快手)
+         : Scaling Law for Rec
+```
+
 ## 5. MMOE (Multi-gate Mixture-of-Experts) - Google 2018
 
 ### 5.1 解决的问题

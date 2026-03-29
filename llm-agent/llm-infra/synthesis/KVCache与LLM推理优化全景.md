@@ -11,6 +11,30 @@
 
 > 知识卡片 | 创建：2026-03-23 | 领域：llm-infra
 
+## 架构总览
+
+```mermaid
+graph TB
+    subgraph "标准 KV Cache（内存碎片问题）"
+        S1[Request 1: 预分配max_len内存]
+        S2[Request 2: 预分配max_len内存]
+        S3[大量内存浪费]
+        S1 --> S3
+        S2 --> S3
+    end
+    subgraph "PagedAttention（vLLM）"
+        P1[Block Table<br/>逻辑→物理映射]
+        P2[物理Block 1]
+        P3[物理Block 2]
+        P4[物理Block 3]
+        P1 --> P2
+        P1 --> P3
+        P1 --> P4
+        P5[按需分配，无碎片]
+        P2 --> P5
+    end
+```
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention

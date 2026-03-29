@@ -1,40 +1,92 @@
-# LLM 基础设施知识库导航
+# LLM Infra 知识库导航
 
-## 📊 领域概览
+> 搜广推算法工程师的 LLM 基础设施学习路线
 
-| 分类 | 文档数 | 描述 |
-|------|--------|------|
-| **Synthesis** | 14篇 | 提炼总结 |
-| **总计** | 14篇 | - |
+## 如何使用这个知识库
+
+**新手路线（推荐顺序）：**
+1. 先读 synthesis/ 中的综述文件（理解全貌）
+2. 再根据感兴趣的方向看对应 papers/
+3. 面试前重点看有 ⭐ 标记的文件
 
 ---
 
-## 📝 Synthesis 总结文档
+## Synthesis（提炼总结，从这里开始）
 
-- [FlashAttention-3 + LLM 推理基础设施：榨干 H100 的每一个 TFLOP](./synthesis/FlashAttention3与LLM推理基础设施.md)
-- [GRPO：让大模型自己学会推理的 RL 算法](./synthesis/GRPO大模型推理RL算法.md)
-- [KV Cache 压缩与 LLM 推理优化全景](./synthesis/KVCache与LLM推理优化全景.md)
-- [知识卡片 #006：KV Cache 压缩技术全景](./synthesis/KVCache压缩技术全景.md)
-- [LLM Serving 系统：从 vLLM 到 TensorRT-LLM 的工程实践](./synthesis/LLMServing系统实践.md)
-- [LLM 对齐方法演进：从 RLHF 到 DPO 到 GRPO](./synthesis/LLM对齐方法演进.md)
-- [LLM 微调技术：从全参数到 LoRA 到 QLoRA](./synthesis/LLM微调技术.md)
-- [LLM 推理优化完整版：从 KV Cache 到 Speculative Decoding 到分布式推理](./synthesis/LLM推理优化完整版.md)
-- [LLM 推理效率三角：训练优化 + 架构优化 + 解码优化](./synthesis/LLM推理效率三角.md)
-- [LLM 预训练：从 GPT 到 Llama 到 DeepSeek 的技术演进](./synthesis/LLM预训练技术演进.md)
-- [知识卡片 #007：MoE 推理解耦架构（MegaScale-Infer）](./synthesis/MoE推理解耦架构.md)
-- [MoE 架构设计：从稀疏激活到分布式推理](./synthesis/MoE架构设计.md)
-- [RAG 系统全景：检索增强生成的工程实践](./synthesis/RAG系统全景.md)
-- [RLVR vs RLHF：LLM 后训练的两条路](./synthesis/RLVR_vs_RLHF后训练路线.md)
+### LLM 推理优化
 
-## 20260326 新增论文
+| 文件 | 内容 | 重要度 |
+|------|------|--------|
+| [KVCache与LLM推理优化全景](synthesis/KVCache与LLM推理优化全景.md) | KV Cache 原理、PagedAttention、压缩方案 | ⭐⭐⭐ |
+| [FlashAttention3与LLM推理基础设施](synthesis/FlashAttention3与LLM推理基础设施.md) | FlashAttention 机制、IO 优化 | ⭐⭐⭐ |
+| [LLMServing系统实践](synthesis/LLMServing系统实践.md) | vLLM/SGLang 对比、连续批处理 | ⭐⭐⭐ |
+| [LLM推理效率三角](synthesis/LLM推理效率三角.md) | 延迟/吞吐/成本三角权衡 | ⭐⭐ |
+| [LLM推理优化完整版](synthesis/LLM推理优化完整版.md) | KV Cache → Speculative Decoding → 分布式推理 | ⭐⭐ |
+| [MoE推理解耦架构](synthesis/MoE推理解耦架构.md) | MoE 专家并行、解耦推理 | ⭐⭐ |
+| [MoE架构设计](synthesis/MoE架构设计.md) | MoE 设计原则（与上文互补） | ⭐⭐ |
 
-| 文件 | 标题 | 领域 |
-|------|------|------|
-| agentic_retrieval_augmented_generation_a_survey_on_agentic_rag.md | Agentic RAG Survey | llm-infra |
-| deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl.md | DeepSeek-R1 | llm-infra |
-| qwen3_technical_report.md | Qwen3 Technical Report | llm-infra |
-| collab_rag_white_box_and_black_box_llm_collaboration_for_rag.md | Collab-RAG | llm-infra |
-| limo_less_is_more_for_reasoning.md | LIMO: Less is More for Reasoning | llm-infra |
-| rag_with_adaptive_retrieval_and_multi_hop_reasoning_for_complex_qa.md | Adaptive Multi-Hop RAG | llm-infra |
-| lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems.md | LoRA for Domain LLM | llm-infra |
-| speculative_decoding_for_10x_faster_llm_inference_in_production.md | Speculative Decoding 10x | llm-infra |
+### 训练与微调
+
+| 文件 | 内容 | 重要度 |
+|------|------|--------|
+| [LLM微调技术](synthesis/LLM微调技术.md) | LoRA/QLoRA/P-tuning 系统对比 | ⭐⭐⭐ |
+| [GRPO大模型推理RL算法](synthesis/GRPO大模型推理RL算法.md) | GRPO 原理、vs PPO 对比 | ⭐⭐⭐ |
+| [RLVR_vs_RLHF后训练路线](synthesis/RLVR_vs_RLHF后训练路线.md) | 两条后训练路线对比 | ⭐⭐ |
+| [LLM对齐方法演进](synthesis/LLM对齐方法演进.md) | RLHF/DPO/PPO 演进 | ⭐⭐ |
+| [LLM预训练技术演进](synthesis/LLM预训练技术演进.md) | 数据、架构、训练策略 | ⭐ |
+
+### RAG 与 Agent
+
+| 文件 | 内容 | 重要度 |
+|------|------|--------|
+| [RAG系统全景](synthesis/RAG系统全景.md) | RAG 完整流程、工业实践 | ⭐⭐⭐ |
+| [RAG与Agent推理能力前沿综述](synthesis/RAG与Agent推理能力前沿综述.md) | Agent RAG 最新进展 | ⭐⭐ |
+| [LLM推理优化与RAG_Agent前沿综述](synthesis/LLM推理优化与RAG_Agent前沿综述.md) | 推理优化 + RAG/Agent 综合 | ⭐⭐ |
+
+### 综合/前沿
+
+| 文件 | 内容 | 重要度 |
+|------|------|--------|
+| [LLM基础设施工程优化要点_2026](synthesis/LLM基础设施工程优化要点_2026.md) | 2026 最新工程实践 | ⭐⭐ |
+| [LLM推理与RAG技术进展_20260326](synthesis/LLM推理与RAG技术进展_20260326.md) | 最新进展速览 | ⭐ |
+
+---
+
+## Papers（深入阅读）
+
+### inference/（推理优化）
+
+- [speculative_decoding_for_10x_faster_llm_inference_in_production](papers/inference/speculative_decoding_for_10x_faster_llm_inference_in_production.md) — 投机解码工业落地
+- [double_speculative_parallelism](papers/inference/double_speculative_parallelism.md) — 双投机并行
+- [lcd_low_bit_clustering_llm_quantization](papers/inference/lcd_low_bit_clustering_llm_quantization.md) — 低比特量化
+
+### training/（训练/微调）
+
+- [lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems](papers/training/lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems.md) — LoRA 领域微调推荐系统
+- [limo_less_is_more_for_reasoning](papers/training/limo_less_is_more_for_reasoning.md) — 少量数据推理能力
+- [qwen3_technical_report](papers/training/qwen3_technical_report.md) — Qwen3 技术报告
+
+### architecture/（模型架构）
+
+- [deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl](papers/architecture/deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl.md) — DeepSeek R1 推理能力强化学习
+
+### rag-agent/（RAG 与 Agent）
+
+- [rag_with_adaptive_retrieval_and_multi_hop_reasoning_for_complex_qa](papers/rag-agent/rag_with_adaptive_retrieval_and_multi_hop_reasoning_for_complex_qa.md) — 自适应检索 + 多跳推理
+- [agentic_retrieval_augmented_generation_a_survey_on_agentic_rag](papers/rag-agent/agentic_retrieval_augmented_generation_a_survey_on_agentic_rag.md) — Agentic RAG 综述
+- [collab_rag_white_box_and_black_box_llm_collaboration_for_rag](papers/rag-agent/collab_rag_white_box_and_black_box_llm_collaboration_for_rag.md) — 白盒/黑盒 LLM 协作 RAG
+- [agent_framework_tool_use_reasoning_recommendation](papers/rag-agent/agent_framework_tool_use_reasoning_recommendation.md) — Agent 框架工具调用推荐
+
+### daily/（归档：每日摘要 + 早期笔记，选读）
+
+84 个文件，含 20260313–20260323 每日论文速读及早期课程笔记。
+
+---
+
+## 推荐阅读顺序
+
+**面试备战（2 小时版）：**
+KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → LLM微调技术 → RAG系统全景
+
+**深度学习（1 周版）：**
+上述全部 synthesis/ ⭐⭐⭐ + ⭐⭐ → papers/inference/ → papers/rag-agent/
