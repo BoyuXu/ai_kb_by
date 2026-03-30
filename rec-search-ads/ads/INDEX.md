@@ -151,3 +151,24 @@
 | 文件 | 主题 | 类型 |
 |------|------|------|
 | synthesis/CTR预估模型工业级实践进展.md | +RankMixer/Scaling Laws | 更新 |
+
+## 20260330 新增 Papers
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| CADET_context_conditioned_ads_CTR_decoder_only_transformer.md | CADET: Decoder-Only CTR 预估 | CTR AUC +0.85%，KV Cache 加速 |
+| ELEC_efficient_llm_empowered_click_through_rate_prediction.md | ELEC: 高效 LLM 增强 CTR | 零延迟离线 LLM 特征 |
+| IDProxy_cold_start_CTR_multimodal_LLM_Xiaohongshu.md | IDProxy: 多模态 LLM 冷启动 | 小红书，冷启动 CTR AUC +2.1% |
+| KBD_knowledge_informed_bidding_dual_process_control.md | KBD: 知识引导双过程出价 | 稳定性+最优性兼顾 |
+| GRAD_generative_pretrained_models_automated_ad_bidding.md | GRAD: 生成式大模型自动出价 | Diffusion 出价分布建模 |
+| GAVE_generative_auto_bidding_value_guided_explorations.md | GAVE: 价值引导生成式出价 | 7天 GMV +5.6%，安全探索 |
+| CTR_driven_advertising_image_generation_MLLM.md | CTR 驱动广告图像生成 | CTR reward + KL 约束防 hacking |
+| NextAds_next_generation_personalized_video_advertising.md | NextAds: 下一代个性化视频广告 | MLLM 多模态视频广告 |
+| LLM_AUCTION_generative_auction_llm_native_advertising.md | LLM-AUCTION: LLM 原生广告拍卖 | DSIC 对话式广告拍卖机制 |
+| UniROM_unifying_online_advertising_ranking_one_model.md | UniROM: 统一广告排序模型 | 延迟降低 35%，eCPM 端到端优化 |
+
+## 20260330 新增 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/LLM时代广告系统技术演进.md | 今日10篇ads论文全景综述（含🎯核心洞察） | 新建+深度整合 |

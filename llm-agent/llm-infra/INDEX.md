@@ -90,3 +90,19 @@ KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → 
 
 **深度学习（1 周版）：**
 上述全部 synthesis/ ⭐⭐⭐ + ⭐⭐ → papers/inference/ → papers/rag-agent/
+
+## 20260330 新增 Papers
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| EAGLE3_scaling_inference_acceleration_training_time_test.md | EAGLE-3: 推测解码新 SOTA | 接受率 0.82，加速比 3.8x |
+| LIMO_less_is_more_for_reasoning.md | LIMO: 少样本激活推理 | 817条 > 100K，AIME 57.1% |
+| KV_Cache_optimization_strategies_scalable_efficient_LLM_inference.md | KV Cache 优化全景综述 | 量化/稀疏/卸载/复用四大策略 |
+| MiniKV_2bit_KV_cache_compression_system_codesign.md | MiniKV: 2-bit KV 压缩 | 8x 压缩，精度损失 <2% |
+| FlashAttention3_fast_accurate_attention_H100_GPUs.md | FlashAttention-3: H100 优化 | TMA 异步+WGMMA+FP8，75%+ MFU |
+
+## 20260330 新增 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/LLM推理加速与高效训练技术全景.md | 今日5篇llm-infra论文综述（含🎯核心洞察） | 新建+深度整合 |

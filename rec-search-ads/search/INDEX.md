@@ -102,3 +102,19 @@
 | pylate_flexible_training_and_retrieval_for_late_interaction_models.md | PyLate: Late Interaction Models | search |
 | rank_r1_enhancing_reasoning_in_llm_based_document_rerankers.md | Rank-R1: Reasoning LLM Reranker | search |
 | bright_a_realistic_and_challenging_benchmark_for_reasoning_intensive_retrieval.md | BRIGHT: Reasoning-Intensive Retrieval Benchmark | search |
+
+## 20260330 新增 Papers
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| Rank_R1_reasoning_LLM_document_reranking_reinforcement_learning.md | Rank-R1: RL 训练 LLM 重排器 | BEIR NDCG@10 +3.8%，蒸馏7B可部署 |
+| Search_R1_training_LLMs_reason_leverage_search_engines_RL.md | Search-R1: 主动推理搜索智能体 | HotpotQA EM +15.3%，多跳推理 |
+| Qwen3_Embedding_text_embedding_reranking_foundation_models.md | Qwen3 Embedding: 基础 Embedding 模型 | BEIR ~65%，Matryoshka 多尺度 |
+| ReasonIR_training_dense_retrievers_reasoning_intensive_tasks.md | ReasonIR: 推理密集型检索训练 | ReasonIR-Bench +11.6%，HN 挖掘 |
+| CRE_T1_beyond_contrastive_learning_reasoning_intensive_retrieval.md | CRE-T1: 超越对比学习推理检索 | 对比+生成+RL 三目标联合训练 |
+
+## 20260330 新增 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/推理增强检索技术综述.md | 今日5篇search论文全景综述（含🎯核心洞察） | 新建+深度整合 |

@@ -142,3 +142,26 @@
 | synthesis/生成式重排与LLM推理增强.md | GR2/ConGRATS/HiGR/PreferRec/LLM-Reranker | 新建 |
 | synthesis/推荐广告系统多任务学习与MoE专家混合.md | HoME/Meta Lattice/DHEN | 新建 |
 | synthesis/推荐系统召回范式演进.md | +GRank/PinRec/Align³GR/RLMRec | 更新 |
+
+## 20260330 新增 Papers
+
+| 文件 | 标题 | 关键结果 |
+|------|------|---------|
+| OneRec_Think_intext_reasoning_generative_recommendation.md | OneRec-Think: In-text 推理生成推荐 | NDCG@10 +4.2%，GRPO 推理链 |
+| OneRec_unifying_retrieve_rank_generative_recommender.md | OneRec: 统一召回排序生成推荐 | 快手生成式统一架构 |
+| HSTU_hierarchical_sequential_transducers_generative_recommendation.md | HSTU: Meta 万亿参数序列推荐 | O(n²)→O(n) SSM，观看时长+1.8% |
+| UniGRF_unified_generative_retrieval_ranking_framework.md | UniGRF: 统一生成召回排序 | Recall@50 +5.3%，冷启+12% |
+| GR2_generative_reasoning_reranker.md | GR2: 生成式推理重排器 | NDCG@10 +5.1%，CoT+GRPO |
+| ReasonRec_reasoning_augmented_multimodal_agent_recommendation.md | ReasonRec: 推理增强多模态 Agent 推荐 | NDCG@10 +8%，DPO 对齐 |
+| GNOLR_generalized_neural_ordinal_logistic_regression_multi_task.md | GNOLR: 有序多任务推荐 | GMV+0.8%，KDD 2025 |
+| MTFM_scalable_alignment_free_foundation_model_multi_task_recommendation.md | MTFM: 无对齐多任务基础模型 | 16任务无负迁移，continual task |
+| URM_large_language_models_universal_recommendation_learners.md | URM: LLM 通用推荐学习器 | CTR+1.3%，零样本+21% |
+| Kunlun_scaling_laws_massive_scale_recommendation_systems.md | Kunlun: 推荐系统 Scaling Laws | embedding α=0.3 > DNN β=0.2 |
+| DeepMTL2R_deep_multi_task_learning_to_rank.md | DeepMTL2R: 深度多任务 LTR 库 | PLE+PCGrad AUC CTR+0.82% |
+
+## 20260330 新增 Synthesis
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| synthesis/生成式推荐系统技术全景.md | 今日10篇rec-sys论文全景综述 | 新建（上午session） |
+| synthesis/推理链RL范式跨域整合_搜广推全景.md | 跨域整合：搜广推的共同演进，20题面试考点 | 新建（深度整合） |

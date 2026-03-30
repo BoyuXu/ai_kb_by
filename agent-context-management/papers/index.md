@@ -91,3 +91,35 @@
 ---
 
 *最后更新：2026-03-29 | MelonEggLearn*
+
+---
+
+## 📅 2026-03-30 新增
+
+---
+
+### MemoryCD: Benchmarking Long-Context User Memory of LLM Agents for Lifelong Cross-Domain Personalization
+- **提交时间：** 2026-03-26
+- **作者：** Weizhi Zhang, Xiaokai Wei, Philip S. Yu et al.
+- **arXiv ID：** 搜索 `MemoryCD lifelong cross-domain personalization`
+- **核心贡献：**
+  - 首个专门评估跨领域终身个性化用户记忆的 benchmark
+  - 覆盖多领域（购物/娱乐/健康等）长上下文历史
+  - 直接对比"百万 token 上下文 vs 外部记忆系统"的有效性
+- **关键技术：** Long-context user memory + Cross-domain personalization benchmark
+- **面试价值：** ★★★★★ — 推荐系统 + Agent Memory 最强交叉点
+- **待读状态：** 🔲 未读
+
+---
+
+### MemMA: Coordinating the Memory Cycle through Multi-Agent Reasoning and In-Situ Self-Evolution
+- **提交时间：** 2026-03-19（HF Daily 2026-03-27）
+- **作者：** Minhua Lin, Zhiwei Zhang, Hanqing Lu, Hui Liu, Xianfeng Tang, Qi He, Xiang Zhang, Suhang Wang
+- **arXiv ID：** 2603.18718
+- **核心贡献：**
+  - 提出 Memory Cycle 统一框架（Write→Index→Retrieve→Use→Refine）
+  - Multi-Agent 协同推理打通各环节
+  - In-Situ Self-Evolution：memory 在使用中自动精炼
+- **关键技术：** Memory Cycle + Contrastive Trajectory Distillation + Self-Evolution
+- **面试价值：** ★★★★☆ — Agent 记忆系统整体设计面试必读
+- **待读状态：** 🔲 未读
