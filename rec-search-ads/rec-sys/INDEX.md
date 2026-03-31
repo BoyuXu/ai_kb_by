@@ -181,4 +181,10 @@
 | iranker_ranking_foundation_model.md | iRanker: Ranking Foundation Model | 排序基础模型, Prompt微调, 跨场景 |
 | rethinking_ann_retrieval_learnable_index.md | Rethinking ANN Retrieval: Learnable Index | 可学习索引, 残差量化, 多面表征 |
 
-**Synthesis**: [生成式检索与排序基础模型](synthesis/20260331_generative_retrieval_and_foundation_models.md)
+**Synthesis**: [生成式检索与排序基础模型](synthesis/20260331_generative_retrieval_and_foundation_models.md)（上午快速综述）→ 深度整合已合并至 [生成式推荐系统技术全景.md](synthesis/生成式推荐系统技术全景.md)
+
+## 2026-03-31 深度整合（下午 Session）
+
+| 文件 | 主题 | 更新内容 |
+|------|------|---------|
+| [synthesis/生成式推荐系统技术全景.md](synthesis/生成式推荐系统技术全景.md) | 生成式召回+排序基础模型+LLM融合 | **重大更新**：新增CoLLM/TagCF深度分析、MFLI可学习索引、LinkedIn CLM召回、iRanker基础模型、GNOLR有序多任务、Graph-Mamba图序列；三阶段技术演进图谱；扩展至15题Q&A |

@@ -188,4 +188,10 @@
 | mtgr_meituan_generative_recommendation.md | MTGR: Meituan Generative Recommendation | 多场景统一, decoder-only, 场景Prompt |
 | gbs_generative_bid_shading_rtb.md | GBS: Generative Bid Shading | 竞价遮蔽, FPA, 混合高斯 |
 
-**Synthesis**: [生成式广告与智能竞价](synthesis/20260331_generative_ads_and_bidding_optimization.md)
+**Synthesis**: [生成式广告与智能竞价](synthesis/20260331_generative_ads_and_bidding_optimization.md)（上午快速综述）→ 深度整合已合并至 [LLM时代广告系统技术演进.md](synthesis/LLM时代广告系统技术演进.md)（覆盖20篇论文，含15题Q&A）
+
+## 2026-03-31 深度整合（下午 Session）
+
+| 文件 | 主题 | 更新内容 |
+|------|------|---------|
+| [synthesis/LLM时代广告系统技术演进.md](synthesis/LLM时代广告系统技术演进.md) | 生成式CTR/竞价/多场景统一 | **重大更新**：新增DGenCTR离散扩散、GBS混合高斯、Bid2X动态预测、MTGR多场景、DCN-V2特征交叉深度分析；更新技术演进三阶段图谱；扩展至15题Q&A |

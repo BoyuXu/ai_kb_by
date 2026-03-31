@@ -118,3 +118,11 @@ KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → 
 | google_agent_development_kit_adk.md | Google Agent Development Kit (ADK) | Agent框架, 声明式, 状态机编排 |
 
 **Synthesis**: [LLM推理加速与Agent工程化](synthesis/20260331_llm_inference_optimization_and_agent_engineering.md)
+
+## 2026-03-31 深度整合（下午 Session）
+
+| 文件 | 主题 | 类型 |
+|------|------|------|
+| [synthesis/多Token预测与Agent工程化.md](synthesis/多Token预测与Agent工程化.md) | LCD 2-bit量化 + Double双源投机解码 + FastMTP + Agent安全/ADK | **新建**（深度综述，含15题Q&A） |
+
+> 📌 上午 `20260331_llm_inference_optimization_and_agent_engineering.md` 为快速综述；下午 `多Token预测与Agent工程化.md` 为深度整合版本（含横向对比、工程落地分析、面试Q&A）。

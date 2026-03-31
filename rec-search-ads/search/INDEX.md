@@ -129,4 +129,10 @@
 | o1_embedder_retriever_thinking.md | O1 Embedder: Retriever Thinking | 推理编码, Think-then-Encode |
 | dear_dual_stage_reranking_reasoning.md | DEAR: Dual-stage Reranking via Distillation | 推理蒸馏, 双阶段, 小模型重排 |
 
-**Synthesis**: [推理增强的检索与重排](synthesis/20260331_reasoning_enhanced_retrieval_and_reranking.md)
+**Synthesis**: [推理增强的检索与重排](synthesis/20260331_reasoning_enhanced_retrieval_and_reranking.md)（上午快速综述）→ 深度整合已合并至 [推理增强检索技术综述.md](synthesis/推理增强检索技术综述.md)
+
+## 2026-03-31 深度整合（下午 Session）
+
+| 文件 | 主题 | 更新内容 |
+|------|------|---------|
+| [synthesis/推理增强检索技术综述.md](synthesis/推理增强检索技术综述.md) | O1-Embedder + LimRank + Reasonrank + DEAR + Qagent | **重大更新**：新增今日5篇论文深度分析（LimRank Less-is-More原理、DEAR蒸馏机制、Qagent多轮搜索）、与昨日内容横向对比、工程选型建议；扩展至15题Q&A |
