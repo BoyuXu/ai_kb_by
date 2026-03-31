@@ -83,14 +83,14 @@
 
 | 状态 | 数量 |
 |------|------|
-| ⭐⭐⭐ 高优先级 | 3 |
-| ⭐⭐ 中优先级 | 4 |
+| ⭐⭐⭐ 高优先级 | 4 |
+| ⭐⭐ 中优先级 | 5 |
 | ✅ 已读 | 0 |
-| 🔲 未读 | 7 |
+| 🔲 未读 | 9 |
 
 ---
 
-*最后更新：2026-03-29 | MelonEggLearn*
+*最后更新：2026-03-31 | MelonEggLearn*
 
 ---
 
@@ -108,6 +108,39 @@
   - 直接对比"百万 token 上下文 vs 外部记忆系统"的有效性
 - **关键技术：** Long-context user memory + Cross-domain personalization benchmark
 - **面试价值：** ★★★★★ — 推荐系统 + Agent Memory 最强交叉点
+- **待读状态：** 🔲 未读
+
+---
+
+## 📅 2026-03-31 新增
+
+---
+
+### HyDRA: Hybrid Memory for Dynamic Video World Models
+- **arXiv：** 2603.25716 | **HF 热度：** 🔥 133 upvotes（HF Daily 2026-03-30 第一）
+- **提交：** 2026-03-26（HF Daily 2026-03-30）
+- **作者：** Kaijin Chen et al. (H-EmbodVis)
+- **代码：** https://github.com/H-EmbodVis/HyDRA
+- **核心贡献：**
+  - Hybrid Memory 范式：静态背景"精确存档" + 动态目标"主动追踪"双轨并行
+  - HyDRA 架构：memory 压缩为 tokens + 时空相关性驱动检索
+  - HM-World 数据集：59K 片段，17 场景，49 类动态目标
+- **关键技术：** Memory Token Compression + Spatiotemporal Relevance-Driven Retrieval
+- **面试价值：** ★★★★☆ — memory 分离设计哲学 + token 压缩工程范式
+- **待读状态：** 🔲 未读
+
+---
+
+### Trace2Skill: Distill Trajectory-Local Lessons into Transferable Agent Skills
+- **arXiv：** 2603.25158 | **HF 热度：** 33 upvotes（HF Daily 2026-03-30）
+- **提交：** 2026-03-26，v2 2026-03-29
+- **作者：** Jingwei Ni et al.
+- **核心贡献：**
+  - 并行 sub-agent 分析多条轨迹 → 归纳推理 → 统一无冲突 skill 目录
+  - 技能可跨模型规模迁移（35B 演化的 skill 提升 122B agent 57.65pp）
+  - 无需参数更新 / 外部检索模块，开源 35B 模型即可运行
+- **关键技术：** Parallel Fleet + Hierarchical Inductive Consolidation + Declarative Skills
+- **面试价值：** ★★★★☆ — 经验复用 / agent 自我改进 / 技能蒸馏
 - **待读状态：** 🔲 未读
 
 ---

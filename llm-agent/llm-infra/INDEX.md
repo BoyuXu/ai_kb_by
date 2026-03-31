@@ -106,3 +106,15 @@ KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → 
 | 文件 | 主题 | 类型 |
 |------|------|------|
 | synthesis/LLM推理加速与高效训练技术全景.md | 今日5篇llm-infra论文综述（含🎯核心洞察） | 新建+深度整合 |
+
+## 2026-03-31 新增论文
+
+| 文件 | 论文标题 | 关键词 |
+|------|---------|--------|
+| lcd_extreme_low_bit_clustering_llm.md | LCD: Extreme Low-Bit Clustering | 2-bit量化, 聚类量化, 知识蒸馏 |
+| double_retrieval_speculative_parallelism.md | Double: Speculative Parallelism | 双源投机, 检索缓存, 并行验证 |
+| fastmtp_multi_token_prediction_acceleration.md | FastMTP: Multi-Token Prediction | 多token并行, MTP头, 推理加速 |
+| framework_formalizing_llm_agent_security.md | LLM Agent Security Framework | Agent安全, 形式化验证, 威胁模型 |
+| google_agent_development_kit_adk.md | Google Agent Development Kit (ADK) | Agent框架, 声明式, 状态机编排 |
+
+**Synthesis**: [LLM推理加速与Agent工程化](synthesis/20260331_llm_inference_optimization_and_agent_engineering.md)

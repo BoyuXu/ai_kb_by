@@ -172,3 +172,20 @@
 | 文件 | 主题 | 类型 |
 |------|------|------|
 | synthesis/LLM时代广告系统技术演进.md | 今日10篇ads论文全景综述（含🎯核心洞察） | 新建+深度整合 |
+
+## 2026-03-31 新增论文
+
+| 文件 | 论文标题 | 关键词 |
+|------|---------|--------|
+| unified_embedding_personalized_retrieval_etsy.md | Unified Embedding Personalized Retrieval (Etsy) | 统一Embedding, 个性化搜索 |
+| dcn_v2_deep_cross_network.md | DCN V2: Deep & Cross Network | 特征交叉, 低秩分解, Cross层 |
+| revisiting_explicit_implicit_feedback.md | Revisiting Explicit vs. Implicit Feedback | 反馈类型, 噪声建模, 混合训练 |
+| bid2x_bidding_dynamics_forecasting.md | Bid2X: Bidding Dynamics Forecasting | 竞价预测, 时序建模, 不确定性 |
+| generative_user_interest_shift_cohort_ctr.md | GenCI: User Interest Shift via Cohort Learning | VAE, 兴趣漂移, 群组建模 |
+| lightweight_llm_enhanced_ctr.md | Lightweight LLM-enhanced CTR | LLM蒸馏, 跨模态对齐, 轻量融合 |
+| dgenctr_universal_generative_ctr.md | DGenCTR: Generative CTR Prediction | 离散扩散, 生成式CTR, token化 |
+| dgenctr_discrete_diffusion_ctr.md | DGenCTR: Discrete Diffusion for CTR | 吸收态扩散, 并行解码, 自适应步数 |
+| mtgr_meituan_generative_recommendation.md | MTGR: Meituan Generative Recommendation | 多场景统一, decoder-only, 场景Prompt |
+| gbs_generative_bid_shading_rtb.md | GBS: Generative Bid Shading | 竞价遮蔽, FPA, 混合高斯 |
+
+**Synthesis**: [生成式广告与智能竞价](synthesis/20260331_generative_ads_and_bidding_optimization.md)

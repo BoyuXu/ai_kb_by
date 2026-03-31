@@ -118,3 +118,15 @@
 | 文件 | 主题 | 类型 |
 |------|------|------|
 | synthesis/推理增强检索技术综述.md | 今日5篇search论文全景综述（含🎯核心洞察） | 新建+深度整合 |
+
+## 2026-03-31 新增论文
+
+| 文件 | 论文标题 | 关键词 |
+|------|---------|--------|
+| limrank_reasoning_intensive_reranking.md | LimRank: Reasoning-Intensive Reranking | 上下文压缩, Early Exit, 高效重排 |
+| qagent_modular_search_agent.md | Qagent: Modular Search Agent | 搜索Agent, 交互式改写, 模块化 |
+| reasonrank_passage_ranking_reasoning.md | Reasonrank: Reasoning-Enhanced Ranking | CoT推理, RL优化, 推理重排 |
+| o1_embedder_retriever_thinking.md | O1 Embedder: Retriever Thinking | 推理编码, Think-then-Encode |
+| dear_dual_stage_reranking_reasoning.md | DEAR: Dual-stage Reranking via Distillation | 推理蒸馏, 双阶段, 小模型重排 |
+
+**Synthesis**: [推理增强的检索与重排](synthesis/20260331_reasoning_enhanced_retrieval_and_reranking.md)

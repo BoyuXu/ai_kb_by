@@ -165,3 +165,20 @@
 |------|------|------|
 | synthesis/生成式推荐系统技术全景.md | 今日10篇rec-sys论文全景综述 | 新建（上午session） |
 | synthesis/推理链RL范式跨域整合_搜广推全景.md | 跨域整合：搜广推的共同演进，20题面试考点 | 新建（深度整合） |
+
+## 2026-03-31 新增论文
+
+| 文件 | 论文标题 | 关键词 |
+|------|---------|--------|
+| graph_mamba_long_range_graph_sequence.md | Graph-Mamba: Long-Range Graph Sequence Modeling | Mamba, 图序列, 状态空间模型 |
+| multi_task_learning_recommendation_moe.md | Multi-Task Learning with Mixture of Experts | MoE, 多任务, 负迁移 |
+| dynamic_rag_llm_feedback_reranking.md | DynamicRAG: LLM Feedback for Dynamic Reranking | RAG, 动态重排, 迭代检索 |
+| linkedin_feed_retrieval_causal_lm.md | LinkedIn Feed Retrieval Using Causal LM | 因果语言模型, 召回, 自回归 |
+| collm_collaborative_llm_recommendation.md | CoLLM: Collaborative LLM for Recommendation | LLM+CF, 协同过滤, soft prompt |
+| mfli_multifaceted_learnable_index.md | MFLI: Multifaceted Learnable Index | 可学习索引, 多面检索, 端到端 |
+| tagcf_llm_enhanced_logical_recommendation.md | TagCF: LLM-Enhanced Logical Recommendation | LLM标签, 可解释推荐, 标签图 |
+| gnolr_nested_ordered_logistic_regression.md | GNOLR: Nested Ordered Logistic Regression | 有序回归, 概率一致性, 多任务 |
+| iranker_ranking_foundation_model.md | iRanker: Ranking Foundation Model | 排序基础模型, Prompt微调, 跨场景 |
+| rethinking_ann_retrieval_learnable_index.md | Rethinking ANN Retrieval: Learnable Index | 可学习索引, 残差量化, 多面表征 |
+
+**Synthesis**: [生成式检索与排序基础模型](synthesis/20260331_generative_retrieval_and_foundation_models.md)
