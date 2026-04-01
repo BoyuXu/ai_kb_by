@@ -34,7 +34,7 @@ $$
 不同子任务通过不同的prompt适配，主干模型固定：
 
 $$
-h_{task} = \text{LLM}(\text{prompt}_{task} + x_{ad} + x_{user})
+h_{task} = \text{LLM}(\text{prompt}}_{\text{{task}} + x_{ad} + x_{user})
 $$
 
 减少子任务微调的参数量，支持快速新增任务。

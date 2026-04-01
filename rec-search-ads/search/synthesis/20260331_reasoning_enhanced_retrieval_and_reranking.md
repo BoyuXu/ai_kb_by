@@ -12,7 +12,9 @@
 
 O1 Embedder提出"先思考再行动"的检索范式：
 
-$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+$$
+e_q = \text{Encoder}(\text{Think}(q) \oplus q)
+$$
 
 在生成query embedding前先进行内部推理，分析隐含意图、扩展关键概念、消除歧义。这与传统query expansion的区别在于：推理是内部的，不修改query文本。
 
@@ -23,24 +25,37 @@ $$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
 - **LimRank**：Less is More，选择性压缩+Early Exit
 - **DEAR**：知识蒸馏让小模型获得大LLM的推理能力
 
-$$\mathcal{L}_{distill} = \text{KL}(P_{student}(\text{rank}|q,D) || P_{teacher}(\text{rank}|q,D))$$
+$$
+\mathcal{L}_{distill} = \text{KL}(P_{student}(\text{rank}|q,D) || P_{teacher}(\text{rank}|q,D))
+$$
 
 ### 3. 全流程：搜索Agent
 
 Qagent将搜索拆分为模块化Agent，核心创新是**交互式查询改写**——根据初始检索结果动态调整：
 
-$$a_t = \text{Agent}(q, R_t, \text{History})$$
+$$
+a_t = \text{Agent}(q, R_t, \text{History})
+$$
 
 ## 关键公式汇总
 
 **O1 Embedder推理编码**：
-$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+
+$$
+e_q = \text{Encoder}(\text{Think}(q) \oplus q)
+$$
 
 **DEAR蒸馏损失**：
-$$\mathcal{L}_{distill} = \text{KL}(P_{student} || P_{teacher})$$
+
+$$
+\mathcal{L}_{distill} = \text{KL}(P_{student} || P_{teacher})
+$$
 
 **Reasonrank推理重排**：
-$$\text{Rank}(d|q) = P(\text{relevant} | q, d, \text{CoT}(q, d))$$
+
+$$
+\text{Rank}(d|q) = P(\text{relevant} | q, d, \text{CoT}(q, d))
+$$
 
 ## Q&A 面试精选
 

@@ -25,7 +25,9 @@
 
 ### 1. 专家路由：Top-K稀疏激活（通用形式）
 
-$$\mathbf{y} = \sum_{k \in \text{TopK}(g(\mathbf{x}))} g_k(\mathbf{x}) \cdot E_k(\mathbf{x})$$
+$$
+\mathbf{y} = \sum_{k \in \text{TopK}(g(\mathbf{x}))} g_k(\mathbf{x}) \cdot E_k(\mathbf{x})
+$$
 
 其中：
 - $g(\mathbf{x}) = \text{softmax}(\mathbf{W}_g \mathbf{x})$：门控网络，输出各专家的路由概率
@@ -35,7 +37,9 @@ $$\mathbf{y} = \sum_{k \in \text{TopK}(g(\mathbf{x}))} g_k(\mathbf{x}) \cdot E_k
 
 ### 2. DHEN：层次Ensemble（每层多模块聚合）
 
-$$h^{(l+1)} = LayerNorm\left(\sum_{k=1}^{K} \alpha_k \cdot f_k(h^{(l)})\right)$$
+$$
+h^{(l+1)} = LayerNorm\left(\sum_{k=1}^{K} \alpha_k \cdot f_k(h^{(l)})\right)
+$$
 
 其中 $f_k$ 可以是Cross Network、Bilinear Interaction、Self-Attention、MLP等不同结构。
 - **"水平专家"**：同层并行，表征多种特征交叉类型
@@ -44,20 +48,26 @@ $$h^{(l+1)} = LayerNorm\left(\sum_{k=1}^{K} \alpha_k \cdot f_k(h^{(l)})\right)$$
 
 ### 3. HoME：同质化正则（防止Expert Collapse）
 
-$$\mathcal{L}_{homo} = \lambda \sum_{e_i \neq e_j} \text{KL}(P_{e_i} \| P_{e_j})$$
+$$
+\mathcal{L}_{homo} = \lambda \sum_{e_i \neq e_j} \text{KL}(P_{e_i} \| P_{e_j})
+$$
 
 惩罚专家输出分布过度分化，强制所有专家在同一激活分布上运作，避免某些专家"坍塌"（>90%零值）。
 
 ### 4. RankMixer：双路径MoE Block（Scaling的核心）
 
-$$\mathbf{h}^{(l+1)} = \underbrace{\text{FFN}(\text{MHA}(\mathbf{h}^{(l)}))}_{\text{Dense路径（全局交叉）}} + \underbrace{\text{MoE-FFN}(\mathbf{h}^{(l)})}_{\text{Sparse路径（容量Scaling）}}$$
+$$
+\mathbf{h}^{(l+1)} = \underbrace{\text{FFN}(\text{MHA}(\mathbf{h}^{(l)}))}_{\text{Dense路径（全局交叉）}} + \underbrace{\text{MoE-FFN}(\mathbf{h}^{(l)})}_{\text{Sparse路径（容量Scaling）}}
+$$
 
 - Dense路径：参数共享，处理全局特征交叉，保基础表达能力
 - MoE路径：稀疏激活，专家数可无限扩展而推理延迟不变
 
 ### 5. MoE负载均衡损失（工程必备）
 
-$$\mathcal{L}_{balance} = \alpha \cdot N \sum_{e=1}^{N} f_e \cdot P_e$$
+$$
+\mathcal{L}_{balance} = \alpha \cdot N \sum_{e=1}^{N} f_e \cdot P_e
+$$
 
 其中 $f_e$ 是专家e在该batch中的实际激活比例，$P_e$ 是路由网络给出的概率。
 最小化此损失使所有专家的负载趋于均匀，防止Expert Collapse和部分专家不收敛。

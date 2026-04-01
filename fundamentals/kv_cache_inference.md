@@ -43,7 +43,7 @@ $$
 ### 2.1 单 token 的 KV Cache 大小
 
 $$
-\text{Memory per token} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{dtype}_{\text{size}}
+\text{Memory per token} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times \text{dtype}}_{\text{{\text{size}}}
 $$
 
 其中：

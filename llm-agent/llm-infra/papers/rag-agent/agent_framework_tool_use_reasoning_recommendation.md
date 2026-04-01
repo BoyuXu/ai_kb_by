@@ -84,7 +84,10 @@ def recommend(user_query, user_id):
 ### 两阶段推荐架构
 
 **Recall阶段**（传统模型）：
-$$\mathcal{C} = \text{Retrieval}(u, \mathcal{I}, \text{top-K})$$
+
+$$
+\mathcal{C} = \text{Retrieval}(u, \mathcal{I}, \text{top-K})
+$$
 
 高效检索候选集（K=100-1000），不依赖LLM。
 
@@ -101,7 +104,9 @@ $$\mathcal{C} = \text{Retrieval}(u, \mathcal{I}, \text{top-K})$$
 
 **工具调用决策的RL训练**：
 
-$$\mathcal{L}_{tool} = -\mathbb{E}_{\pi_\theta}\left[\sum_t r_t \cdot \log\pi_\theta(a_t|s_t)\right]$$
+$$
+\mathcal{L}_{tool} = -\mathbb{E}_{\pi_\theta}\left[\sum_t r_t \cdot \log\pi_\theta(a_t|s_t)\right]
+$$
 
 其中奖励 $r_t$ 来自：
 - 最终推荐准确率（结果奖励）
@@ -109,15 +114,24 @@ $$\mathcal{L}_{tool} = -\mathbb{E}_{\pi_\theta}\left[\sum_t r_t \cdot \log\pi_\t
 - 用户反馈信号（在线学习）
 
 **工具相关性评分**：
-$$p(\text{tool}_k | \text{query}) = \text{softmax}(\mathbf{W} \cdot \mathbf{h}_{query})_k$$
+
+$$
+p(\text{tool}}_{\text{k | \text{query}}) = \text{softmax}(\mathbf{W} \cdot \mathbf{h}_{query})_k
+$$
 
 ### 用户意图感知的个性化推理
 
 **长短期偏好建模**：
-$$\mathbf{u} = \alpha \cdot \mathbf{u}_{long} + (1-\alpha) \cdot \mathbf{u}_{short}$$
+
+$$
+\mathbf{u} = \alpha \cdot \mathbf{u}_{long} + (1-\alpha) \cdot \mathbf{u}_{short}
+$$
 
 其中 $\alpha$ 由LLM根据查询上下文动态决定：
-$$\alpha = \sigma(\text{LLM}(\text{query}, \text{session\_context}))$$
+
+$$
+\alpha = \sigma(\text{LLM}(\text{query}, \text{session}}_{\text{{\text{context}}}))
+$$
 
 ---
 
@@ -137,7 +151,11 @@ $$\alpha = \sigma(\text{LLM}(\text{query}, \text{session\_context}))$$
 ### 关键实验结论
 
 1. **工具调用数量vs推荐质量**：
-   $$\text{NDCG}(K) = \text{NDCG}(0) + 8.2\log(K+1)$$
+
+$$
+\text{NDCG}(K) = \text{NDCG}(0) + 8.2\log(K+1)
+$$
+
    平均2-3次工具调用达到90%最优效果，5次以上收益趋于平稳
 
 2. **推理深度的影响**：

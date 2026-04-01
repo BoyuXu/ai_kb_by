@@ -219,13 +219,13 @@ $$
 **展开形式**（以 oCPM 为例）：
 
 $$
-\text{eCPM} = \underbrace{\text{Bid}_{tCPA}}_{\text{广告主目标转化出价}} \times \underbrace{pCTR}_{\text{预估CTR}} \times \underbrace{pCVR}_{\text{预估CVR}} \times \underbrace{\beta}_{\text{成本控制系数}} \times 1000
+\text{eCPM} = \underbrace{\text{Bid}}_{\text{{tCPA}}}_{\text{广告主目标转化出价}} \times \underbrace{pCTR}_{\text{预估CTR}} \times \underbrace{pCVR}_{\text{预估CVR}} \times \underbrace{\beta}_{\text{成本控制系数}} \times 1000
 $$
 
 **广义第二价格（GSP）计费**：
 
 $$
-\text{Charge} = \frac{\text{eCPM}_{第二名} + 1}{pCTR_{当前} \times 1000}
+\text{Charge} = \frac{\text{eCPM}}_{\text{{第二名}} + 1}{pCTR_{当前} \times 1000}
 $$
 
 ### 2.3 tCPA / tROAS 智能出价
@@ -237,7 +237,7 @@ $$
 ** pacing 调整公式**：
 
 $$
-\beta_t = \frac{\text{Target CPA}}{\text{Actual CPA}_{t-1}} \cdot \alpha
+\beta_t = \frac{\text{Target CPA}}{\text{Actual CPA}}_{\text{{t-1}}} \cdot \alpha
 $$
 
 其中 $\alpha$ 为平滑因子（如0.8），防止剧烈波动。
@@ -245,7 +245,7 @@ $$
 **出价调整**：
 
 $$
-\text{Bid}_{adjusted} = \text{Bid}_{original} \times \min(\max(\beta_t, 0.5), 2.0)
+\text{Bid}}_{\text{{adjusted}} = \text{Bid}}_{\text{{original}} \times \min(\max(\beta_t, 0.5), 2.0)
 $$
 
 限制在 [0.5x, 2.0x] 防止过度调整。
@@ -261,7 +261,7 @@ $$
 **动态出价公式**：
 
 $$
-\text{Bid}_{ROAS} = \text{Bid}_{base} \times \frac{\text{预估订单金额}}{\text{Target ROAS} \times \text{目标CPA}}
+\text{Bid}}_{\text{{ROAS}} = \text{Bid}}_{\text{{base}} \times \frac{\text{预估订单金额}}{\text{Target ROAS} \times \text{目标CPA}}
 $$
 
 ### 2.4 智能出价优化（KKT条件约束）
@@ -271,13 +271,13 @@ $$
 最大化平台收益，满足广告主成本约束：
 
 $$
-\max_{b_i} \sum_{i} \text{Revenue}_i(b_i)
+\max_{b_i} \sum_{i} \text{Revenue}}_{\text{i(b}}_{\text{i)
 $$
 
 约束条件：
 
 $$
-\text{s.t.} \quad \text{CPA}_i(b_i) \leq \text{Target CPA}_i, \quad \forall i
+\text{s.t.}} \quad \text{CPA}}_{\text{i(b}}_{\text{i) \leq \text{Target CPA}}_i, \quad \forall i
 $$
 
 #### KKT 条件应用
@@ -463,13 +463,13 @@ $$
 **专家输出**：
 
 $$
-f_k(x) = \text{Expert}_k(x), \quad k = 1,2,...,K
+f_k(x) = \text{Expert}}_{\text{k(x), \quad k = 1,2,...,K
 $$
 
 **门控权重**：
 
 $$
-g^k(x) = \text{Softmax}(W_g^k \cdot x + b_g^k)
+g^k(x) = \text{Softmax}}(W_g^k \cdot x + b_g^k)
 $$
 
 **任务塔输入**（加权融合）：

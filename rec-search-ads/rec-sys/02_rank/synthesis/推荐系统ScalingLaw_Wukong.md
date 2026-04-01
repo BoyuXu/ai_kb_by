@@ -1,6 +1,6 @@
 # 推荐系统的 Scaling Law：Wukong（Meta）
 > 📚 参考文献
-> - [Linear-Item-Item-Session-Rec](../../rec-sys/papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
+> - [Linear-Item-Item-Session-Rec](../papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
 
 > 知识卡片 | 创建：2026-03-23 | 领域：ads / rec-sys
 

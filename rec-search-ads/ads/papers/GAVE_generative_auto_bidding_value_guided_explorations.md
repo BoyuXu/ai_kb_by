@@ -31,6 +31,11 @@
   - A: 反事实出价 $b'$ 下的竞价结果不可直接观测，需要拍卖理论（VCG/GSP）建模，或用历史竞价价格分布模拟
 
 ## 数学公式
-$$b^* = \arg\max_b \mathbb{E}[v(b)] \quad \text{s.t.} \quad \text{short-term ROI} \geq \text{floor}$$
 
-$$\text{Value-Guided Score: } \tilde{x}_{t-1} = x_{t-1} + \alpha \nabla_{x_t} V(x_t)$$
+$$
+b^* = \arg\max_b \mathbb{E}[v(b)] \quad \text{s.t.} \quad \text{short-term ROI} \geq \text{floor}
+$$
+
+$$
+\text{Value-Guided Score: } \tilde{x}_{t-1} = x_{t-1} + \alpha \nabla_{x_t} V(x_t)
+$$

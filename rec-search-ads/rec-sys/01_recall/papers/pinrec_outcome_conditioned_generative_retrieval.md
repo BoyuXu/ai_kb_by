@@ -15,7 +15,10 @@
 ## 核心方法与创新点
 
 ### 1. Outcome-Conditioned Generation（结果条件生成）
-$$P(item | user, outcome) = \prod_{t=1}^{T} P(token_t | token_{<t}, \mathbf{h}_{user}, \mathbf{c}_{outcome})$$
+
+$$
+P(item | user, outcome) = \prod_{t=1}^{T} P(token_t | token_{<t}, \mathbf{h}_{user}, \mathbf{c}_{outcome})
+$$
 
 - 在生成过程中引入**outcome condition向量** $\mathbf{c}_{outcome}$，明确控制生成偏好
 - outcome向量编码业务目标权重，如 $\mathbf{c} = [\alpha_{save}, \alpha_{click}, \alpha_{diversity}]$
@@ -29,7 +32,9 @@ PinRec创新：
 - 词表大小固定为V（如4096），item通过L个token的组合唯一标识
 - Item数量从O(N)降为O(V^L)，L=4时可表示4096^4 ≈ 2.8×10^14个item
 
-$$\text{ItemCode}(i) = [c_1^{(i)}, c_2^{(i)}, ..., c_L^{(i)}], \quad c_j^{(i)} \in \{0, ..., V-1\}$$
+$$
+\text{ItemCode}(i) = [c_1^{(i)}, c_2^{(i)}, ..., c_L^{(i)}], \quad c_j^{(i)} \in \{0, ..., V-1\}
+$$
 
 ### 3. 工业化扩展设计
 - **分层量化**：用RQ-VAE（Residual Quantization VAE）将item embedding量化为多token码

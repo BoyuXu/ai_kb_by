@@ -37,14 +37,19 @@ item1           item3 → item5
 - **促进多样性**：通过图上的多路径探索，自然产生多样化推荐序列
 
 数学形式：
-$$P(seq | user) = \prod_{(i,j) \in path} P(j | i, \mathbf{h}_{user}) \cdot w_{ij}$$
+
+$$
+P(seq | user) = \prod_{(i,j) \in path} P(j | i, \mathbf{h}_{user}) \cdot w_{ij}
+$$
 
 其中 $w_{ij}$ 为图中item i → item j的转移权重，由item特征和用户状态联合决定。
 
 ### 2. Consistent Differentiable Training（一致性可微训练）
 引入**评估器（Evaluator）**，让模型直接从用户偏好中学习：
 
-$$\mathcal{L} = \mathcal{L}_{gen} + \lambda \cdot \mathcal{L}_{eval}$$
+$$
+\mathcal{L} = \mathcal{L}_{gen} + \lambda \cdot \mathcal{L}_{eval}
+$$
 
 - **生成器（Generator）**：生成候选重排序列
 - **评估器（Evaluator）**：对序列质量打分（对齐用户真实反馈）

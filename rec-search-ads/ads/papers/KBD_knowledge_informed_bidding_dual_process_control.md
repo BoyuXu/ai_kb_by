@@ -31,6 +31,11 @@
   - A: RL 探索需要 variance（不稳定）；reward 稀疏（转化延迟）；非平稳市场使 policy 频繁失效
 
 ## 数学公式
-$$\max_\pi \mathbb{E}_\pi[\sum_t v_t] \quad \text{s.t.} \quad \mathbb{E}[\sum_t b_t] \leq B$$
 
-$$\text{Dual: } \min_{\lambda \geq 0} \max_\pi \mathbb{E}[\sum_t (v_t - \lambda b_t)] + \lambda B$$
+$$
+\max_\pi \mathbb{E}_\pi[\sum_t v_t] \quad \text{s.t.} \quad \mathbb{E}[\sum_t b_t] \leq B
+$$
+
+$$
+\text{Dual: } \min_{\lambda \geq 0} \max_\pi \mathbb{E}[\sum_t (v_t - \lambda b_t)] + \lambda B
+$$

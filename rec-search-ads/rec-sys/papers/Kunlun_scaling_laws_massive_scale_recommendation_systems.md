@@ -6,7 +6,11 @@ LLM 领域的 Scaling Laws（损失随参数量、数据量、算力的幂律关
 
 ## 核心方法与创新点
 1. **双轨 Scaling**：区分 Embedding Scaling（embedding 维度/数量）和 DNN Scaling（层数/宽度），分别建立幂律关系：
-   $$\mathcal{L}(N_e, N_d) = A \cdot N_e^{-\alpha} + B \cdot N_d^{-\beta} + C$$
+
+$$
+\mathcal{L}(N_e, N_d) = A \cdot N_e^{-\alpha} + B \cdot N_d^{-\beta} + C
+$$
+
 2. **Compute-Optimal 点**：固定算力 budget，找到 embedding 和 DNN 的最优分配比例（类似 Chinchilla 对 LLM 的贡献）。
 3. **数据 Scaling**：用户行为数据量 $D$ 满足 $\mathcal{L} \propto D^{-\gamma}$，验证数据飞轮效应有理论支撑。
 4. **跨平台验证**：在视频推荐、电商推荐、信息流三类场景验证 scaling law 的一致性（指数略有差异）。
@@ -32,6 +36,11 @@ LLM 领域的 Scaling Laws（损失随参数量、数据量、算力的幂律关
   - A: 固定 FLOPs，grid search embedding 维度 × DNN 层数组合，绘制等 FLOP 曲线取最低 loss 点
 
 ## 数学公式
-$$\mathcal{L}(N) = A \cdot N^{-\alpha} + C, \quad \alpha > 0$$
 
-$$N^*_{\text{embed}} = \arg\min_{N_e + c \cdot N_d = \text{Budget}} \mathcal{L}(N_e, N_d)$$
+$$
+\mathcal{L}(N) = A \cdot N^{-\alpha} + C, \quad \alpha > 0
+$$
+
+$$
+N^*_{\text{embed}} = \arg\min_{N_e + c \cdot N_d = \text{Budget}} \mathcal{L}(N_e, N_d)
+$$

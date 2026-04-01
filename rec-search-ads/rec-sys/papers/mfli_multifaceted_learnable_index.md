@@ -12,7 +12,9 @@
 2. **多面索引**：每个item学习多个语义facet的索引编码，支持多角度召回
 3. **残差量化+对比学习**：
 
-$$L = L_{rec} + \lambda_1 L_{index} + \lambda_2 L_{contrast}$$
+$$
+L = L_{rec} + \lambda_1 L_{index} + \lambda_2 L_{contrast}
+$$
 
 4. **Beam Search解码**：在线推理时beam search在索引树上高效检索
 

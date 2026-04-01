@@ -31,6 +31,9 @@ Speculative Decoding（推测解码）通过草稿模型生成候选 token、目
   - A: Medusa：在目标模型上加多头解码（每头预测不同位置 token）；EAGLE：独立草稿模型基于 target feature 预测，接受率更高、灵活性更好
 
 ## 数学公式
-$$\text{Speedup} = \frac{1 + \alpha + \alpha^2 + ... + \alpha^k}{1 + c} \approx \frac{1}{1-\alpha} \cdot \frac{1}{1+c}$$
+
+$$
+\text{Speedup} = \frac{1 + \alpha + \alpha^2 + ... + \alpha^k}{1 + c} \approx \frac{1}{1-\alpha} \cdot \frac{1}{1+c}
+$$
 
 $\alpha$：token 接受率，$c$：草稿模型相对计算成本，$k$：草稿长度

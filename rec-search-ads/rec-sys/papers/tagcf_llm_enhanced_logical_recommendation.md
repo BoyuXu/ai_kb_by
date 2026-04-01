@@ -12,7 +12,9 @@
 2. **标签图构建**：基于标签共现构建用户-标签-物品三部图
 3. **逻辑推理增强**：标签图上进行逻辑规则推理，增强可解释性
 
-$$\text{Score}(u, i) = \sum_{t \in T} w_{u,t} \cdot w_{i,t} \cdot \text{LogicScore}(u \xrightarrow{t} i)$$
+$$
+\text{Score}(u, i) = \sum_{t \in T} w_{u,t} \cdot w_{i,t} \cdot \text{LogicScore}(u \xrightarrow{t} i)
+$$
 
 4. **标签对齐训练**：LLM生成标签与行为标签的对齐损失
 

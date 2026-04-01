@@ -40,17 +40,26 @@ HoME（**Ho**mogeneous **M**ulti-gate **E**xperts）提出**层次化MoE设计**
 
 ### 1. Homogeneous Expert Layer（同质化专家层）
 解决Expert Collapse：
-$$\mathbf{h}_e = \text{Norm}(\mathbf{W}_e \mathbf{x} + \mathbf{b}_e), \quad \forall e \in \{1,...,E\}$$
+
+$$
+\mathbf{h}_e = \text{Norm}(\mathbf{W}_e \mathbf{x} + \mathbf{b}_e), \quad \forall e \in \{1,...,E\}
+$$
 
 - 对所有专家的输出做**对抗性正则化**，拉近专家输出分布
 - 使用**专家间的KL散度损失**惩罚过度分化：
-$$\mathcal{L}_{homo} = \sum_{e_i \neq e_j} \text{KL}(P_{e_i} || P_{e_j})$$
+
+$$
+\mathcal{L}_{homo} = \sum_{e_i \neq e_j} \text{KL}(P_{e_i} || P_{e_j})
+$$
 
 ### 2. Hierarchical Gating（层次化门控）
 解决Expert Degradation：
 - 将专家划分为**多层次**：任务组级共享 → 任务对级共享 → 任务专属
 - 门控机制约束：每层的门控权重受上层监督，防止低层门控被单任务dominant
-$$\mathbf{g}^{task} = \text{softmax}(\mathbf{W}_g \cdot [\mathbf{h}_{shared}, \mathbf{h}_{specific}])$$
+
+$$
+\mathbf{g}^{task} = \text{softmax}(\mathbf{W}_g \cdot [\mathbf{h}_{shared}, \mathbf{h}_{specific}])
+$$
 
 ### 3. Task-Adaptive Expert Assignment（任务自适应专家分配）
 解决Expert Underfitting：

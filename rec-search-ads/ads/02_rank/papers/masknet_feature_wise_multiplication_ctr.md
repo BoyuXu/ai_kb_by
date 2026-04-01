@@ -15,7 +15,9 @@
 
 核心思想：用 instance 的特征向量生成一个 mask，对所有特征做 element-wise 乘法：
 
-$$V_{mask} = LayerNorm(f(e) \odot V_{emb})$$
+$$
+V_{mask} = LayerNorm(f(e) \odot V_{emb})
+$$
 
 其中：
 - $e$ 是当前 instance 的 embedding 向量（通过 MLP 映射得到 mask）
@@ -30,7 +32,9 @@ $$V_{mask} = LayerNorm(f(e) \odot V_{emb})$$
 2. **隐藏层**：带激活函数的全连接
 3. **LayerNorm**：归一化
 
-$$MaskBlock(V) = LayerNorm(Linear(V_{mask}))$$
+$$
+MaskBlock(V) = LayerNorm(Linear(V_{mask}))
+$$
 
 ### 两种组合方式
 

@@ -31,6 +31,9 @@
   - A: ① 解答正确性（数学验证器）；② 步骤完整性（无魔法跳步）；③ 多样性（题型/难度覆盖）；④ 解题策略清晰（人类可读）
 
 ## 数学公式
-$$\text{Data Efficiency} = \frac{\text{Performance}_{LIMO}}{\text{Performance}_{baseline}} \div \frac{|D_{LIMO}|}{|D_{baseline}|}$$
+
+$$
+\text{Data Efficiency} = \frac{\text{Performance}}_{\text{{LIMO}}}{\text{Performance}}_{\text{{baseline}}} \div \frac{|D_{LIMO}|}{|D_{baseline}|}
+$$
 
 LIMO: 817 samples, +14% AIME → Data efficiency ≈ 100×

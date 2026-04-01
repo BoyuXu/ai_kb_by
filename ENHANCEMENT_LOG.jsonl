@@ -1,0 +1,15 @@
+{"file": "llm-agent/llm-infra/synthesis/多Token预测与Agent工程化.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/MoE推理解耦架构.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/GRPO大模型推理RL算法.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/FlashAttention3与LLM推理基础设施.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理效率三角.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/LLMServing系统实践.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理优化与RAG_Agent前沿综述.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/03_rerank/synthesis/生成式排序范式.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/03_rerank/synthesis/广告重排层设计与优化.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/04_bidding/synthesis/广告系统RTB架构全景.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/05_creative/synthesis/广告创意优化.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/CTR预估模型工业级实践进展.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统综合总结.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统偏差治理三部曲.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统CTR预估与排序前沿综述.md", "status": "enhanced", "enhancement": "derivation_process_symbol_explanation_intuition"}

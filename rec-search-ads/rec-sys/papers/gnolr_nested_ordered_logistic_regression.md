@@ -11,7 +11,9 @@
 1. **嵌套有序逻辑回归**：将多任务标签建模为嵌套有序变量
 2. **广义阈值函数**：
 
-$$P(Y \geq k) = \sigma(f(x) - \theta_k), \quad \theta_1 \leq \theta_2 \leq ... \leq \theta_K$$
+$$
+P(Y \geq k) = \sigma(f(x) - \theta_k), \quad \theta_1 \leq \theta_2 \leq ... \leq \theta_K
+$$
 
 3. **任务依赖建模**：条件概率链 $P(\text{转化}|\text{点击}) \cdot P(\text{点击}|\text{曝光})$
 4. **自适应阈值学习**：阈值可根据用户/场景自适应调整

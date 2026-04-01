@@ -31,6 +31,11 @@
   - A: Pre-training 用有机行为数据（自然点击/浏览），不包含广告曝光数据；Fine-tuning 才引入广告 label
 
 ## 数学公式
-$$\text{CTR} = \sigma(W \cdot h_T^{\text{ad}}), \quad h_T^{\text{ad}} = \text{Decoder}([a_1,...,a_T, ad])$$
 
-$$\mathcal{L}_\text{pretrain} = -\sum_t \log P(a_{t+1} | a_1,...,a_t)$$
+$$
+\text{CTR} = \sigma(W \cdot h_T^{\text{ad}}), \quad h_T^{\text{ad}} = \text{Decoder}([a_1,...,a_T, ad])
+$$
+
+$$
+\mathcal{L}_\text{pretrain} = -\sum_t \log P(a_{t+1} | a_1,...,a_t)
+$$

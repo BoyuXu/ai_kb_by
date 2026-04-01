@@ -31,6 +31,11 @@
   - A: 用户侧：满意度、留存、对话继续率；广告主侧：CVR、ROI；平台侧：广告收入、用户 LTV 不下降
 
 ## 数学公式
-$$\text{Score}_i = b_i \cdot q_i, \quad q_i = \text{LLM-Relevance}(ad_i, query)$$
 
-$$\text{Payment: Vickrey} \quad p_i = \frac{\text{Score of 2nd winner}}{q_i}$$
+$$
+\text{Score}}_{\text{i = b}}_{\text{i \cdot q}}_{\text{i, \quad q}}_{\text{i = \text{LLM-Relevance}}(ad_i, query)
+$$
+
+$$
+\text{Payment: Vickrey} \quad p_i = \frac{\text{Score of 2nd winner}}{q_i}
+$$

@@ -15,7 +15,10 @@
 ## 核心方法与创新点
 
 ### 1. 推理增强的Chain-of-Thought推荐
-$$\text{Output} = \text{LLM}(\text{UserContext}, \text{ItemFeatures}) \rightarrow [\text{Reasoning Chain}, \text{Recommendation}]$$
+
+$$
+\text{Output} = \text{LLM}(\text{UserContext}, \text{ItemFeatures}) \rightarrow [\text{Reasoning Chain}, \text{Recommendation}]
+$$
 
 ReasonRec将推荐过程拆解为显式推理链：
 1. **用户意图分析**："用户最近浏览了登山靴、帐篷，推测正在规划户外活动"
@@ -23,9 +26,14 @@ ReasonRec将推荐过程拆解为显式推理链：
 3. **推荐决策**："推荐该背包，置信度0.87"
 
 ### 2. 统一多模态编码
-$$\mathbf{h}_{item} = \text{MultiModalFusion}(\mathbf{v}_{img}, \mathbf{t}_{text}, \mathbf{s}_{stat})$$
 
-$$\mathbf{v}_{img} = \text{ViT}(\text{Image}), \quad \mathbf{t}_{text} = \text{LLM}(\text{Description})$$
+$$
+\mathbf{h}_{item} = \text{MultiModalFusion}(\mathbf{v}_{img}, \mathbf{t}_{text}, \mathbf{s}_{stat})
+$$
+
+$$
+\mathbf{v}_{img} = \text{ViT}(\text{Image}), \quad \mathbf{t}_{text} = \text{LLM}(\text{Description})
+$$
 
 - 视觉特征（ViT）+ 文本特征（LLM编码）+ 统计特征（销量、评分等）统一编码
 - 跨模态注意力机制：图像与文本特征相互attention，捕获"外观描述一致性"等跨模态关系

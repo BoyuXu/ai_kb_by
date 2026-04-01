@@ -11,7 +11,9 @@
 1. **Mixture of Experts架构**：多个专家网络和门控网络实现任务间选择性参数共享
 2. **任务感知门控**：每个任务独立门控网络，学习不同专家组合权重
 
-$$y_k = \sum_{i=1}^{N} g_k^{(i)} \cdot f_i(x), \quad g_k = \text{Softmax}(W_k \cdot x)$$
+$$
+y_k = \sum_{i=1}^{N} g_k^{(i)} \cdot f_i(x), \quad g_k = \text{Softmax}(W_k \cdot x)
+$$
 
 3. **专家正则化**：负载均衡损失防止门控坍塌到少数专家
 4. **渐进式训练**：先训练共享部分，再逐步引入任务特定模块

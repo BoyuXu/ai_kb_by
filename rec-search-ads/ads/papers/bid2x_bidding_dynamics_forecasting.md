@@ -13,7 +13,9 @@
 3. **多粒度预测**：从campaign级到keyword级的层级预测
 4. **不确定性估计**：输出竞价价格的置信区间
 
-$$\hat{p}_{t+1} = \text{Decoder}(\text{Encoder}([p_{t-w}, ..., p_t], [c_{t-w}, ..., c_t]))$$
+$$
+\hat{p}_{t+1} = \text{Decoder}(\text{Encoder}([p_{t-w}, ..., p_t], [c_{t-w}, ..., c_t]))
+$$
 
 ## 实验结论
 

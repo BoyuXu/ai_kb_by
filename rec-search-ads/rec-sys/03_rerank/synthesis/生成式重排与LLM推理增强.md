@@ -1,10 +1,10 @@
 # 生成式重排与 LLM 推理增强：从列表生成到推理对齐
 
 > 📚 参考文献
-> - [generative_reasoning_reranker](../papers/generative_reasoning_reranker.md) — GR2: LLM+DAPO 推理增强的生成式重排，NDCG@5 +1.3%
+> - [generative_reasoning_reranker [BROKEN]](../papers/generative_reasoning_reranker.md) — GR2: LLM+DAPO 推理增强的生成式重排，NDCG@5 +1.3%
 > - [Congrats_consistent_graph_structured_generative_recommendation](../papers/Congrats_consistent_graph_structured_generative_recommendation.md) — ConGRATS: 图结构生成重排，解决 Likelihood Trap，快手 3 亿 DAU 上线
-> - [HiGR_efficient_generative_slate_recommendation_hierarchical_planning](../papers/HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md) — HiGR: CRQ-VAE + 分层解码，推理速度 5×，腾讯 +1.22% 观看时长
-> - [llm_explainable_reranker_recommendation](../papers/llm_explainable_reranker_recommendation.md) — LLM 可解释重排：混合架构消除 Popularity Bias，两阶段训练
+> - [HiGR_efficient_generative_slate_recommendation_hierarchical_planning [BROKEN]](../papers/HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md) — HiGR: CRQ-VAE + 分层解码，推理速度 5×，腾讯 +1.22% 观看时长
+> - [llm_explainable_reranker_recommendation [BROKEN]](../papers/llm_explainable_reranker_recommendation.md) — LLM 可解释重排：混合架构消除 Popularity Bias，两阶段训练
 > - [PreferRec_pareto_preferences_multi_objective_reranking](../papers/PreferRec_pareto_preferences_multi_objective_reranking.md) — PreferRec: Intent-level Pareto 偏好建模与跨用户迁移
 
 > 知识卡片 | 创建：2026-03-29 | 领域：rec-sys / ads | 类型：综合分析
@@ -15,38 +15,48 @@
 
 ### 1. 条件可验证奖励（GR2 - 防止 Reward Hacking）
 
-$$r = r_{ranking} \cdot \mathbb{1}[\text{reranking\_happened}] + r_{baseline} \cdot \mathbb{1}[\text{not\_reranked}]$$
+$$
+r = r_{ranking} \cdot \mathbb{1}[\text{reranking}}_{\text{{\text{happened}}}] + r_{baseline} \cdot \mathbb{1}[\text{not}}_{\text{{\text{reranked}}}]
+$$
 
 - 惩罚 LLM "直接输出原始排序"的保守行为，强制真实重排
 
 ### 2. DAPO 解耦裁剪目标函数
 
-$$\mathcal{L}_{DAPO} = \mathbb{E}\left[\min\left(r_t \hat{A}_t, \text{clip}(r_t, 1-\varepsilon_{low}, 1+\varepsilon_{high})\hat{A}_t\right)\right]$$
+$$
+\mathcal{L}_{DAPO} = \mathbb{E}\left[\min\left(r_t \hat{A}_t, \text{clip}(r_t, 1-\varepsilon_{low}, 1+\varepsilon_{high})\hat{A}_t\right)\right]
+$$
 
 - 正优势用大 ε，负优势用小 ε；解耦裁剪 + 动态采样
 
 ### 3. CRQ-VAE 对比量化损失（HiGR）
 
-$$\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_quan} + \lambda_2 \mathcal{L}_{cont}$$
+$$
+\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_quan} + \lambda_2 \mathcal{L}_{cont}
+$$
 
 - Prefix 级对比学习保证前缀语义分离，避免残差塌陷
 
 ### 4. 图结构生成模型层内集成（ConGRATS）
 
-$$h_l = \text{Aggregate}\left(\text{Module}_1(h_{l-1}), ..., \text{Module}_K(h_{l-1})\right)$$
+$$
+h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+$$
 
 配合图遍历多路径解码，打破 Likelihood Trap
 
 ### 5. ORPO 多目标偏好对齐（HiGR）
 
-$$\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma(z_\theta(x,y^+) - z_\theta(x,y^-))$$
+$$
+\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma(z_\theta(x,y^+) - z_\theta(x,y^-))
+$$
 
 - 无需参考模型的偏好对齐，三目标负样本构造（乱序、负反馈、语义不相似）
 
 ### 6. Pareto 偏好学习（PreferRec）
 
 - Intent-level Pareto 建模：用户偏好 = Pareto 前沿上一个分布点
-- 跨用户迁移：$\text{pref}_{new} \approx \text{NN-lookup}(\text{pref}_{new}, \mathcal{P}_{historical})$
+- 跨用户迁移：$\text{pref}}_{\text{{new}} \approx \text{NN-lookup}(\text{pref}}_{\text{{new}}, \mathcal{P}_{historical})$
 
 ---
 
@@ -151,3 +161,8 @@ LLM 推理增强重排 (2025-2026)
 
 **Q10：为什么推荐系统的 RL 对齐比 LLM 对齐更难？**
 > A：三大挑战：① 奖励信号稀疏且噪声大：点击是隐式反馈，夹带大量噪声（误点、曝光偏差）；② Reward Hacking 更严重：推荐模型可轻易发现"推热门 item 一定高 CTR"的偷懒策略；③ 长期回报难以建模：用户满意度是序列决策，单次交互的即时奖励与长期价值经常不一致。解法：ConGRATS 的一致性可微训练（不用 PPO，减少训练不稳定）；GR2 的条件可验证奖励（惩罚保守行为）。
+## 参考文献
+
+- [Clip](../../papers/clip.md)
+- [clip](../../papers/clip.md)
+

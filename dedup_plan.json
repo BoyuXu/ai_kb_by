@@ -1,0 +1,26 @@
+[
+  {
+    "primary": "llm-agent/llm-infra/papers/LIMO_less_is_more_for_reasoning.md",
+    "duplicate": "llm-agent/llm-infra/papers/training/limo_less_is_more_for_reasoning.md",
+    "action": "delete_secondary",
+    "reason": "exact_duplicate_nested_structure"
+  },
+  {
+    "primary": "llm-agent/llm-infra/papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md",
+    "duplicate": "llm-agent/llm-infra/papers/daily/20260322_flashattention3_next_gen_accelerators.md",
+    "action": "delete_secondary",
+    "reason": "exact_duplicate_dated_variant"
+  },
+  {
+    "primary": "llm-agent/llm-infra/papers/training/qwen3_technical_report.md",
+    "duplicate": "llm-agent/llm-infra/papers/daily/20260320_Qwen3-Technical-Report.md",
+    "action": "delete_secondary",
+    "reason": "exact_duplicate_dated_variant"
+  },
+  {
+    "primary": "llm-agent/llm-infra/papers/daily/20260321_llmorbit-a-circular-taxonomy-of-large-language-models-from-scaling-walls-to-agentic-ai-systems.md",
+    "duplicate": "llm-agent/llm-infra/papers/daily/20260323_llmorbit_a_circular_taxonomy_of_large_language_mode.md",
+    "action": "delete_secondary",
+    "reason": "exact_duplicate_typo_variant"
+  }
+]

@@ -1,14 +1,14 @@
 # Boyu 个人学习档案
 
 > 📚 参考文献
-> - [A Generative Re-Ranking Model For List-Level Multi](../../rec-sys/papers/A_Generative_Re_ranking_Model_for_List_level_Multi_object.md) — A Generative Re-ranking Model for List-level Multi-object...
-> - [Din-Deep-Interest-Network](../../rec-sys/papers/DINDeep_Interest_Network.md) — DIN：深度兴趣网络（Deep Interest Network）
-> - [Model Calibration Deep Dive](../../rec-sys/papers/model_calibration_deep_dive.md) — 模型校准（Model Calibration）完整学习笔记
-> - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../rec-sys/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
-> - [Mmoe-Multi-Task-Learning](../../rec-sys/papers/MMoEMulti_gate_Mixture_of_Experts.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
-> - [10 Multimodal Rec Deep](../../rec-sys/papers/10_multimodal_rec_deep.md) — 多模态推荐系统深度解析（图文/视频融合）
-> - [Reg4Rec Reasoning-Enhanced Generative Model For La](../../rec-sys/papers/REG4Rec_Reasoning_Enhanced_Generative_Model_for_Large_Sca.md) — REG4Rec: Reasoning-Enhanced Generative Model for Large-Sc...
-> - [Multi-Behavior-Rec-Survey](../../rec-sys/papers/Multi_behavior_Recommender_Systems_A_Survey.md) — Multi-behavior Recommender Systems: A Survey
+> - [A Generative Re-Ranking Model For List-Level Multi](../../03_rerank/papers/A_Generative_Re_ranking_Model_for_List_level_Multi_object.md) — A Generative Re-ranking Model for List-level Multi-object...
+> - [Din-Deep-Interest-Network](../papers/DINDeep_Interest_Network.md) — DIN：深度兴趣网络（Deep Interest Network）
+> - [Model Calibration Deep Dive](../papers/model_calibration_deep_dive.md) — 模型校准（Model Calibration）完整学习笔记
+> - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../01_recall/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
+> - [Mmoe-Multi-Task-Learning](../../04_multi-task/papers/MMoEMulti_gate_Mixture_of_Experts.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
+> - [10 Multimodal Rec Deep](../papers/10_multimodal_rec_deep.md) — 多模态推荐系统深度解析（图文/视频融合）
+> - [Reg4Rec Reasoning-Enhanced Generative Model For La](../../01_recall/papers/REG4Rec_Reasoning_Enhanced_Generative_Model_for_Large_Sca.md) — REG4Rec: Reasoning-Enhanced Generative Model for Large-Sc...
+> - [Multi-Behavior-Rec-Survey](../../04_multi-task/papers/Multi_behavior_Recommender_Systems_A_Survey.md) — Multi-behavior Recommender Systems: A Survey
 
 > 📅 生成日期: 2026-03-12 | 🎯 分析师: MelonEggLearn
 > 

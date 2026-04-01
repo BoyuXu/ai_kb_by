@@ -35,7 +35,9 @@
 
 将高维特征交互矩阵分解为低秩形式，大幅减少计算量：
 
-$$\mathbf{W}_{interaction} = \mathbf{U} \cdot \mathbf{V}^T, \quad \mathbf{U} \in \mathbb{R}^{d \times r}, \mathbf{V} \in \mathbb{R}^{d \times r}, r \ll d$$
+$$
+\mathbf{W}_{interaction} = \mathbf{U} \cdot \mathbf{V}^T, \quad \mathbf{U} \in \mathbb{R}^{d \times r}, \mathbf{V} \in \mathbb{R}^{d \times r}, r \ll d
+$$
 
 **② 大规模并行训练系统**
 

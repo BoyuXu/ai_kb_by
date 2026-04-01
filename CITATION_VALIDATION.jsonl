@@ -1,0 +1,95 @@
+{"file": "llm-agent/llm-infra/synthesis/LLM微调技术.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LoRA与PEFT高效微调技术进展.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/RAG与Agent推理能力前沿综述.md", "action": "added_references", "status": "success", "reference_count": 4, "valid_links": 0, "dead_links": 4}
+{"file": "llm-agent/llm-infra/synthesis/多Token预测与Agent工程化.md", "action": "added_references", "status": "success", "reference_count": 6, "valid_links": 5, "dead_links": 1}
+{"file": "llm-agent/llm-infra/synthesis/20260331_llm_inference_optimization_and_agent_engineering.md", "action": "add_references", "status": "already_has_references"}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理加速与高效训练技术全景.md", "action": "add_references", "status": "no_references_found"}
+{"file": "llm-agent/llm-infra/synthesis/MoE推理解耦架构.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/GRPO大模型推理RL算法.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/FlashAttention3与LLM推理基础设施.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理效率三角.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理与RAG技术进展_20260326.md", "action": "added_references", "status": "success", "reference_count": 4, "valid_links": 0, "dead_links": 4}
+{"file": "llm-agent/llm-infra/synthesis/LLM基础设施工程优化要点_2026.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM对齐方法演进.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/RLVR_vs_RLHF后训练路线.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/RAG系统全景.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/MoE架构设计.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理优化完整版.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/KVCache与LLM推理优化全景.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLMServing系统实践.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM推理优化与RAG_Agent前沿综述.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "llm-agent/llm-infra/synthesis/LLM预训练技术演进.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "rec-search-ads/ads/03_rerank/synthesis/生成式排序范式.md", "action": "added_references", "status": "success", "reference_count": 2, "valid_links": 1, "dead_links": 1}
+{"file": "rec-search-ads/ads/03_rerank/synthesis/广告系统混排演进路线.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/ads/03_rerank/synthesis/广告重排层设计与优化.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/04_bidding/synthesis/广告出价体系全景.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/04_bidding/synthesis/广告系统RTB架构全景.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/04_bidding/synthesis/广告预算Pacing算法全景.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/04_bidding/synthesis/AutoBidding技术演进_从规则到RL.md", "action": "add_references", "status": "already_has_references"}
+{"file": "rec-search-ads/ads/synthesis/LLM时代广告系统技术演进.md", "action": "added_references", "status": "success", "reference_count": 18, "valid_links": 17, "dead_links": 1}
+{"file": "rec-search-ads/ads/synthesis/广告竞价与CTR预估前沿进展.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/synthesis/20260331_generative_ads_and_bidding_optimization.md", "action": "add_references", "status": "already_has_references"}
+{"file": "rec-search-ads/ads/05_creative/synthesis/广告创意优化.md", "action": "added_references", "status": "success", "reference_count": 12, "valid_links": 0, "dead_links": 12}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统多目标优化.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统智能化升级路径_2026.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/CTR预估模型工业级实践进展.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统冷启动.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 0, "dead_links": 5}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统综合总结.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统偏差治理三部曲.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告CTR_CVR预估与校准.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统CTR预估与排序前沿综述.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告系统智能化演进_20260326.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告排序系统演进路线图.md", "action": "added_references", "status": "success", "reference_count": 13, "valid_links": 0, "dead_links": 13}
+{"file": "rec-search-ads/ads/02_rank/synthesis/ESMM系列CVR估计演进_从整体空间到因果推断.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/广告效果归因.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/ads/02_rank/synthesis/LTV预测技术演进与工业实践.md", "action": "added_references", "status": "success", "reference_count": 1, "valid_links": 0, "dead_links": 1}
+{"file": "rec-search-ads/search/03_rerank/synthesis/搜索Reranker演进.md", "action": "added_references", "status": "success", "reference_count": 14, "valid_links": 1, "dead_links": 13}
+{"file": "rec-search-ads/search/03_rerank/synthesis/LLM增强信息检索与推理重排序综合总结.md", "action": "added_references", "status": "success", "reference_count": 1, "valid_links": 0, "dead_links": 1}
+{"file": "rec-search-ads/search/03_rerank/synthesis/LearningToRank搜索排序三大范式.md", "action": "added_references", "status": "success", "reference_count": 12, "valid_links": 0, "dead_links": 12}
+{"file": "rec-search-ads/search/synthesis/LLM推理增强搜索重排进展.md", "action": "added_references", "status": "success", "reference_count": 2, "valid_links": 0, "dead_links": 2}
+{"file": "rec-search-ads/search/synthesis/20260331_reasoning_enhanced_retrieval_and_reranking.md", "action": "add_references", "status": "already_has_references"}
+{"file": "rec-search-ads/search/synthesis/推理增强检索技术综述.md", "action": "added_references", "status": "success", "reference_count": 8, "valid_links": 5, "dead_links": 3}
+{"file": "rec-search-ads/search/01_recall/synthesis/检索三角_Dense_Sparse_LateInteraction.md", "action": "added_references", "status": "success", "reference_count": 13, "valid_links": 0, "dead_links": 13}
+{"file": "rec-search-ads/search/01_recall/synthesis/混合检索的工业化演进.md", "action": "added_references", "status": "success", "reference_count": 13, "valid_links": 0, "dead_links": 13}
+{"file": "rec-search-ads/search/01_recall/synthesis/混合检索融合_多路召回实践.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/search/01_recall/synthesis/LLM赋能搜索系统前沿综述.md", "action": "added_references", "status": "success", "reference_count": 4, "valid_links": 0, "dead_links": 4}
+{"file": "rec-search-ads/search/01_recall/synthesis/稀疏vs密集检索决策.md", "action": "added_references", "status": "success", "reference_count": 13, "valid_links": 0, "dead_links": 13}
+{"file": "rec-search-ads/search/01_recall/synthesis/工业搜索排序前沿技术_2026.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/search/04_query/synthesis/语义搜索与推理检索前沿_20260326.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/search/04_query/synthesis/搜索Query理解.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/interview/synthesis/双塔召回模型.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/interview/synthesis/oCPC_oCPA智能出价系统.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/interview/synthesis/多任务学习_MMoE_PLE.md", "action": "added_references", "status": "success", "reference_count": 10, "valid_links": 0, "dead_links": 10}
+{"file": "rec-search-ads/interview/synthesis/推荐系统全链路串联.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/interview/synthesis/面试项目讲故事_30个案例.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/interview/synthesis/QueryRewriting与RAG优化.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/rec-sys/03_rerank/synthesis/推荐系统重排与多样性.md", "action": "added_references", "status": "success", "reference_count": 7, "valid_links": 0, "dead_links": 7}
+{"file": "rec-search-ads/rec-sys/03_rerank/synthesis/生成式重排与LLM推理增强.md", "action": "added_references", "status": "success", "reference_count": 7, "valid_links": 2, "dead_links": 5}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/推荐系统因果推断.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/LLM增强推荐系统前沿综述.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/推荐广告系统多任务学习与MoE专家混合.md", "action": "added_references", "status": "success", "reference_count": 5, "valid_links": 1, "dead_links": 4}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/图神经网络在推荐中的应用.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/推荐系统冷启动.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/推荐广告AB测试与在线实验.md", "action": "add_references", "status": "no_references_found"}
+{"file": "rec-search-ads/rec-sys/04_multi-task/synthesis/LLM增强推荐系统前沿进展.md", "action": "added_references", "status": "success", "reference_count": 2, "valid_links": 0, "dead_links": 2}
+{"file": "rec-search-ads/rec-sys/synthesis/生成式推荐系统技术全景.md", "action": "added_references", "status": "success", "reference_count": 14, "valid_links": 10, "dead_links": 4}
+{"file": "rec-search-ads/rec-sys/synthesis/生成式推荐模型前沿进展.md", "action": "added_references", "status": "success", "reference_count": 1, "valid_links": 0, "dead_links": 1}
+{"file": "rec-search-ads/rec-sys/synthesis/推理链RL范式跨域整合_搜广推全景.md", "action": "added_references", "status": "success", "reference_count": 3, "valid_links": 0, "dead_links": 3}
+{"file": "rec-search-ads/rec-sys/synthesis/20260331_generative_retrieval_and_foundation_models.md", "action": "add_references", "status": "already_has_references"}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐完整技术图谱.md", "action": "added_references", "status": "success", "reference_count": 10, "valid_links": 0, "dead_links": 10}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术演进_20260326.md", "action": "added_references", "status": "success", "reference_count": 2, "valid_links": 0, "dead_links": 2}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/召回系统工业界最佳实践.md", "action": "add_references", "status": "already_has_references"}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐范式对比.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进.md", "action": "added_references", "status": "success", "reference_count": 10, "valid_links": 3, "dead_links": 7}
+{"file": "rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md", "action": "added_references", "status": "success", "reference_count": 1, "valid_links": 0, "dead_links": 1}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/Boyu个人学习档案.md", "action": "added_references", "status": "success", "reference_count": 12, "valid_links": 0, "dead_links": 12}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/推荐系统特征工程体系.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/精排模型进阶深度解析.md", "action": "added_references", "status": "success", "reference_count": 12, "valid_links": 0, "dead_links": 12}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/推荐系统排序范式演进.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/精排工业界精华_AlgoNotes精读.md", "action": "added_references", "status": "success", "reference_count": 10, "valid_links": 0, "dead_links": 10}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/CTR模型深度解析.md", "action": "added_references", "status": "success", "reference_count": 11, "valid_links": 0, "dead_links": 11}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/用户行为序列建模.md", "action": "added_references", "status": "success", "reference_count": 9, "valid_links": 0, "dead_links": 9}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/推荐系统ScalingLaw_Wukong.md", "action": "added_references", "status": "success", "reference_count": 4, "valid_links": 0, "dead_links": 4}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/推荐系统全链路架构概览.md", "action": "added_references", "status": "success", "reference_count": 12, "valid_links": 0, "dead_links": 12}
+{"file": "rec-search-ads/rec-sys/02_rank/synthesis/Embedding学习_推荐系统表示基石.md", "action": "added_references", "status": "success", "reference_count": 10, "valid_links": 0, "dead_links": 10}

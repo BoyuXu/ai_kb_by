@@ -12,7 +12,9 @@
 
 DGenCTR标志着CTR预测从判别式向生成式的范式转变：
 
-$$p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)$$
+$$
+p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)
+$$
 
 核心思想是将特征统一token化后，用离散扩散模型生成预测。美团MTGR将这一思路应用到多场景统一推荐，通过decoder-only架构和场景Prompt服务12+个场景。
 
@@ -20,7 +22,9 @@ $$p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)$$
 
 DCN-V2通过矩阵式Cross层突破了V1的表达力瓶颈：
 
-$$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
+$$
+x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l
+$$
 
 低秩分解 $W = UV^T$ 在 $O(d \times r)$ 参数量下达到接近 $O(d^2)$ 的表达能力。
 
@@ -31,7 +35,9 @@ FPA（First-Price Auction）时代，出价策略的重要性凸显：
 - **GBS**：生成式出价分布建模，量化不确定性
 - **GenCI**：建模用户兴趣漂移，提升CTR预估精度
 
-$$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))$$
+$$
+p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))
+$$
 
 ### 4. LLM轻量化融入CTR
 
@@ -40,13 +46,22 @@ $$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(
 ## 关键公式汇总
 
 **DCN-V2 Cross层**：
-$$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
+
+$$
+x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l
+$$
 
 **GBS混合高斯出价分布**：
-$$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))$$
+
+$$
+p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))
+$$
 
 **跨模态对齐损失**：
-$$L_{align} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}$$
+
+$$
+L_{align} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
+$$
 
 ## Q&A 面试精选
 

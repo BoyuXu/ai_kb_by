@@ -16,7 +16,7 @@
 1. **流水线建模**
    - 将多阶段流水线建模为排队网络（Queueing Network）
    - 每个阶段 = 一个服务节点，有到达率 λ、服务率 μ
-   - 端到端延迟 = $\sum_i \text{Latency}_i + \text{Queue Time}_i$
+   - 端到端延迟 = $\sum_i \text{Latency}}_{\text{i + \text{Queue Time}}_i$
 
 2. **瓶颈识别**
    - 利用率（Utilization）= λ / μ，利用率最高的阶段是瓶颈

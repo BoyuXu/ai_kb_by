@@ -13,7 +13,9 @@
 3. **双向选择性扫描**：前向和后向两个方向上进行状态空间扫描，融合局部邻域和全局图结构信息
 4. **门控残差连接**：
 
-$$h_t = \sigma(W_g[h_{local}, h_{mamba}]) \odot h_{mamba} + (1 - \sigma(W_g)) \odot h_{local}$$
+$$
+h_t = \sigma(W_g[h_{local}, h_{mamba}]) \odot h_{mamba} + (1 - \sigma(W_g)) \odot h_{local}
+$$
 
 ## 实验结论
 

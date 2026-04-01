@@ -12,7 +12,9 @@
 2. **大规模预训练**：多个推荐场景联合预训练，学习通用排序能力
 3. **Prompt-based微调**：场景Prompt快速适配新场景
 
-$$h = \text{Encoder}([\text{Scene\_Prompt}; \text{User\_Feat}; \text{Item\_Feat}])$$
+$$
+h = \text{Encoder}([\text{Scene}}_{\text{{\text{Prompt}}}; \text{User}}_{\text{{\text{Feat}}}; \text{Item}}_{\text{{\text{Feat}}}])
+$$
 
 4. **对比学习目标**：正样本对与负样本对的对比学习
 

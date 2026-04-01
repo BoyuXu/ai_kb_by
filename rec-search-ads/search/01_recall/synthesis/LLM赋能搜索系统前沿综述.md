@@ -16,7 +16,9 @@
 ### 公式 1：ColBERT MaxSim 相似度计算
 Late Interaction 模型的核心评分函数，保留 token 级交互：
 
-$$S(Q, D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} (q_i \cdot d_j)$$
+$$
+S(Q, D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} (q_i \cdot d_j)
+$$
 
 其中 $q_i$ 为 query 第 $i$ 个 token 的向量，$d_j$ 为 document 第 $j$ 个 token 的向量。
 - 计算复杂度：$O(|Q| \cdot |D|)$
@@ -25,7 +27,9 @@ $$S(Q, D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} (q_i \cdot d_j)$$
 ### 公式 2：GRPO 强化学习目标（Rank-R1）
 将推理能力注入 reranker 的强化学习目标：
 
-$$\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_t \text{clip}\left(\frac{\pi_\theta(a_t|s_t)}{\pi_{old}(a_t|s_t)}, 1-\epsilon, 1+\epsilon\right) \hat{A}_t\right] + \beta \cdot KL(\pi_\theta \| \pi_{ref})$$
+$$
+\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_t \text{clip}\left(\frac{\pi_\theta(a_t|s_t)}{\pi_{old}(a_t|s_t)}, 1-\epsilon, 1+\epsilon\right) \hat{A}_t\right] + \beta \cdot KL(\pi_\theta \| \pi_{ref})
+$$
 
 其中：
 - $\pi_\theta$：当前策略（正在优化的 reranker）
@@ -36,7 +40,9 @@ $$\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_t \text{clip}\left(\frac{\pi_\theta
 ### 公式 3：知识蒸馏目标（KL 散度）
 将大 teacher 模型（cross-encoder）的知识迁移到小 student 模型（ColBERT/SLM）：
 
-$$\mathcal{L}_{KD} = KL(P_{teacher} \| P_{student}) = \sum_i P_{teacher}(i) \log \frac{P_{teacher}(i)}{P_{student}(i)}$$
+$$
+\mathcal{L}_{KD} = KL(P_{teacher} \| P_{student}) = \sum_i P_{teacher}(i) \log \frac{P_{teacher}(i)}{P_{student}(i)}
+$$
 
 其中 $P_{teacher}$ 和 $P_{student}$ 分别是 teacher 和 student 在候选文档上的相关性分数分布。
 - LinkedIn 用此将 8B oracle judge 蒸馏为 SLM
@@ -45,7 +51,9 @@ $$\mathcal{L}_{KD} = KL(P_{teacher} \| P_{student}) = \sum_i P_{teacher}(i) \log
 ### 公式 4：Hybrid Retrieval 插值
 Dense 检索 + BM25 的线性插值（BRIGHT 上最有效的简单 trick）：
 
-$$S_{hybrid}(q, d) = \alpha \cdot S_{dense}(q, d) + (1-\alpha) \cdot S_{BM25}(q, d)$$
+$$
+S_{hybrid}(q, d) = \alpha \cdot S_{dense}(q, d) + (1-\alpha) \cdot S_{BM25}(q, d)
+$$
 
 其中 $\alpha = 0.5$ 在 BRIGHT benchmark 上使 nDCG@10 从 0.289 提升到 **0.372**（+28.4% 相对提升）。
 
@@ -168,3 +176,10 @@ $$S_{hybrid}(q, d) = \alpha \cdot S_{dense}(q, d) + (1-\alpha) \cdot S_{BM25}(q,
 9. **BEIR Benchmark** (Thakur et al., 2021). 信息检索域外泛化评估 benchmark，是 PyLate 等工作的主要评估场景。
 
 10. **SGLang** (open-source). LinkedIn 将 Prefill-Only 推理栈开源的项目，支持高吞吐 LLM scoring 推理。
+## 参考文献
+
+- [distillation](../../papers/distillation.md)
+- [Sparse](../../papers/sparse.md)
+- [clip](../../papers/clip.md)
+- [GPT-4](../../papers/gpt_4.md)
+

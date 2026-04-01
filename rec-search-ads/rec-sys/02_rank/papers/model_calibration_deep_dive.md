@@ -445,7 +445,7 @@ $$
 **IPS 加权校准**（逆概率加权，Inverse Propensity Scoring）：
 
 $$
-\text{ECE}_{debiased} = \sum_{i} \frac{1}{e(x_i)} \cdot |\hat{p}_i - y_i|
+\text{ECE}}_{\text{{debiased}} = \sum_{i} \frac{1}{e(x_i)} \cdot |\hat{p}_i - y_i|
 $$
 
 其中 $e(x_i)$ 是样本 $i$ 被真正观察到的概率（曝光倾向分）。

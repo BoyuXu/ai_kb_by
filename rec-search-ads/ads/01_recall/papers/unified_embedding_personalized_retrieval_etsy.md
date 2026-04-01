@@ -18,7 +18,10 @@ Etsy 的传统做法是多个独立召回模型（BM25、CF、语义向量），
 ### 统一 Query 表示
 
 将 query 表示扩展为：
-$$q_{unified} = f(q_{text}, u_{history}, u_{context})$$
+
+$$
+q_{unified} = f(q_{text}, u_{history}, u_{context})
+$$
 
 - $q_{text}$：query 文本 embedding（BERT/Sentence-T5）
 - $u_{history}$：用户历史点击/购买商品的 embedding 聚合
@@ -26,14 +29,21 @@ $$q_{unified} = f(q_{text}, u_{history}, u_{context})$$
 
 ### 双塔模型（Bi-Encoder）
 
-$$\text{Query Tower: } e_q = Encoder_Q(q_{text}, u_{history}, u_{context})$$
-$$\text{Item Tower: } e_i = Encoder_I(title, desc, category, price, ...)$$
+$$
+\text{Query Tower: } e_q = Encoder_Q(q_{text}, u_{history}, u_{context})
+$$
+
+$$
+\text{Item Tower: } e_i = Encoder_I(title, desc, category, price, ...)
+$$
 
 相似度：$s(q, i) = e_q \cdot e_i$
 
 ### 多任务训练目标
 
-$$\mathcal{L} = \mathcal{L}_{click} + \lambda_1 \mathcal{L}_{purchase} + \lambda_2 \mathcal{L}_{relevance}$$
+$$
+\mathcal{L} = \mathcal{L}_{click} + \lambda_1 \mathcal{L}_{purchase} + \lambda_2 \mathcal{L}_{relevance}
+$$
 
 - 点击损失：用 in-batch negative sampling
 - 购买损失：更高权重，捕捉转化信号

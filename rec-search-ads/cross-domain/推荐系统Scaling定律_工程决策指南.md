@@ -25,7 +25,9 @@
 
 ### 1. 推荐系统Scaling Law方程
 
-$$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty$$
+$$
+L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty
+$$
 
 **关键参数对比**：
 
@@ -39,7 +41,9 @@ $$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty$$
 
 ### 2. Embedding Table的独立Scaling维度
 
-$$\Delta L_{emb}(V, d) \approx -\gamma \log(V \cdot d)$$
+$$
+\Delta L_{emb}(V, d) \approx -\gamma \log(V \cdot d)
+$$
 
 - $V$：词表大小（item/user数），增大覆盖更多长尾
 - $d$：embedding维度，增大提升表征精度
@@ -49,7 +53,9 @@ $$\Delta L_{emb}(V, d) \approx -\gamma \log(V \cdot d)$$
 
 给定总FLOPs预算 $C$，推荐系统最优分配（实验导出）：
 
-$$C_{data} : C_{emb} : C_{model} \approx 60\% : 30\% : 10\%$$
+$$
+C_{data} : C_{emb} : C_{model} \approx 60\% : 30\% : 10\%
+$$
 
 而LLM的最优分配约为 $50\% : 0\% : 50\%$（无Embedding维度）。
 
@@ -57,9 +63,17 @@ $$C_{data} : C_{emb} : C_{model} \approx 60\% : 30\% : 10\%$$
 
 验证了推荐排序的AUC Scaling Law：
 
-$$\Delta AUC \propto N^{0.05 \sim 0.08}$$（Dense基线）
+$$
+\Delta AUC \propto N^{0.05 \sim 0.08}
+$$
 
-$$\Delta AUC_{MoE} \propto N^{0.07 \sim 0.12}$$（MoE架构，斜率更陡）
+（Dense基线）
+
+$$
+\Delta AUC_{MoE} \propto N^{0.07 \sim 0.12}
+$$
+
+（MoE架构，斜率更陡）
 
 MoE架构比Dense在Scaling时效率更高，是推荐排序超越百亿参数的优选路径。
 

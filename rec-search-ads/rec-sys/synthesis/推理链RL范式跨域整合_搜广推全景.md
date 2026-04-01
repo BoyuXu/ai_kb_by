@@ -46,7 +46,10 @@ RL 出价 = 策略梯度优化           GAVE = Diffusion + 价值引导探索
 ```
 
 **为什么 GRPO 特别适合这些任务**：
-$$\hat{r}_i = \frac{r_i - \bar{r}}{\text{std}(r)}, \quad \text{无需 critic 网络，组内相对 reward 归一化}$$
+
+$$
+\hat{r}_i = \frac{r_i - \bar{r}}{\text{std}(r)}, \quad \text{无需 critic 网络，组内相对 reward 归一化}
+$$
 
 搜广推的 reward（Hit Rate、NDCG、ROI）都是"离散或稀疏"的——PPO 的 critic 网络在稀疏 reward 下难以收敛，GRPO 天然规避这一问题。
 
@@ -88,22 +91,37 @@ LIMO: 大模型 SFT 激活          →   已激活的小模型
 ## 📐 三、跨域核心公式串联
 
 **1. 统一目标函数（搜广推都在优化的本质）**：
-$$\max_\pi \mathbb{E}_\pi[\text{Value}] \quad \text{s.t. Constraints}$$
+
+$$
+\max_\pi \mathbb{E}_\pi[\text{Value}] \quad \text{s.t. Constraints}
+$$
+
 - Rec-Sys：Value = 用户满意度 (NDCG/CTR)，Constraint = 多样性/新鲜度
 - Ads：Value = GMV/ROI，Constraint = 预算/CPA
 - Search：Value = 答案质量，Constraint = 延迟/API 调用次数
 
 **2. GRPO 训练范式（跨域统一训练信号）**：
-$$\mathcal{L}_\text{GRPO} = -\mathbb{E}\left[\frac{\pi_\theta(a)}{\pi_\text{old}(a)} \cdot \frac{r - \bar{r}}{\text{std}(r)}\right]$$
+
+$$
+\mathcal{L}_\text{GRPO} = -\mathbb{E}\left[\frac{\pi_\theta(a)}{\pi_\text{old}(a)} \cdot \frac{r - \bar{r}}{\text{std}(r)}\right]
+$$
 
 **3. 蒸馏+KL 约束（防止 Goodhart's Law 的标配）**：
-$$\mathcal{L} = r_\text{task} - \beta \cdot \text{KL}(\pi_\theta || \pi_\text{ref}) + \gamma \cdot r_\text{quality}$$
+
+$$
+\mathcal{L} = r_\text{task} - \beta \cdot \text{KL}(\pi_\theta || \pi_\text{ref}) + \gamma \cdot r_\text{quality}
+$$
+
 - 广告创意生成用于防止 reward hacking
 - RLHF 用于防止 alignment tax
 - 本质一样：约束优化空间，防止过拟合单一指标
 
 **4. Scaling Laws（推荐系统的新 insight）**：
-$$\mathcal{L}(N_e, N_d) = A \cdot N_e^{-\alpha} + B \cdot N_d^{-\beta} + C, \quad \alpha > \beta$$
+
+$$
+\mathcal{L}(N_e, N_d) = A \cdot N_e^{-\alpha} + B \cdot N_d^{-\beta} + C, \quad \alpha > \beta
+$$
+
 推荐系统的"规模法则"与 LLM 不同——embedding table（稀疏参数）的 scaling 收益高于 dense DNN。
 
 ---

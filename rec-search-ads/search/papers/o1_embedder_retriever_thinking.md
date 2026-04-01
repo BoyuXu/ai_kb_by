@@ -11,7 +11,9 @@
 1. **思考链Embedding**：生成query embedding前先进行内部推理
 2. **推理感知编码器**：
 
-$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+$$
+e_q = \text{Encoder}(\text{Think}(q) \oplus q)
+$$
 
 3. **合成推理数据**：LLM生成query推理过程作为训练数据
 4. **对比学习+推理监督**：双目标训练

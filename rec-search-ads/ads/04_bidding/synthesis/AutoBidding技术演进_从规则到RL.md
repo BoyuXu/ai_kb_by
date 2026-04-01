@@ -1,14 +1,14 @@
 # Auto Bidding 技术演进：从规则出价到强化学习
 
 > 📚 参考文献
-> - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../../ads/papers/Real_Time_Bidding_Optimization_with_Multi_Agent_Deep_Rein.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
-> - [Multi-Objective-Optimization-For-Online-Adverti...](../../ads/papers/Multi_Objective_Optimization_for_Online_Advertising_Balan.md) — Multi-Objective Optimization for Online Advertising: Bala...
-> - [Action Is All You Need Dual-Flow Generative Ran...](../../ads/papers/Action_is_All_You_Need_Dual_Flow_Generative_Ranking_Netwo.md) — Action is All You Need: Dual-Flow Generative Ranking Netw...
-> - [Autobid-Reinforcement-Learning-For-Automated-Ad...](../../ads/papers/AutoBid_Reinforcement_Learning_for_Automated_Ad_Bidding_w.md) — AutoBid: Reinforcement Learning for Automated Ad Bidding ...
-> - [Plum Adapting Pre-Trained Language Models For Indu](../../ads/papers/PLUM_Adapting_Pre_trained_Language_Models_for_Industrial.md) — PLUM: Adapting Pre-trained Language Models for Industrial...
-> - [Onerec-Think In-Text Reasoning For Generative R...](../../ads/papers/OneRec_Think_In_Text_Reasoning_for_Generative_Recommendat.md) — OneRec-Think: In-Text Reasoning for Generative Recommenda...
-> - [Llm-Enhanced-Ad-Creative-Generation-And-Optimiz...](../../ads/papers/LLM_Enhanced_Ad_Creative_Generation_and_Optimization_for.md) — LLM-Enhanced Ad Creative Generation and Optimization for ...
-> - [Generative Click-Through Rate Prediction With Appl](../../ads/papers/Generative_Click_through_Rate_Prediction_with_Application.md) — Generative Click-through Rate Prediction with Application...
+> - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../papers/Real_Time_Bidding_Optimization_with_Multi_Agent_Deep_Rein.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
+> - [Multi-Objective-Optimization-For-Online-Adverti...](../papers/Multi_Objective_Optimization_for_Online_Advertising_Balan.md) — Multi-Objective Optimization for Online Advertising: Bala...
+> - [Action Is All You Need Dual-Flow Generative Ran...](../../03_rerank/papers/Action_is_All_You_Need_Dual_Flow_Generative_Ranking_Netwo.md) — Action is All You Need: Dual-Flow Generative Ranking Netw...
+> - [Autobid-Reinforcement-Learning-For-Automated-Ad...](../papers/AutoBid_Reinforcement_Learning_for_Automated_Ad_Bidding_w.md) — AutoBid: Reinforcement Learning for Automated Ad Bidding ...
+> - [Plum Adapting Pre-Trained Language Models For Indu](../../02_rank/papers/PLUM_Adapting_Pre_trained_Language_Models_for_Industrial.md) — PLUM: Adapting Pre-trained Language Models for Industrial...
+> - [Onerec-Think In-Text Reasoning For Generative R...](../../02_rank/papers/OneRec_Think_In_Text_Reasoning_for_Generative_Recommendat.md) — OneRec-Think: In-Text Reasoning for Generative Recommenda...
+> - [Llm-Enhanced-Ad-Creative-Generation-And-Optimiz...](../../05_creative/papers/LLM_Enhanced_Ad_Creative_Generation_and_Optimization_for.md) — LLM-Enhanced Ad Creative Generation and Optimization for ...
+> - [Generative Click-Through Rate Prediction With Appl](../../02_rank/papers/Generative_Click_through_Rate_Prediction_with_Application.md) — Generative Click-through Rate Prediction with Application...
 
 > 整理时间：2026-03-16  
 > 作者：MelonEggLearn  
@@ -231,7 +231,7 @@ def pid_pacing(t, actual_spend, target_spend, prev_error, integral):
 设：
 - $n$ 个广告展示机会
 - 对第 $i$ 个机会出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增）
-- 每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$
+- 每次展示的转化价值 $v_i = \text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}$
 - 赢得时的支付（二价拍卖中约为对手最高价 $m_i$）
 
 **优化问题**：
@@ -275,7 +275,7 @@ $$
 等价于：
 
 $$
-b_i^* = v_i / \lambda = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}}{\lambda}
+b_i^* = v_i / \lambda = \frac{\text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}}{\lambda}
 $$
 
 **关键结论**：
@@ -516,11 +516,11 @@ $$
 $$
 
 $$
-\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}_i | b_i] \leq B
+\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}}_{\text{i | b}}_{\text{i] \leq B
 $$
 
 $$
-\text{其中 } \mathbb{E}[\text{cost}_i | b_i] = \int_0^{b_i} x \cdot f_i(x) dx
+\text{其中 }} \mathbb{E}[\text{cost}}_{\text{i | b}}_{\text{i] = \int}}_{\text{0^{b}}_{\text{i}} x \cdot f_i(x) dx
 $$
 
 **Bidding Machine 框架**（TKDE 2018, arXiv:1803.02194）：
@@ -600,7 +600,7 @@ $$
 $$
 
 $$
-\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI}_{\text{target}} \quad (\text{ROI约束})
+\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI}}_{\text{{\text{target}}} \quad (\text{ROI约束})
 $$
 
 拉格朗日：$\mathcal{L} = \sum_i (v_i - \lambda_1 c_i - \lambda_2(c_i \cdot \text{ROI} - v_i)) w_i(b_i) + \lambda_1 B$
@@ -1102,7 +1102,7 @@ def safe_bid(raw_bid, context):
 广告系统中的出价通常采用如下统一公式：
 
 $$
-\text{bid}_{\text{final}} = k \times pCVR \times \text{CPA}_{\text{target}}
+\text{bid}}_{\text{{\text{final}}} = k \times pCVR \times \text{CPA}}_{\text{{\text{target}}}
 $$
 
 其中：
@@ -1186,4 +1186,4 @@ bid_final = value × shading_factor × pacing_multiplier
 
 15. **TD3**: Fujimoto et al. "Addressing Function Approximation Error in Actor-Critic Methods." *ICML*, 2018.
 
-> 📝 面试考点见：[ads_qa_extracted.md](../../interview/ads_qa_extracted.md)
+> 📝 面试考点见：[ads_qa_extracted.md [BROKEN]](../../interview/ads_qa_extracted.md)

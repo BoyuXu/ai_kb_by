@@ -12,7 +12,9 @@
 2. **迭代检索-生成循环**：多轮迭代逐步优化检索结果与生成质量
 3. **置信度感知检索**：根据LLM输出不确定性动态决定是否需要额外检索
 
-$$\text{Score}_{dynamic}(d) = \alpha \cdot \text{Rel}(q, d) + (1-\alpha) \cdot \text{Feedback}(d, y_{partial})$$
+$$
+\text{Score}}_{\text{{dynamic}}(d) = \alpha \cdot \text{Rel}(q, d) + (1-\alpha) \cdot \text{Feedback}(d, y_{partial})
+$$
 
 ## 实验结论
 

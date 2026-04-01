@@ -2,8 +2,8 @@
 
 > 📚 参考文献
 > - [HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou](../papers/HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou.md) — HoME: 层级化 MoE MTL，解决快手 Expert Collapse/Degradation/Underfitting
-> - [Meta_Lattice_model_space_redesign_industry_scale_ads](../../ads/papers/Meta_Lattice_model_space_redesign_industry_scale_ads.md) — Meta Lattice: 统一 MDMO 模型，多产品×多目标 →1个模型，收入 +10%，算力 -20%
-> - [DHEN_deep_hierarchical_ensemble_network_CTR_prediction](../../ads/papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md) — DHEN: 深层异构专家集成，NE -0.27%，Facebook 工业验证
+> - [Meta_Lattice_model_space_redesign_industry_scale_ads [BROKEN]](../../ads/papers/Meta_Lattice_model_space_redesign_industry_scale_ads.md) — Meta Lattice: 统一 MDMO 模型，多产品×多目标 →1个模型，收入 +10%，算力 -20%
+> - [DHEN_deep_hierarchical_ensemble_network_CTR_prediction [BROKEN]](../../ads/papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md) — DHEN: 深层异构专家集成，NE -0.27%，Facebook 工业验证
 
 > 知识卡片 | 创建：2026-03-29 | 领域：rec-sys / ads | 类型：综合分析
 
@@ -13,31 +13,41 @@
 
 ### 1. MMoE 基础门控机制
 
-$$\text{MMoE}(x) = \sum_{k=1}^{K} g_k(x) \cdot E_k(x), \quad g_k(x) = \text{softmax}(W_k x)$$
+$$
+\text{MMoE}(x) = \sum_{k=1}^{K} g_k(x) \cdot E_k(x), \quad g_k(x) = \text{softmax}(W_k x)
+$$
 
 - 每个任务有独立 Gate，动态路由到 K 个共享专家
 
 ### 2. DHEN 层次集成聚合
 
-$$h_l = \text{Aggregate}\left(\text{Module}_1(h_{l-1}), \text{Module}_2(h_{l-1}), ..., \text{Module}_K(h_{l-1})\right)$$
+$$
+h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), \text{Module}}_{\text{2(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+$$
 
 - 同层内并行多个异构交互模块（FM/DCN/CIN），层输出作为下层输入
 
 ### 3. Meta Lattice 联合训练目标
 
-$$\mathcal{L}_{Lattice} = \mathcal{L}_{task} + \lambda_{distill} \mathcal{L}_{KD} + \lambda_{domain} \mathcal{L}_{domain\_adapt}$$
+$$
+\mathcal{L}_{Lattice} = \mathcal{L}_{task} + \lambda_{distill} \mathcal{L}_{KD} + \lambda_{domain} \mathcal{L}_{domain\_adapt}
+$$
 
 - 任务损失 + 知识蒸馏 + 域自适应，三损失联合优化
 
 ### 4. MoE 稀疏 Top-K 路由（RankMixer）
 
-$$\text{MoE}(x) = \sum_{k \in \text{TopK}(g(x))} g_k(x) \cdot E_k(x)$$
+$$
+\text{MoE}(x) = \sum_{k \in \text{TopK}(g(x))} g_k(x) \cdot E_k(x)
+$$
 
 - 每个 token 只路由到 Top-K（通常 K=2）专家，实现参数 100× 扩展但推理 FLOPs 基本不变
 
 ### 5. 辅助均衡损失（防 Expert Collapse）
 
-$$\mathcal{L}_{aux} = \alpha \cdot N \sum_{i=1}^{N} f_i \cdot P_i$$
+$$
+\mathcal{L}_{aux} = \alpha \cdot N \sum_{i=1}^{N} f_i \cdot P_i
+$$
 
 - $f_i$ = 样本被路由到专家 $i$ 的比例，$P_i$ = Gate 概率均值；乘积鼓励均匀路由
 

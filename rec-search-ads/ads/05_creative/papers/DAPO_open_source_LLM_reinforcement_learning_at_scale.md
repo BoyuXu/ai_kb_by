@@ -18,7 +18,9 @@
 
 传统 PPO 使用统一裁剪系数 ε，DAPO 解耦正负样本的裁剪策略：
 
-$$\mathcal{L}_{DAPO} = \mathbb{E}\left[\min\left(r_t \hat{A}_t, \text{clip}(r_t, 1-\varepsilon_{low}, 1+\varepsilon_{high})\hat{A}_t\right)\right]$$
+$$
+\mathcal{L}_{DAPO} = \mathbb{E}\left[\min\left(r_t \hat{A}_t, \text{clip}(r_t, 1-\varepsilon_{low}, 1+\varepsilon_{high})\hat{A}_t\right)\right]
+$$
 
 - 正优势样本（$\hat{A}_t > 0$）：使用较大 $\varepsilon_{high}$，允许更大幅度的策略改进
 - 负优势样本（$\hat{A}_t < 0$）：使用较小 $\varepsilon_{low}$，防止策略过度退化
@@ -32,7 +34,10 @@ $$\mathcal{L}_{DAPO} = \mathbb{E}\left[\min\left(r_t \hat{A}_t, \text{clip}(r_t,
 **③ Token 级策略梯度（Token-Level Policy Gradient）**
 
 替代传统的序列级策略梯度：
-$$\mathcal{L}_{token} = -\frac{1}{\sum_i |y_i|} \sum_{i,t} \hat{A}_i \log \pi_\theta(y_{i,t}|x_i, y_{i,<t})$$
+
+$$
+\mathcal{L}_{token} = -\frac{1}{\sum_i |y_i|} \sum_{i,t} \hat{A}_i \log \pi_\theta(y_{i,t}|x_i, y_{i,<t})
+$$
 
 **④ 过长惩罚（Overlong Penalty）**
 

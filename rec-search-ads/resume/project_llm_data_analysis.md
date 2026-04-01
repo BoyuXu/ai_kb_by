@@ -365,7 +365,7 @@ $$
 维度 $d$（如渠道、创意）的贡献度：
 
 $$
-\text{contribution}(d) = \frac{\text{cost}_d}{\text{total}_{\text{cost}}} \times (ROI_d^T - ROI_d^{T-1})
+\text{contribution}(d) = \frac{\text{cost}}_{\text{d}}{\text{total}}_{\text{{\text{cost}}}} \times (ROI_d^T - ROI_d^{T-1})
 $$
 
 ```python

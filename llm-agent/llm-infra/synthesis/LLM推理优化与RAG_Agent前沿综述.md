@@ -21,7 +21,9 @@
 
 ### 1. GRPO 优化目标（DeepSeek-R1）
 
-$$\mathcal{L}_{GRPO}(\theta) = -\mathbb{E}_{(q,a)\sim\mathcal{D}} \frac{1}{G} \sum_{i=1}^{G} \left[ \min\left(\frac{\pi_\theta(o_i|q)}{\pi_{\theta_{old}}(o_i|q)} A_i, \text{clip}\left(\cdot, 1-\epsilon, 1+\epsilon\right) A_i \right) - \beta D_{KL}(\pi_\theta \| \pi_{ref}) \right]$$
+$$
+\mathcal{L}_{GRPO}(\theta) = -\mathbb{E}_{(q,a)\sim\mathcal{D}} \frac{1}{G} \sum_{i=1}^{G} \left[ \min\left(\frac{\pi_\theta(o_i|q)}{\pi_{\theta_{old}}(o_i|q)} A_i, \text{clip}\left(\cdot, 1-\epsilon, 1+\epsilon\right) A_i \right) - \beta D_{KL}(\pi_\theta \| \pi_{ref}) \right]
+$$
 
 组内归一化优势：$A_i = \frac{r_i - \text{mean}(\mathbf{r})}{\text{std}(\mathbf{r})}$
 
@@ -31,11 +33,13 @@ $$\mathcal{L}_{GRPO}(\theta) = -\mathbb{E}_{(q,a)\sim\mathcal{D}} \frac{1}{G} \s
 
 ### 2. Double 推测解码加速上限突破
 
-传统 SD 上限：$\text{Speedup}_{SD} \leq \frac{v_{target}}{v_{draft}}$
+传统 SD 上限：$\text{Speedup}}_{\text{{SD}} \leq \frac{v_{target}}{v_{draft}}$
 
 Double 突破上限：
 
-$$\text{Speedup}_{Double} > \frac{v_{target}}{v_{draft}} \cdot (1 + \alpha \cdot r)$$
+$$
+\text{Speedup}}_{\text{{Double}} > \frac{v_{target}}{v_{draft}} \cdot (1 + \alpha \cdot r)
+$$
 
 其中 $\alpha \in [0,1]$ 为检索命中率，$r$ 为每次检索平均 token 收益。
 
@@ -47,15 +51,21 @@ $$\text{Speedup}_{Double} > \frac{v_{target}}{v_{draft}} \cdot (1 + \alpha \cdot
 
 最优量化：
 
-$$W_{quant}^{(j)} = \arg\min_{c \in \mathcal{C}} \|w_j - c\|_2^2$$
+$$
+W_{quant}^{(j)} = \arg\min_{c \in \mathcal{C}} \|w_j - c\|_2^2
+$$
 
 知识蒸馏目标：
 
-$$\mathcal{L}_{LCD} = \mathcal{L}_{task} + \lambda \cdot D_{KL}(P_{student} \| P_{teacher})$$
+$$
+\mathcal{L}_{LCD} = \mathcal{L}_{task} + \lambda \cdot D_{KL}(P_{student} \| P_{teacher})
+$$
 
 激活平滑（消除异常值）：
 
-$$\hat{X} = X \cdot \text{diag}(\mathbf{s})^{-1}, \quad \hat{W} = W \cdot \text{diag}(\mathbf{s})$$
+$$
+\hat{X} = X \cdot \text{diag}(\mathbf{s})^{-1}, \quad \hat{W} = W \cdot \text{diag}(\mathbf{s})
+$$
 
 **实验结果**：2-3 bit 下超越所有现有方法，推理加速最高 **6.2×**。
 
@@ -65,7 +75,9 @@ $$\hat{X} = X \cdot \text{diag}(\mathbf{s})^{-1}, \quad \hat{W} = W \cdot \text{
 
 基于模型不确定性的检索决策：
 
-$$\text{Retrieve}(t) = \mathbb{1}\left[H\left(P_\theta(x_t | x_{<t})\right) > \tau\right]$$
+$$
+\text{Retrieve}(t) = \mathbb{1}\left[H\left(P_\theta(x_t | x_{<t})\right) > \tau\right]
+$$
 
 其中 $H(\cdot)$ 为 token 输出的信息熵，$\tau$ 为自适应阈值。
 
@@ -75,7 +87,9 @@ $$\text{Retrieve}(t) = \mathbb{1}\left[H\left(P_\theta(x_t | x_{<t})\right) > \t
 
 设预训练知识完整性为 $K \in [0,1]$，后训练示范质量为 $Q \in [0,1]$，则推理能力激发所需数据量 $N^*$：
 
-$$N^* \propto \frac{1}{K \cdot Q}$$
+$$
+N^* \propto \frac{1}{K \cdot Q}
+$$
 
 **推论**：$K$ 接近 1（预训练充分）且 $Q$ 高（精选示范）时，$N^*$ 可极小（如 817 条）。
 

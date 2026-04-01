@@ -30,6 +30,11 @@
   - A: $\theta_k = \theta_1 + \sum_{i=2}^{k} \text{softplus}(\delta_i)$，确保 $\theta_k$ 单调递增
 
 ## 数学公式
-$$P(Y > k | x) = \sigma(f_\theta(x) - b_k), \quad b_1 < b_2 < ... < b_K$$
 
-$$\mathcal{L} = -\sum_{t=1}^{T} \sum_i \log P(y_i^{(t)} | x_i)$$
+$$
+P(Y > k | x) = \sigma(f_\theta(x) - b_k), \quad b_1 < b_2 < ... < b_K
+$$
+
+$$
+\mathcal{L} = -\sum_{t=1}^{T} \sum_i \log P(y_i^{(t)} | x_i)
+$$

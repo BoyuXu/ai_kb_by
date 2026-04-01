@@ -10,7 +10,9 @@
 
 1. **增强型MTP头**：LLM最后一层后接多个并行预测头
 
-$$P(t_{i+k} | t_{\leq i}) = \text{Head}_k(h_i + \text{PE}(k))$$
+$$
+P(t_{i+k} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k))
+$$
 
 2. **位置编码增强**：每个预测头引入相对位置偏移编码
 3. **渐进式训练**：先训练单token预测，再逐步增加头数

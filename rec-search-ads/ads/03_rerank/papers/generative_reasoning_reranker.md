@@ -34,7 +34,9 @@
 **② 条件可验证奖励（Conditional Verifiable Rewards）**
 发现 LLM 倾向于直接输出原始排序（保守策略）来获得高奖励，通过条件奖励设计惩罚此行为：
 
-$$r = r_{ranking} \cdot \mathbb{1}[\text{reranking\_happened}] + r_{baseline} \cdot \mathbb{1}[\text{not\_reranked}]$$
+$$
+r = r_{ranking} \cdot \mathbb{1}[\text{reranking}}_{\text{{\text{happened}}}] + r_{baseline} \cdot \mathbb{1}[\text{not}}_{\text{{\text{reranked}}}]
+$$
 
 **③ DAPO 算法优化**
 解耦裁剪（Decoupled Clip）和动态采样（Dynamic Sampling），相比标准 PPO 更稳定。

@@ -191,12 +191,12 @@ index_params = {
 **CTR 加权检索策略：**
 
 $$
-\text{score}_{final} = \alpha \cdot \text{sim}_{semantic} + (1-\alpha) \cdot \text{ctr}_{norm}
+\text{score}}_{\text{{final}} = \alpha \cdot \text{sim}}_{\text{{semantic}} + (1-\alpha) \cdot \text{ctr}}_{\text{{norm}}
 $$
 
 其中：
-- $\text{sim}_{semantic}$：当前商品与历史创意的语义相似度（余弦相似度）
-- $\text{ctr}_{norm}$：历史创意的 CTR 归一化值（按类目内排名归一化到 0~1）
+- $\text{sim}}_{\text{{semantic}}$：当前商品与历史创意的语义相似度（余弦相似度）
+- $\text{ctr}}_{\text{{norm}}$：历史创意的 CTR 归一化值（按类目内排名归一化到 0~1）
 - $\alpha = 0.6$：语义相似度权重更高，避免过度依赖历史偏见
 
 ```python
@@ -244,7 +244,7 @@ def retrieve_reference_creatives(query_embedding, category_id, top_k=10):
 **CTR 预估用于创意评分：**
 
 $$
-\text{CTR}_{pred} = \text{Model}(\mathbf{e}_{user}, \mathbf{e}_{creative}, \mathbf{x}_{context})
+\text{CTR}}_{\text{{pred}} = \text{Model}(\mathbf{e}_{user}, \mathbf{e}_{creative}, \mathbf{x}_{context})
 $$
 
 其中 $\mathbf{e}_{creative}$ 是生成创意的 embedding，通过 CTR 模型的文本塔提取

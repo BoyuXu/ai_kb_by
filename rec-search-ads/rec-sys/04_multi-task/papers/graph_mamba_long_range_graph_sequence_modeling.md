@@ -19,15 +19,23 @@ Graph-Mamba首次将Mamba的Selective State Space模型引入图学习：
 ### 1. Graph-centric Node Prioritization（图中心节点优先化）
 解决图→序列转换中的节点排序问题：
 
-$$\text{priority}(v) = f(\text{degree}(v), \text{centrality}(v), \text{h}_v)$$
+$$
+\text{priority}(v) = f(\text{degree}(v), \text{centrality}(v), \text{h}}_{\text{v)
+$$
 
 - 不是随机排序节点，而是基于**图拓扑重要性**（度、介数中心性）和**节点特征**联合排序
 - 重要节点排在前面，让Mamba的序列建模关注到图结构的关键节点
 
 ### 2. Input-dependent Node Selection（输入依赖节点选择）
 Mamba的核心：**Selective SSM**
-$$h_t = \bar{A}_t h_{t-1} + \bar{B}_t x_t$$
-$$y_t = C_t h_t$$
+
+$$
+h}}_{\text{t = \bar{A}}_t h_{t-1} + \bar{B}_t x_t
+$$
+
+$$
+y_t = C_t h_t
+$$
 
 其中 $\bar{A}_t, \bar{B}_t, C_t$ 是**输入依赖**的（与Transformer的data-dependent attention类似），使模型能根据当前输入决定保留多少历史状态：
 - 关键节点：$\bar{A}_t$ 接近1（保留历史状态，传播长距离信息）

@@ -16,7 +16,10 @@
 Align³GR提出**三级统一对齐框架**（Token / Behavior / Preference）：
 
 ### 1. Token-level 对齐：双重Tokenization
-$$\mathbf{e}_{item} = \alpha \cdot \mathbf{e}_{semantic} + (1-\alpha) \cdot \mathbf{e}_{collab}$$
+
+$$
+\mathbf{e}_{item} = \alpha \cdot \mathbf{e}_{semantic} + (1-\alpha) \cdot \mathbf{e}_{collab}
+$$
 
 - **语义token**：用item文本描述经LLM编码得到的语义embedding
 - **协同token**：基于用户交互矩阵的协同过滤embedding
@@ -28,7 +31,10 @@ $$\mathbf{e}_{item} = \alpha \cdot \mathbf{e}_{semantic} + (1-\alpha) \cdot \mat
 - 双向信息流确保行为模式与语言模式互相增强
 
 ### 3. Preference-level 对齐：渐进式DPO策略
-$$\mathcal{L}_{DPO} = -\mathbb{E}\left[\log \sigma\left(\beta \log\frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log\frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]$$
+
+$$
+\mathcal{L}_{DPO} = -\mathbb{E}\left[\log \sigma\left(\beta \log\frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log\frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]
+$$
 
 - **SP-DPO（Self-Play DPO）**：模型自我博弈生成正负样本对，不依赖人工标注
 - **RF-DPO（Real-world Feedback DPO）**：用真实用户反馈（点击/跳过）构造偏好对，动态适配用户偏好变化

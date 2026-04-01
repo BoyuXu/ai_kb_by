@@ -19,6 +19,7 @@
 
 | 日期 | 论文数 | 亮点 | 笔记链接 |
 |------|--------|------|---------|
+| 2026-04-01 | 5 精选 | MuSEAgent 原子决策经验库 (★★★★★), AdaptToken 熵驱动 token 选择, Marco DeepResearch 验证驱动轨迹 | [daily/2026-04-01.md](daily/2026-04-01.md) |
 | 2026-03-31 | 5 精选 | HyDRA Hybrid Memory (HF🔥133), Trace2Skill 轨迹→技能蒸馏, Dual-Memory 架构, MCP代码记忆 | [daily/2026-03-31.md](daily/2026-03-31.md) |
 | 2026-03-30 | 5 精选 | MemoryCD 跨域终身记忆benchmark, MemMA Memory Cycle多Agent, Dual-Memory 架构模式 | [daily/2026-03-30.md](daily/2026-03-30.md) |
 | 2026-03-29 | 10 | MSA 100M-token memory, All-Mem 终身记忆, MemCollab 跨 Agent 协作 | [daily/2026-03-29.md](daily/2026-03-29.md) |
@@ -42,4 +43,4 @@ agent-context-management/
 - **Memory 检索**：外部向量 DB 检索 memory → 与召回系统机制相通
 
 ---
-*最后更新：2026-03-31 | MelonEggLearn*
+*最后更新：2026-04-01 | MelonEggLearn*

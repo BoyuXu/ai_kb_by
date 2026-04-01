@@ -66,7 +66,13 @@ PyLate = Sentence Transformers (ST) 的 multi-vector 原生扩展：
 > A：Single-Vector：query/document 各编码为单个向量，信息压缩有损，召回快但精度有限。Cross-Encoder：query+document 拼接后一起过模型（early interaction），精度最高但无法预计算 document，无法大规模用。Late Interaction（ColBERT）：分别编码但保留每个 token 向量，通过 MaxSim 做 token-level 匹配 — 兼顾了 dense 的预计算能力和 cross-encoder 的细粒度匹配，是 sweet spot。
 
 **Q2：MaxSim 的数学定义和计算复杂度？工程如何优化？**
-> A：$$S(Q,D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} (q_i \cdot d_j)$$。单对复杂度 $O(|Q| \cdot |D|)$，全库 exhaustive 不可接受。优化：1) PLAID 索引（centroid-based 聚类 + bitmap 过滤）；2) HNSW 候选召回 + MaxSim 重排；3) Post-hoc Pooling（减少 $|D|$ 个向量）。
+> A：
+
+$$
+S(Q,D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} (q_i \cdot d_j)
+$$
+
+。单对复杂度 $O(|Q| \cdot |D|)$，全库 exhaustive 不可接受。优化：1) PLAID 索引（centroid-based 聚类 + bitmap 过滤）；2) HNSW 候选召回 + MaxSim 重排；3) Post-hoc Pooling（减少 $|D|$ 个向量）。
 
 **Q3：为什么标准 gradient accumulation 在对比学习中不够用？PyLate 怎么解决的？**
 > A：对比学习 loss 依赖 batch 内所有样本的 in-batch negatives，标准 gradient accumulation 每次 forward 仍只看当前小 batch，negatives 数量不增加，不等价于大 batch。PyLate 用 GradCache：先缓存所有样本 embedding，在完整 embedding 集上计算 loss 和梯度，再反向传播，真正等价于大 batch，代价是训练速度稍慢。

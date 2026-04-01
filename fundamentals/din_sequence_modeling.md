@@ -117,7 +117,7 @@ class DINAttention(nn.Module):
 **GAUC（Group AUC）**：DIN 论文提出用 GAUC 替代全局 AUC 评估 CTR 模型：
 
 $$
-\text{GAUC} = \frac{\sum_u \text{impression}_u \times \text{AUC}_u}{\sum_u \text{impression}_u}
+\text{GAUC} = \frac{\sum_u \text{impression}}_{\text{u \times \text{AUC}}_u}{\sum_u \text{impression}}_{\text{u}}
 $$
 
 动机：全局 AUC 会被高活跃用户主导（他们的样本多），GAUC 对每个用户独立计算 AUC 后加权平均，更能反映对每个用户的个性化排序能力。
@@ -207,7 +207,7 @@ $$
 | 方法 | 在线时间复杂度 | 适用序列长度 | 召回质量 |
 |------|--------------|------------|---------|
 | DIN（全序列）| $O(L \cdot d)$ | < 500 | 最好 |
-| SIM Hard Search | $O(\text{df}_{cat} + K \cdot d)$ | 10000+ | 好 |
+| SIM Hard Search | $O(\text{df}}_{\text{{cat}} + K \cdot d)$ | 10000+ | 好 |
 | SIM Soft Search | $O(\log L + K \cdot d)$ | 10000+ | 更好 |
 
 **SIM Soft Search 的索引维护**：用户的历史行为 embedding 需要实时更新索引（用户每次交互后 append），工业实现通常用 FAISS 的动态索引支持。

@@ -1,0 +1,162 @@
+[
+  {
+    "file1": "llm-agent/llm-infra/papers/LIMO_less_is_more_for_reasoning.md",
+    "file2": "llm-agent/llm-infra/papers/training/limo_less_is_more_for_reasoning.md",
+    "similarity": 1.0,
+    "title1": "LIMO: Less is More for Reasoning",
+    "title2": "LIMO: Less is More for Reasoning",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/LIMO_less_is_more_for_reasoning.md",
+    "file2": "rec-search-ads/search/03_rerank/papers/limrank_less_is_more_reasoning_reranking.md",
+    "similarity": 0.6666666666666666,
+    "title1": "LIMO: Less is More for Reasoning",
+    "title2": "LimRank: Less is More for Reasoning-Intensive Information Reranking",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/LIMO_less_is_more_for_reasoning.md",
+    "file2": "rec-search-ads/search/papers/limrank_reasoning_intensive_reranking.md",
+    "similarity": 0.6666666666666666,
+    "title1": "LIMO: Less is More for Reasoning",
+    "title2": "LimRank: Less is More for Reasoning-Intensive Information Reranking",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/lcd_extreme_low_bit_clustering_llm.md",
+    "file2": "llm-agent/llm-infra/papers/inference/lcd_low_bit_clustering_llm_quantization.md",
+    "similarity": 0.6666666666666666,
+    "title1": "LCD: Extreme Low-Bit Clustering for LLMs via Knowledge Distillation",
+    "title2": "LCD: Advancing Extreme Low-Bit Clustering for LLMs via Knowledge Distillation",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260322_flashattention3_next_gen_accelerators.md",
+    "similarity": 1.0,
+    "title1": "FlashAttention-3: Fast and Accurate Attention on H100 GPUs",
+    "title2": "FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_flashattention-3-fast-and-accurate-attention-for-llms-on-next-gen-accelerators.md",
+    "similarity": 1.0,
+    "title1": "FlashAttention-3: Fast and Accurate Attention on H100 GPUs",
+    "title2": "FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_flashattention-3-fast-accurate-attention-next-gen-accelerators.md",
+    "similarity": 1.0,
+    "title1": "FlashAttention-3: Fast and Accurate Attention on H100 GPUs",
+    "title2": "FlashAttention-3: Fast and Accurate Attention for LLMs on Next-Gen Accelerators",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/training/qwen3_technical_report.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260323_deepseek-v3_technical_report.md",
+    "similarity": 0.5,
+    "title1": "Qwen3 Technical Report",
+    "title2": "DeepSeek-V3 Technical Report",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/training/qwen3_technical_report.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260320_DeepSeek-V3-Technical-Report.md",
+    "similarity": 0.5,
+    "title1": "Qwen3 Technical Report",
+    "title2": "DeepSeek-V3 Technical Report",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/training/qwen3_technical_report.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260320_Qwen3-Technical-Report.md",
+    "similarity": 1.0,
+    "title1": "Qwen3 Technical Report",
+    "title2": "Qwen3 Technical Report",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/training/limo_less_is_more_for_reasoning.md",
+    "file2": "rec-search-ads/search/03_rerank/papers/limrank_less_is_more_reasoning_reranking.md",
+    "similarity": 0.6666666666666666,
+    "title1": "LIMO: Less is More for Reasoning",
+    "title2": "LimRank: Less is More for Reasoning-Intensive Information Reranking",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/training/limo_less_is_more_for_reasoning.md",
+    "file2": "rec-search-ads/search/papers/limrank_reasoning_intensive_reranking.md",
+    "similarity": 0.6666666666666666,
+    "title1": "LIMO: Less is More for Reasoning",
+    "title2": "LimRank: Less is More for Reasoning-Intensive Information Reranking",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260322_speculative_decoding_draft_alignment.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_efficiently-aligning-draft-models-via-parameter-and-data-efficient-adaptation-for-speculative-decoding.md",
+    "similarity": 0.6666666666666666,
+    "title1": "Efficiently Aligning Draft Models for Speculative Decoding",
+    "title2": "Efficiently Aligning Draft Models via Parameter- and Data-Efficient Adaptation for Speculative Decoding",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260322_speculative_decoding_draft_alignment.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260323_efficiently_aligning_draft_models_via_parameter-_an.md",
+    "similarity": 0.6666666666666666,
+    "title1": "Efficiently Aligning Draft Models for Speculative Decoding",
+    "title2": "Efficiently Aligning Draft Models via Parameter- and Data-Efficient Adaptation for Speculative Decoding",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260322_speculative_decoding_draft_alignment.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_efficiently-aligning-draft-models-speculative-decoding-peft.md",
+    "similarity": 0.6666666666666666,
+    "title1": "Efficiently Aligning Draft Models for Speculative Decoding",
+    "title2": "Efficiently Aligning Draft Models via Parameter- and Data-Efficient Adaptation for Speculative Decoding",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260321_llmorbit-a-circular-taxonomy-of-large-language-models-from-scaling-walls-to-agentic-ai-systems.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260323_llmorbit_a_circular_taxonomy_of_large_language_mode.md",
+    "similarity": 1.0,
+    "title1": "LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems",
+    "title2": "LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260321_llmorbit-a-circular-taxonomy-of-large-language-models-from-scaling-walls-to-agentic-ai-systems.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260322_llmorbit_taxonomy_llms.md",
+    "similarity": 1.0,
+    "title1": "LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems",
+    "title2": "LLMOrbit: A Circular Taxonomy of LLMs from Scaling Walls to Agentic AI Systems",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260321_llmorbit-a-circular-taxonomy-of-large-language-models-from-scaling-walls-to-agentic-ai-systems.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_llmorbit-circular-taxonomy-llm-scaling-to-agentic-ai.md",
+    "similarity": 1.0,
+    "title1": "LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems",
+    "title2": "LLMOrbit: A Circular Taxonomy of Large Language Models from Scaling Walls to Agentic AI Systems",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260322_moe_llama_mixture_of_experts.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260323_moe-llama_mixture-of-experts_for_efficient_large_la.md",
+    "similarity": 0.6666666666666666,
+    "title1": "MoE-LLaMA: Mixture-of-Experts for Efficient LLM Serving",
+    "title2": "MoE-LLaMA: Mixture-of-Experts for Efficient Large Language Model Serving",
+    "action": "review"
+  },
+  {
+    "file1": "llm-agent/llm-infra/papers/daily/20260322_moe_llama_mixture_of_experts.md",
+    "file2": "llm-agent/llm-infra/papers/daily/20260321_moe-llama-mixture-of-experts-efficient-llm-serving.md",
+    "similarity": 0.6666666666666666,
+    "title1": "MoE-LLaMA: Mixture-of-Experts for Efficient LLM Serving",
+    "title2": "MoE-LLaMA: Mixture-of-Experts for Efficient Large Language Model Serving",
+    "action": "review"
+  }
+]

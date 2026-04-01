@@ -22,10 +22,10 @@
 现实中，广告位置不完全按出价排序，而是按**有效出价（eCPM）**：
 
 $$
-\text{eCPM}_i = \text{CTR}_i \times b_i
+\text{eCPM}}_{\text{i = \text{CTR}}_i \times b_i
 $$
 
-- $\text{CTR}_i$：平台预估的广告 $i$ 的点击率
+- $\text{CTR}}_{\text{i$：平台预估的广告 $i$ 的点击率
 - 高质量广告（高 CTR）以相对低价也能获得好位置
 - 平台通过质量分激励广告主提升广告质量，增加整体收益
 
@@ -42,7 +42,7 @@ $$
 每个广告主支付**使其恰好能保住当前位置所需的最低出价**：
 
 $$
-p_i = b_{i+1} \cdot \frac{\text{CTR}_{i+1}}{\text{CTR}_i}
+p}}_{\text{i = b}}_{\text{{i+1}} \cdot \frac{\text{CTR}}_{\text{{i+1}}}{\text{CTR}}_{\text{i}}
 $$
 
 即：广告主 $i$ 支付的每次点击费用 = 广告主 $i+1$（排名紧接其后者）的出价 × CTR 比值。
@@ -131,13 +131,13 @@ $$
 oCPC 让广告主出每次转化的目标成本（CPA_target），平台代为估算合适的点击出价：
 
 $$
-\text{CPC}_{\text{bid}} = \text{CPA}_{\text{target}} \times \hat{p}(\text{CVR})
+\text{CPC}}_{\text{{\text{bid}}} = \text{CPA}}_{\text{{\text{target}}} \times \hat{p}(\text{CVR})
 $$
 
 进一步展开到每次展示的 eCPM：
 
 $$
-\text{eCPM} = \text{CPC}_{\text{bid}} \times \hat{p}(\text{CTR}) = \text{CPA}_{\text{target}} \times \hat{p}(\text{CVR}) \times \hat{p}(\text{CTR})
+\text{eCPM} = \text{CPC}}_{\text{{\text{bid}}} \times \hat{p}(\text{CTR}) = \text{CPA}}_{\text{{\text{target}}} \times \hat{p}(\text{CVR}) \times \hat{p}(\text{CTR})
 $$
 
 **系统架构**：
@@ -220,7 +220,7 @@ def floor_price_strategy(winning_bid_distribution, alpha=0.8):
 
 ### Q1：GSP 为什么不是激励相容的？举例说明
 
-设 2 个位置，$\alpha_1 = 0.1$，$\alpha_2 = 0.05$，广告主 A 真实价值 $v_A = 10$，对手 B 出价 $b_B = 8$，对手 C 出价 $b_C = 3$。若 A 诚实出价 10，获得位置 1，支付 $b_B \times \text{CTR}_B / \text{CTR}_A = 8$（假设 CTR 相等），净利润 $= (10-8) \times 0.1 = 0.2$。若 A 出价 4（小于 B 的 8），A 获得位置 2，支付 3，净利润 $= (10-3) \times 0.05 = 0.35 > 0.2$。所以 A 通过降低出价反而获得更高利润，诚实出价不是最优策略。
+设 2 个位置，$\alpha_1 = 0.1$，$\alpha_2 = 0.05$，广告主 A 真实价值 $v_A = 10$，对手 B 出价 $b_B = 8$，对手 C 出价 $b_C = 3$。若 A 诚实出价 10，获得位置 1，支付 $b_B \times \text{CTR}}_{\text{B / \text{CTR}}_A = 8$（假设 CTR 相等），净利润 $= (10-8) \times 0.1 = 0.2$。若 A 出价 4（小于 B 的 8），A 获得位置 2，支付 3，净利润 $= (10-3) \times 0.05 = 0.35 > 0.2$。所以 A 通过降低出价反而获得更高利润，诚实出价不是最优策略。
 
 ### Q2：VCG 机制为什么在实际广告中应用较少？
 

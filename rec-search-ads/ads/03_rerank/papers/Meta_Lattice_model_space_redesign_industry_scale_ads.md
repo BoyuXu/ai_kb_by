@@ -30,7 +30,9 @@ Meta 广告推荐系统面临两大核心挑战：
 - 统一大模型 → 轻量级服务模型
 - 保留效果的同时大幅降低推理成本
 
-$$\mathcal{L}_{Lattice} = \mathcal{L}_{task} + \lambda_{distill} \mathcal{L}_{KD} + \lambda_{domain} \mathcal{L}_{domain\_adapt}$$
+$$
+\mathcal{L}_{Lattice} = \mathcal{L}_{task} + \lambda_{distill} \mathcal{L}_{KD} + \lambda_{domain} \mathcal{L}_{domain\_adapt}
+$$
 
 **⑤ 系统优化（System Optimizations）**
 - 统一模型减少存储冗余（不再维护 N×M 套独立参数）

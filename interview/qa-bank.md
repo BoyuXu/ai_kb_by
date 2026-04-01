@@ -417,7 +417,11 @@ shapley = {k: v/100000 for k, v in shapley.items()}
 原始query → 同义词/扩展词 → 扩展后query → Encoder → embedding
 ```
 O1 Embedder是"先内部推理，再编码"：
-$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+
+$$
+e_q = \text{Encoder}(\text{Think}(q) \oplus q)
+$$
+
 `Think(q)` 是内部生成的推理文本（识别隐含意图、消歧义、关联概念），`⊕` 是拼接，整体输入Encoder后得到更丰富的embedding。
 
 **关键区别：**
@@ -443,7 +447,10 @@ $$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
 **原理：**
 
 DCN-V2的Cross层：
-$$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
+
+$$
+x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l
+$$
 
 当特征维度 $d=10000$ 时，$W_l \in \mathbb{R}^{d \times d}$ 有 $10^8$ 参数，不可承受。
 
@@ -483,7 +490,11 @@ $$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
 直接对齐业务目标，训练快，线上延迟低（<5ms）。
 
 **生成式（DGenCTR，离散扩散）：**
-$$p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)$$
+
+$$
+p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)
+$$
+
 将所有特征统一token化，用离散扩散模型重建特征。点击信号作为条件 $c$，通过建模"点击时的特征分布"来推断CTR。
 
 **核心差异总结：**
@@ -536,10 +547,17 @@ $$p_\theta(x_0 | x_t, c) = \prod_{i} p_\theta(x_0^{(i)} | x_t, c)$$
 **核心公式：**
 
 GBS生成出价分布（混合高斯）：
-$$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))$$
+
+$$
+p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))
+$$
 
 FPA最优出价（Bid Shading）：
-$$b^* = \arg\max_b \left[ v \cdot P(\text{win}|b) - b \cdot P(\text{win}|b) \right]$$
+
+$$
+b^* = \arg\max_b \left[ v \cdot P(\text{win}|b) - b \cdot P(\text{win}|b) \right]
+$$
+
 其中 $v$ 是广告主的真实价值（eCPM），$P(\text{win}|b)$ 由Bid2X预测。
 
 **关键工程设计：**

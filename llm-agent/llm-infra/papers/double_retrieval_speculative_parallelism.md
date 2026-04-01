@@ -11,7 +11,9 @@
 1. **双重检索投机**：同时使用小模型预测和检索缓存两个draft源
 2. **并行验证**：两个draft源候选token并行提交target验证
 
-$$\text{Accept}(t) = \min(1, \frac{P_{target}(t)}{\max(P_{draft_1}(t), P_{draft_2}(t))})$$
+$$
+\text{Accept}(t) = \min(1, \frac{P_{target}(t)}{\max(P_{draft_1}(t), P_{draft_2}(t))})
+$$
 
 3. **检索缓存构建**：基于n-gram匹配和语义相似度从历史生成中检索
 4. **自适应源选择**：动态调整两个draft源权重

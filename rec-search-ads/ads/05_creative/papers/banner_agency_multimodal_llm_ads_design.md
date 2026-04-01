@@ -35,7 +35,9 @@ BannerAgency 提出多智能体（Multi-Agent）框架，由不同角色的 LLM 
 
 ### 工作流：顺序 + 反馈循环
 
-$$Brief \xrightarrow{Director} Strategy \xrightarrow{Copy+Visual} Draft \xrightarrow{QA} Revision \rightarrow Final$$
+$$
+Brief \xrightarrow{Director} Strategy \xrightarrow{Copy+Visual} Draft \xrightarrow{QA} Revision \rightarrow Final
+$$
 
 QA Reviewer 的反馈可以触发部分 Agent 的重新生成（而非全流程重做），提升效率。
 

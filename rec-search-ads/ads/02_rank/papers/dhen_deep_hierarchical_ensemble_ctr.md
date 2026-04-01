@@ -15,7 +15,9 @@
 
 DHEN 的核心：在每一层同时运行多个交叉模块，输出经过聚合后作为下一层的输入：
 
-$$h^{(l+1)} = Aggregate(\{f_k(h^{(l)})\}_{k=1}^{K})$$
+$$
+h^{(l+1)} = Aggregate(\{f_k(h^{(l)})\}_{k=1}^{K})
+$$
 
 每层的多个模块可以包括：
 - **Cross Network**（DCN 类的显式多项式交叉）
@@ -25,15 +27,25 @@ $$h^{(l+1)} = Aggregate(\{f_k(h^{(l)})\}_{k=1}^{K})$$
 
 ### 聚合方式
 
-$$Aggregate = LayerNorm\left(\sum_k \alpha_k \cdot f_k(h^{(l)})\right)$$
+$$
+Aggregate = LayerNorm\left(\sum_k \alpha_k \cdot f_k(h^{(l)})\right)
+$$
 
 权重 $\alpha_k$ 可学习（类似 MoE），或使用等权重求和。
 
 ### 深层层级结构
 
-$$\text{Layer 1: } [Cross, Bilinear, Attn, MLP] \rightarrow h^{(1)}$$
-$$\text{Layer 2: } [Cross, Bilinear, Attn, MLP] \rightarrow h^{(2)}$$
-$$\cdots$$
+$$
+\text{Layer 1: } [Cross, Bilinear, Attn, MLP] \rightarrow h^{(1)}
+$$
+
+$$
+\text{Layer 2: } [Cross, Bilinear, Attn, MLP] \rightarrow h^{(2)}
+$$
+
+$$
+\cdots
+$$
 
 每层的不同模块捕获不同类型的特征交叉，层与层之间形成层级的组合特征。
 

@@ -4925,7 +4925,6 @@ A:
 
 ---
 
-
 ---
 
 ## 📅 2026-03-27 面试实战题组 — 生成式推荐系统专题
@@ -4945,7 +4944,10 @@ A:
 Align3GR 三层对齐对应「物品粒度、列表粒度、用户粒度」三个层次的不同诉求。单纯优化 CTR 会导致推荐列表过于「点击诱导型」，损害长期用户体验。
 
 **原理：**
-$$\mathcal{L}_{total} = \mathcal{L}_{item} + \alpha \mathcal{L}_{list} + \beta \mathcal{L}_{user}$$
+
+$$
+\mathcal{L}_{total} = \mathcal{L}_{item} + \alpha \mathcal{L}_{list} + \beta \mathcal{L}_{user}
+$$
 
 - **Item-level**（$\mathcal{L}_{item}$）：物品相关性，对应 CTR/CVR 等即时信号
 - **List-level**（$\mathcal{L}_{list}$）：列表多样性，对应会话满意度（避免同质化轰炸）
@@ -4977,7 +4979,10 @@ $$\mathcal{L}_{total} = \mathcal{L}_{item} + \alpha \mathcal{L}_{list} + \beta \
 RQ-VAE 将物品内容特征编码为多层次离散码字序列。STE 解决了 Codebook 量化操作「梯度为零无法反传」的问题，使 Semantic ID 生成可以端到端训练。
 
 **RQ-VAE 量化过程：**
-$$c_l = \arg\min_{k} ||z_l - e_k||_2, \quad z_{l+1} = z_l - e_{c_l}$$
+
+$$
+c_l = \arg\min_{k} ||z_l - e_k||_2, \quad z_{l+1} = z_l - e_{c_l}
+$$
 
 输出 $L$ 层码字 $(c_1, c_2, ..., c_L)$ 即为 Semantic ID。
 

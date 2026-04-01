@@ -21,10 +21,15 @@
 
 ### 公式1：Align³GR 三级对齐损失
 
-$$\mathcal{L}_{total} = \mathcal{L}_{gen} + \alpha \mathcal{L}_{behavior} + \beta \mathcal{L}_{DPO}$$
+$$
+\mathcal{L}_{total} = \mathcal{L}_{gen} + \alpha \mathcal{L}_{behavior} + \beta \mathcal{L}_{DPO}
+$$
 
 其中DPO偏好对齐损失：
-$$\mathcal{L}_{DPO} = -\mathbb{E}\left[\log \sigma\left(\beta \log\frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log\frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]$$
+
+$$
+\mathcal{L}_{DPO} = -\mathbb{E}\left[\log \sigma\left(\beta \log\frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log\frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)}\right)\right]
+$$
 
 - $y_w$：用户偏好的推荐序列（chosen）
 - $y_l$：用户不偏好的推荐序列（rejected）
@@ -32,7 +37,9 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}\left[\log \sigma\left(\beta \log\frac{\pi_\the
 
 ### 公式2：推荐系统Scaling Law
 
-$$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty$$
+$$
+L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty
+$$
 
 其中推荐系统的关键参数：
 - $\alpha_{rec} \approx 0.07$（模型规模指数，远小于LLM的0.34）
@@ -40,30 +47,48 @@ $$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty$$
 - **结论**：推荐系统应优先投资数据，而非模型参数
 
 最优计算分配（给定总预算C）：
-$$N^* \propto C^{0.1}, \quad D^* \propto C^{0.9}$$
+
+$$
+N^* \propto C^{0.1}, \quad D^* \propto C^{0.9}
+$$
 
 ### 公式3：Pareto超体积（多目标优化指标）
 
-$$HV(\mathcal{F}, r) = \lambda\left(\bigcup_{f \in \mathcal{F}} [f_1, r_1] \times [f_2, r_2] \times \cdots \times [f_K, r_K]\right)$$
+$$
+HV(\mathcal{F}, r) = \lambda\left(\bigcup_{f \in \mathcal{F}} [f_1, r_1] \times [f_2, r_2] \times \cdots \times [f_K, r_K]\right)
+$$
 
 PreferRec在此基础上的Pareto偏好学习：
-$$\mathcal{L}(\theta, \mathbf{w}) = -\sum_{k=1}^{K} w_k \cdot r_k(\pi_\theta), \quad \mathbf{w} \sim \text{Dirichlet}(\alpha)$$
+
+$$
+\mathcal{L}(\theta, \mathbf{w}) = -\sum_{k=1}^{K} w_k \cdot r_k(\pi_\theta), \quad \mathbf{w} \sim \text{Dirichlet}(\alpha)
+$$
 
 ### 公式4：Graph-Mamba 选择性状态空间
 
-$$\dot{h}(t) = A(t)h(t) + B(t)x(t), \quad y(t) = C(t)h(t)$$
+$$
+\dot{h}(t) = A(t)h(t) + B(t)x(t), \quad y(t) = C(t)h(t)
+$$
 
 离散化后（Selective SSM核心）：
-$$h_t = \bar{A}(x_t) h_{t-1} + \bar{B}(x_t) x_t, \quad y_t = C(x_t) h_t$$
+
+$$
+h_t = \bar{A}(x_t) h_{t-1} + \bar{B}(x_t) x_t, \quad y_t = C(x_t) h_t
+$$
 
 关键：$\bar{A}, \bar{B}, C$ 均为输入 $x_t$ 的函数（数据依赖），复杂度O(N) vs Transformer的O(N²)
 
 ### 公式5：RLMRec 跨视角对齐（InfoNCE互信息最大化）
 
-$$\mathcal{L}_{align} = -\sum_{u \in \mathcal{U}} \log \frac{\exp(\text{sim}(\mathbf{s}_u^{LLM}, \mathbf{e}_u^{CF}) / \tau)}{\sum_{u' \in \mathcal{U}} \exp(\text{sim}(\mathbf{s}_u^{LLM}, \mathbf{e}_{u'}^{CF}) / \tau)}$$
+$$
+\mathcal{L}_{align} = -\sum_{u \in \mathcal{U}} \log \frac{\exp(\text{sim}(\mathbf{s}_u^{LLM}, \mathbf{e}_u^{CF}) / \tau)}{\sum_{u' \in \mathcal{U}} \exp(\text{sim}(\mathbf{s}_u^{LLM}, \mathbf{e}_{u'}^{CF}) / \tau)}
+$$
 
 理论保证：
-$$I(\mathbf{e}_{fused}; y) \geq I(\mathbf{e}^{CF}; y) + \Delta I_{LLM}$$
+
+$$
+I(\mathbf{e}_{fused}; y) \geq I(\mathbf{e}^{CF}; y) + \Delta I_{LLM}
+$$
 
 融合后的表征信息量严格不低于纯CF表征。
 

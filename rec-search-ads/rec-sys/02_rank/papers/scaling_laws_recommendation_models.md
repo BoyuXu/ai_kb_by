@@ -45,7 +45,10 @@
 - MoE 架构：相同推理 FLOPs 下，MoE 参数 10× 带来 2-4× 有效参数利用率
 
 **关键 Scaling 定律（近似）**：
-$$L \approx \frac{A}{N^{0.07}} \cdot \frac{B}{D^{0.04}}$$
+
+$$
+L \approx \frac{A}{N^{0.07}} \cdot \frac{B}{D^{0.04}}
+$$
 
 其中 N = 参数量，D = 训练数据量（推荐系统的指数通常小于 LLM，说明 scaling 效率更低）
 

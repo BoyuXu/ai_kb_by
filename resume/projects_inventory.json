@@ -1,18 +1,18 @@
 {
   "metadata": {
     "created_at": "2026-03-24T13:55:00+08:00",
-    "total_projects": 70,
-    "last_update": "2026-03-31T16:00:00+09:00",
+    "total_projects": 100,
+    "last_update": "2026-04-01T16:00:00+09:00",
     "daily_generation_enabled": true,
     "daily_generation_time": "16:00 (Asia/Tokyo)",
     "target_per_day": 10
   },
   "statistics": {
-    "ads_systems": 16,
-    "recommendation_systems": 21,
-    "search_systems": 13,
-    "nlp_llm": 0,
-    "innovation": 40
+    "ads_systems": 19,
+    "recommendation_systems": 24,
+    "search_systems": 16,
+    "nlp_llm": 1,
+    "innovation": 50
   },
   "daily_logs": [
     {
@@ -153,6 +153,43 @@
         "CTR AUC+0.004, 模型内存48GB→31GB (项目8)",
         "推荐幻觉率34%→2.8%, 对话转化率+27% (项目9)",
         "无效流量过滤率67%→91.3%, 误杀率8%→1.2% (项目10)"
+      ]
+    },
+    {
+      "date": "2026-04-01",
+      "projects_generated": 10,
+      "file": "daily_projects_20260401.md",
+      "categories": {
+        "recommendation": [
+          "项目91: 多利益相关方均衡推荐(TriStake-Rec)",
+          "项目92: 时序对比学习稀疏场景推荐(TemCL-Rec)",
+          "项目93: 新颖性-准确性动态权衡强化学习推荐(NovelRL)"
+        ],
+        "ads": [
+          "项目94: 广告流量供需时序建模与曝光预测(TrafficFore)",
+          "项目95: 隐式负反馈挖掘CTR预估(ImplicitNeg-CTR)",
+          "项目96: GMV×品牌×ROI多目标出价联合优化(MultiGoal-Bid)"
+        ],
+        "search": [
+          "项目97: 实体链接增强电商搜索语义理解(EL-Search)",
+          "项目98: 用户搜索会话图建模个性化(SessionGraph-Search)",
+          "项目99: 跨语言商品检索与意图对齐(CrossLing-Shop)"
+        ],
+        "nlp_llm": [
+          "项目100: LLM驱动搜推广统一语义特征工程(LLM-FE)"
+        ]
+      },
+      "highlights": [
+        "商家ROI达标率+55.8%, 长尾曝光量翻倍 (项目91)",
+        "稀疏用户Recall@20+81%, 7日留存+12.3% (项目92)",
+        "新创作者破圈量+67%, 用户NPS+9分 (项目93)",
+        "流量预测MAPE 28.4%→9.1%, 履约率71%→94.3% (项目94)",
+        "离线AUC+0.0143, 线上CTR+7.2% (项目95)",
+        "品牌触达率+44%, 整体ROI+16.8% (项目96)",
+        "NDCG@10+19.4%, 零结果率-73.6% (项目97)",
+        "会话内转化率+22.3%, 冷启NDCG+28.9% (项目98)",
+        "小语种搜索NDCG+39.6%, 留存率+16.3% (项目99)",
+        "三业务线AUC全面提升, 新品覆盖率34%→97% (项目100)"
       ]
     },
     {
@@ -640,6 +677,96 @@
       "business_impact": "内存-77%(480→112GB), Recall@100损失仅2.3%",
       "date": "2026-03-31",
       "key_algorithms": ["Adaptive PQ", "Residual Quantization", "HNSW", "Entropy Analysis", "Hot-cold Tiering"],
+      "difficulty": 5
+    },
+    {
+      "id": 91,
+      "title": "多利益相关方均衡推荐系统（TriStake-Rec）",
+      "category": "recommendation_systems",
+      "business_impact": "商家ROI达标率+55.8%, 长尾曝光量翻倍",
+      "date": "2026-04-01",
+      "key_algorithms": ["MoPARL", "CMDP", "Lagrangian Relaxation", "Pareto Dominance Filter", "SAC"],
+      "difficulty": 5
+    },
+    {
+      "id": 92,
+      "title": "时序对比学习提升稀疏场景推荐（TemCL-Rec）",
+      "category": "recommendation_systems",
+      "business_impact": "稀疏用户Recall@20+81%, 7日留存+12.3%",
+      "date": "2026-04-01",
+      "key_algorithms": ["InfoNCE", "Temporal Augmentation", "SASRec-lite", "Sparsity-aware Sampling", "Contrastive Learning"],
+      "difficulty": 4
+    },
+    {
+      "id": 93,
+      "title": "新颖性-准确性动态权衡强化学习推荐（NovelRL）",
+      "category": "recommendation_systems",
+      "business_impact": "新创作者破圈量+67%, 用户NPS+9分",
+      "date": "2026-04-01",
+      "key_algorithms": ["Dual Reward", "Counterfactual Estimation", "Transformer Bandit", "Novelty Bonus", "Risk-floor Control"],
+      "difficulty": 5
+    },
+    {
+      "id": 94,
+      "title": "广告流量供需时序建模与曝光预测（TrafficFore）",
+      "category": "ads_systems",
+      "business_impact": "MAPE 28.4%→9.1%, 履约率71%→94.3%",
+      "date": "2026-04-01",
+      "key_algorithms": ["TFT", "N-BEATS", "Conformal Prediction", "EMA Correction", "Supply-Demand Joint Forecast"],
+      "difficulty": 4
+    },
+    {
+      "id": 95,
+      "title": "隐式负反馈挖掘强化广告CTR预估（ImplicitNeg-CTR）",
+      "category": "ads_systems",
+      "business_impact": "离线AUC+0.0143, 线上CTR+7.2%",
+      "date": "2026-04-01",
+      "key_algorithms": ["Implicit Negative Mining", "Viewport Detection", "Isotonic Regression", "Sample Weighting", "Hard Negative Contrastive"],
+      "difficulty": 4
+    },
+    {
+      "id": 96,
+      "title": "GMV×品牌×ROI多目标广告出价联合优化（MultiGoal-Bid）",
+      "category": "ads_systems",
+      "business_impact": "品牌触达率+44%, 整体ROI+16.8%",
+      "date": "2026-04-01",
+      "key_algorithms": ["Multi-objective Bidding", "CMDP Lagrangian", "PID Budget Control", "Bloom Filter Dedup", "Unified Value Function"],
+      "difficulty": 5
+    },
+    {
+      "id": 97,
+      "title": "实体链接增强的电商搜索语义理解（EL-Search）",
+      "category": "search_systems",
+      "business_impact": "NDCG@10+19.4%, 零结果率-73.6%",
+      "date": "2026-04-01",
+      "key_algorithms": ["SpanBERT NER", "Entity Linking", "IVF-HNSW", "RRF Fusion", "BM25+Dense Hybrid"],
+      "difficulty": 4
+    },
+    {
+      "id": 98,
+      "title": "用户搜索会话图建模与搜索结果个性化（SessionGraph-Search）",
+      "category": "search_systems",
+      "business_impact": "NDCG@5+15.7%, 会话内转化率+22.3%",
+      "date": "2026-04-01",
+      "key_algorithms": ["RGCN", "Heterogeneous Session Graph", "Gated Fusion", "Late Interaction", "Real-time Graph Update"],
+      "difficulty": 5
+    },
+    {
+      "id": 99,
+      "title": "跨语言商品检索与意图对齐系统（CrossLing-Shop）",
+      "category": "search_systems",
+      "business_impact": "小语种搜索NDCG+39.6%, 留存率+16.3%",
+      "date": "2026-04-01",
+      "key_algorithms": ["mE5-large", "Cross-lingual Contrastive", "Back-translation BLEU", "LLM Query Expansion", "Incremental Alignment"],
+      "difficulty": 4
+    },
+    {
+      "id": 100,
+      "title": "LLM驱动的搜推广统一语义特征工程系统（LLM-FE）",
+      "category": "nlp_llm",
+      "business_impact": "特征工程人力-40%, 新品覆盖率34%→97%",
+      "date": "2026-04-01",
+      "key_algorithms": ["Qwen2.5-7B", "Chain-of-Thought Feature Extraction", "Knowledge Distillation", "Unified Feature Store", "Incremental LLM Update"],
       "difficulty": 5
     }
   ]

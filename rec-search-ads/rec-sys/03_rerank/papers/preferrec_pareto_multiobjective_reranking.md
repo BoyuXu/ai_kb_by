@@ -19,7 +19,10 @@
 ## 核心方法与创新点
 
 ### 1. Pareto偏好建模
-$$\mathcal{F}_{pareto} = \{f(\mathbf{x}) | \nexists \mathbf{x}' : f_i(\mathbf{x}') \geq f_i(\mathbf{x}) \forall i, \text{ with at least one } >\}$$
+
+$$
+\mathcal{F}_{pareto} = \{f(\mathbf{x}) | \nexists \mathbf{x}' : f_i(\mathbf{x}') \geq f_i(\mathbf{x}) \forall i, \text{ with at least one } >\}
+$$
 
 PreferRec将重排问题转化为在Pareto前沿上选择操作点的问题：
 - 不是找单个最优解，而是学习整条Pareto前沿
@@ -27,7 +30,10 @@ PreferRec将重排问题转化为在Pareto前沿上选择操作点的问题：
 - 推理时给定偏好向量，模型输出该偏好下的最优重排序列
 
 ### 2. Pareto Preference Learning
-$$\mathcal{L}(\theta, \mathbf{w}) = -\sum_{k=1}^{K} w_k \cdot r_k(\pi_\theta)$$
+
+$$
+\mathcal{L}(\theta, \mathbf{w}) = -\sum_{k=1}^{K} w_k \cdot r_k(\pi_\theta)
+$$
 
 训练策略：
 - 从偏好向量分布 $\mathbf{w} \sim \text{Dirichlet}(\alpha)$ 中随机采样
@@ -35,7 +41,10 @@ $$\mathcal{L}(\theta, \mathbf{w}) = -\sum_{k=1}^{K} w_k \cdot r_k(\pi_\theta)$$
 - 使用**超网络（HyperNetwork）**将偏好向量映射为模型参数的调制信号
 
 ### 3. Pareto Preference Transfer
-$$\theta_{target} = \text{Transfer}(\theta_{source}, \Delta_{domain})$$
+
+$$
+\theta_{target} = \text{Transfer}(\theta_{source}, \Delta_{domain})
+$$
 
 迁移机制：
 - 源域预训练学到的Pareto前沿结构可迁移到目标域

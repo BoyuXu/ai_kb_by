@@ -31,6 +31,11 @@
   - A: 将 top-k recall 作为 reward signal，用 policy gradient 更新检索模型参数。挑战：reward 不可微（离散检索结果），需要 REINFORCE/GRPO 等无梯度方法
 
 ## 数学公式
-$$\mathcal{L} = \mathcal{L}_\text{contrast} + \alpha \mathcal{L}_\text{generate} + \beta \mathcal{L}_\text{RL}$$
 
-$$\mathcal{L}_\text{RL} = -\mathbb{E}_\pi[\text{Recall@k}(\text{retrieved docs})]$$
+$$
+\mathcal{L} = \mathcal{L}_\text{contrast} + \alpha \mathcal{L}_\text{generate} + \beta \mathcal{L}_\text{RL}
+$$
+
+$$
+\mathcal{L}_\text{RL} = -\mathbb{E}_\pi[\text{Recall@k}(\text{retrieved docs})]
+$$

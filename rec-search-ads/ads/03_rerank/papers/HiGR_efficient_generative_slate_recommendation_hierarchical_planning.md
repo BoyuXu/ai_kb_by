@@ -17,7 +17,9 @@ Slate Recommendation（列表推荐）需要一次性向用户展示一个排序
 - **全局量化损失**：直接优化 latent 级别的全局量化误差，避免残差塌陷（residual vanishing）
 - **分层语义结构**：高层前缀捕捉粗粒度语义，最后一层保留细粒度区分能力
 
-$$\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_quan} + \lambda_2 \mathcal{L}_{cont}$$
+$$
+\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_quan} + \lambda_2 \mathcal{L}_{cont}
+$$
 
 ### ② HSD (Hierarchical Slate Decoder) - 分层 Slate 解码器
 
@@ -36,7 +38,9 @@ $$\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_q
 2. 负反馈替换 → 兴趣过滤
 3. 语义不相似替换 → 多样性促进
 
-$$\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma(z_\theta(x,y^+) - z_\theta(x,y^-))$$
+$$
+\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma(z_\theta(x,y^+) - z_\theta(x,y^-))
+$$
 
 ## 实验结论
 

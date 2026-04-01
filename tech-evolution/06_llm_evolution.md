@@ -85,11 +85,11 @@ $$
 **Multi-Head Attention：**
 
 $$
-\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}}_{\text{1,...,\text{head}}_h)W^O
 $$
 
 $$
-\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
+\text{head}}_{\text{i = \text{Attention}}(QW_i^Q, KW_i^K, VW_i^V)
 $$
 
 - h个头并行，每头维度 $d_k = d_{model}/h$

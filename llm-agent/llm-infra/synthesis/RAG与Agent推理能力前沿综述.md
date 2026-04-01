@@ -35,11 +35,15 @@ LLM基础设施技术版图
 
 DeepSeek-R1和Qwen3均使用GRPO进行RL训练：
 
-$$\mathcal{J}_{GRPO}(\theta) = \mathbb{E}\left[\frac{1}{G}\sum_{i=1}^{G}\min\left(\frac{\pi_\theta}{\pi_{old}} \cdot \hat{A}_i, \text{clip}\left(\frac{\pi_\theta}{\pi_{old}}, 1-\varepsilon, 1+\varepsilon\right)\cdot\hat{A}_i\right) - \beta \cdot D_{KL}(\pi_\theta||\pi_{ref})\right]$$
+$$
+\mathcal{J}_{GRPO}(\theta) = \mathbb{E}\left[\frac{1}{G}\sum_{i=1}^{G}\min\left(\frac{\pi_\theta}{\pi_{old}} \cdot \hat{A}_i, \text{clip}\left(\frac{\pi_\theta}{\pi_{old}}, 1-\varepsilon, 1+\varepsilon\right)\cdot\hat{A}_i\right) - \beta \cdot D_{KL}(\pi_\theta||\pi_{ref})\right]
+$$
 
 其中组内相对优势估计：
 
-$$\hat{A}_i = \frac{r_i - \mu(\{r_1,...,r_G\})}{\sigma(\{r_1,...,r_G\})}$$
+$$
+\hat{A}_i = \frac{r_i - \mu(\{r_1,...,r_G\})}{\sigma(\{r_1,...,r_G\})}
+$$
 
 **关键参数**：
 - DeepSeek-R1: $G=16$, $\varepsilon=10$, $\beta=0.001$
@@ -49,7 +53,9 @@ $$\hat{A}_i = \frac{r_i - \mu(\{r_1,...,r_G\})}{\sigma(\{r_1,...,r_G\})}$$
 
 ### 公式2：Collab-RAG迭代DPO优化目标
 
-$$\mathcal{L}_{IDPO}(\theta^{(m+1)}) = -\mathbb{E}_{(x,Q^+,Q^-)\sim\mathcal{D}^{(m)}}\left[\log\sigma\left(\beta\log\frac{\pi^{(m+1)}_\theta(Q^+|x)}{\pi^{(m)}_\theta(Q^+|x)} - \beta\log\frac{\pi^{(m+1)}_\theta(Q^-|x)}{\pi^{(m)}_\theta(Q^-|x)}\right)\right]$$
+$$
+\mathcal{L}_{IDPO}(\theta^{(m+1)}) = -\mathbb{E}_{(x,Q^+,Q^-)\sim\mathcal{D}^{(m)}}\left[\log\sigma\left(\beta\log\frac{\pi^{(m+1)}_\theta(Q^+|x)}{\pi^{(m)}_\theta(Q^+|x)} - \beta\log\frac{\pi^{(m+1)}_\theta(Q^-|x)}{\pi^{(m)}_\theta(Q^-|x)}\right)\right]
+$$
 
 **关键设计**：使用前一轮模型作为参考（非固定初始参考），实现渐进式偏好优化。
 
@@ -59,15 +65,21 @@ $$\mathcal{L}_{IDPO}(\theta^{(m+1)}) = -\mathbb{E}_{(x,Q^+,Q^-)\sim\mathcal{D}^{
 
 多跳问答中，第 $k$ 步检索查询由前序推理自动生成：
 
-$$q_k = f_{LLM}(Q, c_1,...,c_{k-1}, e_1,...,e_{k-1})$$
+$$
+q_k = f_{LLM}(Q, c_1,...,c_{k-1}, e_1,...,e_{k-1})
+$$
 
 累积证据集合：
 
-$$\mathcal{E}^* = \bigcup_{k=1}^{K} R(q_k, \mathcal{D})$$
+$$
+\mathcal{E}^* = \bigcup_{k=1}^{K} R(q_k, \mathcal{D})
+$$
 
 自适应停止条件：
 
-$$\text{stop} = \mathbb{1}\left[\text{conf}(a \mid Q, \mathcal{E}) > \tau\right]$$
+$$
+\text{stop} = \mathbb{1}\left[\text{conf}(a \mid Q, \mathcal{E}) > \tau\right]
+$$
 
 **实践发现**：多跳收益符合对数律，$\text{EM}(K) \approx \text{EM}(1) + \beta\log K$，$K=3$后收益递减。
 
@@ -77,9 +89,11 @@ $$\text{stop} = \mathbb{1}\left[\text{conf}(a \mid Q, \mathcal{E}) > \tau\right]
 
 综合评估RAG系统的效率：
 
-$$\text{Score}_{eff} = \frac{\text{NDCG@K}}{\sqrt{\text{avg\_retrievals}} \times \text{latency\_ms}}$$
+$$
+\text{Score}}_{\text{{eff}} = \frac{\text{NDCG@K}}{\sqrt{\text{avg}}_{\text{{\text{retrievals}}}} \times \text{latency}}_{\text{{\text{ms}}}}
+$$
 
-**工程目标**：在约束延迟（<200ms）下最大化 $\text{Score}_{eff}$。
+**工程目标**：在约束延迟（<200ms）下最大化 $\text{Score}}_{\text{{eff}}$。
 
 ---
 
@@ -87,7 +101,9 @@ $$\text{Score}_{eff} = \frac{\text{NDCG@K}}{\sqrt{\text{avg\_retrievals}} \times
 
 Qwen3的On-policy蒸馏对齐教师logits：
 
-$$\mathcal{L}_{distill} = D_{KL}(\pi_{teacher}(y|x) || \pi_{student}(y|x)) = \sum_y \pi_{teacher}(y|x)\log\frac{\pi_{teacher}(y|x)}{\pi_{student}(y|x)}$$
+$$
+\mathcal{L}_{distill} = D_{KL}(\pi_{teacher}(y|x) || \pi_{student}(y|x)) = \sum_y \pi_{teacher}(y|x)\log\frac{\pi_{teacher}(y|x)}{\pi_{student}(y|x)}
+$$
 
 **关键发现**：此方法比直接RL训练省**10倍GPU hours**，Pass@64（探索能力）也显著更优。
 

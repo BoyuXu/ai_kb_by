@@ -14,21 +14,27 @@ LLM 的部署面临内存和计算资源的严峻挑战。权重量化（weight 
 ### 1. 聚类量化（Clustering-based Quantization）
 将权重值聚类到 $2^b$ 个簇（b = 量化位数），每个权重替换为其簇中心，实现极低比特表示：
 
-$$W_{quant} = \arg\min_{c \in \mathcal{C}} \|w - c\|_2^2$$
+$$
+W_{quant} = \arg\min_{c \in \mathcal{C}} \|w - c\|_2^2
+$$
 
 其中 $\mathcal{C} = \{c_1, c_2, ..., c_{2^b}\}$ 为学习到的码本（codebook）。
 
 ### 2. 知识蒸馏框架整合
 将聚类量化学习嵌入知识蒸馏框架，最小化量化模型与全精度教师模型的输出差异：
 
-$$\mathcal{L}_{LCD} = \mathcal{L}_{task} + \lambda \cdot \text{KL}(P_{student} \| P_{teacher})$$
+$$
+\mathcal{L}_{LCD} = \mathcal{L}_{task} + \lambda \cdot \text{KL}(P_{student} \| P_{teacher})
+$$
 
 精心设计的优化技巧确保即使在 2-3 bit 下也能保持性能。
 
 ### 3. 激活平滑（Activation Smoothing）
 通过通道缩放将激活值的异常值迁移到权重侧，使激活更容易量化：
 
-$$\hat{x} = x \cdot \text{diag}(s)^{-1}, \quad \hat{W} = W \cdot \text{diag}(s)$$
+$$
+\hat{x} = x \cdot \text{diag}(s)^{-1}, \quad \hat{W} = W \cdot \text{diag}(s)
+$$
 
 ### 4. LUT（查找表）推理加速
 将量化后的矩阵乘法转化为查找表操作，实现高效推理：

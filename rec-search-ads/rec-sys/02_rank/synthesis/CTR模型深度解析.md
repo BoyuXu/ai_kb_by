@@ -1,12 +1,12 @@
 > 📚 参考文献
-> - [Din-Deep-Interest-Network](../../rec-sys/papers/DINDeep_Interest_Network.md) — DIN：深度兴趣网络（Deep Interest Network）
-> - [A-Unified-Language-Model-For-Large-Scale-Search...](../../rec-sys/papers/A_Unified_Language_Model_for_Large_Scale_Search_Recommend.md) — A Unified Language Model for Large Scale Search, Recommen...
-> - [A Generative Re-Ranking Model For List-Level Multi](../../rec-sys/papers/A_Generative_Re_ranking_Model_for_List_level_Multi_object.md) — A Generative Re-ranking Model for List-level Multi-object...
-> - [Cobra Bridging Sparse And Dense Retrieval In Gene](../../rec-sys/papers/COBRA_Bridging_Sparse_and_Dense_Retrieval_in_Generative_R.md) — COBRA: Bridging Sparse and Dense Retrieval in Generative ...
-> - [Mmoe-Multi-Task-Learning](../../rec-sys/papers/MMoEMulti_gate_Mixture_of_Experts.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
-> - [Linear-Item-Item-Session-Rec](../../rec-sys/papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
-> - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
-> - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../rec-sys/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
+> - [Din-Deep-Interest-Network](../papers/DINDeep_Interest_Network.md) — DIN：深度兴趣网络（Deep Interest Network）
+> - [A-Unified-Language-Model-For-Large-Scale-Search...](../../04_multi-task/papers/A_Unified_Language_Model_for_Large_Scale_Search_Recommend.md) — A Unified Language Model for Large Scale Search, Recommen...
+> - [A Generative Re-Ranking Model For List-Level Multi](../../03_rerank/papers/A_Generative_Re_ranking_Model_for_List_level_Multi_object.md) — A Generative Re-ranking Model for List-level Multi-object...
+> - [Cobra Bridging Sparse And Dense Retrieval In Gene](../../01_recall/papers/COBRA_Bridging_Sparse_and_Dense_Retrieval_in_Generative_R.md) — COBRA: Bridging Sparse and Dense Retrieval in Generative ...
+> - [Mmoe-Multi-Task-Learning](../../04_multi-task/papers/MMoEMulti_gate_Mixture_of_Experts.md) — MMoE：多门控混合专家（Multi-gate Mixture-of-Experts）
+> - [Linear-Item-Item-Session-Rec](../papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
+> - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../01_recall/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
+> - [Gems-Breaking-The-Long-Sequence-Barrier-In-Gene...](../../01_recall/papers/GEMs_Breaking_the_Long_Sequence_Barrier_in_Generative_Rec.md) — GEMs: Breaking the Long-Sequence Barrier in Generative Re...
 
 ## 架构总览
 
@@ -199,13 +199,13 @@ MMOE:
 **Expert输出：**
 
 $$
-f_i(x) = \text{Expert}_i(x), \quad i = 1, 2, ..., N
+f_i(x) = \text{Expert}}_{\text{i(x), \quad i = 1, 2, ..., N
 $$
 
 **Gating Network（任务k）：**
 
 $$
-g_k(x) = \text{Softmax}(W_{g_k} \cdot x + b_{g_k})
+g}}_{\text{k(x) = \text{Softmax}}(W_{g_k} \cdot x + b_{g_k})
 $$
 
 $$
@@ -221,13 +221,13 @@ $$
 **任务输出：**
 
 $$
-y_k = \text{Tower}_k(f_k(x))
+y_k = \text{Tower}}_{\text{k(f}}_{\text{k(x))
 $$
 
 **多任务损失（不确定性加权/动态加权）：**
 
 $$
-L = \sum_{k=1}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)
+L = \sum}}_{\text{{k=1}}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)
 $$
 
 ### 5.4 与前代模型对比
@@ -905,4 +905,4 @@ $$
 | **PLE** | 2020 | 渐进式分离 | 多任务学习 | 参数量大 |
 | **SIM** | 2020 | 两阶段长序列 | 精排(超长序列) | 依赖索引质量 |
 
-> 📝 面试考点见：[rec_qa_extracted.md](../../interview/rec_qa_extracted.md)
+> 📝 面试考点见：[rec_qa_extracted.md [BROKEN]](../../interview/rec_qa_extracted.md)

@@ -202,7 +202,7 @@ $$
 **KL 散度分裂准则**：
 
 $$
-\text{Gain}_{KL}(T) = D_{KL}(P^T || P^C)
+\text{Gain}}_{\text{{KL}}(T) = D_{KL}(P^T || P^C)
 $$
 
 其中：
@@ -213,7 +213,7 @@ $$
 **Euclidean Distance 分裂**（二元结果）：
 
 $$
-\text{Gain}_{ED} = 2 \left[p_t \log \frac{p_t}{p_c} + (1-p_t) \log \frac{1-p_t}{1-p_c}\right]
+\text{Gain}}_{\text{{ED}} = 2 \left[p_t \log \frac{p_t}{p_c} + (1-p_t) \log \frac{1-p_t}{1-p_c}\right]
 $$
 
 其中 $p_t = P(Y=1|T=1)$，$p_c = P(Y=1|T=0)$。

@@ -30,7 +30,9 @@
 
 使用 **Group Relative Policy Optimization (GRPO)** 算法：
 
-$$\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_{t} \text{clip}\left(\frac{\pi_\theta}{\pi_{old}}, 1-\epsilon, 1+\epsilon\right) \hat{A}_t - \beta \cdot KL(\pi_\theta || \pi_{ref})\right]$$
+$$
+\mathcal{L}_{GRPO} = -\mathbb{E}\left[\sum_{t} \text{clip}\left(\frac{\pi_\theta}{\pi_{old}}, 1-\epsilon, 1+\epsilon\right) \hat{A}_t - \beta \cdot KL(\pi_\theta || \pi_{ref})\right]
+$$
 
 **训练细节：**
 - 训练数据：MSMARCO（仅使用 **18%** 的数据）

@@ -29,7 +29,10 @@ GRank提出**无结构化索引的Generate-Rank统一召回范式**：
 ```
 
 ### 1. Target-aware Generator
-$$\hat{y}_{u,i} = f_{gen}(\mathbf{h}_u, \mathbf{e}_i) = \text{softmax}(\mathbf{W}\mathbf{h}_u)_i$$
+
+$$
+\hat{y}_{u,i} = f_{gen}(\mathbf{h}_u, \mathbf{e}_i) = \text{softmax}(\mathbf{W}\mathbf{h}_u)_i
+$$
 
 - 采用**GPU加速的MIPS（Maximum Inner Product Search）**，将item检索统一为矩阵乘法
 - Generator在训练时能感知target item的语义信号，实现个性化候选生成
@@ -41,7 +44,10 @@ $$\hat{y}_{u,i} = f_{gen}(\mathbf{h}_u, \mathbf{e}_i) = \text{softmax}(\mathbf{W
 - 支持特征交叉：user × item × context
 
 ### 3. 端到端多任务学习框架
-$$\mathcal{L} = \mathcal{L}_{gen} + \lambda \cdot \mathcal{L}_{rank} + \mu \cdot \mathcal{L}_{align}$$
+
+$$
+\mathcal{L} = \mathcal{L}_{gen} + \lambda \cdot \mathcal{L}_{rank} + \mu \cdot \mathcal{L}_{align}
+$$
 
 - **语义一致性损失**：确保Generator和Ranker在语义空间对齐
 - 联合训练避免两阶段优化的目标错位问题

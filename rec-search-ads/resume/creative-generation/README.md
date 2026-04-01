@@ -81,7 +81,7 @@ Day 5-7：模块06（系统设计）  - 综合所有模块，面试终极形态
 
 ### 必须能手推的公式（高频考点）
 1. **CTR向量加权**：$\tilde{v}_d = v_d \cdot \sqrt{\text{CTR}(d) / \bar{\text{CTR}}}$
-2. **贝叶斯CTR平滑**：$\text{CTR}_{\text{smooth}} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}$
+2. **贝叶斯CTR平滑**：$\text{CTR}}_{\text{{\text{smooth}}} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}$
 3. **BLEU公式**：$\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log p_n\right)$
 4. **MMR公式**：$\text{MMR} = \arg\max_{d_i \in C \setminus S} [\lambda \text{sim}(d_i, q) - (1-\lambda) \max_{d_j \in S} \text{sim}(d_i, d_j)]$
 5. **Shapley值**：$\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N|-|S|-1)!}{|N|!} [v(S \cup \{i\}) - v(S)]$

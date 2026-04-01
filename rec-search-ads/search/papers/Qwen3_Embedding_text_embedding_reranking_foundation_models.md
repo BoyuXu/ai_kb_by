@@ -34,6 +34,11 @@
   - A: 训练时对不同维度子集加 loss，使模型在任意截断维度都有较好性能；推理时按需截断，大系统低维（快）+精排高维（准）
 
 ## 数学公式
-$$\mathcal{L}_\text{InfoNCE} = -\log \frac{\exp(\text{sim}(q, d^+)/\tau)}{\sum_{i=1}^N \exp(\text{sim}(q, d_i)/\tau)}$$
 
-$$\text{sim}(q, d) = \frac{E_q \cdot E_d}{||E_q|| \cdot ||E_d||}$$
+$$
+\mathcal{L}_\text{InfoNCE} = -\log \frac{\exp(\text{sim}(q, d^+)/\tau)}{\sum_{i=1}^N \exp(\text{sim}(q, d_i)/\tau)}
+$$
+
+$$
+\text{sim}(q, d) = \frac{E_q \cdot E_d}{||E_q|| \cdot ||E_d||}
+$$

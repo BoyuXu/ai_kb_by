@@ -17,7 +17,9 @@
 
 ### 公式一：MaxSim（ColBERT 相关性计算）
 
-$$S(q, d) = \sum_{i=1}^{|q|} \max_{j=1}^{|d|} \mathbf{E}_q^{(i)} \cdot \mathbf{E}_d^{(j)}$$
+$$
+S(q, d) = \sum_{i=1}^{|q|} \max_{j=1}^{|d|} \mathbf{E}_q^{(i)} \cdot \mathbf{E}_d^{(j)}
+$$
 
 **解读**：对 query 中每个 token $i$，找 document 中最相似的 token $j$，取最大值；对所有 query token 的 MaxSim 求和得到最终相关性得分。
 
@@ -27,11 +29,15 @@ $$S(q, d) = \sum_{i=1}^{|q|} \max_{j=1}^{|d|} \mathbf{E}_q^{(i)} \cdot \mathbf{E
 
 ### 公式二：多教师蒸馏损失（LinkedIn Semantic Search）
 
-$$\mathcal{L}_{total} = \alpha \cdot \mathcal{L}_{KL}^{relevance} + (1-\alpha) \cdot \mathcal{L}_{KL}^{engagement}$$
+$$
+\mathcal{L}_{total} = \alpha \cdot \mathcal{L}_{KL}^{relevance} + (1-\alpha) \cdot \mathcal{L}_{KL}^{engagement}
+$$
 
 其中：
 
-$$\mathcal{L}_{KL}^{relevance} = \sum_i p_{teacher}^{rel}(i) \log \frac{p_{teacher}^{rel}(i)}{p_{student}(i)}$$
+$$
+\mathcal{L}_{KL}^{relevance} = \sum_i p_{teacher}^{rel}(i) \log \frac{p_{teacher}^{rel}(i)}{p_{student}(i)}
+$$
 
 **解读**：学生模型同时从相关性 Teacher 和参与度 Teacher 学习，$\alpha$ 控制两者权重；KL 散度使学生分布逼近 Teacher 的 soft label 分布。
 
@@ -39,11 +45,15 @@ $$\mathcal{L}_{KL}^{relevance} = \sum_i p_{teacher}^{rel}(i) \log \frac{p_{teach
 
 ### 公式三：RL 重排器奖励函数（Rank-R1）
 
-$$r = \text{nDCG@K}(\hat{\pi}, \pi^*)$$
+$$
+r = \text{nDCG@K}(\hat{\pi}, \pi^*)
+$$
 
 其中：
 
-$$\text{nDCG@K} = \frac{\text{DCG@K}}{\text{IDCG@K}}, \quad \text{DCG@K} = \sum_{k=1}^{K} \frac{2^{rel_k} - 1}{\log_2(k+1)}$$
+$$
+\text{nDCG@K} = \frac{\text{DCG@K}}{\text{IDCG@K}}, \quad \text{DCG@K} = \sum_{k=1}^{K} \frac{2^{rel_k} - 1}{\log_2(k+1)}
+$$
 
 **解读**：RL 奖励直接为排序质量指标 nDCG，$rel_k$ 为第 $k$ 位文档的相关性得分，$\text{IDCG}$ 为理想排序下的 DCG。此设计使模型直接优化检索指标，无需人工标注推理链。
 
@@ -51,7 +61,9 @@ $$\text{nDCG@K} = \frac{\text{DCG@K}}{\text{IDCG@K}}, \quad \text{DCG@K} = \sum_
 
 ### 公式四：BM25（传统基线，理解必备）
 
-$$\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf(t,d) \cdot (k_1 + 1)}{tf(t,d) + k_1 \cdot (1 - b + b \cdot \frac{|d|}{avgdl})}$$
+$$
+\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf(t,d) \cdot (k_1 + 1)}{tf(t,d) + k_1 \cdot (1 - b + b \cdot \frac{|d|}{avgdl})}
+$$
 
 其中 $k_1 \in [1.2, 2.0]$，$b = 0.75$ 为标准参数；BRIGHT 实验表明 BM25 在推理密集查询上性能很差（nDCG@10 约 5-10%）。
 
@@ -61,11 +73,15 @@ $$\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{tf(t,d) \cdot (k_
 
 传统 LLM 重排（N 个候选文档）：
 
-$$\text{Compute} = N \times (|q| + |d_i|) \text{ tokens per request}$$
+$$
+\text{Compute} = N \times (|q| + |d_i|) \text{ tokens per request}
+$$
 
 Prefill 优化后：
 
-$$\text{Compute} = |q| + N \times |d_i| \text{ tokens per request}$$
+$$
+\text{Compute} = |q| + N \times |d_i| \text{ tokens per request}
+$$
 
 **提升比**：当 $|q| \approx |d_i|$ 时，吞吐提升约 $\frac{N}{1} \approx N \times$，LinkedIn 实测提升 75×（N≈100 候选文档）。
 

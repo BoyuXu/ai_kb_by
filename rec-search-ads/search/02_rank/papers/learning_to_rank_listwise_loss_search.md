@@ -26,10 +26,10 @@ $$
 直接优化NDCG的近似梯度：
 
 $$
-\lambda_{ij} = \frac{-\sigma}{1 + e^{\sigma(s_i - s_j)}} \cdot |\Delta \text{NDCG}_{ij}|
+\lambda_{ij} = \frac{-\sigma}{1 + e^{\sigma(s_i - s_j)}} \cdot |\Delta \text{NDCG}}_{\text{{ij}}|
 $$
 
-$|\Delta \text{NDCG}_{ij}|$ 表示交换文档i和j后NDCG的变化量，赋予排序错误但NDCG影响大的pair更大的梯度权重。
+$|\Delta \text{NDCG}}_{\text{{ij}}|$ 表示交换文档i和j后NDCG的变化量，赋予排序错误但NDCG影响大的pair更大的梯度权重。
 
 **优点**：与NDCG高度相关，Top-K文档质量更好。
 

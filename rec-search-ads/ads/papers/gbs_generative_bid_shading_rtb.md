@@ -11,7 +11,9 @@ RTB从GSP向FPA转型后，广告主需要主动竞价遮蔽（bid shading）避
 1. **生成式出价模型**：条件生成模型预测最优出价分布
 2. **市场价格分布建模**：
 
-$$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))$$
+$$
+p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))
+$$
 
 3. **Shading率自适应**：根据预测的市场价格分布动态计算最优shading比例
 4. **探索-利用平衡**：Thompson Sampling实现出价空间高效探索

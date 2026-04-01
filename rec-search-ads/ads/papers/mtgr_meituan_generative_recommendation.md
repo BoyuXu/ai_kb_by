@@ -11,7 +11,9 @@
 1. **生成式统一框架**：推荐建模为序列生成任务，decoder-only架构服务多场景
 2. **场景Prompt**：不同场景通过Prompt区分
 
-$$\text{Output} = \text{Decoder}([\text{Scene}; \text{User}; \text{Context}; \text{Candidates}])$$
+$$
+\text{Output} = \text{Decoder}([\text{Scene}; \text{User}; \text{Context}; \text{Candidates}])
+$$
 
 3. **多粒度Token化**：行为序列、候选item、上下文特征统一token化
 4. **知识蒸馏**：从场景专有模型蒸馏到统一模型

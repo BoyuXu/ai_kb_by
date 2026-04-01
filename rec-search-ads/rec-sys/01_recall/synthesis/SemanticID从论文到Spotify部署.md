@@ -1,14 +1,14 @@
 # Semantic ID：从论文到 Spotify 大规模部署的完整画像
 
 > 📚 参考文献
-> - [Spotify Unified Lm Search Rec](../../rec-sys/papers/A_Unified_Language_Model_for_Large_Scale_Search_Recommend.md) — A Unified Language Model for Large Scale Search, Recommen...
-> - [Linear-Item-Item-Session-Rec](../../rec-sys/papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
-> - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
-> - [Variable Length Semantic Id](../../rec-sys/papers/Variable_Length_Semantic_IDs_for_Recommender_Systems.md) — Variable-Length Semantic IDs for Recommender Systems
-> - [Variable-Length-Semantic-Ids-For-Recommender-Sy...](../../rec-sys/papers/Variable_Length_Semantic_IDs_for_Recommender_Systems.md) — Variable-Length Semantic IDs for Recommender Systems
-> - [Diffgrm Diffusion Generative Rec](../../rec-sys/papers/DiffGRM_Diffusion_based_Generative_Recommendation_Model.md) — DiffGRM: Diffusion-based Generative Recommendation Model
-> - [Spotify Semantic Id Podcast](../../rec-sys/papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
-> - [Diffgrm-Diffusion-Based-Generative-Recommendati...](../../rec-sys/papers/DiffGRM_Diffusion_based_Generative_Recommendation_Model.md) — DiffGRM: Diffusion-based Generative Recommendation Model
+> - [Spotify Unified Lm Search Rec](../../04_multi-task/papers/A_Unified_Language_Model_for_Large_Scale_Search_Recommend.md) — A Unified Language Model for Large Scale Search, Recommen...
+> - [Linear-Item-Item-Session-Rec](../../02_rank/papers/Linear_Item_Item_Model_with_Neural_Knowledge_for_Session.md) — Linear Item-Item Model with Neural Knowledge for Session-...
+> - [Deploying-Semantic-Id-Based-Generative-Retrieva...](../papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
+> - [Variable Length Semantic Id](../papers/Variable_Length_Semantic_IDs_for_Recommender_Systems.md) — Variable-Length Semantic IDs for Recommender Systems
+> - [Variable-Length-Semantic-Ids-For-Recommender-Sy...](../papers/Variable_Length_Semantic_IDs_for_Recommender_Systems.md) — Variable-Length Semantic IDs for Recommender Systems
+> - [Diffgrm Diffusion Generative Rec](../../03_rerank/papers/DiffGRM_Diffusion_based_Generative_Recommendation_Model.md) — DiffGRM: Diffusion-based Generative Recommendation Model
+> - [Spotify Semantic Id Podcast](../papers/Deploying_Semantic_ID_based_Generative_Retrieval_for_Larg.md) — Deploying Semantic ID-based Generative Retrieval for Larg...
+> - [Diffgrm-Diffusion-Based-Generative-Recommendati...](../../03_rerank/papers/DiffGRM_Diffusion_based_Generative_Recommendation_Model.md) — DiffGRM: Diffusion-based Generative Recommendation Model
 
 **一句话**：Semantic ID 就是给每个商品/内容起一个「有语义的身份证号」——这个号码不是随机的，而是根据内容特征层次化编码，使得推荐变成「生成正确的 ID 序列」问题。
 
@@ -158,3 +158,9 @@ $$
 
 ### Q10: 推荐系统的公平性问题？
 **30秒答案**：①供给侧公平（小创作者也有曝光机会）；②需求侧公平（不同用户群体获得同等服务质量）；③内容公平（避免信息茧房）。方法：公平约束重排、多样性保障、定期公平性审计。
+## 参考文献
+
+- [BERT](../../papers/bert.md)
+- [ViT](../../papers/vit.md)
+- [CLIP](../../papers/clip.md)
+

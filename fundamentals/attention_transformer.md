@@ -98,11 +98,11 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
 ### 2.1 核心公式
 
 $$
-\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h) W^O
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}}_{\text{1, \ldots, \text{head}}_h) W^O
 $$
 
 $$
-\text{head}_i = \text{Attention}(QW_i^Q,\ KW_i^K,\ VW_i^V)
+\text{head}}_{\text{i = \text{Attention}}(QW_i^Q,\ KW_i^K,\ VW_i^V)
 $$
 
 其中：

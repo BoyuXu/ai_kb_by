@@ -14,10 +14,16 @@
 ### Cross Network 改进（DCN-V2 核心）
 
 DCN V1 的 cross layer：
-$$x_{l+1} = x_0 \cdot x_l^T \cdot w_l + b_l + x_l$$
+
+$$
+x_{l+1} = x_0 \cdot x_l^T \cdot w_l + b_l + x_l
+$$
 
 DCN V2 将标量权重替换为矩阵权重：
-$$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
+
+$$
+x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l
+$$
 
 其中 $W_l \in \mathbb{R}^{d \times d}$，大幅提升了交叉的表达能力，可以学习任意阶次的显式特征交叉。
 

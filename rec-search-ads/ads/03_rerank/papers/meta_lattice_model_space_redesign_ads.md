@@ -17,7 +17,9 @@ Meta Lattice 提出**模型空间重设计**：用一个统一的"Lattice 结构
 
 核心思想：将不同场景的模型视为一个**高维模型空间中的子空间**，用共享基底 + 场景专属调制来表示每个场景：
 
-$$\theta_{scene_k} = \theta_{shared} + \Delta\theta_k$$
+$$
+\theta_{scene_k} = \theta_{shared} + \Delta\theta_k
+$$
 
 其中 $\Delta\theta_k$ 是场景 k 的专属调制参数（小，低秩）。
 
@@ -27,7 +29,9 @@ $$\theta_{scene_k} = \theta_{shared} + \Delta\theta_k$$
 2. **Scene-Specific Adapter（场景适配器）**：低秩矩阵 $A_k B_k^T$，专属于场景 k，类似 LoRA
 3. **Task Head**：每个场景的输出层（CTR/CVR/各自目标）
 
-$$f_k(x) = TaskHead_k\left(Backbone(x) + Adapter_k(x)\right)$$
+$$
+f_k(x) = TaskHead_k\left(Backbone(x) + Adapter_k(x)\right)
+$$
 
 ### 联合训练策略
 

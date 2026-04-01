@@ -123,7 +123,7 @@ def in_batch_contrastive_loss(q_embeddings, k_embeddings, tau=0.07):
 **修正（Frequency-Based Correction）**：
 
 $$
-\text{score}_{corrected}(q, k_j) = \text{score}(q, k_j) - \log P(k_j)
+\text{score}}_{\text{{corrected}}(q, k_j) = \text{score}(q, k_j) - \log P(k_j)
 $$
 
 其中 $P(k_j)$ 是物品 $k_j$ 的采样概率（正比于出现频率）。
@@ -340,7 +340,7 @@ class TwoTowerModel(nn.Module):
 修正后的 logit：
 
 $$
-\text{logit}_{corrected}(u, v) = \text{logit}(u, v) - \log(\hat{p}(v))
+\text{logit}}_{\text{{corrected}}(u, v) = \text{logit}(u, v) - \log(\hat{p}(v))
 $$
 
 其中 $\hat{p}(v)$ 是物品 $v$ 的采样概率（从训练数据频率估计）。

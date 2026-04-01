@@ -121,7 +121,7 @@ $$
 ### 4.2 深度可分离卷积
 
 $$
-\text{params}_{DW} = K \times K \times C_{in} + C_{in} \times C_{out}
+\text{params}}_{\text{{DW}} = K \times K \times C_{in} + C_{in} \times C_{out}
 $$
 
 相比普通卷积节省约 $\frac{1}{C_{out}} + \frac{1}{K^2}$ 的参数

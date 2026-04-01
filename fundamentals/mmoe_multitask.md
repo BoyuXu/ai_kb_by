@@ -352,7 +352,7 @@ Uncertainty Weighting 实现简单（只需在损失函数中加可学习的 $\s
 
 ### Q7：在线部署时如何服务多个目标？
 
-最终排序时，多个任务的预测分数需要组合成单一排序得分：$\text{score} = \text{CTR} \times (\text{价值系数}_1 \times \text{CVR} + \text{价值系数}_2 \times \text{收藏率} + \ldots)$。各任务权重通过业务实验确定，不同业务场景（GMV 优化/用户体验优化）权重不同。MMOE 的输出维度是各任务独立的 sigmoid 输出，每个分数的绝对值有意义（需要 CTR 校准保证概率准确性）。
+最终排序时，多个任务的预测分数需要组合成单一排序得分：$\text{score} = \text{CTR} \times (\text{价值系数}}_{\text{1 \times \text{CVR}} + \text{价值系数}}_{\text{2 \times \text{收藏率}} + \ldots)$。各任务权重通过业务实验确定，不同业务场景（GMV 优化/用户体验优化）权重不同。MMOE 的输出维度是各任务独立的 sigmoid 输出，每个分数的绝对值有意义（需要 CTR 校准保证概率准确性）。
 
 ---
 

@@ -12,7 +12,9 @@
 
 传统ANN检索（HNSW/IVF）的索引与模型分离导致目标不一致。MFLI和Rethinking ANN提出端到端可学习索引，将索引构建纳入模型训练：
 
-$$L = L_{rec} + \lambda_1 L_{index} + \lambda_2 L_{contrast}$$
+$$
+L = L_{rec} + \lambda_1 L_{index} + \lambda_2 L_{contrast}
+$$
 
 关键创新：多面索引（multi-faceted index）为每个item建立多角度编码，支持品类、价格、风格等多维度召回。
 
@@ -20,7 +22,9 @@ $$L = L_{rec} + \lambda_1 L_{index} + \lambda_2 L_{contrast}$$
 
 LinkedIn的CLM召回系统标志着推荐召回从双塔范式向自回归范式的演进：
 
-$$P(v_{t+1} | v_1, ..., v_t) = \text{CLM}(v_1, ..., v_t)$$
+$$
+P(v_{t+1} | v_1, ..., v_t) = \text{CLM}(v_1, ..., v_t)
+$$
 
 这与DynamicRAG的迭代检索-生成循环形成互补：前者解决了序列依赖建模，后者解决了检索-生成的动态对齐。
 
@@ -37,13 +41,22 @@ iRanker的提出标志着推荐排序进入基础模型时代。类似NLP中BERT
 ## 关键公式汇总
 
 **MoE门控网络**：
-$$y_k = \sum_{i=1}^{N} g_k^{(i)} \cdot f_i(x), \quad g_k = \text{Softmax}(W_k \cdot x)$$
+
+$$
+y_k = \sum_{i=1}^{N} g_k^{(i)} \cdot f_i(x), \quad g_k = \text{Softmax}(W_k \cdot x)
+$$
 
 **有序逻辑回归**：
-$$P(Y \geq k) = \sigma(f(x) - \theta_k), \quad \theta_1 \leq \theta_2 \leq ... \leq \theta_K$$
+
+$$
+P(Y \geq k) = \sigma(f(x) - \theta_k), \quad \theta_1 \leq \theta_2 \leq ... \leq \theta_K
+$$
 
 **Graph-Mamba门控融合**：
-$$h_t = \sigma(W_g) \odot h_{mamba} + (1 - \sigma(W_g)) \odot h_{local}$$
+
+$$
+h_t = \sigma(W_g) \odot h_{mamba} + (1 - \sigma(W_g)) \odot h_{local}
+$$
 
 ## Q&A 面试精选
 

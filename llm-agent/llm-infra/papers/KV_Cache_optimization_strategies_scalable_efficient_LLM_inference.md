@@ -45,6 +45,11 @@ KV Cache 是 LLM 推理的核心性能组件，也是显存瓶颈。随着上下
   - A: 将 KV 压缩为低维 latent vector（$c_{KV} = W_{KV} h$），推理时从 latent 还原 KV，KV Cache 只存 latent（维度压缩 8-16x），显存大幅减少
 
 ## 数学公式
-$$\text{Standard KV: } M_\text{KV} = 2 \times L \times N_h \times d_h \times T \times \text{bytes}$$
 
-$$\text{MLA KV: } M_\text{MLA} = L \times d_c \times T \times \text{bytes}, \quad d_c \ll N_h \times d_h$$
+$$
+\text{Standard KV: } M_\text{KV} = 2 \times L \times N_h \times d_h \times T \times \text{bytes}
+$$
+
+$$
+\text{MLA KV: } M_\text{MLA} = L \times d_c \times T \times \text{bytes}, \quad d_c \ll N_h \times d_h
+$$

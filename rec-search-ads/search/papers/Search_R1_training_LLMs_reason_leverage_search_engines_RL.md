@@ -32,6 +32,11 @@ LLM 在复杂问答任务中存在知识截止（knowledge cutoff）和幻觉问
   - A: 每步搜索后更新 working memory（已知事实集合）；推理链验证（前后结论不冲突）；Beam Search 保留多条推理路径
 
 ## 数学公式
-$$\pi_\theta: s_t \rightarrow a_t \in \{\text{think}, \text{search}(q), \text{answer}(a)\}$$
 
-$$R = \mathbb{1}[\text{answer correct}] + \sum_t r_t^{\text{process}}$$
+$$
+\pi_\theta: s_t \rightarrow a_t \in \{\text{think}, \text{search}(q), \text{answer}(a)\}
+$$
+
+$$
+R = \mathbb{1}[\text{answer correct}] + \sum_t r_t^{\text{process}}
+$$

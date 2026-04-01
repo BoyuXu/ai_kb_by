@@ -31,7 +31,9 @@
 - **低层策略**：处理短时间跨度，执行具体广告选择
 - **层次化奖励设计**：不同层级使用不同的奖励信号，避免 reward hacking
 
-$$\mathcal{L}_{hierarchy} = \sum_{l=1}^{L} w_l \cdot \mathcal{L}_{PPO}^{(l)}$$
+$$
+\mathcal{L}_{hierarchy} = \sum_{l=1}^{L} w_l \cdot \mathcal{L}_{PPO}^{(l)}
+$$
 
 ### 多目标联合优化
 

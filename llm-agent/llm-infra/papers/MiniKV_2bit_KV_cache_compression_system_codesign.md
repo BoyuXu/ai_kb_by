@@ -31,6 +31,11 @@
   - A: 基于 Attention 权重（注意力分数高的 token 更"重要"）或启发式规则（位置 token 如 [BOS]、特殊 token 保持高精度）
 
 ## 数学公式
-$$\text{KV Cache Size} = 2 \times L \times H \times D \times T \times \text{bytes\_per\_elem}$$
 
-$$\text{MiniKV: } \text{bytes\_per\_elem} = 0.25 \text{ (2-bit, 8x compression)}$$
+$$
+\text{KV Cache Size} = 2 \times L \times H \times D \times T \times \text{bytes}}_{\text{{\text{per}}}_{\text{elem}}
+$$
+
+$$
+\text{MiniKV: } \text{bytes}}_{\text{{\text{per}}}_{\text{elem}} = 0.25 \text{ (2-bit, 8x compression)}
+$$

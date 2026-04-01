@@ -30,6 +30,11 @@
   - A: 任务重要性明确 → 手动权重；梯度量级差异大 → GradNorm/UncertaintyWeighting；梯度方向冲突 → PCGrad
 
 ## 数学公式
-$$\mathcal{L}_\text{total} = \sum_{t=1}^T w_t \mathcal{L}_t, \quad w_t \propto \frac{1}{\sigma_t^2} \text{ (UncertaintyWeighting)}$$
 
-$$g_i' = g_i - \frac{g_i \cdot g_j}{||g_j||^2} g_j \text{ (PCGrad, if } g_i \cdot g_j < 0)$$
+$$
+\mathcal{L}_\text{total} = \sum_{t=1}^T w_t \mathcal{L}_t, \quad w_t \propto \frac{1}{\sigma_t^2} \text{ (UncertaintyWeighting)}
+$$
+
+$$
+g_i' = g_i - \frac{g_i \cdot g_j}{||g_j||^2} g_j \text{ (PCGrad, if } g_i \cdot g_j < 0)
+$$

@@ -11,7 +11,9 @@
 1. **推理增强重排**：引入Chain-of-Thought推理
 2. **推理链监督**：LLM生成推理链作为训练数据
 
-$$\text{Rank}(d|q) = P(\text{relevant} | q, d, \text{CoT}(q, d))$$
+$$
+\text{Rank}(d|q) = P(\text{relevant} | q, d, \text{CoT}(q, d))
+$$
 
 3. **强化学习优化**：以NDCG作为reward优化推理策略
 4. **推理-排序联合训练**

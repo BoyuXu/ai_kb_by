@@ -37,7 +37,9 @@ DHEN Hierarchical Ensemble Layer:
 - **层内集成（Intra-layer）**：同一层中并行使用多个不同的交互模块
 - **层间堆叠（Inter-layer）**：将集成输出作为下一层的输入，构建深层次交互
 
-$$h_l = \text{Aggregate}\left(\text{Module}_1(h_{l-1}), \text{Module}_2(h_{l-1}), ..., \text{Module}_K(h_{l-1})\right)$$
+$$
+h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), \text{Module}}_{\text{2(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+$$
 
 **② 信息互补性分析**
 

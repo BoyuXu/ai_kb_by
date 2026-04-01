@@ -53,10 +53,12 @@
 
 **Double 双源创新**：
 
-$$\text{Accept}(t) = \min\left(1, \frac{P_\text{target}(t)}{\max(P_{\text{draft}_1}(t), P_{\text{draft}_2}(t))}\right)$$
+$$
+\text{Accept}(t) = \min\left(1, \frac{P_\text{target}(t)}{\max(P_{\text{draft}}_{\text{1}}(t), P_{\text{draft}}_{\text{2}}(t))}\right)
+$$
 
-- $\text{draft}_1$：小型语言模型（擅长通用生成）
-- $\text{draft}_2$：基于 retrieval 的 prompt lookup（擅长重复片段）
+- $\text{draft}}_{\text{1$：小型语言模型（擅长通用生成）
+- $\text{draft}}_2$：基于 retrieval 的 prompt lookup（擅长重复片段）
 - 取两者**最大概率**作为接受分母，降低接受门槛
 - 接受率从 ~60% 提升到 ~80%
 
@@ -73,7 +75,9 @@ $$\text{Accept}(t) = \min\left(1, \frac{P_\text{target}(t)}{\max(P_{\text{draft}
 
 **核心思想**：一次 forward pass 并行预测 K 个未来 token：
 
-$$P(t_{i+k} | t_{\leq i}) = \text{Head}_k(h_i + \text{PE}(k)), \quad k = 1, 2, ..., K$$
+$$
+P(t_{i+k} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k)), \quad k = 1, 2, ..., K
+$$
 
 其中 $\text{PE}(k)$ 是位置偏移编码，告诉第 $k$ 个预测头"预测当前位置后 k 步的 token"。
 
@@ -107,10 +111,16 @@ Quantization-Aware Training (QAT)：
 **LCD 核心技术**：
 
 1. **聚类量化**：将权重分组聚类，每组共享一个代表值
-   $$W_q = \text{Cluster}(W, k) \approx W, \quad k \ll \text{total weights}$$
+
+$$
+W_q = \text{Cluster}(W, k) \approx W, \quad k \ll \text{total weights}
+$$
 
 2. **知识蒸馏辅助**：
-   $$\mathcal{L} = \alpha \mathcal{L}_\text{task} + (1-\alpha) \text{KL}(P_\text{student} \| P_\text{teacher})$$
+
+$$
+\mathcal{L} = \alpha \mathcal{L}_\text{task} + (1-\alpha) \text{KL}(P_\text{student} \| P_\text{teacher})
+$$
    
    蒸馏损失补偿量化误差（学习全精度模型的输出分布）。
 
@@ -146,7 +156,10 @@ Quantization-Aware Training (QAT)：
 3. **Data Exfiltration**：通过工具调用泄露私有数据
 
 **形式化防御**：
-$$\text{Safe}(a_t | s_t) \Leftrightarrow \forall \text{policy}\ \pi: \pi(a_t | s_t) \in \mathcal{A}_\text{allowed}$$
+
+$$
+\text{Safe}(a_t | s_t) \Leftrightarrow \forall \text{policy}\ \pi: \pi(a_t | s_t) \in \mathcal{A}_\text{allowed}
+$$
 
 允许行为集合 $\mathcal{A}_\text{allowed}$ 由系统设计者静态定义，运行时约束 Agent 策略空间。
 
@@ -192,7 +205,7 @@ agent:
 | 公式 | 名称 | 用途 |
 |------|------|------|
 | $\text{Accept}(t) = \min(1, P_\text{tgt}(t) / \max(P_{d1}(t), P_{d2}(t)))$ | Double 接受率 | 双源投机解码 |
-| $P(t_{i+k} \| t_{\leq i}) = \text{Head}_k(h_i + \text{PE}(k))$ | FastMTP | 多 token 并行预测 |
+| $P(t_{i+k} \| t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k))$ | FastMTP | 多 token 并行预测 |
 | $\mathcal{L} = \alpha \mathcal{L}_\text{task} + (1-\alpha) \text{KL}(P_s \| P_t)$ | LCD 蒸馏 | 2-bit 量化辅助 |
 | $W_q = \text{Cluster}(W, k)$ | 聚类量化 | 极端 bit 压缩 |
 | $\text{Safe}(a_t \| s_t) \Leftrightarrow \pi(a_t \| s_t) \in \mathcal{A}_\text{allowed}$ | CIA 安全约束 | Agent 行为约束 |

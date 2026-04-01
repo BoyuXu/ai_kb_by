@@ -135,7 +135,7 @@ def compute_diversity(embeddings: np.ndarray) -> float:
 **置信度公式：**
 
 $$
-\text{confidence}_{\text{score}}(k) = \alpha \cdot \text{sim}(q, d_k) + (1-\alpha) \cdot \text{diversity}(D_{1:k})
+\text{confidence}}_{\text{{\text{score}}}(k) = \alpha \cdot \text{sim}(q, d_k) + (1-\alpha) \cdot \text{diversity}(D_{1:k})
 $$
 
 停止条件：

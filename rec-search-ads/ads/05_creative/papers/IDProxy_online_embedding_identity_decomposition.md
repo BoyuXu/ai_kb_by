@@ -27,7 +27,7 @@ $$
 从老广告的(内容特征, ID embedding)对学习映射：
 
 $$
-e_{proxy} = f_\theta(\text{content}_{\text{features}})
+e_{proxy} = f_\theta(\text{content}}_{\text{{\text{features}}})
 $$
 
 $$
@@ -46,7 +46,7 @@ $$
 过渡权重 $w_t$ 随曝光次数增长：
 
 $$
-w_t = \min(1, \frac{\text{impression}_{\text{count}}}{N_{threshold}})
+w_t = \min(1, \frac{\text{impression}}_{\text{{\text{count}}}}{N_{threshold}})
 $$
 
 $N_{threshold}$ 一般设为1000~5000次曝光。

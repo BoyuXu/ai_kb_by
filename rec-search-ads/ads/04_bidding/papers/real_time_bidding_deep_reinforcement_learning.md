@@ -44,7 +44,7 @@ $$
 引入竞争对手出价分布估计：
 
 $$
-P(\text{win} | a_t) = F(a_t) \approx \text{CDF}_{\text{market}_{\text{price}}}(a_t)
+P(\text{win} | a_t) = F(a_t) \approx \text{CDF}}_{\text{{\text{market}}_{\text{price}}}(a_t)
 $$
 
 让模型感知市场竞争强度，动态调整出价。

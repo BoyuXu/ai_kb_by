@@ -42,7 +42,9 @@
 
 生成式召回（GR）将召回问题转化为**条件序列生成**任务：
 
-$$p(\text{item} | \text{user context}) = \prod_{t=1}^{T} p(c_t | c_{1:t-1}, \text{user context})$$
+$$
+p(\text{item} | \text{user context}) = \prod_{t=1}^{T} p(c_t | c_{1:t-1}, \text{user context})
+$$
 
 其中 item 由 $T$ 个离散 token $\{c_1, ..., c_T\}$ 表示（通过 RQ-VAE 量化得到）。
 
@@ -59,7 +61,9 @@ $$p(\text{item} | \text{user context}) = \prod_{t=1}^{T} p(c_t | c_{1:t-1}, \tex
 
 **RQ-VAE（Residual Quantization VAE）量化公式**：
 
-$$z_q = \text{RQ}(z_e) = c_1^{(1)} + c_2^{(2)} + ... + c_K^{(K)}$$
+$$
+z_q = \text{RQ}(z_e) = c_1^{(1)} + c_2^{(2)} + ... + c_K^{(K)}
+$$
 
 其中 $c_k^{(k)}$ 是第 $k$ 个 codebook 中最近的 embedding，$K$ 为量化层数（通常 3-4 层），每层 codebook 大小通常为 256。
 
@@ -82,13 +86,17 @@ Align³GR 提出的三层对齐框架具有普遍指导意义：
 
 ### 3.2 渐进式 DPO 训练目标
 
-$$\mathcal{L}_{DPO} = -\mathbb{E} \log \sigma\left(-\log \sum_{y_l \in Y_l} \exp\left(\beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)} - \beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)}\right)\right)$$
+$$
+\mathcal{L}_{DPO} = -\mathbb{E} \log \sigma\left(-\log \sum_{y_l \in Y_l} \exp\left(\beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)} - \beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)}\right)\right)
+$$
 
 **三阶段训练**（Easy → Medium → Hard）：通过 prefix-ngram 匹配度控制 chosen/rejected 的相似程度，难度渐进增加。
 
 ### 3.3 Cross-view Alignment（RLMRec）
 
-$$\mathcal{L}_{align} = -\sum_{u} \log \frac{\exp(\text{sim}(e_u^{LLM}, e_u^{CF}) / \tau)}{\sum_{u'} \exp(\text{sim}(e_u^{LLM}, e_{u'}^{CF}) / \tau)}$$
+$$
+\mathcal{L}_{align} = -\sum_{u} \log \frac{\exp(\text{sim}(e_u^{LLM}, e_u^{CF}) / \tau)}{\sum_{u'} \exp(\text{sim}(e_u^{LLM}, e_{u'}^{CF}) / \tau)}
+$$
 
 ---
 
@@ -96,7 +104,9 @@ $$\mathcal{L}_{align} = -\sum_{u} \log \frac{\exp(\text{sim}(e_u^{LLM}, e_u^{CF}
 
 ### 4.1 MFU（Model Flops Utilization）
 
-$$\text{MFU} = \frac{\text{Actual FLOPs}}{\text{Peak FLOPs}} \times 100\%$$
+$$
+\text{MFU} = \frac{\text{Actual FLOPs}}{\text{Peak FLOPs}} \times 100\%
+$$
 
 RankMixer 将 MFU 从 4.5% 提升至 45%（10× 提升），核心手段：
 - 用 Token Mixing 替代低效的 Self-Attention
@@ -105,7 +115,9 @@ RankMixer 将 MFU 从 4.5% 提升至 45%（10× 提升），核心手段：
 
 ### 4.2 推荐 Scaling Laws（近似）
 
-$$L(N, D) \approx \frac{A}{N^{\alpha}} + \frac{B}{D^{\beta}} + L_0$$
+$$
+L(N, D) \approx \frac{A}{N^{\alpha}} + \frac{B}{D^{\beta}} + L_0
+$$
 
 - 推荐场景中 $\alpha \approx 0.05-0.1$，$\beta \approx 0.03-0.07$（小于 LLM 的 0.3，scaling 效率较低）
 - **结论**：数据 Scaling ROI > 参数 Scaling ROI（推荐系统的数据飞轮优势）

@@ -65,7 +65,7 @@ $$
 ### 公式3：OneTrans统一注意力
 
 $$
-\text{h}_{unified} = \text{Transformer}(\text{token}_{field} \oplus \text{token}_{sequence})
+\text{h}}_{\text{{unified}} = \text{Transformer}(\text{token}}_{\text{{field}} \oplus \text{token}}_{\text{{sequence}})
 $$
 
 同一个Transformer处理结构化特征（Field Token）+ 行为序列（Sequence Token），消除"特征交叉模块"和"序列模块"之间的Gap。

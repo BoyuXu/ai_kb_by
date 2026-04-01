@@ -31,6 +31,11 @@ FlashAttention-2 在 A100 GPU 上达到理论峰值 70% FLOP 利用率，但在 
   - A: ① TMA 异步 IO；② WGMMA（warpgroup 级矩阵乘，比 A100 的 wmma 更大且更快）；③ FP8 Tensor Core（速度 2x）；④ 更大 L2 Cache
 
 ## 数学公式
-$$\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V$$
 
-$$\text{Online Softmax: } m_i = \max(m_{i-1}, \max_j s_{ij}), \quad l_i = e^{m_{i-1}-m_i} l_{i-1} + \sum_j e^{s_{ij}-m_i}$$
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V
+$$
+
+$$
+\text{Online Softmax: } m_i = \max(m_{i-1}, \max_j s_{ij}), \quad l_i = e^{m_{i-1}-m_i} l_{i-1} + \sum_j e^{s_{ij}-m_i}
+$$

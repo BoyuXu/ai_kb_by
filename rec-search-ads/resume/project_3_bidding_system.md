@@ -155,13 +155,13 @@ def prepare_training_data(events_log, observation_window_days=7):
 广告主的目标：
 
 $$
-\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target}_{\text{CPA}}
+\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target}}_{\text{{\text{CPA}}}
 $$
 
 其中：
 
 $$
-CPA = \frac{\text{Total Cost}}{\text{Total Conversions}} = \frac{\sum \text{bid}_i}{\sum \text{conversion}_i}
+CPA = \frac{\text{Total Cost}}{\text{Total Conversions}} = \frac{\sum \text{bid}}_{\text{i}}{\sum \text{conversion}}_{\text{i}}
 $$
 
 这是个非线性的约束优化问题。直接求解很难。
@@ -171,43 +171,43 @@ $$
 使用拉格朗日乘数法，转化为无约束问题：
 
 $$
-L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}_i(\text{bid}_i) - \lambda \left( \sum_i \text{bid}_i - \text{target}_{\text{CPA}} \sum_i \text{conversion}_i(\text{bid}_i) \right)
+L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}}_{\text{i(\text{bid}}_i) - \lambda \left( \sum_i \text{bid}}_{\text{i - \text{target}}_{\text{CPA}} \sum_i \text{conversion}}_{\text{i(\text{bid}}_i) \right)
 $$
 
 展开：
 
 $$
-L = \sum_i [\text{conversion}_i(\text{bid}_i) \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) - \lambda \cdot \text{bid}_i]
+L = \sum_i [\text{conversion}}_{\text{i(\text{bid}}_i) \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) - \lambda \cdot \text{bid}}_{\text{i]
 $$
 
-对 $\text{bid}_i$ 求偏导，在最优点：
+对 $\text{bid}}_i$ 求偏导，在最优点：
 
 $$
-\frac{\partial \text{conversion}_i}{\partial \text{bid}_i} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) = \lambda
+\frac{\partial \text{conversion}}_{\text{i}}{\partial \text{bid}}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) = \lambda
 $$
 
 假设转化与出价成对数关系（常见假设）：
 
 $$
-\text{conversion}_i = \alpha_i \cdot \text{log}(\text{bid}_i)
+\text{conversion}}_{\text{i = \alpha}}_{\text{i \cdot \text{log}}(\text{bid}}_{\text{i)
 $$
 
 则：
 
 $$
-\frac{\alpha_i}{\text{bid}_i} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}}) = \lambda
+\frac{\alpha}}_{\text{i}}{\text{bid}}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) = \lambda
 $$
 
 解得最优出价：
 
 $$
-\text{bid}_i^* = \frac{\alpha_i}{\lambda} \cdot (1 + \lambda \cdot \text{target}_{\text{CPA}})
+\text{bid}}_{\text{i^* = \frac{\alpha}}_{\text{i}}{\lambda} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}})
 $$
 
-进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target}_{\text{CPA}}}{\lambda}$，得：
+进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}}{\lambda}$，得：
 
 $$
-\text{bid}_i^* = \beta \cdot \text{target}_{\text{CPA}} \cdot \text{pCVR}_i
+\text{bid}}_{\text{i^* = \beta \cdot \text{target}}_{\text{CPA}} \cdot \text{pCVR}}_{\text{i
 $$
 
 **直观理解**：最优出价 = 目标 CPA × 预估转化率 × 调整系数 $\beta$
@@ -220,32 +220,32 @@ $$
 
 ```python
 class AutoBiddingSystem:
-    def __init__(self, target_cpa, pCVR_model):
-        self.target_cpa = target_cpa  # 广告主设定的目标
-        self.pcvr_model = pCVR_model
+    def }}_{\text{}}_{\text{init}}_{\text{}}_{\text{(self, target}}_{\text{cpa, pCVR}}_{\text{model):
+        self.target}}_{\text{cpa = target}}_{\text{cpa  # 广告主设定的目标
+        self.pcvr}}_{\text{model = pCVR}}_{\text{model
         self.beta = 1.0  # 初始调整系数
     
-    def get_optimal_bid(self, keyword):
+    def get}}_{\text{optimal}}_{\text{bid(self, keyword):
         """
         根据对偶优化计算最优出价
         """
         # 预估这个关键词的转化率
-        pCVR = self.pcvr_model.predict(keyword.features)
+        pCVR = self.pcvr}}_{\text{model.predict(keyword.features)
         
         # 对偶优化公式
-        bid = self.beta * self.target_cpa * pCVR
+        bid = self.beta * self.target}}_{\text{cpa * pCVR
         
         # 限制出价范围（避免异常高/低）
-        bid = np.clip(bid, min_bid=0.1, max_bid=100)
+        bid = np.clip(bid, min}}_{\text{bid=0.1, max}}_{\text{bid=100)
         
         return bid
     
-    def update_beta_with_pid(self, actual_cpa, target_cpa):
+    def update}}_{\text{beta}}_{\text{with}}_{\text{pid(self, actual}}_{\text{cpa, target}}_{\text{cpa):
         """
         PID 控制器：根据实际 CPA 动态调整 β
         使实际 CPA 逐渐逼近目标
         """
-        error = actual_cpa - target_cpa
+        error = actual}}_{\text{cpa - target}}_{\text{cpa
         
         # PID 控制参数
         Kp, Ki, Kd = 0.1, 0.05, 0.02
@@ -254,16 +254,16 @@ class AutoBiddingSystem:
         self.beta += Kp * error
         
         # I（积分）：累积误差
-        self.integral_error += error
-        self.beta += Ki * self.integral_error
+        self.integral}}_{\text{error += error
+        self.beta += Ki * self.integral}}_{\text{error
         
         # D（微分）：误差变化率
-        self.beta += Kd * (error - self.last_error)
+        self.beta += Kd * (error - self.last}}_{\text{error)
         
         # 保证 β 在合理范围
         self.beta = np.clip(self.beta, 0.5, 2.0)
         
-        self.last_error = error
+        self.last}}_{\text{error = error
 ```
 
 ### 2.4 冷启动：Thomson Sampling
@@ -274,38 +274,38 @@ class AutoBiddingSystem:
 
 ```python
 class ColdStartBidding:
-    def __init__(self):
-        self.prior_alpha = 1  # Beta 分布的先验参数
-        self.prior_beta = 9   # 表示先验相信转化率是 1/10
+    def }}_{\text{}}_{\text{init}}_{\text{}}_{\text{(self):
+        self.prior}}_{\text{alpha = 1  # Beta 分布的先验参数
+        self.prior}}_{\text{beta = 9   # 表示先验相信转化率是 1/10
     
-    def sample_conversion_rate(self, keyword):
+    def sample}}_{\text{conversion}}_{\text{rate(self, keyword):
         """
         从 Beta 分布采样转化率
         
         随着观察到更多数据，后验分布越来越尖锐
         """
         # 后验 = 先验 + 观察数据
-        posterior_alpha = self.prior_alpha + keyword.num_conversions
-        posterior_beta = self.prior_beta + keyword.num_clicks - keyword.num_conversions
+        posterior}}_{\text{alpha = self.prior}}_{\text{alpha + keyword.num}}_{\text{conversions
+        posterior}}_{\text{beta = self.prior}}_{\text{beta + keyword.num}}_{\text{clicks - keyword.num}}_{\text{conversions
         
         # 从 Beta 分布采样
-        sampled_rate = np.random.beta(posterior_alpha, posterior_beta)
+        sampled}}_{\text{rate = np.random.beta(posterior}}_{\text{alpha, posterior}}_{\text{beta)
         
-        return sampled_rate
+        return sampled}}_{\text{rate
     
-    def get_cold_start_bid(self, keyword, target_cpa, beta=1.0):
+    def get}}_{\text{cold}}_{\text{start}}_{\text{bid(self, keyword, target}}_{\text{cpa, beta=1.0):
         """
         冷启动竞价
         """
         # 采样转化率（包含不确定性）
-        sampled_crate = self.sample_conversion_rate(keyword)
+        sampled}}_{\text{crate = self.sample}}_{\text{conversion}}_{\text{rate(keyword)
         
         # 用采样的转化率计算出价
-        bid = beta * target_cpa * sampled_crate
+        bid = beta * target}}_{\text{cpa * sampled}}_{\text{crate
         
         # 如果没有数据，用一个保守的默认出价
-        if keyword.num_clicks == 0:
-            bid = default_bid  # 如 target_cpa / 10
+        if keyword.num}}_{\text{clicks == 0:
+            bid = default}}_{\text{bid  # 如 target}}_{\text{cpa / 10
         
         return bid
 ```
@@ -341,7 +341,7 @@ Thompson Sampling 的妙处在于：
 定义综合目标函数：
 
 $$
-F = w_1 \cdot \text{Conversions} + w_2 \cdot \text{Platform Revenue} - w_3 \cdot \text{Unfairness}
+F = w}}_{\text{1 \cdot \text{Conversions}} + w_2 \cdot \text{Platform Revenue} - w_3 \cdot \text{Unfairness}
 $$
 
 其中权重 $w_1, w_2, w_3$ 由产品和商业团队协商。

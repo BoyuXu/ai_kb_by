@@ -17,7 +17,10 @@
 RankMixer提出**面向推荐排序的混合专家（MoE）Scaling架构**：
 
 ### 1. Mixer Block 设计
-$$\mathbf{h}^{(l+1)} = \text{FFN}(\text{MHA}(\mathbf{h}^{(l)})) + \text{MoE-FFN}(\mathbf{h}^{(l)})$$
+
+$$
+\mathbf{h}^{(l+1)} = \text{FFN}(\text{MHA}(\mathbf{h}^{(l)})) + \text{MoE-FFN}(\mathbf{h}^{(l)})
+$$
 
 核心创新：
 - **Dense路径（MHA + FFN）**：处理全局特征交叉，参数共享，保证基础表达能力
@@ -25,7 +28,10 @@ $$\mathbf{h}^{(l+1)} = \text{FFN}(\text{MHA}(\mathbf{h}^{(l)})) + \text{MoE-FFN}
 - 双路径设计允许在保持推理延迟不变的情况下大幅扩展总参数量
 
 ### 2. 稀疏特征友好的Embedding Scaling
-$$\mathbf{E}_{item} = \text{Concat}[\mathbf{e}_{id}, \mathbf{e}_{text}, \mathbf{e}_{stat}]$$
+
+$$
+\mathbf{E}_{item} = \text{Concat}[\mathbf{e}_{id}, \mathbf{e}_{text}, \mathbf{e}_{stat}]
+$$
 
 - 区分ID embedding、文本语义embedding和统计特征embedding，分别设计不同的scale策略
 - ID embedding维度随item规模对数增长；文本embedding复用预训练LLM，固定参数
