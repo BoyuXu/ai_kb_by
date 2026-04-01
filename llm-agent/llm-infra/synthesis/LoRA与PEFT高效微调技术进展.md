@@ -59,9 +59,33 @@ $$
 
 前向传播：$h = W_0 x + \frac{\alpha}{r} B A x$，其中 $\alpha$ 是 LoRA 缩放因子。
 
-**参数量对比**：
-- 全量微调：$d \times k$ 个参数
-- LoRA：$r \times (d + k)$ 个参数，节省比 $\approx \frac{\min(d,k)}{2r}$ 倍
+**参数量对比与节省推导：**
+
+全量微调参数：$\Theta_{\text{full}} = d \times k$
+
+LoRA 参数：$\Theta_{\text{LoRA}} = r \times d + r \times k = r(d + k)$
+
+节省比（以 $d = k$ 为例）：
+
+$$
+\frac{\Theta_{\text{full}}}{\Theta_{\text{LoRA}}} = \frac{d^2}{r \cdot 2d} = \frac{d}{2r}
+$$
+
+典型值：$d=4096, r=16 \Rightarrow$ 节省 **128×**；$r=4 \Rightarrow$ 节省 **512×**。
+
+**LoRA 与 SVD 的关系（理论基础）：**
+
+预训练权重 $W_0$ 的奇异值分解为 $W_0 = U \Sigma V^\top$（奇异值从大到小排列）。LoRA 的假设等价于：微调过程中增量 $\Delta W$ 的"有效秩"远小于 $\min(d,k)$，即 $\Delta W$ 的大部分奇异值接近 0。实验验证（Hu et al. 2022 附录）：对 GPT-3 的 Attention 矩阵，$\Delta W$ 的奇异值确实快速衰减，低秩假设成立。
+
+**初始化策略（为何 $B=0, A \sim \mathcal{N}(0, \sigma^2)$）：**
+
+训练开始时，$BA = 0$（因为 $B=0$），故 $W' = W_0$——模型从预训练权重直接出发，无随机扰动。若 $B \neq 0, A \neq 0$ 随机初始化，则初始化时 $\Delta W = BA \neq 0$，破坏了预训练模型的初始性能。缩放因子 $\alpha/r$ 控制初始学习步长：
+
+$$
+h = W_0 x + \underbrace{\frac{\alpha}{r}}_{\text{缩放}} B A x
+$$
+
+$\alpha/r < 1$（通常 $\alpha = r$ 使缩放为 1，或 $\alpha = 2r$ 使缩放为 2）防止早期训练步骤中 LoRA 分量过度主导。
 
 ### 公式 2：Personalized PageRank（HippoRAG 2）
 

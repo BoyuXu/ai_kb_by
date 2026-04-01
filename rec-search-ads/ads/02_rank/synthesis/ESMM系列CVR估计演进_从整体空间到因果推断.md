@@ -96,10 +96,45 @@ graph TB
 ### 损失函数
 
 $$
-\mathcal{L} = \sum_{i=1}^{N} \ell(y_i^{CTR}, f_{CTR}(x_i)) + \sum_{i=1}^{N} \ell(y_i^{CTCVR}, f_{CTR}(x_i) \cdot f_{CVR}(x_i))
+\mathcal{L} = \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTR}}, f_{\text{CTR}}(x_i)\right)}_{\mathcal{L}_{\text{CTR}}\ (\text{全量曝光空间})} + \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTCVR}},\ f_{\text{CTR}}(x_i) \cdot f_{\text{CVR}}(x_i)\right)}_{\mathcal{L}_{\text{CTCVR}}\ (\text{全量曝光空间，间接约束 CVR})}
 $$
 
 其中 $N$ 是**全量曝光样本数**，不再只用点击样本。
+
+**📐 ESMM 去偏的数学证明（为何 CTCVR 损失能约束全空间 CVR）：**
+
+1. **传统 CVR 损失的偏差**：
+
+$$
+\mathcal{L}_{\text{naive-CVR}} = \frac{1}{|\mathcal{O}|}\sum_{i \in \mathcal{O}} \ell(y_i^{\text{CVR}}, f_{\text{CVR}}(x_i))
+$$
+
+期望：$\mathbb{E}[\mathcal{L}_{\text{naive-CVR}}] \propto \sum_i P(O_i = 1) \cdot \ell_i = \sum_i p_i^{\text{CTR}} \cdot \ell_i \neq \sum_i \ell_i$（有偏，高 CTR 样本被过度惩罚）
+
+2. **ESMM 的 CTCVR 损失期望**：
+
+$$
+\mathbb{E}[\mathcal{L}_{\text{CTCVR}}] = \sum_{i=1}^N \mathbb{E}[\ell(y_i^{\text{CTCVR}}, p_i^{\text{CTR}} \cdot f_{\text{CVR}}(x_i))]
+$$
+
+$y_i^{\text{CTCVR}} = y_i^{\text{CTR}} \cdot y_i^{\text{CVR}}$，其中 $y_i^{\text{CTR}} \in \{0,1\}$ 在**全量曝光空间**都有标签（曝光样本：$y^{\text{CTR}}=1$ 当且仅当用户点击）。
+
+3. **链式约束**：当 $f_{\text{CTR}}$ 收敛后（已用 $\mathcal{L}_{\text{CTR}}$ 约束），$\mathcal{L}_{\text{CTCVR}}$ 等价于对 $f_{\text{CVR}}$ 施加：
+
+$$
+\min_{f_{\text{CVR}}} \sum_{i=1}^N \ell(y_i^{\text{CVR}},\ f_{\text{CVR}}(x_i)) \cdot \underbrace{p_i^{\text{CTR}}}_{\text{曝光-点击权重}}
+$$
+
+即用 CTR 作为隐式权重，赋予不同曝光样本对 CVR 训练的贡献——全曝光空间的样本都参与了 CVR 的训练，只是贡献度由 CTR 加权。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $\mathcal{O}$ | 点击样本集合（CVR 传统训练集）|
+| $P(O_i = 1) = p_i^{\text{CTR}}$ | 样本 $i$ 被点击的概率（倾向分）|
+| $y_i^{\text{CTCVR}}$ | 样本 $i$ 的 CTCVR 标签（=1 当且仅当点击且转化）|
+| $f_{\text{CTR}}, f_{\text{CVR}}$ | CTR 子网和 CVR 子网的输出概率 |
 
 ### ESMM 的贡献与局限
 

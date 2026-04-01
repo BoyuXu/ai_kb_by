@@ -47,26 +47,57 @@ graph TB
 ### 1. BM25
 
 $$
-BM25(q,d) = \sum_{t \in q} IDF(t) \cdot \frac{tf \cdot (k_1+1)}{tf + k_1(1-b+b\frac{|d|}{avgdl})}
+\text{BM25}(q,d) = \sum_{t \in q} \underbrace{\ln\!\left(\frac{N - df_t + 0.5}{df_t + 0.5} + 1\right)}_{\text{IDF}(t)} \cdot \underbrace{\frac{tf_{t,d} \cdot (k_1 + 1)}{tf_{t,d} + k_1\!\left(1 - b + b \cdot \frac{|d|}{avgdl}\right)}}_{\text{TF 饱和项}}
 $$
 
-- 经典稀疏检索评分
+**推导步骤：**
+1. **IDF**：稀有词信息量大，$\text{IDF}(t) \approx \log\frac{N}{df_t}$，加 0.5 平滑防止 $df_t=0$ 或 $df_t>N/2$ 时负值
+2. **TF 饱和**：朴素 $tf$ 线性增长不合理；用 $\frac{tf}{tf + k_1}$ 做饱和，$tf \to \infty$ 时趋向 1，$k_1 \in [1.2, 2.0]$ 控制饱和速度
+3. **长度归一化**：长文档词频自然高，$(1 - b + b \cdot |d|/avgdl)$ 将文档长度效应折算为相对于平均长度的比例，$b=0.75$ 部分归一化
 
-### 2. Dense Retrieval
+**符号说明：**
+- $N$：文档总数；$df_t$：含词 $t$ 的文档数；$tf_{t,d}$：词 $t$ 在文档 $d$ 的频次
+- $|d|$：文档词数；$avgdl$：语料平均文档长度；$k_1 \approx 1.5$，$b \approx 0.75$
+
+**直观理解：** BM25 = "罕见词 × 词频（边际递减）÷ 文档长度修正"，三个部分各解决一个问题：词的区分度、词频饱和、长文档不公平优势。
+
+### 2. Dense Retrieval：双编码器相似度
 
 $$
-score = E_q^T E_d
+s(q, d) = E_q^\top E_d = \sum_{k=1}^{D} E_{q,k} \cdot E_{d,k}
 $$
 
-- 双塔编码器的向量内积
-
-### 3. ColBERT MaxSim
+训练目标（In-batch Negative Softmax）：
 
 $$
-score = \sum_i \max_j E_q^i \cdot E_d^j
+\mathcal{L}_{\text{DPR}} = -\log \frac{e^{s(q, d^+)/\tau}}{e^{s(q, d^+)/\tau} + \sum_{j \neq +} e^{s(q, d_j)/\tau}}
 $$
 
-- 每个 query token 找最相似的 doc token
+**推导步骤：**
+1. $E_q = \text{BERT}_Q([CLS], q)$，$E_d = \text{BERT}_D([CLS], d)$，两个独立编码器
+2. In-batch Negative：batch 内其他 query 的正样本充当负样本，无需额外采样
+3. 温度 $\tau$ 越小，分布越尖锐，模型区分正负样本的"要求"越高
+
+**符号说明：**
+- $E_q, E_d \in \mathbb{R}^D$：Query 和 Doc 的 [CLS] 向量（$D=768$）
+- $d^+$：正样本；$d_j$：In-batch 负样本；$\tau$：温度（通常 0.1）
+
+### 3. ColBERT MaxSim 推导
+
+$$
+s(q, d) = \sum_{i=1}^{|q|} \max_{j=1}^{|d|} E_{q_i}^\top E_{d_j}
+$$
+
+**推导步骤：**
+1. **Token 级编码**：$\mathbf{E}_q \in \mathbb{R}^{|q| \times D}$，$\mathbf{E}_d \in \mathbb{R}^{|d| \times D}$，维度压缩到 $D=128$
+2. **MaxSim 操作**：对每个 Query token $i$，取其与所有 Doc token 中最高的相似度，$\text{MaxSim}_i = \max_j E_{q_i}^\top E_{d_j}$
+3. **求和聚合**：$|q|$ 个 MaxSim 之和为最终分数。比 Bi-encoder 精细（保留 token 对齐），比 Cross-encoder 快（Doc 向量可离线预计算）
+
+**符号说明：**
+- $E_{q_i}, E_{d_j} \in \mathbb{R}^{128}$：Query token $i$ 和 Doc token $j$ 的压缩向量
+- $\max_j$：沿 Doc 维度 MaxPooling（每个 Query token 找最匹配的 Doc token）
+
+**直观理解：** MaxSim = "每个问题词找文档中最能回答它的词"，再把所有问题词的满足度加起来。比单向量相似度更灵活——文档无需整体语义相近，局部 token 匹配即可得分。
 
 ---
 

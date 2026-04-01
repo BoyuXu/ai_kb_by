@@ -15,29 +15,77 @@
 
 ## 📐 核心公式与原理
 
-### 1. NDCG
+### 📐 1. DCG / NDCG 推导
 
 $$
-NDCG@K = \frac{DCG@K}{IDCG@K}, \quad DCG = \sum_{i=1}^K \frac{2^{rel_i}-1}{\log_2(i+1)}
+\text{DCG}@K = \sum_{i=1}^{K} \frac{2^{rel_i} - 1}{\log_2(i+1)}, \qquad \text{NDCG}@K = \frac{\text{DCG}@K}{\text{IDCG}@K}
 $$
 
-- 搜索排序核心评估指标
+**推导步骤：**
 
-### 2. Cross-Encoder
+1. **CG（Cumulative Gain）**：仅累加相关性，不考虑位置：$\text{CG}@K = \sum_{i=1}^K rel_i$，缺点是 rank 1 和 rank K 权重相同
+
+2. **DCG（折扣）**：用 $\log_2(i+1)$ 对位置 $i$ 折扣，第 1 位权重为 $1/\log_2 2 = 1$，第 2 位为 $1/\log_2 3 \approx 0.63$，以此类推。相关性增益 $2^{rel_i}-1$ 对高等级相关性（如 rel=3 → 7 分）给予指数级奖励，区分"相关"与"高度相关"。
+
+3. **IDCG（Ideal DCG）**：将所有文档按真实相关度从高到低排列的 DCG，即理论最优 DCG
+
+4. **NDCG 归一化**：NDCG = DCG / IDCG，范围 $[0,1]$；NDCG=1 表示排序与理想排序完全一致
+
+5. **不可微的问题**：NDCG 涉及排序操作，对模型参数不可微，无法直接梯度下降优化——这是 RankNet/LambdaRank 等方法存在的根本动机。
+
+**符号说明：**
+- $rel_i \in \{0,1,2,3\}$：位置 $i$ 处文档的相关性分级（人工标注）
+- $K$：评估截断深度（如 NDCG@10）
+- $\text{IDCG}@K$：理想排序的 DCG（相关文档按相关度从高到低排列）
+
+---
+
+### 📐 2. LambdaRank / LambdaMART 推导
+
+LambdaRank 的核心思想：**直接定义梯度**（虚拟梯度），而非从损失函数求导。
+
+对文档对 $(i, j)$（$i$ 的相关性高于 $j$），LambdaRank 的梯度定义为：
 
 $$
-score = \text{MLP}(\text{BERT}}_{\text{{CLS}}([q;d]))
+\lambda_{ij} = \frac{-1}{1 + e^{s_i - s_j}} \cdot |\Delta\text{NDCG}_{ij}|
 $$
 
-- Query-Doc 联合编码
-
-### 3. Query Likelihood
-
 $$
-P(q|d) = \prod_{t \in q} P(t|d)
+\lambda_i = \sum_{j:(i,j) \in \mathcal{P}} \lambda_{ij} - \sum_{j:(j,i) \in \mathcal{P}} \lambda_{ji}
 $$
 
-- 概率语言模型检索
+**推导步骤：**
+
+1. **RankNet 的出发点**：RankNet 用交叉熵损失最小化文档对的排序错误：
+   $$\mathcal{L}_{\text{RankNet}} = \sum_{(i,j)} \log(1 + e^{-(s_i - s_j)})$$
+   对 $s_i$ 的梯度为 $\lambda_{ij}^{\text{RankNet}} = -\sigma(-\Delta_{ij}) = \frac{-1}{1+e^{s_i - s_j}}$
+
+2. **LambdaRank 的关键改进**：将 RankNet 梯度乘以 $|\Delta\text{NDCG}_{ij}|$（交换文档 $i,j$ 的位置后 NDCG 的变化量）：
+   - 如果交换 $i, j$ 导致 NDCG 大幅下降（即 $i$ 排在前面很重要），则惩罚更大
+   - 如果交换导致 NDCG 变化极小（两个文档都不重要），则惩罚很小
+
+3. **$|\Delta\text{NDCG}|$ 的计算**（对序列长为 $N$ 的查询）：
+   $$|\Delta\text{NDCG}_{ij}| = \left|\frac{1}{\text{IDCG}}\left(\frac{2^{rel_i}-1}{\log_2(\text{rank}_i+1)} + \frac{2^{rel_j}-1}{\log_2(\text{rank}_j+1)} - \frac{2^{rel_i}-1}{\log_2(\text{rank}_j+1)} - \frac{2^{rel_j}-1}{\log_2(\text{rank}_i+1)}\right)\right|$$
+
+4. **LambdaMART**：以 LambdaRank 梯度作为 GBDT（MART）的训练目标，每棵树拟合 $\lambda_i$，是非深度学习排序模型的 SOTA。
+
+**符号说明：**
+- $s_i, s_j$：模型对文档 $i, j$ 的打分
+- $\lambda_{ij}$：文档对 $(i,j)$ 给文档 $i$ 的梯度贡献
+- $|\Delta\text{NDCG}_{ij}|$：交换 $i, j$ 位置后的 NDCG 变化量（衡量该对的重要性）
+- $\mathcal{P}$：所有文档对集合，其中 $i$ 的真实相关性高于 $j$
+
+**直观理解：** LambdaRank 说的是："不是所有的排错都同等严重——把 rank 1 的相关文档排到 rank 10 比把 rank 9 的排到 rank 10 损失大得多。" $|\Delta\text{NDCG}|$ 系数让模型更关注"高位排错"的纠正，自然地优化了 NDCG 这个不可微目标。
+
+---
+
+### 3. Query Likelihood 语言模型检索
+
+$$
+P(q \mid d) = \prod_{t \in q} P(t \mid d), \quad P(t \mid d) = (1-\lambda) \frac{tf_{t,d}}{|d|} + \lambda P(t \mid \mathcal{C})
+$$
+
+**Jelinek-Mercer 平滑**：$\lambda \in [0,1]$ 控制文档语言模型与语料库背景语言模型的插值比例，解决文档中词频为零的问题（smoothing）。这是 BM25 之前经典统计检索的标准方法。
 
 ---
 

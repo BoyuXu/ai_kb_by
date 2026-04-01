@@ -14,29 +14,68 @@
 
 ## 📐 核心公式与原理
 
-### 1. 推荐系统漏斗
+### 📐 1. MMoE：多门控混合专家推导
+
+**MMoE 的前向传播公式：**
+
+对任务 $k$（$k = 1, \ldots, K$），输入特征 $\mathbf{x} \in \mathbb{R}^d$：
 
 $$
-\text{全量} \xrightarrow{召回} 10^3 \xrightarrow{粗排} 10^2 \xrightarrow{精排} 10^1 \xrightarrow{重排} \text{展示}
+\mathbf{h}^k(\mathbf{x}) = \sum_{i=1}^{n} g^k_i(\mathbf{x}) \cdot f_i(\mathbf{x})
 $$
 
-- 逐层过滤，平衡效果和效率
-
-### 2. CTR 预估
+其中门控权重向量：
 
 $$
-pCTR = \sigma(f_{DNN}(x_{user}, x_{item}, x_{context}))
+\mathbf{g}^k(\mathbf{x}) = \text{softmax}\!\left(W^k_g \mathbf{x}\right), \quad W^k_g \in \mathbb{R}^{n \times d}
 $$
 
-- 排序核心：预估用户点击概率
+**推导步骤：**
 
-### 3. 在线评估
+1. **Expert 网络**：$n$ 个独立的 Expert 网络 $f_i(\mathbf{x}) = \text{ReLU}(W_i^{(2)} \text{ReLU}(W_i^{(1)} \mathbf{x}))$，每个 Expert 可以学习特定的特征变换（如偏好浅层特征 vs 高阶交叉）
+
+2. **任务专属门控**：每个任务 $k$ 有独立的门控矩阵 $W^k_g$，通过 softmax 输出对 $n$ 个 Expert 的软权重分配 $\mathbf{g}^k \in \Delta^n$（概率单纯形）
+
+3. **任务输出层**：混合表示 $\mathbf{h}^k(\mathbf{x})$ 送入任务 $k$ 的 Tower 网络得到预测：
+   $$\hat{y}^k = \text{Tower}_k(\mathbf{h}^k(\mathbf{x}))$$
+
+4. **总损失**：
+   $$\mathcal{L}_{\text{MTL}} = \sum_{k=1}^K w_k \mathcal{L}_k(\hat{y}^k, y^k)$$
+   任务权重 $w_k$ 可以用 GradNorm/Uncertainty Weighting 动态调整
+
+5. **MMoE vs Shared-Bottom 的区别**：Shared-Bottom 对所有任务使用同一个底层表示 $f(\mathbf{x})$；MMoE 每个任务自适应地加权融合 $n$ 个 Expert，当任务冲突时（如点击和购买的用户偏好不同），不同任务的 $\mathbf{g}^k$ 会专门化到不同的 Expert 子集。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $n$ | Expert 数量（通常 4–16）|
+| $K$ | 任务数量（如 CTR、CVR、收藏率等）|
+| $f_i(\mathbf{x})$ | 第 $i$ 个 Expert 网络的输出向量 |
+| $g^k_i(\mathbf{x})$ | 任务 $k$ 对 Expert $i$ 的注意力权重（非负，和为 1）|
+| $W^k_g \in \mathbb{R}^{n \times d}$ | 任务 $k$ 的门控矩阵（可学习参数）|
+| $w_k$ | 任务 $k$ 的损失权重（可固定或动态调整）|
+
+**直观理解：** MMoE 的门控网络是一个"调度员"——它看到当前样本的特征后，决定"这个样本对任务 $k$ 而言应该重点参考哪几个 Expert"。不同任务的调度员相互独立，因此任务冲突时可以自然分化，而无需手工指定任务共享结构。
+
+---
+
+### 📐 2. PLE（Progressive Layered Extraction）改进
+
+PLE 在 MMoE 基础上引入任务专属 Expert（Specific Experts）和共享 Expert（Shared Experts）：
 
 $$
-\Delta metric = \bar{X}_{treatment} - \bar{X}_{control}
+\mathbf{h}^k(\mathbf{x}) = \sum_{i=1}^{n_s} g^k_{s,i} \cdot f^s_i(\mathbf{x}) + \sum_{j=1}^{n_k} g^k_{k,j} \cdot f^k_j(\mathbf{x})
 $$
 
-- A/B 测试量化策略效果
+**关键区别**：$f^s_i$（共享 Expert）被所有任务使用；$f^k_j$（任务 $k$ 的 Specific Expert）只被任务 $k$ 使用。
+
+**推导洞察**：MMoE 的所有 Expert 被所有任务共享，实验发现门控常倒向"全共享"（Expert utilization 不均）；PLE 引入 Specific Expert 后强制分离，缓解"跷跷板现象"——一个任务的 Expert 无法被另一个任务劫持。
+
+**符号说明：**
+- $n_s$：共享 Expert 数量；$n_k$：任务 $k$ 的 Specific Expert 数量
+- $g^k_{s,i}$：任务 $k$ 对共享 Expert $i$ 的权重
+- $g^k_{k,j}$：任务 $k$ 对自己专属 Expert $j$ 的权重
 
 ---
 

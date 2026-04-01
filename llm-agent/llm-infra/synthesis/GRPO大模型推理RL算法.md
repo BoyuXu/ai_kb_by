@@ -43,29 +43,66 @@
 
 ## 📐 核心公式与原理
 
-### 1. Self-Attention
+### 📐 GRPO 目标函数推导
+
+**核心目标函数：**
 
 $$
-\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\mathcal{L}_{\text{GRPO}}(\theta) = \frac{1}{G}\sum_{i=1}^{G} \left[\min\!\left(r_i(\theta)\hat{A}_i,\ \text{clip}(r_i(\theta),\ 1{-}\epsilon,\ 1{+}\epsilon)\hat{A}_i\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
 $$
 
-- Transformer 核心计算
+**推导步骤：**
 
-### 2. KV Cache
+1. **从 PPO 出发**：PPO 的 surrogate objective 是
+   $$\mathcal{L}_{\text{PPO}} = \mathbb{E}_t\!\left[\min\!\left(r_t(\theta)\hat{A}_t,\ \text{clip}(r_t(\theta), 1{-}\epsilon, 1{+}\epsilon)\hat{A}_t\right)\right]$$
+   其中重要性比率 $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\text{old}}(a_t|s_t)}$，Advantage $\hat{A}_t$ 由 Critic 的时序差分估计。
+
+2. **GRPO 的核心替换——去掉 Critic**：对同一 prompt $q$，采样 $G$ 个回答 $\{o_1,\ldots,o_G\}$，规则给出每个回答的 scalar reward $r_i$。令
+   $$\hat{A}_i = \frac{r_i - \mu_r}{\sigma_r}, \quad \mu_r = \frac{1}{G}\sum_{j=1}^G r_j,\quad \sigma_r = \sqrt{\frac{1}{G}\sum_{j=1}^G (r_j - \mu_r)^2}$$
+   归一化后 $\hat{A}_i$ 代替 Critic 估计的 advantage，无需额外价值网络。
+
+3. **整体回答的概率比**：PPO 是 token 级的 $r_t$；GRPO 在整个回答粒度上做：
+   $$r_i(\theta) = \frac{\pi_\theta(o_i \mid q)}{\pi_{\text{old}}(o_i \mid q)} = \prod_{t=1}^{|o_i|} \frac{\pi_\theta(o_{i,t} \mid q, o_{i,<t})}{\pi_{\text{old}}(o_{i,t} \mid q, o_{i,<t})}$$
+
+4. **KL 惩罚防止策略漂移**：
+   $$\mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}] = \mathbb{E}_{o \sim \pi_\theta}\!\left[\log\frac{\pi_\theta(o|q)}{\pi_{\text{ref}}(o|q)}\right]$$
+   $\pi_{\text{ref}}$ 是 SFT 初始化的参考模型，$\beta$ 控制偏离程度，通常 $\beta \in [0.01, 0.1]$。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $G$ | 同一 prompt 的采样回答数（通常 8–16） |
+| $o_i$ | 第 $i$ 个采样回答（token 序列） |
+| $r_i$ | 规则打分函数给 $o_i$ 的 scalar reward（如答对=1, 答错=0） |
+| $\hat{A}_i$ | 组内归一化 advantage，$\in [-3, 3]$ 左右（3σ 截断） |
+| $r_i(\theta)$ | 新旧策略在 $o_i$ 上的概率比（重要性权重） |
+| $\epsilon$ | clip 边界，通常 0.2，防止单步更新过大 |
+| $\beta$ | KL 惩罚系数，防止策略偏离参考模型 |
+| $\pi_{\text{ref}}$ | SFT 热启动的参考策略（固定，不更新） |
+
+**直观理解：**
+GRPO 就像组内排名打分——不需要知道"绝对应该拿多少分"（Critic），只需知道"比同学高了多少"（组内相对 reward）。归一化消除了 reward 量纲影响，类比 BatchNorm：无论 reward 是 [0,1] 还是 [0,100]，$\hat{A}_i$ 始终在相同数值范围内，梯度稳定。
+
+---
+
+### 📐 PPO → GRPO 显存需求对比
+
+PPO 需要维护：策略模型 $\pi_\theta$（active）、旧策略 $\pi_{\text{old}}$（frozen copy）、Critic $V_\phi$（same size as $\pi_\theta$）、参考模型 $\pi_{\text{ref}}$
 
 $$
-\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
+\text{PPO 显存} \approx 4 \times M_\theta \text{ (4份同量级模型)}
 $$
 
-- KV Cache 内存占用公式
-
-### 3. LoRA
+GRPO 只需要：策略模型 $\pi_\theta$、参考模型 $\pi_{\text{ref}}$（可以 offload）
 
 $$
-W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+\text{GRPO 显存} \approx 2 \times M_\theta \approx \frac{1}{2} \text{ PPO 显存}
 $$
 
-- 低秩适配，r << d 大幅减少可训练参数
+**符号说明：**
+- $M_\theta$：单个策略模型的显存占用（参数 + 优化器状态）
+- 70B 模型 BF16 下 $M_\theta \approx 140\text{GB}$，PPO 需要 ~560GB，GRPO 约 ~280GB（A100 80GB × 4 即可）
 
 ### Q1: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

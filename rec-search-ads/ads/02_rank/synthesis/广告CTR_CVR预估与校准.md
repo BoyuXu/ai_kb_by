@@ -15,29 +15,119 @@
 
 ## 📐 核心公式与原理
 
-### 1. CTR 预估
+### 📐 1. ESMM：全空间 CVR 去偏推导
+
+**核心问题**：CVR 模型只在点击样本上训练，但预测时作用于全曝光空间（SSB，Sample Selection Bias）。
+
+ESMM 的概率链式分解：
 
 $$
-P(click|x) = \sigma(f(x; \theta))
+P(\text{conversion}|\text{impression}) = P(\text{click}|\text{impression}) \times P(\text{conversion}|\text{click, impression})
 $$
 
-- 深度模型预估点击概率，sigmoid 输出
-
-### 2. 交叉熵损失
+即：
 
 $$
-L = -\frac{1}{N}\sum_{i=1}^N [y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)]
+p_{\text{CTCVR}}(x) = p_{\text{CTR}}(x) \times p_{\text{CVR}}(x)
 $$
 
-- CTR 模型标准训练目标
+**推导步骤：**
 
-### 3. AUC
+1. **定义三个空间**：
+   - 曝光空间 $\mathcal{S}$：所有曝光样本（$N$ 条）
+   - 点击空间 $\mathcal{O}$：发生点击的样本（$n \ll N$）
+   - 转化空间：发生转化的样本（更稀疏）
+
+2. **传统 CVR 的偏差来源**：训练时使用 $\mathcal{O}$ 上的样本，但推断时在 $\mathcal{S}$ 上计算。形式上，训练的是 $P(\text{conv}|\text{click, obs})$，而需要的是 $P(\text{conv}|\text{click})$。
+
+3. **ESMM 的解决方案**：共享 Embedding，两个子任务（CTR、CVR）的参数独立，但用 CTCVR 标签（在全空间有标签）约束 CVR 子网络：
 
 $$
-AUC = P(\hat{y}_{pos} > \hat{y}_{neg})
+\mathcal{L}_{\text{ESMM}} = \underbrace{\mathcal{L}_{\text{CTR}}(\hat{p}_{\text{CTR}},\, y_{\text{click}})}_{\text{全曝光空间}} + \underbrace{\mathcal{L}_{\text{CTCVR}}(\hat{p}_{\text{CTR}} \cdot \hat{p}_{\text{CVR}},\, y_{\text{click}} \cdot y_{\text{conv}})}_{\text{全曝光空间，间接约束 CVR}}
 $$
 
-- 正样本得分高于负样本的概率
+4. **为何有效**：CVR 子网通过链式乘积间接接受全空间标签监督，$\hat{p}_{\text{CVR}}$ 被隐式约束在全曝光分布上训练，消除 SSB。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $p_{\text{CTR}}(x)$ | 曝光 $x$ 的点击概率，在全空间有标签 |
+| $p_{\text{CVR}}(x)$ | 点击后转化概率，传统方法只在点击空间有标签 |
+| $p_{\text{CTCVR}}(x)$ | 曝光到转化的联合概率，等于两者乘积 |
+| $y_{\text{click}} \cdot y_{\text{conv}}$ | CTCVR 标签（仅曝光+点击+转化时为 1）|
+
+**直观理解：** ESMM 用"点击×转化的联合概率"作为全空间可观测的标签，巧妙地把无法在全空间观测的 CVR 藏进了可观测的 CTCVR，通过链式法则反向约束。
+
+---
+
+### 📐 2. Platt Scaling 校准推导
+
+模型输出 logit $f(x)$，经 sigmoid 后得到未校准概率。校准目标：学习 $a, b$ 使得
+
+$$
+p_{\text{calib}}(x) = \sigma(a \cdot f(x) + b) = \frac{1}{1 + e^{-(a f(x) + b)}}
+$$
+
+**推导步骤：**
+
+1. **为何需要校准**：深度模型输出的 $\hat{p}$ 通常不等于真实后验 $P(y=1|x)$，在极度不平衡数据（如 CTR~1%）上尤为严重
+
+2. **Platt Scaling 等价于 Logistic Regression on logits**：将已训练模型的 logit 作为单一特征，在留出集上训练一个 1D LR：
+
+$$
+\min_{a,b} -\sum_{i=1}^M [y_i \log \sigma(a f_i + b) + (1-y_i)\log(1-\sigma(a f_i + b))]
+$$
+
+3. **参数含义**：$a < 1$ 表示模型过度自信（概率分布太极端），需要压缩；$b \neq 0$ 表示模型存在系统性偏差（整体偏高/偏低）
+
+4. **Expected Calibration Error（ECE）**：
+
+$$
+\text{ECE} = \sum_{m=1}^M \frac{|B_m|}{n} \left|\text{acc}(B_m) - \text{conf}(B_m)\right|
+$$
+
+其中 $B_m$ 是按置信度划分的桶，$|B_m|/n$ 是样本比例权重，理想情况下 ECE = 0（预测概率 = 实际发生率）。
+
+**符号说明：**
+- $f(x)$：模型输出 logit（sigmoid 之前的值）
+- $a$：logit 缩放系数（压缩/放大模型置信度）
+- $b$：偏置项（修正系统性偏差）
+- $\text{acc}(B_m)$：桶 $m$ 内样本的实际正例比例
+- $\text{conf}(B_m)$：桶 $m$ 内样本的平均预测概率
+
+---
+
+### 📐 3. FTRL 在线学习更新推导
+
+FTRL（Follow The Regularized Leader）在每个样本到来后更新：
+
+$$
+w_{t+1} = \arg\min_w \left[\sum_{\tau=1}^t g_\tau^\top w + \frac{1}{2}\sum_{\tau=1}^t \sigma_\tau \|w - w_\tau\|_2^2 + \lambda_1 \|w\|_1 + \frac{1}{2}\lambda_2 \|w\|_2^2\right]
+$$
+
+**推导步骤（对第 $i$ 维参数的闭式解）：**
+
+1. 令 $z_{t,i} = \sum_{\tau=1}^t g_{\tau,i} - \sum_{\tau=1}^t \sigma_{\tau,i} w_{\tau,i}$（累积梯度的修正形式）
+
+2. 闭式解：
+
+$$
+w_{t+1,i} = \begin{cases} 0 & \text{if } |z_{t,i}| \le \lambda_1 \\ -\frac{z_{t,i} - \text{sgn}(z_{t,i})\lambda_1}{\frac{1}{\alpha}\sum_{\tau=1}^t \sigma_{\tau,i} + \lambda_2} & \text{otherwise} \end{cases}
+$$
+
+3. **L1 产生稀疏性**：当 $|z_{t,i}| \le \lambda_1$ 时参数直接置零，自动特征选择——这是广告系统处理亿级特征维度的关键（通常 95%+ 特征维度为零）
+
+4. **学习率自适应**（类 AdaGrad）：$\sigma_{\tau,i} = \frac{1}{\alpha}(\sqrt{\sum_{s=1}^\tau g_{s,i}^2} - \sqrt{\sum_{s=1}^{\tau-1} g_{s,i}^2})$，历史梯度大的维度步长自动缩小
+
+**符号说明：**
+- $g_\tau$：第 $\tau$ 个样本的梯度向量
+- $\lambda_1$：L1 正则化系数（控制稀疏度）
+- $\lambda_2$：L2 正则化系数（控制权重大小）
+- $\alpha$：初始学习率
+- $z_{t,i}$：第 $i$ 维的累积正则化梯度（FTRL 的内部状态变量）
+
+**直观理解：** FTRL 是"一直追 loss 历史最小值"的贪心策略，L1 正则化在梯度方向上施加 soft-threshold，使绝大多数低频特征的权重精确归零，让模型在亿级特征下仍能高效存储和推断。
 
 ---
 

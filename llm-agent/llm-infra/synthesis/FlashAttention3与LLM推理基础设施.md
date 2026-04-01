@@ -50,29 +50,91 @@
 
 ## 📐 核心公式与原理
 
-### 1. Self-Attention
+### 📐 FlashAttention IO 复杂度推导
+
+**标准 Attention 的 IO 代价（朴素实现）：**
 
 $$
-\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\text{Attention}(Q,K,V) = \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
 
-- Transformer 核心计算
-
-### 2. KV Cache
+朴素实现需要将完整的 $n \times n$ 注意力矩阵 $S = QK^T / \sqrt{d_k}$ 写入 HBM：
 
 $$
-\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
+\text{IO}_{\text{naive}} = O(n^2 d + n^2) = O(n^2) \text{ HBM 访问}
 $$
 
-- KV Cache 内存占用公式
+其中 $Q, K, V \in \mathbb{R}^{n \times d}$，$n$ 是序列长度，$d$ 是 head dim（通常 128）。
 
-### 3. LoRA
+**FlashAttention 分块（Tiling）算法的 IO 分析：**
+
+FA 的核心思路：将 $Q, K, V$ 分成大小为 $B_r \times d$（Q）和 $B_c \times d$（K,V）的块，每次只加载一个块做局部计算，维护 running softmax 统计量 $(m, \ell)$ 避免重新读取：
 
 $$
-W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+m_{\text{new}} = \max(m_{\text{old}},\ \max_j S_{ij}), \qquad \ell_{\text{new}} = e^{m_{\text{old}} - m_{\text{new}}} \ell_{\text{old}} + \sum_j e^{S_{ij} - m_{\text{new}}}
 $$
 
-- 低秩适配，r << d 大幅减少可训练参数
+$$
+O_{\text{new}} = \frac{e^{m_{\text{old}} - m_{\text{new}}} \ell_{\text{old}} \cdot O_{\text{old}} + \sum_j e^{S_{ij} - m_{\text{new}}} V_j}{\ell_{\text{new}}}
+$$
+
+最终 IO 代价：
+
+$$
+\text{IO}_{\text{FA}} = O\!\left(\frac{n^2 d}{M}\right) \times \text{SRAM 大小} = \Theta\!\left(\frac{n^2 d^2}{M}\right)
+$$
+
+其中 $M$ 为 SRAM（共享内存）大小。当 $M \gg d^2$ 时，IO 降至 $O(n)$ 量级（只需各读写一次 $Q, K, V, O$），省去了 $O(n^2)$ 的中间矩阵写入。
+
+**推导步骤总结：**
+
+1. **为何要分块**：$n=8192$ 时 $n^2 = 67M$ 个元素，BF16 约 **134MB**，无法放入 SRAM（通常 20-40MB），必须反复读写 HBM
+2. **Online Softmax 技巧**：Flashattention 利用 $\text{softmax}(x) = \text{softmax}(x - m)$（数值等价），只需维护 running max $m$ 和 running sum $\ell$，不需要全局归一化后再回来重读
+3. **FA3 的改进**：在 Hopper GPU 上用 WGMMA 异步矩阵乘 + TMA 数据搬运，使块加载和计算真正 **overlap**，将算术强度从 $O(n)$ 提升到接近硬件峰值 FLOP/s
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $n$ | 序列长度（如 4096, 8192）|
+| $d$ | head dimension（通常 64 或 128）|
+| $M$ | SRAM 容量（A100=192KB/SM, H100=256KB/SM）|
+| $B_r, B_c$ | Q 块行数、KV 块行数（tile size）|
+| $m$ | Running max（online softmax 的数值稳定项）|
+| $\ell$ | Running sum of exp（归一化分母）|
+| $O$ | 输出矩阵，同步维护的局部加权和 |
+
+**直观理解：**
+FA 的本质是把"先算完整矩阵、再 softmax"改成"边算边 softmax、只过一遍数据"——就像流式处理替代批量处理。代价是需要额外维护两个标量 $(m, \ell)$，但省掉了整个 $n \times n$ 矩阵的 HBM 往返，序列越长收益越大。
+
+---
+
+### 📐 KV Cache 内存占用公式
+
+$$
+\text{KV\_Mem} = 2 \times L \times H \times d_h \times N \times s
+$$
+
+**推导步骤：**
+
+1. 每个 token 在每一层需要保存 Key 和 Value 各一份（系数 2）
+2. 每层有 $H$ 个注意力头，每头维度 $d_h$（总 head dim = $H \times d_h = d_{\text{model}}$）
+3. 共 $L$ 层，序列长度 $N$，每个元素占 $s$ 字节（BF16 → $s=2$, FP8 → $s=1$）
+
+**示例**：LLaMA-3-70B，$L=80, H=64, d_h=128, s=2$（BF16），$N=8192$：
+
+$$
+\text{KV\_Mem} = 2 \times 80 \times 64 \times 128 \times 8192 \times 2 = 2 \times 80 \times 8192 \times 16384\text{ B} \approx 167\text{ GB}
+$$
+
+这解释了为何长序列推理是内存瓶颈，GQA（$H_{\text{KV}} \ll H_Q$）将 KV 头数从 64 减到 8，节省 8× 内存。
+
+**符号说明：**
+- $L$：Transformer 层数
+- $H$：KV 注意力头数（GQA/MQA 中此值远小于 Q 头数）
+- $d_h$：每个注意力头的维度
+- $N$：当前序列的 token 数
+- $s$：每个元素字节数（BF16=2, INT8=1, FP8=1）
 
 ### Q1: KV Cache 为什么是推理瓶颈？
 **30秒答案**：KV Cache 大小 = 2×layers×heads×dim×seq_len×dtype_size。长序列时内存爆炸。优化：①Multi-Query Attention；②量化（FP8/INT4）；③页注意力（vLLM PagedAttention）；④压缩（H2O/SnapKV）。

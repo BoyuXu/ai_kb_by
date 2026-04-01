@@ -37,29 +37,82 @@ graph TB
 
 ## 📐 核心公式与原理
 
-### 1. Self-Attention
+### 📐 1. MHA → GQA → MQA KV Cache 节省推导
+
+**Multi-Head Attention（标准 MHA）：**
 
 $$
-\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\text{KV}_{\text{MHA}} = 2 \times L \times H \times d_k \times N
 $$
 
-- Transformer 核心计算
+$H$ 个头各独立存储 K、V（系数 2），总 KV 内存正比于头数 $H$。
 
-### 2. KV Cache
+**Grouped Query Attention（GQA）：**
 
-$$
-\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
-$$
-
-- KV Cache 内存占用公式
-
-### 3. LoRA
+将 $H$ 个 Query 头分为 $G$ 组（$G < H$），每组共享一对 KV：
 
 $$
-W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+\text{KV}_{\text{GQA}} = 2 \times L \times G \times d_k \times N = \frac{G}{H} \times \text{KV}_{\text{MHA}}
 $$
 
-- 低秩适配，r << d 大幅减少可训练参数
+**Multi-Query Attention（MQA，$G=1$）：**
+
+$$
+\text{KV}_{\text{MQA}} = 2 \times L \times 1 \times d_k \times N = \frac{1}{H} \times \text{KV}_{\text{MHA}}
+$$
+
+**推导步骤：**
+
+1. **MHA 的 KV 来源**：每个 Query 头 $h$ 独立计算 $K_h = X W_K^h$，$V_h = X W_V^h$，需各自缓存 $L \times N \times d_k$ 个元素，共 $H$ 组。
+
+2. **GQA 的共享策略**：$H$ 个 Q 头分为 $G$ 组，同组的 Q 头复用同一对 KV，仅需 $G$ 组缓存，节省 $H/G$ 倍。
+
+3. **示例（LLaMA-3-8B，$L=32, H=32, G=8, d_k=128, N=8192$，BF16）：**
+   $$\text{KV}_{\text{GQA}} = 2 \times 32 \times 8 \times 128 \times 8192 \times 2\text{ B} \approx 1.07\text{ GB}$$
+   MHA 下约需 4.3 GB，GQA（G=8）节省 4×，精度损失 <0.5%。
+
+4. **质量-效率权衡**：$G=1$（MQA）节省最多但精度损失 ~2%；$G=H$（MHA）质量最好；$G \in (1, H)$（GQA）是工业最优解，LLaMA-3/Mistral/Gemma 均采用。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $H$ | Query 总头数（如 32、64）|
+| $G$ | GQA 的 KV 组数（$1 \leq G \leq H$）|
+| $d_k$ | 每个注意力头的维度（通常 128）|
+| $L$ | Transformer 层数 |
+| $N$ | 当前序列 token 数 |
+
+**直观理解：** GQA 是"拼车"——$H/G$ 个 Q 头共享同一辆 KV"车"，内存节省 $H/G$ 倍。核心发现：Q 头的多样性（高秩表示）比 KV 头的多样性更重要，减少 KV 头数对质量影响有限。
+
+---
+
+### 📐 2. KV Cache 内存精确计算
+
+$$
+\text{KV\_Mem} = 2 \times L \times H_{\text{KV}} \times d_k \times N \times s
+$$
+
+**推导步骤：**
+1. 每层（$L$ 层）需存储 Key 和 Value（系数 2）
+2. GQA/MQA 下，KV 头数为 $H_{\text{KV}}$（$\leq H_Q$）
+3. 每个 KV 头维度为 $d_k$，序列 $N$ 个 token，每元素 $s$ 字节（BF16→2, FP8→1）
+
+**示例**：LLaMA-3-70B（$L=80, H_{\text{KV}}=8, d_k=128, N=32768, s=2$）：
+$$\text{KV\_Mem} = 2 \times 80 \times 8 \times 128 \times 32768 \times 2 \approx 107\text{ GB}$$
+这是单 batch 一个请求占用的 KV Cache，超出单张 H100（80GB）的容量——这就是为何长上下文需要 KV 量化或驱逐。
+
+---
+
+### 3. H2O KV 驱逐策略（Heavy Hitter Oracle）
+
+保留 KV Cache 中 attention score 累积最高的 $k$ 个 token（Heavy Hitters）+ 最近 $w$ 个 token（Sink + Window）：
+
+$$
+\text{score}(t) = \sum_{\tau > t} a_{\tau, t}, \quad \text{保留 top-}k \text{ 的 token KV}
+$$
+
+其中 $a_{\tau,t}$ 是位置 $\tau$ 对位置 $t$ 的注意力权重。实验结果：保留 20% KV Cache，任务性能保留 95%+。
 
 ---
 

@@ -37,29 +37,100 @@ graph TB
 
 ## 📐 核心公式与原理
 
-### 1. 最优出价
+### 📐 1. 最优出价推导（二阶竞价下的 KKT 条件）
+
+**问题设定**：广告主有 $n$ 次展示机会，每次出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增），每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$，赢得时支付对手最高价 $m_i$（二价拍卖）。
+
+优化目标（最大化转化数，满足 ROI 约束）：
 
 $$
-bid^* = v \cdot pCTR \cdot pCVR
+\max_{b_i} \sum_{i=1}^n w_i(b_i) \cdot v_i \quad \text{s.t.} \quad \sum_{i=1}^n m_i \cdot w_i(b_i) \leq B
 $$
 
-- 出价 = 价值 × 点击率 × 转化率
-
-### 2. 预算约束
+**Lagrangian 松弛：**
 
 $$
-\sum_{t=1}^T c_t \leq B
+\mathcal{L}(\mathbf{b}, \lambda) = \sum_{i=1}^n w_i(b_i) v_i - \lambda \left(\sum_{i=1}^n m_i w_i(b_i) - B\right)
 $$
 
-- 总花费不超过预算 B
-
-### 3. Lagrangian 松弛
+**推导步骤——对每个 $b_i$ 求偏导并令其为零：**
 
 $$
-L = \sum_t v_t x_t - \lambda(\sum_t c_t x_t - B)
+\frac{\partial \mathcal{L}}{\partial b_i} = w_i'(b_i) v_i - \lambda m_i w_i'(b_i) = 0
 $$
 
-- λ 控制预算约束的松紧
+$$
+w_i'(b_i)(v_i - \lambda m_i) = 0
+$$
+
+由于 $w_i'(b_i) > 0$（赢得概率单调递增），得：
+
+$$
+\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}}{\lambda}}
+$$
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $v_i$ | 第 $i$ 次展示的转化期望价值（pCTR × pCVR × CPA目标）|
+| $w_i(b_i)$ | 出价 $b_i$ 时赢得第 $i$ 次竞价的概率 |
+| $m_i$ | 对手出价（二价中即为实际支付）|
+| $B$ | 总预算上限 |
+| $\lambda$ | Lagrange 乘子（对偶变量），等价于"每单位预算能换多少期望价值" |
+
+**直观理解：** 最优出价 $b^* = v/\lambda$ 表明：$\lambda$ 就是预算的"影子价格"——$\lambda$ 越大，预算越紧，每次都要压低出价；$\lambda \to 0$ 时，预算充裕，应该按价值全出。实践中通过二分搜索或 PID 控制找到满足预算约束的 $\lambda^*$。
+
+---
+
+### 📐 2. Constrained MDP（CMDP）与 Lagrangian RL 推导
+
+RL 自动出价将出价过程建模为 CMDP：状态 $s_t$（预算余量、时间、历史花费率），动作 $a_t$（出价调整系数），约束 $C(\pi) = \mathbb{E}_\pi[\sum_t c_t] \leq B$。
+
+**原始约束优化：**
+
+$$
+\max_\pi J(\pi) = \mathbb{E}_\pi\!\left[\sum_{t=0}^T r_t\right] \quad \text{s.t.} \quad C(\pi) = \mathbb{E}_\pi\!\left[\sum_{t=0}^T c_t\right] \leq B
+$$
+
+**Lagrangian 松弛为无约束问题：**
+
+$$
+\mathcal{L}(\pi, \lambda) = J(\pi) - \lambda \cdot (C(\pi) - B)
+$$
+
+**对偶迭代（Primal-Dual 方法）：**
+
+$$
+\pi^{(k+1)} = \arg\max_\pi \mathcal{L}(\pi, \lambda^{(k)}) \quad \text{（用 PPO/SAC 求解内层）}
+$$
+
+$$
+\lambda^{(k+1)} = \max\!\left(0,\ \lambda^{(k)} + \alpha_\lambda \cdot (C(\pi^{(k+1)}) - B)\right) \quad \text{（梯度上升更新 $\lambda$）}
+$$
+
+**推导步骤：**
+
+1. 强对偶条件（Slater 条件满足时）：$\min_\lambda \max_\pi \mathcal{L}(\pi, \lambda) = \max_\pi \min_\lambda \mathcal{L}(\pi, \lambda)$，原始对偶 gap 为零
+2. 内层：固定 $\lambda$，用 Actor-Critic 优化 $\mathcal{L}(\pi, \lambda)$（等价于带线性惩罚的 reward shaping：$r_t' = r_t - \lambda c_t$）
+3. 外层：根据约束违反程度梯度上升更新 $\lambda$（若花费超预算则增大 $\lambda$，反之减小）
+4. 收敛时：$\lambda^* > 0$ 且预算恰好耗尽（互补松弛）；$\lambda^* = 0$ 且预算有余（宽松约束）
+
+**符号说明：**
+- $J(\pi)$：策略 $\pi$ 下的期望 reward（转化数/GMV）
+- $C(\pi)$：策略 $\pi$ 下的期望总花费
+- $\lambda \geq 0$：Lagrange 乘子（自动出价中即为"出价折扣因子"）
+- $\alpha_\lambda$：$\lambda$ 的学习率（PID 控制中对应积分项）
+
+---
+
+### 3. 预算约束（工程实现）
+
+$$
+\sum_{t=1}^T c_t \leq B, \quad \text{PID 控制：} \lambda_t = \lambda_{t-1} + K_p e_t + K_i \sum_\tau e_\tau + K_d (e_t - e_{t-1})
+$$
+
+其中 $e_t = \text{目标花费率} - \text{实际花费率}$，PID 控制器实时调整 $\lambda$（出价折扣因子），$K_p, K_i, K_d$ 分别为比例、积分、微分系数。
 
 ---
 

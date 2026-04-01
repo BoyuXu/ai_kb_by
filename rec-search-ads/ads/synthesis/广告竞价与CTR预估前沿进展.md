@@ -64,17 +64,52 @@
 
 ---
 
-## 📐 核心公式
+## 📐 核心公式与推导
 
-### 公式1：最优出价公式（Auto-bidding）
+### 📐 Auto-bidding（自动出价）最优出价公式推导
 
-在预算约束 $B$ 和 CPC 约束 $C$ 下，最大化转化数的最优出价：
+**核心目标函数：**
+
+最大化预期转化数，受预算约束：
 
 $$
-\text{bid}^*(a) = \lambda^* \cdot \text{pCTR}(a) \cdot v(a)
+\max_{\{\text{bid}(a)\}} \sum_{a \in \mathcal{A}} \mathbb{E}[C_a \cdot r_a] \quad \text{s.t.} \quad \sum_{a \in \mathcal{A}} \text{bid}(a) \cdot r_a \leq B
 $$
 
-其中 $\lambda^*$ 是最优拉格朗日乘子，$\text{pCTR}(a)$ 是广告 $a$ 的预估点击率，$v(a)$ 是单次转化价值。**BiCB** 通过二分搜索求 $\lambda^*$，结合流量预测实现秒级控制。
+其中 $C_a$ 是广告 $a$ 的转化价值，$r_a$ 是获胜率（赢得拍卖的概率），$B$ 是总预算。
+
+**推导步骤：**
+
+1. **建立拉格朗日函数**：引入拉格朗日乘子 $\lambda^*$（影子价格），表示预算约束的边际成本：
+   $$\mathcal{L} = \sum_{a} C_a \cdot r_a(\text{bid}(a)) - \lambda^* \left(\sum_a \text{bid}(a) \cdot r_a - B\right)$$
+
+2. **对 $\text{bid}(a)$ 求偏导并令其为0**（一阶最优性条件）：
+   $$\frac{\partial \mathcal{L}}{\partial \text{bid}(a)} = C_a \cdot \frac{\partial r_a}{\partial \text{bid}} - \lambda^* r_a - \lambda^* \text{bid}(a) \frac{\partial r_a}{\partial \text{bid}} = 0$$
+
+3. **简化得到最优出价形式**：
+   $$\text{bid}^*(a) = \lambda^* \cdot C_a \cdot \text{pCTR}(a)$$
+   其中 $\text{pCTR}(a)$ 是预估点击率，$C_a$ 是单次点击的预期转化价值。
+
+4. **确定 $\lambda^*$**：通过二分搜索找到使预算约束紧（$\sum_a \text{bid}^*(a) \cdot r_a = B$）的 $\lambda^*$ 值。BiCB 的创新：结合流量预测 $\hat{r}_a(t)$ 实现**时间自适应出价**：
+   $$\text{bid}(a, t) = \lambda^*(t) \cdot C_a \cdot \text{pCTR}(a) \cdot \frac{\hat{r}_a(t)}{\hat{r}_a(\text{day})}$$
+   即根据预测的分钟级流量，调整出价以平衡全天预算。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $\lambda^*$ | 拉格朗日乘子（影子价格），含义：预算多1元能增加的预期收益 |
+| $\text{bid}(a)$ | 广告 $a$ 的出价金额 |
+| $\text{pCTR}(a)$ | 预估点击率（$p$ = predicted），由 CTR 模型输出 |
+| $C_a$ | 单次点击的预期转化价值（eCPA 的倒数）|
+| $r_a$ | 获胜率（竞争函数），取决于出价与其他对手出价的相对关系 |
+| $B$ | 总预算约束 |
+
+**直观理解：** 自动出价的核心思想是「预算梯度下降」——用影子价格 $\lambda^*$ 衡量每块钱的价值，高价值广告（转化价值高 $\times$ 点击率高）得到更高出价。流量预测的加入使出价随时间自适应，避免"上午花完、下午没钱"的浪费。
+
+---
+
+### 📐 UCB 置信上界公式推导（MAB 冷启动）
 
 ---
 
@@ -104,21 +139,60 @@ $$
 
 ---
 
-### 公式3：UCB 置信上界公式（MAB 冷启动）
+### 📐 UCB 多臂老虎机（MAB）冷启动推导
 
-基于 UCB（Upper Confidence Bound）的冷启动 CTR 调整：
+**核心问题：** 在不了解真实 CTR 的情况下，如何平衡探索（试新广告）和利用（用已知 CTR 高的广告）？
 
-$$
-\widehat{\text{pCTR}}_\text{UCB}(a) = \hat{\mu}_a + c \cdot \sqrt{\frac{\log t}{n_a}}
-$$
+**UCB 优化目标：**
 
-竞价评分：$\text{eCPM}}_{\text{\text{UCB}}(a) = \text{bid}(a) \times \widehat{\text{pCTR}}_\text{UCB}(a)$
-
-新广告（$n_a$ 小）获得更高 UCB，自然增加探索概率。预算遗憾理论界：
+最大化 $T$ 步内的累积奖励，同时最小化遗憾（即与最优策略的差距）：
 
 $$
-\mathbb{E}[\text{BudgetRegret}(T)] = O\left(\sqrt{KT \log T}\right)
+\text{Regret}(T) = T \cdot \mu^* - \mathbb{E}\left[\sum_{t=1}^T r_{a_t}(t)\right]
 $$
+
+其中 $\mu^* = \max_a \mu_a$ 是最优臂的期望奖励。
+
+**推导步骤：**
+
+1. **问题建模**：每个广告 $a$ 有未知的真实 CTR $\mu_a$，每次展示时观测到 Bernoulli 奖励（点击=1，无点击=0）
+   $$r_a(t) \sim \text{Bernoulli}(\mu_a)$$
+
+2. **经验估计与置信区间**：基于已有的 $n_a$ 次样本，估计平均 CTR：
+   $$\hat{\mu}_a = \frac{1}{n_a}\sum_{i=1}^{n_a} r_{a,i}$$
+   
+   由 Hoeffding 不等式，真实 $\mu_a$ 以高概率落在置信区间内：
+   $$\mathbb{P}(\mu_a \leq \hat{\mu}_a + \sqrt{\frac{\log(1/\delta)}{2n_a}}) \geq 1 - \delta$$
+
+3. **UCB 上界**：选择最乐观的可能估计（置信上界）：
+   $$\text{UCB}_a(t) = \hat{\mu}_a + \sqrt{\frac{2\log t}{n_a}}$$
+   
+   **关键洞察**：$\sqrt{\frac{\log t}{n_a}}$ 项在样本少（$n_a$ 小）时很大，鼓励探索新臂。
+
+4. **贪心选择与遗憾界**：每步选择 UCB 最高的臂：
+   $$a_t^* = \arg\max_a \text{UCB}_a(t)$$
+   
+   理论上界（Lai-Robbins）：
+   $$\mathbb{E}[\text{Regret}(T)] = O\left(\log T \sum_{a: \mu_a < \mu^*} \frac{1}{\text{KL}(\mu_a \| \mu^*)}\right)$$
+
+5. **在 CTR 预估中的应用（MAB-ColdStart）**：对新广告，直接用 UCB 调整 CTR：
+   $$\text{pCTR}_{\text{UCB}}(a) = \min\left(\hat{\text{pCTR}}(a) + \sqrt{\frac{2\log t}{n_a}}, 1.0\right)$$
+   
+   竞价评分变为：
+   $$\text{eCPM}_{\text{UCB}}(a) = \text{bid}(a) \times \text{pCTR}_{\text{UCB}}(a)$$
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $\mu_a$ | 广告 $a$ 的真实点击率（未知） |
+| $\hat{\mu}_a$ | 基于 $n_a$ 个样本的经验估计 CTR |
+| $n_a$ | 广告 $a$ 已获得的展示次数 |
+| $\text{UCB}_a(t)$ | 第 $t$ 步的置信上界（乐观估计） |
+| $t$ | 当前时间步（总展示次数） |
+| $\text{KL}(\cdot \| \cdot)$ | Kullback-Leibler 散度，衡量两分布距离 |
+
+**直观理解：** UCB 是「知识的价格」——新广告因为不确定性大（置信区间宽），被给予更高的"乐观评分"，从而获得更多探索机会。这种「不确定性驱动的探索」比固定探索率（如 $\epsilon$-greedy 的固定 $\epsilon$）更聪明：随着 $t$ 增大、$n_a$ 增大，置信区间收窄，探索逐渐转向利用。
 
 ---
 

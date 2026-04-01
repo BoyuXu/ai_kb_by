@@ -15,29 +15,87 @@
 
 ## 📐 核心公式与原理
 
-### 1. Self-Attention
+### 📐 DPO（Direct Preference Optimization）推导
+
+**核心目标函数：**
 
 $$
-\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]
 $$
 
-- Transformer 核心计算
+**推导步骤：**
 
-### 2. KV Cache
+1. **RLHF 的隐式偏好模型**：RLHF 在最优性下，最优策略满足 Bradley-Terry 偏好模型：
+   $$\pi^*(y|x) = \frac{1}{Z(x)}\pi_{\text{ref}}(y|x)\exp\left(\frac{1}{\beta}r^*(y,x)\right)$$
+   其中 $Z(x)$ 是分配函数，$r^*$ 是 RLHF 学出的奖励函数，$\beta$ 控制温度。
+
+2. **反演奖励函数**：从上式反演 $r^*$：
+   $$r^*(y,x) = \beta\log\frac{\pi^*(y|x)}{\pi_{\text{ref}}(y|x)}$$
+   DPO 的关键洞察：**直接用偏好数据训练 $\pi_\theta$，无需显式学 $r^*$**。
+
+3. **偏好成对建模**：对于优先的回答 $y_w$ 和劣质的回答 $y_l$，由 Bradley-Terry 模型：
+   $$P(y_w \succ y_l | x) = \sigma\left(r^*(y_w, x) - r^*(y_l, x)\right)$$
+
+4. **DPO 目标代入**：将反演的 $r^*$ 代入，得到 DPO loss：
+   $$\mathcal{L}_{\text{DPO}} = -\log\sigma\left(\beta\left[\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right]\right)$$
+   这个 loss 可以直接优化，无需 Reward Model 或 PPO。
+
+**符号说明：**
+
+| 符号 | 含义 |
+|------|------|
+| $\pi_\theta$ | 待优化的策略网络（LLM） |
+| $\pi_{\text{ref}}$ | 参考策略（SFT 初始模型），固定不变 |
+| $y_w, y_l$ | 被人类标注为「好」和「差」的回答对 |
+| $\beta$ | 温度参数，控制 policy 与 reference 偏离程度（通常 0.5-1.0） |
+| $\sigma$ | logistic 函数，$\sigma(z) = 1/(1+e^{-z})$ |
+| $\log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}$ | log 概率比，衡量新策略与参考策略的差异 |
+
+**直观理解：** DPO 是「无中间商赚差价」——传统 RLHF 需要先训奖励模型（中间商），再用 PPO 优化。DPO 数学上证明这个中间步骤不必要，直接从偏好数据可以训出等效的策略。
+
+---
+
+### 📐 RLHF vs DPO vs GRPO 对比
+
+**三种算法的显存占用和稳定性：**
+
+| 算法 | 模型数量 | Loss 稳定性 | 实现复杂度 | 代表模型 |
+|------|---------|-----------|----------|--------|
+| **RLHF** | 4个（$\pi_\theta, \pi_{\text{ref}}, r_\phi, V_\phi$） | 低（多阶段优化） | 高 | ChatGPT, Claude |
+| **DPO** | 2个（$\pi_\theta, \pi_{\text{ref}}$） | 中（直接偏好loss） | 低 | LLaMA-2, Mistral |
+| **GRPO** | 2个（$\pi_\theta, \pi_{\text{ref}}$） + 采样 | 高（组内归一化） | 低 | DeepSeek-R1 |
+
+**性能对比（LLaMA-2 70B 数据）：**
 
 $$
-\text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
+\text{Alignment Score} \begin{cases} \text{SFT} &= 50.3\% \\ \text{RLHF} &= 58.8\% \\ \text{DPO} &= 59.2\% \\ \text{GRPO} &= 60.4\% \end{cases}
 $$
 
-- KV Cache 内存占用公式
+DPO 和 GRPO 相比 RLHF 性能不下降，计算开销显著降低。
 
-### 3. LoRA
+---
+
+### 📐 Preference Model 的 Bradley-Terry 假设
+
+**理论基础公式：**
 
 $$
-W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+P(\text{prefer } y_w \text{ over } y_l | x) = \frac{\exp(v(y_w, x))}{\exp(v(y_w, x)) + \exp(v(y_l, x))} = \sigma(v(y_w, x) - v(y_l, x))
 $$
 
-- 低秩适配，r << d 大幅减少可训练参数
+其中 $v(y, x)$ 是价值函数（DPO 中隐含为 $\beta\log\frac{\pi(y|x)}{\pi_{\text{ref}}(y|x)}$）。
+
+**推导步骤：**
+
+1. **偏好应该传递**（基本假设）：如果 $A \succ B$ 且 $B \succ C$，则 $A \succ C$
+2. **两两独立**：$P(y_w \succ y_l | x)$ 仅依赖这两个回答，不受其他候选的影响
+3. **Bradley-Terry 模型**：满足上述条件的最大熵分布就是 logistic 形式
+
+**符号说明：**
+- $v(y, x)$：回答 $y$ 对问题 $x$ 的「得分」（隐式 reward）
+- $\sigma$：logistic 函数，确保概率和为 1
+
+**直观理解：** Bradley-Terry 是「相对比较」的数学基础——两件东西好坏的比较只需一个数值差异，不需要绝对分数。
 
 ---
 
