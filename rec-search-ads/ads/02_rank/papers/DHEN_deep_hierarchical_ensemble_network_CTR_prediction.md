@@ -37,9 +37,22 @@ DHEN Hierarchical Ensemble Layer:
 - **层内集成（Intra-layer）**：同一层中并行使用多个不同的交互模块
 - **层间堆叠（Inter-layer）**：将集成输出作为下一层的输入，构建深层次交互
 
-$$
-h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), \text{Module}}_{\text{2(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
-$$
+$$h_l = \text{Aggregate}\left(\text{Module}_1(h_{l-1}),\ \text{Module}_2(h_{l-1}),\ \ldots,\ \text{Module}_K(h_{l-1})\right)$$
+
+其中 Aggregate 可选 concat + linear projection 或 attention-based fusion。
+
+### 公式2：层间堆叠（Inter-layer Stacking）
+
+$$h_l^{(k)} = \text{Module}_k\left(\text{Aggregate}(h_{l-1}^{(1)}, h_{l-1}^{(2)}, \ldots, h_{l-1}^{(K)})\right)$$
+
+**解释：**
+- $h_l^{(k)}$：第 $l$ 层第 $k$ 个交互模块的输出
+- 上一层**所有模块的输出**被聚合后，作为下一层**每个模块的输入**
+- 这使得高层模块能学习低层模块之间的交互关系
+
+### 公式3：最终预测
+
+$$\hat{y} = \sigma\left(W_{out} \cdot \text{Aggregate}(h_L^{(1)}, \ldots, h_L^{(K)}) + b_{out}\right)$$
 
 **② 信息互补性分析**
 

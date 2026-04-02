@@ -1,10 +1,64 @@
 # 广告竞价机制：GSP 与 VCG 详解
 
-> 来源：技术综述 | 日期：20260316 | 领域：ads
+> 来源：技术综述 | 年份：2024 | 领域：ads/04_bidding（拍卖机制）
 
 ## 问题定义
 
 互联网广告的核心问题：**多个广告主竞争有限的展示位置，如何设计竞价机制使其公平、有效且激励相容？** 两种主流机制——GSP（Generalized Second Price）和 VCG（Vickrey-Clarke-Groves）——分别代表工程实用性和理论最优性的不同取舍。
+
+## 模型结构图
+
+```
+┌─────────────────────────────────────────────────────────┐
+│         GSP vs VCG 拍卖机制对比                           │
+│                                                         │
+│  GSP (Generalized Second-Price):                        │
+│  广告主: A(bid=3) B(bid=2) C(bid=1)                     │
+│  排序:   A > B > C                                      │
+│  支付:   A付B的出价=2, B付C的出价=1                       │
+│                                                         │
+│  VCG (Vickrey-Clarke-Groves):                           │
+│  广告主: A(v=3) B(v=2) C(v=1)                            │
+│  分配:   最大化 Σ v_i × CTR_i                            │
+│  支付:   A付 = 其他人因A存在而损失的总价值                 │
+│         = B从位置1降到位置2的价值损失                      │
+│         + C从位置2降到位置3的价值损失                      │
+│                                                         │
+│  关键区别:                                               │
+│  GSP: 非激励相容 (可策略性出价)                           │
+│  VCG: 激励相容 (诚实出价是最优)                           │
+│  GSP 收入 ≥ VCG 收入 (大多数情况)                        │
+└─────────────────────────────────────────────────────────┘
+```
+
+## 核心方法与完整公式
+
+### 公式1：GSP 排序与支付
+
+$$\text{RankScore}_i = b_i \times \text{QS}_i$$
+
+$$\text{Payment}_i = \frac{\text{RankScore}_{i+1}}{\text{QS}_i} + \epsilon$$
+
+**解释：**
+- $b_i$：广告主 $i$ 的出价
+- $\text{QS}_i$：质量分（pCTR × 相关性等）
+- 排序按 RankScore 降序
+- 第 $i$ 名支付刚好赢过第 $i+1$ 名的最低出价
+
+### 公式2：VCG 支付
+
+$$p_i = \sum_{j \neq i} v_j \cdot \text{CTR}_{j}^{-i} - \sum_{j \neq i} v_j \cdot \text{CTR}_{j}^{+i}$$
+
+**解释：**
+- $\text{CTR}_j^{-i}$：没有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
+- $\text{CTR}_j^{+i}$：有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
+- VCG 支付 = 其他人因为你的存在而损失的总价值
+
+### 公式3：eCPM 统一排序
+
+$$\text{eCPM} = \text{bid} \times \text{pCTR} \times \text{pCVR} \times 1000$$
+
+**解释：** 不同计费模式（CPM/CPC/CPA）的广告通过 eCPM 统一比较。
 
 ## 核心方法与创新点
 

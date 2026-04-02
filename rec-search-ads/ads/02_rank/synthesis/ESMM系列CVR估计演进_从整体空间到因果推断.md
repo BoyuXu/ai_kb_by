@@ -477,3 +477,37 @@ $$
 
 **直观理解**：DR 同时用 outcome 模型 $\hat{\mu}$ 和 propensity 模型 $\hat{e}$ 做估计——只要其中一个是对的，结果就是无偏的。就像"两道防线"——即使一个模型犯错，另一个模型能兜住。这是 ESCM² 比 ESMM 更先进的核心原因。
 
+
+---
+
+## 面试高频考点（10题 Q&A）
+
+### Q1: ESMM 为什么要在全空间训练 CVR 模型？
+> CVR 模型传统只在点击样本训练，但推理时在全展示空间预估。点击样本是全展示空间的有偏子集（用户倾向点击感兴趣的），导致 CVR 模型在未点击样本上预估不准（样本选择偏差 SSB）。
+
+### Q2: ESMM 的乘法分解 pCTCVR = pCTR × pCVR 如何解决 SSB？
+> pCTCVR 的 label（点击且转化）在全空间直接可标注，pCTR 的 label（点击）也在全空间标注。通过乘法关系，pCVR 在全空间上通过梯度反传训练，无需在点击空间单独建模。
+
+### Q3: 为什么 ESMM 没有单独的 CVR loss？
+> 因为 CVR 的 label（是否转化）只在点击样本上有定义。在全空间加 CVR loss，未点击样本的转化 label 是 missing（不是 0），直接标为 0 会引入偏差。通过 pCTCVR loss 间接训练避免此问题。
+
+### Q4: ESMM 共享 Embedding 的作用？
+> CTR 塔有丰富样本（展示即可标注），学到的 Embedding 通过共享传递给 CVR 塔。相当于用 CTR 的"大数据"帮 CVR 的"小数据"学更好的特征表示，缓解数据稀疏。
+
+### Q5: ESCM² 相比 ESMM 的核心改进？
+> ESCM² 引入因果推断约束：① IPW 去偏修正选择偏差 ② DR 估计器双重鲁棒 ③ 反事实正则化防止 CVR 高估。解决了 ESMM 在部分区域 CVR 系统性高估的问题。
+
+### Q6: 什么是延迟转化问题？如何处理？
+> 购买可能发生在点击后 1-7 天，导致训练时正样本被低估（转化还没到）。方案：① 归因窗口（如 7 天）② 转化回传机制实时更新 label ③ 延迟未归因样本降权 ④ 多窗口建模（1天CVR + 7天CVR）。
+
+### Q7: IPW 去偏的优势和局限？
+> 优势：理论上无偏估计，适用范围广。局限：① 倾向分估计不准时方差爆炸 ② 极端权重（倾向分接近 0）导致不稳定 ③ 需要准确的曝光概率模型。通常配合截断（clipping）和 DR 使用。
+
+### Q8: ESMM 系列模型的工业演进路线？
+> [ESMM](../papers/ESMM_Entire_Space_Multi_Task_Model_for_Post_Click_Convers.md)（2018）→ ESM²（加中间节点：曝光→点击→加购→购买）→ [ESCM²](../papers/ESMM_Entire_Space_Multi_Task_Model_for_Post_Click_Convers.md)（因果约束+DR）→ DCMT（反事实学习）→ 工业实践中通常 ESMM + PLE 组合使用。
+
+### Q9: 在实际系统中，pCTR × pCVR 相乘的数值稳定性问题？
+> 两个概率值（如 0.01 × 0.005 = 0.00005）相乘容易下溢。工业方案：① log 空间计算 log(pCTCVR) = log(pCTR) + log(pCVR) ② 混合精度训练 ③ 数值裁剪（clipping pCTR/pCVR 的最小值为 1e-7）。
+
+### Q10: 如何评估 CVR 模型的质量？
+> ① 离线：CVR AUC（全空间）、CTCVR AUC、校准度（predicted vs actual CVR 的一致性）② 在线：GMV/Revenue 变化、广告主 ROI 变化、预算消耗率 ③ 分层评估：按用户活跃度/商品热度分组看效果，避免头部商品主导指标。

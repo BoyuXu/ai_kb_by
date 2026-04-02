@@ -304,3 +304,37 @@ $$
 
 **直观理解**：广告 CTR 模型必须实时更新——昨天的热门商品今天可能无人问津。FTRL/AdaGrad 的自适应学习率让频繁更新的特征步长小（稳定），罕见特征步长大（抓住稀疏信号）。
 
+
+---
+
+## 面试高频考点（10题 Q&A）
+
+### Q1: 工业级 CTR 系统的典型四级漏斗？
+> ① 召回（多路并行，千万→万）② 粗排（轻量模型，万→千）③ 精排（复杂模型如 [DeepFM](../papers/DeepFMDeep_Factorization_Machine.md)+[DIN](../papers/DIN_Deep_Interest_Network_for_Click_Through_Rate_Predicti.md)，千→百）④ 重排（多样性、频控，百→十）。精排是 CTR 模型核心战场。
+
+### Q2: CTR 模型的校准（Calibration）为什么重要？
+> 广告出价依赖精确的 CTR 值（不仅是排序）。pCTR=0.1 意味着每 10 次展示有 1 次点击。校准不准 → eCPM 计算偏差 → 广告主 ROI 异常。常用 Platt Scaling 或 Isotonic Regression 后校准。
+
+### Q3: 特征哈希（Feature Hashing）的原理和风险？
+> 将超大 ID 空间（10⁹）通过哈希函数映射到较小空间（10⁷），接受少量碰撞。风险：不同 ID 碰撞到同一 bucket 导致信息混淆。缓解：① 多哈希函数 ② 保留高频 ID 的独立 embedding ③ signed hash 降低偏差。
+
+### Q4: 增量训练 vs 全量训练的 tradeoff？
+> 增量训练：每小时/天用新数据更新模型，追踪分布漂移，但可能逐渐遗忘早期模式。全量训练：定期用全量数据重训，全局最优但成本高。工业实践：增量为主（追踪时效性），定期全量重训（防止漂移累积）。
+
+### Q5: 在线学习（Online Learning）在 CTR 系统中的优势？
+> 实时更新部分参数（如 FTRL 更新 embedding），能快速适应用户兴趣变化和新物品上架。挑战：① 数据顺序偏差 ② 灾难性遗忘 ③ 需要可靠的流式特征管道。
+
+### Q6: 模型蒸馏在 CTR 系统中的应用？
+> 大模型（Teacher，如 [DHEN](../papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md) 集成）离线训练达到最佳效果。小模型（Student）通过蒸馏学习 Teacher 的 soft label，在线推理用 Student 满足延迟要求（<10ms）。
+
+### Q7: Embedding 维度如何选择？
+> 经验公式：$d = 6 \times (\text{category\_size})^{1/4}$（Google）。高频特征用较高维度（16-64），低频用较低维度（4-8）。也可用 NAS 自动搜索每个 field 的最优维度。
+
+### Q8: CTR 模型中如何处理正负样本不均衡？
+> ① 负采样（1:n），需校准 ② Focal Loss 对难分样本加权 ③ 正样本加权 ④ 分层采样（按用户活跃度分层）⑤ 校准步骤恢复真实 CTR 分布。
+
+### Q9: [MaskNet](../papers/MaskNet_feature_wise_multiplication_CTR_instance_guided_mask.md) 的核心创新是什么？
+> 引入实例引导的乘性特征交互（element-wise product），替代传统 MLP 的纯加性操作。通过动态掩码让同一特征对不同请求有不同权重，同时 LayerNorm 保证数值稳定性。
+
+### Q10: 特征交叉方法的演进路线？
+> LR（手工交叉）→ FM（自动二阶）→ [DeepFM](../papers/DeepFMDeep_Factorization_Machine.md)（FM+DNN）→ DCN/DCNv2（Cross Network 显式多阶）→ AutoInt（Attention 交叉）→ [MaskNet](../papers/MaskNet_feature_wise_multiplication_CTR_instance_guided_mask.md)（乘性交互）→ [DHEN](../papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md)（异构集成）。

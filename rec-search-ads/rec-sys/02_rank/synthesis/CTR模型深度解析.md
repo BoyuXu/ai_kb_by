@@ -934,3 +934,37 @@ $$
 
 **直观理解**：每层交叉都把原始输入 $\mathbf{x}_0$ 和当前层 $\mathbf{x}_l$ 做外积——$L$ 层后能表示 $L+1$ 阶多项式特征交叉，且参数只有 $O(Ld)$（线性增长）。DNN 的隐式交叉 + Cross 的显式交叉互补，是 Google 广告系统的核心架构。
 
+
+---
+
+## 面试高频考点（10题 Q&A）
+
+### Q1: FM 和 DNN 结合的原理（以 DeepFM 为例）？
+> FM 层学习精确的二阶交叉（$\langle v_i, v_j \rangle$），DNN 层学习隐式高阶非线性交叉。两者共享 Embedding，输出相加。优势：无需手工特征工程，同时捕获低阶精确交叉和高阶复杂交叉。
+
+### Q2: DIN 的核心思想和为什么不用 softmax？
+> 用目标广告/商品作为 query，对历史行为做 attention 加权，实现"局部兴趣激活"。不用 softmax 因为用户对不同类目的兴趣可以同时存在（非互斥），softmax 强制归一化会抑制多兴趣共存。
+
+### Q3: DCN 和 DeepFM 的区别？
+> DeepFM 用 FM 做显式二阶交叉 + DNN 做隐式高阶。DCN 用 Cross Network 做显式多阶交叉（每层+1阶）+ DNN。DCN 显式交叉阶数可控但 Cross 向量表达能力有限，DCNv2 用矩阵改进。
+
+### Q4: 特征交叉方法的技术演进？
+> LR（手工）→ FM（自动二阶）→ DeepFM（FM+DNN）→ DCN/DCNv2（Cross Network）→ xDeepFM（CIN）→ AutoInt（Multi-head Attention）→ FiBiNET（SENet+Bilinear）→ MaskNet（乘性交互）。
+
+### Q5: 推荐系统中 Embedding 维度如何选择？
+> 经验公式：$d = 6 \times (\text{vocabulary\_size})^{1/4}$。高频特征 16-64 维，低频 4-8 维。总参数量主要由 Embedding 决定（占 99%+），需在表达能力和存储/计算成本间权衡。
+
+### Q6: 多任务学习中负迁移如何检测和缓解？
+> 检测：对比多任务 vs 单任务 AUC，某任务下降=负迁移。缓解：MMoE（Gate 软选择 Expert）→ PLE（任务特定+共享 Expert 分离）→ STAR（共享+特定参数网络）。
+
+### Q7: CTR 模型的校准（Calibration）为什么重要？
+> 广告出价依赖精确 CTR 值（pCTR=0.1 意味着每10次展示1次点击）。校准不准 → eCPM 偏差 → 广告主 ROI 异常。常用 Platt Scaling 或 Isotonic Regression 后校准。
+
+### Q8: 序列建模方法的演进路线？
+> Avg Pooling → DIN（Target Attention）→ DIEN（GRU+Attention 兴趣演化）→ BST（Transformer Self-Attention）→ SIM（检索+Attention 超长序列）→ HSTU（线性注意力 万亿参数）。
+
+### Q9: CTR 模型如何处理正负样本不均衡？
+> ① 负采样（1:n），需校准：$CTR_{real} = CTR_{sampled} \times sampling\_rate$ ② Focal Loss 对难分样本加权 ③ 正样本加权 ④ 分层采样。
+
+### Q10: 工业级推荐系统的 Scaling Law？
+> 推荐系统也遵循 $L \propto N^{-\alpha}$ 的幂律关系（HSTU/Wukong 验证）。但与 LLM 不同：99%+ 参数在 Embedding 层，数据分布随时间漂移更剧烈，需持续在线更新。
