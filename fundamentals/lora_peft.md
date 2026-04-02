@@ -4,6 +4,26 @@
 
 ---
 
+## 🆚 微调方案创新对比
+
+| 方案 | 之前方案 | 创新 | 可训练参数 |
+|------|---------|------|--------|
+| 全参数微调 | — | baseline | 100% |
+| Adapter | 全参数 | 插入小网络 | ~3% |
+| LoRA | Adapter（有推理开销） | **低秩分解 ΔW=BA** | ~0.5-1% |
+| QLoRA | LoRA（需 FP16 Base） | **4-bit NF4 量化 Base** | ~0.5% |
+
+```mermaid
+graph LR
+    Full[全参数微调] --> Adapter[Adapter]
+    Adapter --> LoRA[LoRA 低秩]
+    LoRA --> QLoRA[QLoRA 4-bit]
+    QLoRA --> DoRA[DoRA/AdaLoRA]
+```
+
+---
+---
+
 ## 1. LoRA 核心公式推导
 
 ### 1.1 问题背景

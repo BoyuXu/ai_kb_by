@@ -4,6 +4,29 @@
 
 ---
 
+## 🆚 多任务学习方案创新对比
+
+| 方案 | 之前方案 | 创新 | 核心突破 |
+|------|---------|------|---------|
+| Shared-Bottom | 独立模型 | **共享底座** | 参数效率 |
+| MMoE | Shared-Bottom（跷跷板） | **多 Expert + Gate 路由** | 自适应共享 |
+| PLE | MMoE（Expert 全共享） | **共享 + 专用 Expert 分离** | 消除跷跷板效应 |
+| GradNorm | 手动调多任务权重 | **自动梯度归一化** | 自动权重平衡 |
+
+---
+
+## 📈 多任务学习演进
+
+```mermaid
+graph LR
+    SB[Shared-Bottom<br/>全共享] --> MMoE[MMoE<br/>Expert+Gate]
+    MMoE --> PLE[PLE<br/>共享+专用分离]
+    PLE --> STAR[STAR<br/>场景自适应]
+    MMoE --> GradNorm[GradNorm<br/>自动梯度平衡]
+```
+
+---
+
 ## 1. 多任务学习的梯度冲突问题
 
 ### 1.1 为什么需要多任务学习

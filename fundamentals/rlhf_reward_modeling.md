@@ -4,6 +4,26 @@
 
 ---
 
+## 🆚 对齐方案创新对比
+
+| 方案 | 之前方案 | 创新 | 核心突破 |
+|------|---------|------|--------|
+| SFT | 预训练（无对齐） | 指令数据微调 | 遵循指令 |
+| RLHF | SFT（无偏好） | **Reward Model + PPO** | 人类偏好对齐 |
+| DPO | RLHF（需 RM） | **直接偏好优化** | 省去 RM 训练 |
+| GRPO | PPO（需 Critic） | **组内相对奖励** | 显存减半 |
+
+```mermaid
+graph LR
+    PT[预训练] --> SFT[SFT 指令微调]
+    SFT --> RLHF[RLHF PPO+RM]
+    RLHF --> DPO[DPO 直接偏好]
+    RLHF --> GRPO[GRPO 组内对比]
+```
+
+---
+---
+
 ## 1. RLHF 三阶段完整流程
 
 ### 1.1 总览

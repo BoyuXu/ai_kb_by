@@ -4,6 +4,47 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 维度 | RNN/LSTM | Transformer（创新） |
+|------|---------|-------------------|
+| 并行性 | 串行计算，无法并行 | **Self-Attention 完全并行** |
+| 长距离依赖 | 梯度消失/爆炸 | **O(1) 直接连接任意位置** |
+| 计算复杂度 | $O(n \cdot d^2)$ | $O(n^2 \cdot d)$（可优化） |
+| 位置信息 | 隐式（序列顺序） | **显式位置编码**（Sinusoidal/RoPE） |
+| 多层堆叠 | 梯度传播困难 | **残差连接 + LayerNorm** |
+
+---
+
+## 📈 Attention 架构演进
+
+```mermaid
+graph TB
+    subgraph 基础Attention
+        SDot[Scaled Dot-Product<br/>QKV 注意力]
+        MHA[Multi-Head Attention<br/>多头并行]
+    end
+    subgraph 效率优化
+        MQA[MQA<br/>共享KV head]
+        GQA[GQA<br/>分组KV共享]
+        FA[FlashAttention<br/>IO-aware tiling]
+    end
+    subgraph 位置编码
+        Sin[Sinusoidal<br/>绝对位置]
+        RoPE[RoPE<br/>旋转位置编码]
+        ALiBi[ALiBi<br/>线性位置偏差]
+    end
+    SDot --> MHA
+    MHA --> MQA
+    MHA --> GQA
+    MHA --> FA
+    SDot --> Sin
+    Sin --> RoPE
+    Sin --> ALiBi
+```
+
+---
+
 ## 1. Scaled Dot-Product Attention 完整推导
 
 ### 1.1 基本形式

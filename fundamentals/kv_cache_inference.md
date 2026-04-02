@@ -4,6 +4,26 @@
 
 ---
 
+## 🆚 KV Cache 优化方案对比
+
+| 方案 | 之前方案 | 创新 | 效果 |
+|------|---------|------|------|
+| PagedAttention | 预分配 max_len | **分页按需分配** | 内存浪费 0% |
+| GQA | MHA 全 KV head | **分组共享 KV** | 内存 4-32× 压缩 |
+| MLA | GQA（共享 head） | **低秩 KV 投影** | 10×+ 压缩 |
+| 量化 KV | FP16 KV | **INT4/2-bit KV** | 4-8× 压缩 |
+
+```mermaid
+graph LR
+    Naive[朴素 KV Cache] --> PA[PagedAttention]
+    Naive --> GQA[GQA/MQA]
+    GQA --> MLA[MLA 低秩KV]
+    PA --> Quant[KV 量化 INT4]
+```
+
+---
+---
+
 ## 1. 自回归生成的计算冗余
 
 ### 1.1 自回归生成过程

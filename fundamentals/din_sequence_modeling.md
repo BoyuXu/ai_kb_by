@@ -4,6 +4,30 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 方案 | 之前方案 | 创新 | 核心突破 |
+|------|---------|------|---------|
+| DIN | 平均池化（fixed representation） | **Target Attention** | 候选相关的动态兴趣 |
+| DIEN | DIN（无时序建模） | **GRU + AUGRU 兴趣演化** | 捕获兴趣变化趋势 |
+| BST | DIEN（RNN 串行） | **Transformer 并行** | 更长序列更快 |
+| SIM | BST（全序列 O(n²)） | **检索式两阶段** | 万级序列可行 |
+
+---
+
+## 📈 序列建模演进
+
+```mermaid
+graph LR
+    Pool[平均池化<br/>固定表示] --> DIN[DIN<br/>Target Attention]
+    DIN --> DIEN[DIEN<br/>GRU兴趣演化]
+    DIEN --> BST[BST<br/>Transformer序列]
+    BST --> SIM[SIM<br/>检索式长序列]
+    SIM --> HSTU[HSTU<br/>端到端预训练]
+```
+
+---
+
 ## 1. DIN（Deep Interest Network）
 
 ### 1.1 背景：用户兴趣的多样性

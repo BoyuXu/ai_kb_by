@@ -4,6 +4,39 @@
 
 ---
 
+## 🆚 检索方案创新对比
+
+| 维度 | 倒排索引(BM25) | ANN 向量检索（创新） |
+|------|--------------|-------------------|
+| 表示方式 | 稀疏词袋 | **稠密 Embedding 向量** |
+| 相似度 | 词频 TF-IDF | **余弦/内积 语义相似** |
+| 语义理解 | 无（词级匹配） | **深度语义匹配** |
+| 索引结构 | 倒排表 | **HNSW / IVF / PQ** |
+| 检索复杂度 | O(查询词数) | **O(log N) 近似** |
+
+---
+
+## 📈 向量检索技术演进
+
+```mermaid
+timeline
+    title Embedding & ANN 演进
+    2013 : Word2Vec / GloVe
+         : 词级 Embedding
+    2016 : Item2Vec / YouTube DNN
+         : 推荐 Embedding
+    2018 : FAISS (Facebook)
+         : 工业级 ANN 库
+    2019 : HNSW 成为主流
+         : 精度-速度最优平衡
+    2021 : Milvus 2.0
+         : 分布式向量数据库
+    2024 : 混合检索
+         : 稀疏+稠密融合
+```
+
+---
+
 ## 1. Embedding 的数学基础
 
 ### 1.1 词嵌入：Word2Vec Skip-gram

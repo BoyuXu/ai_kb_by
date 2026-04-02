@@ -4,6 +4,26 @@
 
 ---
 
+## 🆚 增益建模方案对比
+
+| 方案 | 之前方案 | 创新 | 适用场景 |
+|------|---------|------|--------|
+| Two-Model | 无因果考虑 | **Treatment/Control 分别建模** | 简单 |
+| Meta-Learner | Two-Model（偏差大） | **S/T/X-Learner 框架** | 通用 |
+| Tree-Based | 传统 CART | **Uplift Tree 最大化异质性** | 可解释 |
+| CEVAE | 观测数据（无反事实） | **变分自编码因果推断** | 深度学习 |
+
+```mermaid
+graph LR
+    TM[Two-Model] --> Meta[Meta-Learner]
+    Meta --> Tree[Uplift Tree]
+    Tree --> DL[深度因果模型]
+    DL --> RL[因果RL营销]
+```
+
+---
+---
+
 ## 1. Uplift 的本质：反事实推断
 
 ### 1.1 基本问题设定
