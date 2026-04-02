@@ -1615,3 +1615,29 @@ LLM           → 蒸馏/量化/KV-cache + 推理加速
 > - 覆盖范围：精排模型完整演进（2010-2024+）
 > - 知识库路径：`~/Documents/ai-kb/tech-evolution/`
 > - 关联文档：`01_recall_evolution.md`、`../rec-sys/精排模型进阶深度解析.md`
+
+---
+
+## 精排模型核心公式
+
+DIN 注意力打分：
+
+$$e(x_i, x_t) = V^\top \text{ReLU}\left(W_1[x_i; x_t; x_i \odot x_t; x_i - x_t] + b\right)$$
+
+用户兴趣向量 $v_u = \sum_i \alpha_i x_i$，其中 $\alpha_i = \text{softmax}(e(x_i, x_t))$。
+
+DCN v2 Cross Layer：
+
+$$x_{l+1} = x_0 \odot (W_l x_l + b_l) + x_l$$
+
+MMOE 门控：
+
+$$h^k(x) = \sum_{i=1}^n g_i^k(x) \cdot f_i(x), \quad g^k(x) = \text{softmax}(W_{gk} x)$$
+
+| 年代 | 模型 | 核心创新 | AUC提升 |
+|------|------|---------|---------|
+| 2016 | Wide&Deep | LR+DNN | +1-2% |
+| 2018 | DIN | 目标注意力 | +1.5% |
+| 2021 | DCN V2 | 参数化交叉 | +0.5% |
+| 2022 | HSTU | 全Transformer | +2%+ |
+| 2023 | Wukong | ScalingLaw | +1%/10x参数 |

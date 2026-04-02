@@ -1977,3 +1977,35 @@ Bid Shading（FPA最优出价）：
 > 📝 整理：MelonEggLearn | 更新：2026-03-16
 > 覆盖阶段：关键词广告→RTB→深度学习CTR→Auto Bidding→LLM+隐私计算
 > 下一步建议阅读：`ads/ESMM详解.md`、`ads/AutoBidding技术演进_从规则到RL.md`、`ads/广告系统知识库.md`
+
+---
+
+## 广告系统核心公式
+
+eCPM 竞价：
+
+$$\text{eCPM} = \text{bid} \times \text{pCTR} \times 1000$$
+
+GSP 结算（第一名按第二名价格付费）：
+
+$$\text{payment}_1 = \frac{\text{eCPM}_2}{\text{pCTR}_1}$$
+
+VCG 支付（外部性定价）：
+
+$$p_i = \sum_{j>i}(\text{CTR}_{j-1} - \text{CTR}_j) \times \text{bid}_j / \text{CTR}_i$$
+
+pCTR 校准（Platt Scaling）：
+
+$$\hat{q} = \frac{1}{1 + e^{a \cdot \log(q/(1-q)) + b}}$$
+
+AutoBidding RL 奖励：
+
+$$r_t = \text{conversion}_t - \lambda \cdot \max(0, \text{CPA}_t - \text{CPA}_{\text{target}})$$
+
+| 阶段 | 技术 | CTR AUC | RPM提升 |
+|------|------|---------|---------|
+| 2014 | LR+人工特征 | 0.72 | 基线 |
+| 2017 | DNN+Embedding | 0.76 | +15% |
+| 2020 | DIN+多任务 | 0.79 | +25% |
+| 2023 | Transformer+AutoBid | 0.82 | +40% |
+| 2025 | LLM-native | 0.84+ | +60%+ |

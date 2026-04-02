@@ -321,3 +321,29 @@ $$
 > ```
 > 优化手段：User Embedding预计算（定期刷新）、HNSW索引、量化压缩（PQ）、分级缓存
 
+
+---
+
+## 召回量化指标与演进
+
+Recall@K：
+
+$$\text{Recall@K} = \frac{|\text{Top-K} \cap \text{相关集}|}{|\text{相关集}|}$$
+
+ANN 近似误差（HNSW）：
+
+$$\epsilon = 1 - \frac{|\hat{N}(q,k) \cap N^*(q,k)|}{k}$$
+
+工业目标 $\epsilon < 5\%$，通过调 ef_search 平衡精度与速度。
+
+两塔模型相似度：
+
+$$s(u,i) = \frac{e_u^\top e_i}{||e_u|| \cdot ||e_i||}$$
+
+| 年代 | 技术 | Recall@100 | QPS | 局限 |
+|------|------|-----------|-----|------|
+| 2016 | ItemCF | ~60% | 极高 | 无语义 |
+| 2018 | 两塔 DSSM | ~70% | 高 | 独立编码 |
+| 2020 | 多路融合 | ~80% | 中 | RRF融合经验 |
+| 2022 | Semantic ID | ~85% | 低 | beam search慢 |
+| 2024 | BGE-M3混合 | ~92% | 中 | 部署成本 |

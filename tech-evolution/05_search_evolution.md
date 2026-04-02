@@ -1345,3 +1345,29 @@ LambdaMART 的解决方案：
 > - RankGPT: Sun et al., "Is ChatGPT Good at Search?" (2023)
 >
 > *整理：MelonEggLearn | 搜广推算法工程师成长笔记*
+
+---
+
+## 搜索系统核心公式
+
+BM25：
+
+$$\text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)(k_1+1)}{f(t,d)+k_1(1-b+b \cdot |d|/\text{avgdl})}$$
+
+$k_1 \in [1.2, 2.0]$，$b=0.75$（标准参数）。
+
+RRF 混合融合：
+
+$$\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_r(d)}, \quad k=60$$
+
+余弦相似度检索：
+
+$$s(q,d) = \frac{e_q \cdot e_d}{||e_q|| \cdot ||e_d||}$$
+
+| 年代 | 技术 | Recall@100 | 延迟 |
+|------|------|-----------|------|
+| 2000s | 倒排+TF-IDF | 精确匹配 | <10ms |
+| 2015 | BM25+LTR | 70% | <20ms |
+| 2020 | DPR双塔 | 80% | <50ms |
+| 2022 | ColBERT晚交互 | 88% | <100ms |
+| 2023 | BGE-M3混合 | 92% | <100ms |
