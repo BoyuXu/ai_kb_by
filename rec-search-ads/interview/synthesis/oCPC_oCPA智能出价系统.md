@@ -1,14 +1,14 @@
 # 知识卡片 #003：oCPC/oCPA 智能出价系统
 
 > 📚 参考文献
-> - [Ocpc Ocpa Deep [BROKEN]](../../ads/papers/ocpc_ocpa_deep.md) — 深度转化出价：oCPC/oCPA原理与工程落地
-> - [Esmm-Cvr [BROKEN]](../../ads/papers/esmm_cvr.md) — ESMM：全空间多任务 CVR 预估
-> - [Gsp-Vcg-Auction [BROKEN]](../../ads/papers/gsp_vcg_auction.md) — 广告竞价机制：GSP 与 VCG 详解
-> - [Budget-Pacing-Strategies-For-Large-Scale-Ad-Cam... [BROKEN]](../../ads/papers/Budget_Pacing_Strategies_for_Large_Scale_Ad_Campaigns.md) — Budget Pacing Strategies for Large-Scale Ad Campaigns
-> - [Practical-Guide-Budget-Pacing [BROKEN]](../../ads/papers/A_Practical_Guide_to_Budget_Pacing_Algorithms_in_Digital.md) — A Practical Guide to Budget Pacing Algorithms in Digital ...
-> - [Real-Time-Bidding-Optimization-With-Multi-Agent... [BROKEN]](../../ads/papers/Real_Time_Bidding_Optimization_with_Multi_Agent_Deep_Rein.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
-> - [Ocpc-Ocpa-Optimization [BROKEN]](../../ads/papers/ocpc_ocpa_optimization.md) — oCPC/oCPA 优化：原理、工程实现与调优
-> - [Gsp-Vcg-Auction [BROKEN]](../../ads/papers/gsp_vcg_auction_v2.md) — GSP/VCG 拍卖机制（广告竞价理论）
+> - [Ocpc Ocpa Deep](../../ads/04_bidding/papers/ocpc_ocpa_deep.md) — 深度转化出价：oCPC/oCPA原理与工程落地
+> - [Esmm-Cvr](../../ads/02_rank/papers/esmm_cvr.md) — ESMM：全空间多任务 CVR 预估
+> - [Gsp-Vcg-Auction](../../ads/04_bidding/papers/gsp_vcg_auction.md) — 广告竞价机制：GSP 与 VCG 详解
+> - [Budget-Pacing-Strategies-For-Large-Scale-Ad-Cam...](../../ads/04_bidding/papers/Budget_Pacing_Strategies_for_Large_Scale_Ad_Campaigns.md) — Budget Pacing Strategies for Large-Scale Ad Campaigns
+> - [Practical-Guide-Budget-Pacing](../../ads/04_bidding/papers/A_Practical_Guide_to_Budget_Pacing_Algorithms_in_Digital.md) — A Practical Guide to Budget Pacing Algorithms in Digital ...
+> - [Real-Time-Bidding-Optimization-With-Multi-Agent...](../../ads/04_bidding/papers/Real_Time_Bidding_Optimization_with_Multi_Agent_Deep_Rein.md) — Real-Time Bidding Optimization with Multi-Agent Deep Rein...
+> - [Ocpc-Ocpa-Optimization](../../ads/04_bidding/papers/ocpc_ocpa_optimization.md) — oCPC/oCPA 优化：原理、工程实现与调优
+> - [Gsp-Vcg-Auction](../../ads/04_bidding/papers/gsp_vcg_auction_v2.md) — GSP/VCG 拍卖机制（广告竞价理论）
 
 > 创建：2026-03-20 | 领域：广告系统·出价 | 难度：⭐⭐⭐
 

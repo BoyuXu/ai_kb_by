@@ -1,10 +1,10 @@
 # 生成式重排与 LLM 推理增强：从列表生成到推理对齐
 
 > 📚 参考文献
-> - [generative_reasoning_reranker [BROKEN]](../papers/generative_reasoning_reranker.md) — GR2: LLM+DAPO 推理增强的生成式重排，NDCG@5 +1.3%
+> - [generative_reasoning_reranker](../../../ads/03_rerank/papers/generative_reasoning_reranker.md) — GR2: LLM+DAPO 推理增强的生成式重排，NDCG@5 +1.3%
 > - [Congrats_consistent_graph_structured_generative_recommendation](../papers/Congrats_consistent_graph_structured_generative_recommendation.md) — ConGRATS: 图结构生成重排，解决 Likelihood Trap，快手 3 亿 DAU 上线
-> - [HiGR_efficient_generative_slate_recommendation_hierarchical_planning [BROKEN]](../papers/HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md) — HiGR: CRQ-VAE + 分层解码，推理速度 5×，腾讯 +1.22% 观看时长
-> - [llm_explainable_reranker_recommendation [BROKEN]](../papers/llm_explainable_reranker_recommendation.md) — LLM 可解释重排：混合架构消除 Popularity Bias，两阶段训练
+> - [HiGR_efficient_generative_slate_recommendation_hierarchical_planning](../../../ads/03_rerank/papers/HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md) — HiGR: CRQ-VAE + 分层解码，推理速度 5×，腾讯 +1.22% 观看时长
+> - [llm_explainable_reranker_recommendation](../../../ads/03_rerank/papers/llm_explainable_reranker_recommendation.md) — LLM 可解释重排：混合架构消除 Popularity Bias，两阶段训练
 > - [PreferRec_pareto_preferences_multi_objective_reranking](../papers/PreferRec_pareto_preferences_multi_objective_reranking.md) — PreferRec: Intent-level Pareto 偏好建模与跨用户迁移
 
 > 知识卡片 | 创建：2026-03-29 | 领域：rec-sys / ads | 类型：综合分析
