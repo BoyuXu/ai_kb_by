@@ -5,6 +5,34 @@
 
 ---
 
+## 🆚 MoE 在不同领域的创新对比
+
+| 领域 | 之前方案 | MoE 创新 | 代表工作 |
+|------|---------|----------|---------|
+| CTR 预估 | Hard-share 多任务 | **Expert + Task-specific Gate** | MMoE, PLE |
+| LLM 推理 | Dense FFN | **稀疏激活 Top-K Expert** | Mixtral, DeepSeek-V3 |
+| 推荐多场景 | 独立模型每个场景 | **共享 Expert + 场景 Gate** | STAR, SAMD |
+| 广告出价 | 统一策略 | **Expert 分策略 + 动态路由** | Multi-scenario bidding |
+
+**统一设计哲学**：MoE 的核心思想——"共享 + 专用"——在所有领域一致。共享 Expert 处理通用模式，路由 Expert 处理特定场景，Gate 网络自适应组合。
+
+---
+
+## 📈 MoE 跨域技术关联
+
+```mermaid
+graph TB
+    MoE[MoE 核心思想<br/>共享+专用+路由]
+    MoE --> CTR[CTR 多任务<br/>MMoE/PLE]
+    MoE --> LLM[LLM 推理<br/>Mixtral/DeepSeek]
+    MoE --> Rec[推荐多场景<br/>STAR/SAMD]
+    MoE --> Ads[广告出价<br/>多策略路由]
+    CTR -.->|设计启发| LLM
+    LLM -.->|技术回流| CTR
+```
+
+---
+
 ## 📋 一句话洞察
 
 **混合专家（MoE）是2025-2026年"参数扩展而计算不扩展"的唯一经济方案**——从广告CTR特征交叉（DHEN）、多任务推荐（HoME）、排序Scaling（RankMixer），到大语言模型（Qwen3），MoE的核心哲学始终如一：**让不同"专家"专注于不同的知识空间，通过稀疏激活解耦容量与计算**。

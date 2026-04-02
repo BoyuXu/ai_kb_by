@@ -1,5 +1,31 @@
 # 长序列处理：推荐/搜索/LLM 的共同挑战
 
+---
+
+## 🆚 长序列处理方案跨域对比
+
+| 领域 | 挑战 | 方案 |
+|------|------|------|
+| 推荐 | 用户行为序列 1000+ | DIN Target Attention / SIM 检索式 |
+| 搜索 | 文档长度 10K+ tokens | 段落检索 + 摘要 / 长文档 BERT |
+| LLM | 上下文 128K+ tokens | FlashAttention / KV Cache 压缩 / 滑动窗口 |
+| **统一趋势** | — | **稀疏注意力 + 分层处理** |
+
+---
+
+## 📈 长序列技术关联
+
+```mermaid
+graph TB
+    Challenge[长序列挑战<br/>O(n²) 注意力]
+    Challenge --> Rec[推荐<br/>SIM/ETA 检索式注意力]
+    Challenge --> Search[搜索<br/>段落检索+摘要]
+    Challenge --> LLM[LLM<br/>FlashAttention/KV压缩]
+    Rec -.->|技术互鉴| LLM
+```
+
+---
+
 > 📚 参考文献
 > - [Dense-Retrieval-Vs-Sparse-Retrieval-A-Unified-E...](../../search/papers/Dense_Retrieval_vs_Sparse_Retrieval_A_Unified_Evaluation.md) — Dense Retrieval vs Sparse Retrieval: A Unified Evaluation...
 > - [Dense Retrieval Vs Sparse Retrieval A Unified Eval](../../search/papers/Dense_Retrieval_vs_Sparse_Retrieval_A_Unified_Evaluation.md) — Dense Retrieval vs Sparse Retrieval: A Unified Evaluation...

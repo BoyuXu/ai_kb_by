@@ -1,6 +1,30 @@
 # 强化学习跨域统一视角：从 LLM 推理到搜索排序到广告出价
 
 > 📅 创建：2026-03-26 | 类型：深度整合 | 领域：cross-domain
+
+---
+
+## 🆚 RL 在不同领域的创新对比
+
+| 领域 | 之前方案 | RL 创新 | 代表方法 |
+|------|---------|---------|---------|
+| LLM 对齐 | SFT 模仿学习 | **RLHF/GRPO 偏好优化** | InstructGPT, DeepSeek-R1 |
+| LLM 推理 | 固定推理链 | **RL 涌现长 CoT** | GRPO + 规则奖励 |
+| 搜索排序 | 人工排序函数 | **LambdaRank RL 排序** | LambdaMART |
+| 广告出价 | 固定出价策略 | **MDP 自动出价** | RL-based Bidding |
+
+---
+
+## 📈 RL 跨域统一
+
+```mermaid
+graph TB
+    RL[强化学习核心<br/>状态-动作-奖励]
+    RL --> LLM[LLM 对齐+推理<br/>RLHF/GRPO]
+    RL --> Search[搜索排序<br/>LambdaRank]
+    RL --> Ads[广告出价<br/>MDP自动出价]
+    RL --> Rec[推荐探索<br/>Bandit/DQN]
+```
 > 🔗 串联领域：llm-infra × search × ads
 
 ---

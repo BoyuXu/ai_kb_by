@@ -1,5 +1,43 @@
 # LLM 集成框架：推荐系统 + 搜索系统 + 广告系统统一视角
 
+---
+
+## 🆚 LLM 集成 vs 传统方案
+
+| 维度 | 传统方案 | LLM 集成（创新） |
+|------|---------|----------------|
+| 特征工程 | 人工设计 + ID Embedding | **LLM 语义 Embedding** + 零样本泛化 |
+| 召回 | 双塔 + ANN | **LLM 语义召回** + 生成式检索 |
+| 排序 | DeepFM/DIN 独立模型 | **统一 LLM 排序** + Prompt 控制 |
+| 冷启动 | 内容特征 + 协同过滤 | **LLM 零样本推理** |
+| 用户理解 | 行为序列统计 | **LLM 自然语言画像** |
+
+---
+
+## 📈 LLM 集成层次
+
+```mermaid
+graph TB
+    subgraph 替换层["替换层 (Component-Level)"]
+        E[LLM Embedding 替换<br/>语义特征提取]
+        S[LLM 打分<br/>Pointwise/Listwise]
+    end
+    subgraph 节点层["节点层 (Module-Level)"]
+        R[LLM 召回<br/>生成式/语义检索]
+        RK[LLM 重排<br/>Listwise 排序]
+    end
+    subgraph 架构层["架构层 (System-Level)"]
+        U[统一 LLM 框架<br/>搜广推一体化]
+        A[Agent 推荐<br/>ReAct + 工具调用]
+    end
+    E --> R
+    S --> RK
+    R --> U
+    RK --> A
+```
+
+---
+
 ## 📋 文档导航与快速跳转
 
 本文档对搜广推三大系统中的 LLM 应用进行了统一梳理，按"替换层 → 节点层 → 架构层"三个维度组织。
