@@ -2,17 +2,89 @@
 
 > 整理时间：2026-03-13 | MelonEggLearn
 
-## 时间线总览
+---
 
+## 🆚 各代召回方案创新对比
+
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| 矩阵分解 | UserCF/ItemCF（稀疏矩阵直接匹配） | **隐因子低秩分解** R≈UV^T | 从稀疏到稠密表示 |
+| Embedding 召回 | 矩阵分解（线性） | **深度网络编码** + Skip-gram | 非线性特征捕获 |
+| 双塔工业化 | YouTube DNN（Softmax 全量分类） | **独立编码 + ANN 检索** | O(1) 在线，毫秒级 |
+| GNN 召回 | 双塔（只用用户自身行为） | **图结构聚合邻居信息** | 高阶关系捕获 |
+| 生成式召回 | 检索式（从固定候选集选） | **自回归生成物品 ID** | 端到端，语义泛化 |
+
+---
+
+## 📈 召回技术演进时间线
+
+```mermaid
+timeline
+    title 召回技术演进
+    2000-2003 : UserCF / ItemCF
+              : 协同过滤, 稀疏矩阵匹配
+    2009 : SVD / ALS / BPR
+         : 矩阵分解, 隐因子建模
+    2013-2016 : Word2Vec / Item2Vec / DSSM
+              : Embedding 表示学习
+    2016 : YouTube DNN
+         : 深度召回开山之作
+    2018-2021 : 双塔模型工业化
+              : FAISS/ANN + 多路召回
+    2018-2023 : PinSAGE / LightGCN
+              : 图神经网络召回
+    2023-2025 : TIGER / HSTU / LLM4Rec
+              : 生成式召回, 端到端
 ```
-2003        2009        2013        2016        2018        2020        2022        2024
- │           │           │           │           │           │           │           │
- ●           ●           ●           ●           ●           ●           ●           ●
- │           │           │           │           │           │           │           │
-UserCF/    矩阵分解     Word2Vec    YouTube     DSSM/双塔   双塔工业化   GNN召回     生成式
-ItemCF     SVD/ALS     影响深远    DNN召回     FastText    大规模部署  PinSAGE     召回
-                       Item2Vec                            ANN检索    图嵌入      LLM4Rec
-```
+
+---
+
+## 📐 核心公式
+
+### 1. BPR Loss（Bayesian Personalized Ranking）
+
+$$
+\mathcal{L}\_{BPR} = -\sum\_{(u,i,j) \in D\_s} \ln \sigma(\hat{r}\_{ui} - \hat{r}\_{uj}) + \lambda \|\Theta\|^2
+$$
+
+**符号说明**：
+- $(u,i,j)$：用户 $u$ 的正样本 $i$ 和负样本 $j$
+- $\hat{r}\_{ui} = \mathbf{u}\_u^T \mathbf{v}\_i$：预测交互分数
+- $\sigma$：Sigmoid 函数
+- $\lambda$：L2 正则系数
+
+**直觉**：让正样本的预测分数比负样本高出一个 margin，是 pairwise 排序学习的经典 loss。
+
+### 2. DSSM 双塔 Loss
+
+$$
+P(d|q) = \frac{\exp(\cos(\mathbf{q}, \mathbf{d})/ \tau)}{\sum\_{d' \in D} \exp(\cos(\mathbf{q}, \mathbf{d}')/ \tau)}
+$$
+
+$$
+\mathcal{L} = -\sum\_{(q,d^+)} \log P(d^+|q)
+$$
+
+**符号说明**：
+- $\mathbf{q}, \mathbf{d}$：Query/Doc（或 User/Item）经各自塔编码后的 Embedding
+- $\tau$：温度参数，控制分布锐度
+- $D$：负样本集合（Batch 内 + 随机采样）
+
+**直觉**：Softmax over 余弦相似度，本质是对比学习——让正样本对的相似度远高于负样本对。
+
+### 3. LightGCN 聚合
+
+$$
+\mathbf{e}\_u^{(k+1)} = \sum\_{i \in \mathcal{N}\_u} \frac{1}{\sqrt{|\mathcal{N}\_u||\mathcal{N}\_i|}} \mathbf{e}\_i^{(k)}
+$$
+
+$$
+\mathbf{e}\_u = \sum\_{k=0}^{K} \alpha\_k \mathbf{e}\_u^{(k)}
+$$
+
+**直觉**：去掉 GCN 的特征变换和非线性，只保留邻域加权平均，最终 Embedding 是各层的加权和。简单但实测效果不亚于复杂 GCN。
+
+---
 
 ## 各阶段详解
 

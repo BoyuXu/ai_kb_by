@@ -5,6 +5,64 @@
 
 ---
 
+## 🆚 各代 LLM 创新对比
+
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| Transformer | RNN/LSTM（串行计算） | **Self-Attention 并行** | 突破序列长度限制 |
+| BERT | Word2Vec（静态 Embedding） | **双向预训练 + MLM** | 上下文感知表示 |
+| GPT-3 | BERT（需微调） | **Scaling Law + ICL** | 规模涌现，零/少样本 |
+| ChatGPT | GPT-3（无对齐） | **RLHF = SFT + RM + PPO** | 人类偏好对齐 |
+| DeepSeek-R1 | ChatGPT（指令遵循） | **GRPO 纯 RL 涌现推理** | 长 CoT，AIME 80% |
+| Qwen3 | 固定推理模式 | **Thinking/Non-thinking 混合** | 按需推理 |
+
+---
+
+## 📈 LLM 演进 Mermaid
+
+```mermaid
+timeline
+    title LLM 大模型演进
+    2017 : Transformer
+         : Attention is All You Need
+    2018 : BERT / GPT-1
+         : 预训练范式, 双向/单向
+    2019-2020 : GPT-2/3 / T5
+              : Scaling Law, 涌现能力
+    2022 : ChatGPT / InstructGPT
+         : RLHF 人类对齐
+    2023 : LLaMA / Mixtral (MoE)
+         : 开源, 稀疏激活
+    2024 : DeepSeek-R1 / Claude 3
+         : 推理涌现, 长上下文
+    2025 : Qwen3 / DeepSeek-V3
+         : 混合推理, MoE+MLA
+```
+
+---
+
+## 📐 核心公式
+
+### 1. Scaled Dot-Product Attention
+
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d\_k}}\right)V
+$$
+
+**直觉**：每个 token 对所有其他 token 计算注意力权重，加权求和得到新表示。$\sqrt{d\_k}$ 防止内积过大导致 softmax 饱和。
+
+### 2. Scaling Law（Chinchilla）
+
+$$
+L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + E
+$$
+
+**符号说明**：$N$ 参数量，$D$ 训练 token 数，$A, B, \alpha, \beta, E$ 为拟合常数。
+
+**直觉**：Loss 随参数量和数据量幂律下降，存在最优比例——Chinchilla 发现应保持 $D \approx 20N$，而 GPT-3 严重"过参数化"。
+
+---
+
 ## ASCII 演进时间线
 
 ```

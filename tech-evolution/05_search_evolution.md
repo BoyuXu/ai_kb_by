@@ -5,6 +5,61 @@
 
 ---
 
+## 🆚 各代搜索方案创新对比
+
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| TF-IDF/BM25 | 布尔检索（关键词 AND/OR） | **词频-逆文档频率统计排序** | 可量化的相关性 |
+| Learning to Rank | 人工特征 + 排序规则 | **机器学习自动排序** | LambdaMART, NDCG 优化 |
+| DSSM 双塔 | 词袋匹配（无语义） | **深度语义匹配** | 同义词/语义相近 |
+| BERT 搜索 | 浅层语义（DSSM） | **预训练 + Cross-Encoder** | 深层交互理解 |
+| DPR 稠密检索 | TF-IDF 稀疏检索 | **Dense Retrieval + ANN** | 语义泛化 |
+| RAG + 生成式 | 检索+重排列表展示 | **检索+LLM 生成答案** | 直接回答问题 |
+
+---
+
+## 📈 搜索技术演进 Mermaid
+
+```mermaid
+timeline
+    title 搜索算法演进
+    1994-2008 : 关键词检索时代
+              : 倒排索引 / TF-IDF / BM25 / PageRank
+    2009-2015 : 统计学习排序
+              : LambdaMART / GBDT / LTR
+    2016-2019 : 深度语义检索
+              : DSSM / ColBERT / BERT QA
+    2020-2022 : 预训练稠密检索
+              : DPR / FAISS / 混合检索
+    2023-2025 : 生成式搜索
+              : RAG + LLM 重排
+              : Perplexity / SearchGPT
+```
+
+---
+
+## 📐 核心公式
+
+### 1. BM25
+
+$$
+\text{BM25}(q, d) = \sum\_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d) \cdot (k\_1+1)}{f(t,d) + k\_1 \cdot (1-b+b \cdot \frac{|d|}{avgdl})}
+$$
+
+**符号说明**：$f(t,d)$ 词 $t$ 在文档 $d$ 中的词频，$|d|$ 文档长度，$avgdl$ 平均文档长度，$k\_1$（通常 1.2-2.0）和 $b$（通常 0.75）为超参。
+
+**直觉**：TF-IDF 的改进版——词频有上界（不会无限增长），长文档有惩罚（避免长文档占优）。至今仍是稀疏检索标杆。
+
+### 2. NDCG（Normalized Discounted Cumulative Gain）
+
+$$
+\text{NDCG}@K = \frac{\text{DCG}@K}{\text{IDCG}@K}, \quad \text{DCG}@K = \sum\_{i=1}^K \frac{2^{rel\_i} - 1}{\log\_2(i+1)}
+$$
+
+**直觉**：排在前面的相关文档贡献更大（对数衰减位置权重），用理想排序归一化后得到 [0,1] 的评分。
+
+---
+
 ## ASCII 演进时间线
 
 ```

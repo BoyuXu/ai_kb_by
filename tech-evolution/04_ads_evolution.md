@@ -5,6 +5,68 @@
 
 ---
 
+## 🆚 各代广告系统创新对比
+
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| Quality Score | 纯竞价（出价最高展示） | **eCPM = pCTR × bid** | 质量与出价平衡 |
+| RTB/程序化 | 人工投放（直投合约） | **实时竞价 + 人群定向** | 毫秒级自动化 |
+| Deep CTR | LR + 手工特征 | **DNN 自动特征交叉** | Wide&Deep/DeepFM |
+| 多任务学习 | 独立 CTR/CVR 模型 | **ESMM/MMoE 联合建模** | 解决样本选择偏差 |
+| Auto Bidding | 固定出价 | **RL/MPC 自动化出价** | 预算约束下收益最大化 |
+| LLM+隐私 | Cookie 追踪 | **联邦学习 + 差分隐私** | 无 Cookie 时代广告 |
+
+---
+
+## 📈 广告系统演进 Mermaid
+
+```mermaid
+timeline
+    title 广告系统技术演进
+    2000-2004 : 搜索广告诞生
+              : Yahoo / AdWords / GSP 拍卖
+    2008-2010 : Quality Score / eCPM
+              : 点击质量进入排序
+    2011-2014 : RTB / OpenRTB
+              : 程序化广告, DSP/SSP
+    2015-2018 : Deep CTR
+              : Wide&Deep / DeepFM / DIN
+    2019-2021 : 多任务 + Auto Bidding
+              : ESMM / MMoE / RL出价
+    2022-2025 : LLM + 隐私计算
+              : 联邦学习 / 无Cookie / LLM广告创意
+```
+
+---
+
+## 📐 核心公式
+
+### 1. eCPM（effective Cost Per Mille）
+
+$$
+\text{eCPM} = \text{pCTR} \times \text{bid} \times 1000
+$$
+
+**直觉**：广告排序不只看出价，还要看质量（预估点击率）。高质量低出价的广告可以排在低质量高出价之上。
+
+### 2. GSP 拍卖（Generalized Second Price）
+
+$$
+\text{Cost}\_i = \frac{\text{eCPM}\_{i+1}}{\text{pCTR}\_i}
+$$
+
+**直觉**：赢者支付的不是自己的出价，而是刚好超过下一名所需的最低价格。激励广告主如实报价。
+
+### 3. ESMM（Entire Space Multi-Task Model）
+
+$$
+\text{pCVR} = \frac{P(\text{click} \cap \text{convert})}{P(\text{click})} = \frac{P(\text{CTCVR})}{P(\text{CTR})}
+$$
+
+**直觉**：直接用点击样本训练 CVR 有样本选择偏差（只有点击的才有转化标签）。ESMM 在全量曝光空间建模 CTCVR = CTR × CVR，绕过偏差。
+
+---
+
 ## 演进时间线总览
 
 ```

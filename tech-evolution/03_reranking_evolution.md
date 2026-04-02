@@ -5,18 +5,69 @@
 
 ---
 
-## ASCII 时间线
+## 🆚 各代重排方案创新对比
 
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| 统计多样性 | 规则打散（人工 if-else） | **MMR/DPP 数学优化多样性** | 可量化的多样性-相关性平衡 |
+| 深度学习重排 | Pointwise 独立打分 | **Listwise 建模物品间关系** | 上下文感知的排列优化 |
+| 生成式重排 | 固定候选集重排 | **LLM 语义理解 + 生成式排列** | 零样本泛化，端到端 |
+
+---
+
+## 📈 重排技术演进 Mermaid
+
+```mermaid
+timeline
+    title 重排技术演进
+    2015 : 规则时代
+         : 去重/打散/业务规则
+    2017 : 统计多样性
+         : MMR / DPP / ε-greedy
+    2019-2020 : 深度学习重排
+              : PRM / DLCM / DeepFM+序列
+    2021-2022 : 上下文感知重排
+              : SetRank / MISL / PGRank
+    2023-2025 : 生成式重排
+              : LLM Listwise / RLHF优化
 ```
-2015          2017          2019          2021          2023          2025
- |             |             |             |             |             |
- |  规则时代   |  统计多样性  |   深度学习重排           |  生成式重排  |
- |             |             |             |             |             |
- +─────────────+─────────────+─────────────+─────────────+─────────────>
- │去重/打散    │MMR算法      │PRM模型      │SetRank      │LLM重排      │
- │业务规则     │DPP行列式    │DLCM         │上下文感知   │Listwise生成 │
- │多样性插入   │ε-greedy探索 │DeepFM+序列  │MISL/PGRank  │RLHF优化     │
-```
+
+---
+
+## 📐 核心公式
+
+### 1. MMR（Maximal Marginal Relevance）
+
+$$
+\text{MMR} = \arg\max\_{d\_i \in R \setminus S} \left[\lambda \cdot \text{Sim}(d\_i, q) - (1-\lambda) \cdot \max\_{d\_j \in S} \text{Sim}(d\_i, d\_j)\right]
+$$
+
+**符号说明**：$q$ 为查询，$R$ 为候选集，$S$ 为已选集，$\lambda$ 平衡相关性与多样性。
+
+**直觉**：贪心选择每一步"既跟查询相关、又跟已选结果不重复"的文档。$\lambda=1$ 纯相关性，$\lambda=0$ 纯多样性。
+
+### 2. DPP（Determinantal Point Process）
+
+$$
+P(S) \propto \det(L\_S)
+$$
+
+**直觉**：行列式越大说明选中集合的多样性越高（向量越"不平行"），概率越大。
+
+### 3. LambdaRank
+
+$$
+\lambda\_{ij} = \frac{\partial C}{\partial s\_i} = -\sigma\_{ij} |\Delta \text{NDCG}\_{ij}|
+$$
+
+**推导**：
+1. 从 RankNet 的交叉熵 loss 出发：$C = -\bar{P}\_{ij} \log P\_{ij} - (1-\bar{P}\_{ij})\log(1-P\_{ij})$
+2. 对模型分数 $s\_i$ 求梯度得 $\lambda\_{ij}$
+3. **LambdaRank 创新**：乘以 $|\Delta\text{NDCG}\_{ij}|$（交换 $i,j$ 导致的 NDCG 变化量），让梯度直接优化排序指标
+
+**直觉**：不是简单地让正样本分数高于负样本，而是让"交换后对 NDCG 影响最大"的样本对获得最大梯度。
+
+---
 
 ---
 

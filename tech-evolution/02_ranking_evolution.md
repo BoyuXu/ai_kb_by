@@ -4,6 +4,75 @@
 
 ---
 
+## 🆚 各代精排方案创新对比
+
+| 代际 | 之前方案 | 创新点 | 核心突破 |
+|------|---------|--------|---------|
+| FM | LR（需手工特征交叉） | **隐向量自动二阶交叉** | 稀疏特征自动交叉 |
+| Wide&Deep | FM（只有二阶） | **Wide 记忆 + Deep 泛化** | 首次 DNN 进入排序 |
+| DeepFM | Wide&Deep（Wide 需手工） | **FM 替代 Wide** | 端到端学习交叉 |
+| DIN | DeepFM（用户兴趣固定） | **Attention 动态加权历史** | 候选相关的兴趣表示 |
+| DIEN | DIN（只看静态历史） | **GRU 建模兴趣演化** | 捕获兴趣变化趋势 |
+| MMoE/PLE | 单任务或 Hard Share | **Expert 网络 + Gate 路由** | 多任务自适应共享 |
+| LLM4Rec | 传统 ID-based 排序 | **语言理解 + 生成式排序** | 语义泛化+零样本 |
+
+---
+
+## 📈 精排模型演进 Mermaid
+
+```mermaid
+timeline
+    title 精排模型演进
+    2010-2015 : LR / LR+GBDT / FM
+              : 线性时代, 手工特征工程
+    2016-2018 : Wide&Deep / DeepFM / PNN / NFM
+              : 深度时代, DNN自动交叉
+    2019-2020 : DIN / DIEN / BST
+              : 注意力时代, 动态兴趣建模
+    2021-2022 : ESMM / MMoE / PLE
+              : 多任务时代, 多目标协同
+    2023-2025 : LLM4Rec / P5 / InstructRec
+              : 大模型时代, 语义理解+生成
+```
+
+---
+
+## 📐 核心公式
+
+### 1. FM（Factorization Machines）
+
+$$
+\hat{y}(x) = w\_0 + \sum\_{i=1}^n w\_i x\_i + \sum\_{i=1}^n \sum\_{j=i+1}^n \langle \mathbf{v}\_i, \mathbf{v}\_j \rangle x\_i x\_j
+$$
+
+**符号说明**：$w\_0$ 偏置，$w\_i$ 一阶权重，$\mathbf{v}\_i \in \mathbb{R}^k$ 第 $i$ 个特征的隐向量，$\langle \cdot,\cdot \rangle$ 内积。
+
+**直觉**：用隐向量内积替代显式二阶权重矩阵，参数从 $O(n^2)$ 降到 $O(nk)$，让稀疏特征的交叉成为可能。
+
+### 2. DIN Attention
+
+$$
+\mathbf{v}\_u = \sum\_{i=1}^N \alpha\_i \mathbf{e}\_i, \quad \alpha\_i = \frac{\exp(f(\mathbf{e}\_i, \mathbf{e}\_a))}{\sum\_{j=1}^N \exp(f(\mathbf{e}\_j, \mathbf{e}\_a))}
+$$
+
+**符号说明**：$\mathbf{e}\_i$ 为用户历史行为 $i$ 的 Embedding，$\mathbf{e}\_a$ 为候选广告 Embedding，$f$ 为 Attention 网络。
+
+**直觉**：用户看数码产品时，历史中买手机壳的权重应该高于买洗衣液的。候选相关性决定历史权重。
+
+### 3. MMoE Gate 机制
+
+$$
+y\_k = h\_k\left(\sum\_{i=1}^n g\_k^{(i)}(x) \cdot f\_i(x)\right)
+$$
+
+$$
+g\_k(x) = \text{softmax}(W\_{gk} \cdot x)
+$$
+
+**直觉**：每个任务 $k$ 有自己的 Gate 网络，自适应选择 Expert 的输出组合。不同任务可以学到不同的 Expert 使用模式。
+
+---
+
 ## 演进时间线总览
 
 ```
