@@ -13,6 +13,44 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 维度 | RLHF (传统) | DPO | RLVR (创新) |
+|------|-----------|-----|------------|
+| 奖励来源 | **人类标注偏好** → Reward Model | 人类偏好对 | **规则/验证器**（数学正确性、代码通过率） |
+| 标注成本 | 高（需大量人类标注） | 中 | **极低**（自动验证，无需人工） |
+| 适用任务 | 通用对齐（安全、风格） | 偏好对齐 | **可验证任务**（数学/代码/逻辑） |
+| 优化算法 | PPO（需 Critic） | 直接偏好优化 | **GRPO**（组内对比，去 Critic） |
+| 可扩展性 | 受限于标注速度 | 受限于偏好数据 | **自动化 scaling** |
+| 代表成果 | InstructGPT/ChatGPT | Zephyr, Llama-Chat | **DeepSeek-R1**, Kimi k1.5 |
+| 涌现能力 | 遵循指令 | 偏好对齐 | **长 CoT、自我反思、回溯推理** |
+
+---
+
+## 📈 LLM 后训练路线演进
+
+```mermaid
+timeline
+    title LLM 后训练两条路
+    2022 : RLHF (InstructGPT)
+         : 人类偏好 → Reward Model → PPO
+    2023 : DPO (Stanford)
+         : 绕过 RM, 直接偏好优化
+    2024-Q1 : GRPO (DeepSeek)
+            : 去 Critic, 组内对比
+    2024-Q3 : RLVR 范式形成
+            : 规则验证器替代人类标注
+    2024-Q4 : DeepSeek-R1
+            : RLVR+GRPO 涌现推理
+    2025 : Kimi k1.5
+         : Long-CoT RL Scaling
+         : 推理+视觉统一
+    2025 : RLVR 成为推理 RL 主流
+         : 自动化 scaling 突破
+```
+
+---
+
 ## 🆕 2026-03-26 深度整合更新
 
 ### DeepSeek-R1：RLVR 路线的里程碑验证

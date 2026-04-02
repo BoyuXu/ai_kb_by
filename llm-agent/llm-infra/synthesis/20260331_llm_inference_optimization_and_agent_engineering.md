@@ -2,6 +2,41 @@
 
 > 综合日期：20260331 | 领域：LLM基础设施 | 覆盖论文：5篇
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 之前方案 | 创新 | 效果 |
+|------|---------|------|------|
+| LCD (2-bit 量化) | GPTQ/AWQ (4-bit) | **聚类量化 + KD** | 2-bit 下超越所有方法，6.2× 加速 |
+| Double (投机解码) | EAGLE（需训练 draft） | **检索式 SD（免训练）** | 5.3× 加速，突破理论上限 |
+| FastMTP | Meta MTP（需训练多头） | **仅推理阶段多头** | 即插即用，无需重训 |
+| Agent 安全框架 | Ad-hoc 安全检查 | **形式化安全建模** | 系统化威胁分类 |
+| Google ADK | LangChain/AutoGen | **Google 原生 Agent SDK** | 与 Gemini 深度集成 |
+
+---
+
+## 📈 技术关联图
+
+```mermaid
+graph LR
+    subgraph 推理加速
+        LCD[LCD 2-bit 量化<br/>6.2× 加速]
+        Double[Double 检索SD<br/>5.3× 加速]
+        FastMTP[FastMTP<br/>多token预测]
+    end
+    subgraph Agent工程化
+        Security[安全框架<br/>形式化建模]
+        ADK[Google ADK<br/>Agent开发包]
+    end
+    LCD --> Deploy[工业部署]
+    Double --> Deploy
+    FastMTP --> Deploy
+    Security --> ADK
+```
+
+---
+
 ## 主题概述
 
 本批次5篇论文覆盖LLM基础设施的两大方向：**推理加速**（LCD量化、Double投机解码、FastMTP多token预测）和**Agent工程化**（安全框架、开发工具包）。

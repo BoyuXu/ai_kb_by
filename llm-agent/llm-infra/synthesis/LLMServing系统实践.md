@@ -13,6 +13,46 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：vLLM, TensorRT-LLM, TGI, SGLang, Orca 系列
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | 朴素 Serving (HF) | vLLM | TensorRT-LLM | SGLang |
+|------|-------------------|------|--------------|--------|
+| Batching | Static（等最长完成） | **Continuous Batching**（逐 step 调度） | Continuous + Inflight | Continuous |
+| 内存管理 | 预分配 max\_len | **PagedAttention**（分页按需） | 固定池 | PagedAttention |
+| GPU 利用率 | ~30% | **~80%** | ~85%（编译优化） | ~80% |
+| 吞吐量（相对） | 1× | 3-5× | 5-8× | 4-6× |
+| 易用性 | 高 | 高（Python API） | 中（需编译） | 高 |
+| 特色 | 灵活 | 开源标杆 | NVIDIA 官方，INT4/FP8 | **RadixAttention** 前缀复用 |
+
+---
+
+## 📈 LLM Serving 技术演进
+
+```mermaid
+timeline
+    title LLM Serving 系统演进
+    2022 : HuggingFace TGI
+         : 首个工业级 LLM 服务框架
+    2023-Q1 : Orca (Microsoft)
+            : 提出 Continuous Batching
+    2023-Q2 : vLLM (UC Berkeley)
+            : PagedAttention, 开源标杆
+            : 吞吐 3-5× vs HF
+    2023-Q4 : TensorRT-LLM (NVIDIA)
+            : 编译优化 + INT4/FP8
+            : 单卡吞吐最强
+    2024 : SGLang (UC Berkeley)
+         : RadixAttention 前缀复用
+         : 多轮对话/RAG 场景优化
+    2025 : 分离式推理 (MegaScale-Infer)
+         : Prefill/Decode 分离部署
+         : MoE Expert 解耦
+```
+
+---
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention

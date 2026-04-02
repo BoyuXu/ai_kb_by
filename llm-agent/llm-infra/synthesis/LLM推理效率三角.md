@@ -12,6 +12,35 @@
 
 **一句话**：让 LLM 变快有三条路：让训练更高效（GRPO 省 Critic）、让模型更精简（MoE 稀疏激活）、让解码更聪明（Speculative Decoding + FlashAttention-3）。今天把这三条路串起来看。
 
+---
+
+## 🆚 创新点 vs 之前方案（效率三角）
+
+| 优化维度 | 传统方案 | 创新方案 | 核心突破 |
+|---------|---------|---------|---------|
+| 训练效率 | PPO（需 Critic，4× 显存） | GRPO（组内对比，2× 显存） | 去 Critic，显存减半 |
+| 架构效率 | Dense FFN（全参数计算） | MoE（稀疏激活 Top-K） | 大模型小计算 |
+| 解码效率 | 逐 token 自回归 | Speculative Decoding + PEFT 对齐 | 草稿模型+并行验证，2-5× 加速 |
+
+---
+
+## 📈 效率优化三角 Mermaid
+
+```mermaid
+graph TD
+    Center[LLM 效率三角] --> T[训练优化]
+    Center --> A[架构优化]
+    Center --> D[解码优化]
+    T --> T1[GRPO: 去 Critic<br/>显存 -50%]
+    T --> T2[LIMO: 817 样本<br/>数据效率 100×]
+    A --> A1[MoE: 稀疏激活<br/>671B 参数, 37B 计算]
+    A --> A2[GQA/MQA<br/>KV Cache 4-32× 压缩]
+    D --> D1[Speculative Decoding<br/>草稿-验证 2-5×]
+    D --> D2[FlashAttention-3<br/>计算利用率 75%]
+```
+
+---
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention

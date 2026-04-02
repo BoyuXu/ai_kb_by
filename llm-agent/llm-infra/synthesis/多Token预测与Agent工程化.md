@@ -2,6 +2,42 @@
 
 > 领域：llm-infra | 类型：综合综述 | 覆盖论文：5篇 | 创建：2026-03-31
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 之前方案 | 创新 | 核心突破 |
+|------|---------|------|---------|
+| FastMTP | Meta MTP（训练+推理都要多头） | **仅推理阶段用多头预测** | 无需重新训练，即插即用 |
+| EAGLE-3 | EAGLE-2（需特定训练数据） | **训练时 Scaling** | 更大 draft head 更高接受率 |
+| Double | 需训练 draft model | **检索式免训练 SD** | 利用上下文 Suffix Array，5.3× 加速 |
+| Agent 单模型 | 多 Agent 工作流 | **强单 Agent baseline** | 减少通信开销，简化架构 |
+| HippoRAG 2 | 静态 RAG 索引 | **非参数持续学习** | 图记忆 + 增量更新 |
+
+---
+
+## 📈 推理加速技术演进
+
+```mermaid
+timeline
+    title 推理加速三条路线
+    2023-Q1 : Speculative Sampling
+            : 首个实用投机解码
+    2023-Q3 : Multi-Token Prediction (Meta)
+            : 训练时多头预测
+    2024-Q1 : EAGLE (训练 draft head)
+            : 3-4× 加速
+    2024-Q2 : EAGLE-2 (动态 draft tree)
+    2024-Q4 : EAGLE-3 (Scaling draft head)
+            : 更大 head 更高接受率
+    2025-Q1 : FastMTP
+            : 仅推理阶段多头, 无需重训
+    2025-Q2 : Double
+            : 检索式 SD, 免训练 5.3×
+```
+
+---
+
 ## 一、技术背景与演进
 
 ### 推理加速的三条技术路线
@@ -58,7 +94,7 @@ $$
 $$
 
 - $\text{draft}}_{\text{1$：小型语言模型（擅长通用生成）
-- $\text{draft}}_2$：基于 retrieval 的 prompt lookup（擅长重复片段）
+- $\text{draft}_2$：基于 retrieval 的 prompt lookup（擅长重复片段）
 - 取两者**最大概率**作为接受分母，降低接受门槛
 - 接受率从 ~60% 提升到 ~80%
 

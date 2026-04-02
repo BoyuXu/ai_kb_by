@@ -23,6 +23,40 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 解决的问题 | 之前方案 | 创新点 |
+|------|----------|---------|-------|
+| LoRAFusion | LoRA 多任务训练效率低 | 串行训练各 LoRA | **Kernel Fusion + Multi-Job 共享 Base** |
+| Hybrid PEFT | 单一 PEFT 方法有局限 | 只用 LoRA 或只用 Adapter | **BOFT + LoRA-GA 自适应混合** |
+| LUNE | LLM 知识遗忘困难 | 全参数重训 / 梯度上升 | **负样本 LoRA 微调实现精准遗忘** |
+| HippoRAG 2 | RAG 无法持续学习 | 静态文档索引 | **非参数化持续学习 + 图记忆** |
+| OneFlow | 多 Agent 协作开销大 | 多 Agent 工作流 | **强化单 Agent baseline** |
+
+---
+
+## 📈 PEFT 技术前沿演进
+
+```mermaid
+timeline
+    title PEFT 技术前沿（2024-2026）
+    2024-Q1 : LoRA+ (更优初始化)
+            : AdaLoRA (自适应秩分配)
+    2024-Q2 : DoRA (方向+幅度分解)
+            : QR-LoRA (QR 分解微调)
+    2024-Q4 : BOFT (蝶形正交微调)
+            : 保持权重正交性
+    2025-Q1 : Hybrid PEFT
+            : BOFT + LoRA-GA 自适应混合
+    2025-Q2 : LUNE (LoRA 遗忘)
+            : 负样本精准删除知识
+    2026 : LoRAFusion
+         : Kernel 融合 + 多任务调度
+         : 训练吞吐 +2.3×
+```
+
+---
+
 ## 🗺️ 技术图谱
 
 本批5篇论文覆盖 LLM 基础设施的四个核心方向：

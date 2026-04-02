@@ -4,6 +4,42 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 之前方案 | 创新 | 效果 |
+|------|---------|------|------|
+| DeepSeek-R1 | SFT + 标注 CoT 数据 | **纯 RL (GRPO) 涌现推理** | AIME 9%→80% |
+| LIMO | 10万+ SFT 数据 | **817 高质量样本** | 数据效率 100× |
+| Double SD | 需训练 draft model | **检索式免训练 SD** | 5.3× 加速 |
+| LCD 量化 | 4-bit GPTQ/AWQ | **2-bit 聚类量化 + KD** | 6.2× 加速 |
+| Collab-RAG | 单一大模型 | **小模型检索+大模型推理** | 成本降 60% |
+| Adaptive RAG | 固定检索策略 | **信息熵触发检索** | 按需检索 |
+
+---
+
+## 📈 LLM 推理+RAG 技术脉络
+
+```mermaid
+graph LR
+    subgraph 推理能力
+        R1[DeepSeek-R1<br/>RL涌现推理]
+        LIMO[LIMO<br/>817样本激发]
+    end
+    subgraph 推理加速
+        Double[Double SD<br/>5.3× 免训练]
+        LCD[LCD 2-bit<br/>6.2× 量化]
+    end
+    subgraph RAG演进
+        Collab[Collab-RAG<br/>大小模型协作]
+        Adaptive[Adaptive RAG<br/>按需检索]
+    end
+    R1 --> Double
+    LIMO --> R1
+    Collab --> Adaptive
+```
+
+---
+
 ## 📌 核心主题概览
 
 本批次 llm-infra 论文覆盖四大方向：
@@ -33,12 +69,12 @@ $$
 
 ### 2. Double 推测解码加速上限突破
 
-传统 SD 上限：$\text{Speedup}}_{\text{{SD}} \leq \frac{v_{target}}{v_{draft}}$
+传统 SD 上限：$\text{Speedup}\_{\text{SD}} \leq \frac{v\_{target}}{v\_{draft}}$
 
 Double 突破上限：
 
 $$
-\text{Speedup}}_{\text{{Double}} > \frac{v_{target}}{v_{draft}} \cdot (1 + \alpha \cdot r)
+\text{Speedup}\_{\text{Double}} > \frac{v\_{target}}{v\_{draft}} \cdot (1 + \alpha \cdot r)
 $$
 
 其中 $\alpha \in [0,1]$ 为检索命中率，$r$ 为每次检索平均 token 收益。

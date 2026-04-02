@@ -2,6 +2,42 @@
 
 > 领域：llm-infra | 类型：综合综述 | 覆盖论文：5篇
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 之前方案 | 创新 | 效果 |
+|------|---------|------|------|
+| LIMO | 10万+ SFT 数据 | **817 高质量样本激发** | 数据效率 100× |
+| EAGLE-3 | EAGLE-2（固定 draft head） | **训练时 Scaling draft** | 接受率提升 |
+| MiniKV | 8-bit KV Cache 量化 | **2-bit 系统协同设计** | 内存 8× 压缩 |
+| FlashAttention-3 | FA2（35% GPU 利用率） | **TMA+WGMMA Warp 分工** | 利用率 75% |
+
+---
+
+## 📈 效率优化全链路
+
+```mermaid
+graph LR
+    subgraph 训练效率
+        LIMO[LIMO<br/>817样本 > 10万]
+        FA3T[FA3 训练加速<br/>step -25%]
+    end
+    subgraph 推理加速
+        EAGLE[EAGLE-3<br/>投机解码]
+        FA3I[FA3 推理<br/>利用率75%]
+    end
+    subgraph 内存优化
+        MiniKV[MiniKV<br/>2-bit KV Cache]
+        KVSurvey[KV 压缩策略全景]
+    end
+    LIMO --> EAGLE
+    FA3T --> FA3I
+    MiniKV --> FA3I
+```
+
+---
+
 ## 一、技术维度总览
 
 ```

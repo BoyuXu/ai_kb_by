@@ -39,6 +39,47 @@
 - Q: DeepSeek-R1-Zero 为何自发产生 CoT？ → GRPO 优化压力下发现"先想再答"答对率更高，reward 更高，行为被强化稳定涌现
 - Q: GRPO 的 advantage 归一化为什么有效？ → 消除 reward scale 影响，只保留相对优劣信号，类似 batch normalization 的稳定效果
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | REINFORCE | PPO | GRPO（创新） |
+|------|-----------|-----|-------------|
+| Advantage 估计 | 无 baseline，方差大 | Critic 网络 V(s) 估计 | **组内相对 reward 归一化**，无需 Critic |
+| 显存开销 | 1× | 4×（策略+旧策略+Critic+参考） | **2×**（策略+参考） |
+| 更新稳定性 | 不稳定 | clip 机制稳定 | clip + KL 惩罚 + 组内归一化三重稳定 |
+| 奖励信号 | 任意 | 任意（通常需 reward model） | **规则可验证奖励**（数学/代码） |
+| 训练复杂度 | 低 | 高（需训练 Critic） | **中**（只需多次采样） |
+| 代表成果 | — | InstructGPT/ChatGPT | **DeepSeek-R1**（AIME 9%→80%）|
+
+---
+
+## 📈 技术演进时间线
+
+```mermaid
+timeline
+    title RL for LLM 对齐与推理
+    1992 : REINFORCE
+         : 基础策略梯度, 方差高
+    2017 : PPO (OpenAI)
+         : clip + Critic, 成为 RLHF 标配
+    2022 : InstructGPT / ChatGPT
+         : RLHF = SFT + Reward Model + PPO
+    2023 : DPO (Stanford)
+         : 跳过 Reward Model, 直接偏好优化
+    2024-Q1 : GRPO (DeepSeek)
+            : 去 Critic, 组内对比
+            : 显存减半, 推理任务 SOTA
+    2024-Q4 : DeepSeek-R1
+            : GRPO 驱动, AIME 80%
+            : 纯 RL 涌现 CoT
+    2025 : RLVR (Verifiable Rewards)
+         : GRPO + 代码/数学验证器
+         : 成为推理 RL 主流范式
+```
+
+---
+
 **演进脉络**：`REINFORCE (1992) → PPO (2017, 带 Critic + clip) → GRPO (2024, 去 Critic + 组内对比)`，核心驱动：LLM 训练的显存成本越来越贵，GRPO 用数学技巧绕开了 Critic。
 
 ## 📐 核心公式与原理

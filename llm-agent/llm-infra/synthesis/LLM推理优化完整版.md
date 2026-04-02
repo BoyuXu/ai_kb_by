@@ -13,6 +13,49 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：FlashAttention-3, KV Cache 压缩系列, Speculative Decoding, MegaScale-Infer, vLLM
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 优化方向 | 朴素方案 | 创新方案 | 加速倍数 |
+|---------|---------|---------|---------|
+| Attention 计算 | 标准 O(n²) 矩阵乘 | FlashAttention-3（Tiling + Online Softmax） | 1.5-2× |
+| KV Cache 内存 | 全量缓存 | GQA + 量化 + PagedAttention | 4-32× 内存省 |
+| 解码速度 | 逐 token 自回归 | Speculative Decoding（草稿-验证） | 2-5× |
+| 批处理 | Static Batching | Continuous Batching（vLLM） | 2-3× 吞吐 |
+| 分布式 | Tensor Parallelism | Prefill-Decode 分离 + MoE 解耦 | 1.5-2× |
+
+---
+
+## 📈 LLM 推理优化技术全景
+
+```mermaid
+graph TB
+    subgraph 计算优化
+        FA[FlashAttention-3<br/>Tiling+Online Softmax]
+        GQA[GQA/MQA<br/>KV head 共享]
+    end
+    subgraph 内存优化
+        PA[PagedAttention<br/>vLLM 分页管理]
+        KVC[KV Cache 压缩<br/>量化/蒸馏/H2O]
+    end
+    subgraph 解码优化
+        SD[Speculative Decoding<br/>草稿-验证并行]
+        MTP[Multi-Token Prediction<br/>多 token 并行生成]
+    end
+    subgraph 系统优化
+        CB[Continuous Batching<br/>动态请求调度]
+        DI[分离式推理<br/>Prefill/Decode 解耦]
+    end
+    FA --> PA
+    GQA --> KVC
+    SD --> CB
+    MTP --> CB
+    PA --> DI
+```
+
+---
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention

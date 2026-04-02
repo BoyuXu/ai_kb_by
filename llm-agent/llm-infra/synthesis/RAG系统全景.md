@@ -13,6 +13,19 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：RAG Survey, HyDE, Self-RAG, CRAG, Chunk 策略系列
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | Naive RAG | Advanced RAG | Agentic RAG |
+|------|----------|-------------|-------------|
+| 检索策略 | 单次 top-K 检索 | 查询重写 + 混合检索 | **多步迭代 + 自适应触发** |
+| 文档处理 | 固定 chunk size | 语义分块 + 重叠 | 分层索引 + 知识图谱 |
+| 生成控制 | 拼接 context 直接生成 | Re-ranking + 压缩 | **反思 + 工具调用** |
+| 幻觉控制 | 无 | Faithfulness 约束 | **Self-RAG 自我验证** |
+| Query 增强 | 无 | HyDE（假设文档） | 子问题分解 + CoT |
+| 代表方案 | LangChain naive | CRAG, HyDE | Self-RAG, Agentic RAG |
+
 ## 架构总览
 
 ```mermaid

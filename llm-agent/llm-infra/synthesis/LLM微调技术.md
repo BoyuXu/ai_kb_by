@@ -13,6 +13,46 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：LoRA, QLoRA, Prefix-Tuning, Adapter, P-Tuning 系列
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | 全参数微调 | Adapter | Prefix-Tuning | LoRA | QLoRA |
+|------|----------|---------|--------------|------|-------|
+| 可训练参数 | 100% | ~3% | ~1% | **~0.5-1%** | ~0.5-1% |
+| 显存占用 | 极高（全参+优化器） | 高 | 中 | **低**（仅 A,B 矩阵） | **极低**（4-bit Base） |
+| 推理延迟 | 无额外开销 | +5-10%（额外层） | +1-2%（prefix tokens） | **无额外开销**（可合并） | 同 LoRA（合并后） |
+| 多任务切换 | 换整个模型 | 换 Adapter | 换 Prefix | **热切换 LoRA 权重** | 同 LoRA |
+| 效果 vs 全参数 | baseline | ~95% | ~90% | **~95-98%** | ~93-96% |
+| 核心创新 | — | 插入小网络 | 学习连续 prompt | **低秩分解 ΔW=BA** | **4-bit NF4 量化 Base** |
+
+---
+
+## 📈 PEFT 技术演进
+
+```mermaid
+timeline
+    title LLM 高效微调演进
+    2019 : Adapter (Google)
+         : 每层插入小 bottleneck 网络
+    2021-Q1 : Prefix-Tuning (Stanford)
+            : 学习连续 prefix tokens
+    2021-Q2 : P-Tuning v1/v2
+            : 可训练连续 prompt
+    2021-Q4 : LoRA (Microsoft)
+            : 低秩分解 ΔW=BA
+            : 无推理开销, 可合并
+    2023 : QLoRA (Washington)
+         : 4-bit NF4 量化 + LoRA
+         : 单卡 A100 训练 65B
+    2024 : LoRA+ / DoRA / AdaLoRA
+         : 自适应秩, 方向分解
+    2025 : QR-LoRA / LoRAFusion
+         : QR 分解 + 多 LoRA 融合
+```
+
+---
+
 ## 架构总览
 
 ```mermaid

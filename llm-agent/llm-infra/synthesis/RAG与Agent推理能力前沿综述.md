@@ -8,6 +8,41 @@
 
 ---
 
+## 🆚 创新点 vs 之前方案
+
+| 技术 | 之前方案 | 创新 | 核心突破 |
+|------|---------|------|---------|
+| DeepSeek-R1 | SFT 教推理（需 CoT 标注） | **纯 RL 涌现推理** | GRPO 无需标注，AIME 9%→80% |
+| Qwen3 | 固定推理/非推理模式 | **Thinking/Non-thinking 混合** | 按需推理，一个模型覆盖所有场景 |
+| Collab-RAG | 单一大模型做 RAG | **小模型检索 + 大模型推理分工** | API 成本降 60%，效果不降 |
+| 多跳 RAG | 单次检索回答 | **IRCoT 交替推理+检索** | 复杂多跳问题准确率 +15% |
+| Agent 推荐 | LLM 直接推荐 | **ReAct 工具调用 + 两阶段** | 传统召回 + LLM 精排混合架构 |
+
+---
+
+## 📈 RAG 与 Agent 推理技术演进
+
+```mermaid
+timeline
+    title RAG 与 Agent 推理演进
+    2020 : Naive RAG
+         : 检索+生成, 单次检索
+    2023 : Self-RAG / CRAG
+         : 自适应检索, 反思机制
+    2024-Q1 : Agentic RAG
+            : 多步迭代检索 + 工具调用
+    2024-Q2 : Collab-RAG
+            : 小模型+大模型协作
+    2024-Q3 : DeepSeek-R1
+            : 纯 RL 涌现推理能力
+    2025 : Qwen3 混合推理
+         : Thinking/Non-thinking 按需切换
+    2025 : Agent 推荐系统
+         : ReAct + 工具调用 + 推理链
+```
+
+---
+
 ## 🗺️ 技术版图
 
 ```

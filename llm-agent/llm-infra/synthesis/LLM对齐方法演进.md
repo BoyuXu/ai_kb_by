@@ -13,6 +13,48 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：InstructGPT, RLHF, DPO, GRPO, DeepSeek-R1, RLVR 系列
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | RLHF (PPO) | DPO | GRPO | RLVR |
+|------|-----------|-----|------|------|
+| 需 Reward Model | ✅ 需训练 RM | ❌ 直接用偏好数据 | ❌ 用规则打分 | ❌ 用验证器 |
+| 需 Critic | ✅ 同等规模 V 网络 | ❌ | ❌ | ❌ |
+| 训练稳定性 | 中（PPO 超参敏感） | **高**（简单二分类 loss） | **高**（组内归一化） | 高 |
+| 显存需求 | 4× 模型大小 | 2×（policy + ref） | 2× | 2× |
+| 适用任务 | 通用对齐 | 偏好对齐 | **可验证任务**（数学/代码） | 可验证任务 |
+| 核心创新 | — | **绕过 RM，直接偏好优化** | **去 Critic，组内对比** | **规则验证替代人类标注** |
+
+---
+
+## 📈 LLM 对齐方法演进
+
+```mermaid
+timeline
+    title LLM 对齐技术演进
+    2022 : InstructGPT (OpenAI)
+         : RLHF = SFT + RM + PPO
+         : 开创 LLM 对齐范式
+    2023-Q2 : DPO (Stanford)
+            : 绕过 Reward Model
+            : 直接偏好优化, 训练简单
+    2024-Q1 : GRPO (DeepSeek)
+            : 去 Critic, 组内对比
+            : 显存减半
+    2024-Q4 : DeepSeek-R1
+            : GRPO 驱动推理涌现
+            : AIME 9% → 80%
+    2025 : RLVR
+         : 可验证奖励 + GRPO
+         : 推理 RL 主流范式
+    2025 : Kimi k1.5
+         : Long-CoT RL scaling
+         : 推理+视觉统一
+```
+
+---
+
 ## 📐 核心公式与原理
 
 ### 📐 DPO（Direct Preference Optimization）推导

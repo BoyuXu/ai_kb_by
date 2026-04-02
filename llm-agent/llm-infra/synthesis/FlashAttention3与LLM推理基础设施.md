@@ -24,6 +24,48 @@
 - FA3 (FP8)：~120 TFLOP/s（H100 峰值 FP8 ~200 TFLOP/s，61% 利用率）
 - 端到端 LLaMA-3-8B 训练：step time 降低 **~25%**
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | 标准 Attention | FlashAttention v1/v2 | FlashAttention-3（创新） |
+|------|---------------|---------------------|------------------------|
+| IO 复杂度 | $O(n^2)$（写完整注意力矩阵） | $O(n^2d^2/M)$（分块 tiling） | 同 FA2，但**重叠计算与IO** |
+| GPU 利用率 | ~10-15% | ~35% | **~75%**（H100 BF16） |
+| 线程分工 | 无分工 | 统一 warp | **Producer/Consumer warp 专业化** |
+| Softmax | 两遍扫描（先求 max 再归一化） | Online softmax（一遍） | **延迟隐藏**（插入 WGMMA 等待期） |
+| FP8 支持 | ❌ | ❌ | ✅ Q/K=E4M3, V=E5M2, softmax=FP32 |
+| 核心硬件 | 通用 | A100 CUDA Core | **H100 TMA + WGMMA** |
+| 加速幅度 | baseline | 2-3× vs 标准 | **1.5-2× vs FA2** |
+
+---
+
+## 📈 Attention 优化技术演进
+
+```mermaid
+timeline
+    title Attention 计算优化演进
+    2017 : 标准 Attention
+         : O(n²) 内存, GPU 利用率 <15%
+    2020 : Sparse Attention (OpenAI)
+         : 局部+稀疏模式, 降低计算量
+    2022 : FlashAttention v1 (Tri Dao)
+         : Tiling + Online Softmax
+         : 显存 O(n), 利用率 35%
+    2023 : FlashAttention v2
+         : 更优分块, A100 优化
+         : 2-3× vs 标准实现
+    2024 : FlashAttention-3
+         : H100 TMA/WGMMA 专业化
+         : Warp 分工, FP8 支持
+         : 利用率 75%, 1.5-2× vs FA2
+    2025 : FlashInfer / FlexAttention
+         : 可定制 Attention kernel
+         : 支持 GQA/MQA/Sliding Window
+```
+
+---
+
 **和今日其他 LLM Infra 论文的连接**：
 - **FlashAttention-3**：解决 Attention 计算瓶颈（硬件榨汁）
 - **MoE-LLaMA**：解决 MoE 模型的 Expert Dispatch 开销（架构优化）

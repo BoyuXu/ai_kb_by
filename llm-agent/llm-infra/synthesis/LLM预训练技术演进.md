@@ -13,6 +13,50 @@
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：GPT 系列, Llama 系列, DeepSeek, Chinchilla Scaling Law
 
+---
+
+## 🆚 创新点 vs 之前方案
+
+| 维度 | GPT-3 (2020) | LLaMA (2023) | LLaMA-3 (2024) | DeepSeek-V3 (2025) |
+|------|-------------|-------------|----------------|-------------------|
+| 参数量 | 175B | 7-65B | 8-405B | 671B (37B 激活) |
+| 架构 | Dense Transformer | Dense + RoPE + SwiGLU | Dense + GQA | **MoE + MLA** |
+| 训练数据 | 300B tokens | 1.4T tokens | **15T tokens** | 14.8T tokens |
+| 位置编码 | 绝对位置 | **RoPE**（旋转位置编码） | RoPE | RoPE |
+| 注意力 | MHA | MHA | **GQA** | **MLA**（低秩 KV） |
+| 开源 | ❌ | ✅ | ✅ | ✅ |
+| Scaling 策略 | 参数优先 | Chinchilla 最优 | 数据 + 参数 | **MoE 稀疏 Scaling** |
+
+---
+
+## 📈 LLM 预训练技术演进
+
+```mermaid
+timeline
+    title LLM 预训练里程碑
+    2018 : GPT-1 (117M)
+         : 自回归预训练 + 微调范式
+    2019 : GPT-2 (1.5B)
+         : 零样本能力初现
+    2020 : GPT-3 (175B)
+         : Scaling Law, In-context Learning
+    2022 : Chinchilla (70B)
+         : 数据 vs 参数最优比例
+    2023 : LLaMA (7-65B)
+         : 开源, RoPE+SwiGLU+RMSNorm
+    2024-Q1 : LLaMA-3 (8-405B)
+            : GQA, 15T tokens, 多语言
+    2024-Q3 : DeepSeek-V2
+            : MLA + MoE, KV Cache 压缩 10×
+    2025 : DeepSeek-V3 (671B/37B)
+         : 256 精细 Expert + 共享 Expert
+         : 训练成本 = 同等 Dense 的 1/3
+    2025 : Qwen3 (235B-A22B)
+         : 四阶段训练, Thinking/Non-thinking
+```
+
+---
+
 ## 📐 核心公式与原理
 
 ### 1. Self-Attention
