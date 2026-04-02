@@ -176,3 +176,31 @@ $$
 - **下游应用**：LLM Serving 系统（vLLM/TGI/TensorRT-LLM）、RAG 推理、Agent 推理
 - **相关 synthesis**：LLM对齐方法演进.md, MoE架构设计.md
 - **相关论文笔记**：synthesis/KVCache与LLM推理优化全景.md, llm-infra/01_llm_fundamentals.md
+
+---
+
+## 投机解码数学分析
+
+设草稿模型 $M_q$，目标模型 $M_p$，草稿长度 $\gamma$，token 接受率：
+
+$$\alpha = \mathbb{E}\left[\min\left(1, \frac{p(x)}{q(x)}\right)\right]$$
+
+期望加速比：
+
+$$\text{Speedup} \approx \frac{\gamma+1}{1 + (1-\alpha)/\alpha \cdot c}$$
+
+其中 $c = t_{large}/t_{small}$。当 $\alpha \to 1$ 时加速比趋近 $\gamma+1$（通常 3-4×）。
+
+拒绝后重采样，保证输出分布与大模型完全一致（无损加速）：
+
+$$p'(x) = \text{norm}(\max(0, p(x) - q(x)))$$
+
+## Continuous Batching 吞吐分析
+
+标准 Batching GPU 利用率仅 30-50%（短请求完成后等待）。
+
+Continuous Batching 每个解码步骤可插入新请求，吞吐量：
+
+$$\text{Throughput} \approx \frac{N_{\text{queue}}}{\bar{L}} \times \text{GPU\_FLOPS}$$
+
+GPU 利用率提升至 85-95%，是 vLLM 相比朴素部署 5-10× 吞吐的核心来源。

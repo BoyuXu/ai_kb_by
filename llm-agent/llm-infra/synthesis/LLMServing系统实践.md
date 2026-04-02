@@ -164,3 +164,33 @@ $$
 
 **直观理解**：推理服务的核心矛盾——batch 越大吞吐越高但延迟越大。最优 batch 大小是"刚好用满 GPU 计算能力，同时不违反延迟约束"的那个点。实际中通过动态调节实现。
 
+
+---
+
+## KV Cache 显存精确计算
+
+每个 token 的 KV Cache（FP16）：
+
+$$\text{KV per token} = 2 \times n_{\text{layers}} \times n_{\text{heads}} \times d_{\text{head}} \times 2 \text{ bytes}$$
+
+以 LLaMA-2-7B（32层，32头，head dim 128）为例：
+
+$$= 2 \times 32 \times 32 \times 128 \times 2 = 524 \text{ KB/token}$$
+
+4096 token 上下文 = 524KB × 4096 ≈ 2GB（单请求）。
+
+PagedAttention 将 KV Cache 切成固定大小 Block（如 16 tokens/block），按需分配，消除碎片，GPU 利用率从 60% → 90%+。
+
+## vLLM vs SGLang 对比
+
+| 指标 | vLLM | SGLang |
+|------|------|--------|
+| 核心技术 | PagedAttention | RadixAttention（前缀共享）|
+| 多轮对话 | 一般 | 优（prefix reuse）|
+| 吞吐 | 高 | 更高（共享 KV）|
+| Tool Use | 支持 | 原生 JSON schema |
+| 适用场景 | 单轮大批量 | Agent/多轮对话 |
+
+TTFT（首 token 延迟）= Prefill 时间 $\approx O(L^2 d / \text{并行度})$
+
+TPOT（每 token）$\approx 2|\theta| / \text{GPU FLOPS}$

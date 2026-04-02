@@ -156,3 +156,43 @@ $$
 - **上游依赖**：Transformer 架构、量化技术、预训练模型
 - **下游应用**：领域大模型、Agent 训练、对齐微调
 - **相关 synthesis**：LLM对齐方法演进.md, LLM推理优化完整版.md
+
+---
+
+## LoRA 核心数学推导
+
+参数更新分解：
+
+$$W = W_0 + \Delta W = W_0 + BA$$
+
+其中 $W_0 \in \mathbb{R}^{d \times k}$ 冻结，$B \in \mathbb{R}^{d \times r}$，$A \in \mathbb{R}^{r \times k}$，$r \ll \min(d,k)$。
+
+前向传播：
+
+$$h = W_0 x + \frac{\alpha}{r} B A x$$
+
+参数量对比（$d=k=4096, r=8$）：全参数 $d \times k = 16.8\text{M}$，LoRA $(d+k) \times r = 65\text{K}$，节省 99.6%。
+
+QLoRA 额外节省：$W_0$ 用 NF4（4-bit 量化），推理时反量化：
+
+$$\hat{W_0} = \text{dequant}(W_0^{\text{NF4}})$$
+
+峰值显存对比（7B 模型）：全参数微调 ~80GB，LoRA ~16GB，QLoRA ~6GB。
+
+## DPO vs PPO 训练目标
+
+PPO 目标：
+
+$$\mathcal{L}_{PPO} = \mathbb{E}\left[r_\phi(x,y) - \beta \log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\right]$$
+
+DPO 直接偏好优化：
+
+$$\mathcal{L}_{DPO} = -\mathbb{E}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]$$
+
+DPO 消去奖励模型，从 RLHF 最优解推导而来，用策略概率比值直接表示偏好差异。
+
+| 方法 | 奖励模型 | 稳定性 | 显存（7B）| 效果 |
+|------|---------|-------|---------|------|
+| PPO | 需要 | 差 | 高（4模型）| 最好 |
+| DPO | 不需要 | 好 | 低（2模型）| 略低 |
+| GRPO | 不需要 | 好 | 低 | 推理任务好 |
