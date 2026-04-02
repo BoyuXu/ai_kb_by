@@ -64,7 +64,7 @@ Wed (03-27): ⏳ GSEM + Conversation Tree 深入阅读
 Thu (03-28): ⏳ User Preference + Memento-Skills
 Fri (03-29): ⏳ 安全论文 3 篇
 Sat (03-30): ⏳ 综合笔记 + 知识图谱
-Sun (03-31): ⏳ 面试题库生成
+Sun (03-31): ⏳ 常见题库生成
 ```
 
 ### **阅读检查表**
@@ -128,7 +128,7 @@ papers/summaries/
 - [ ] 检索优化 vs 召回算法
 
 ### 面试准备
-- [ ] 10+ 高频面试问题
+- [ ] 10+ 高频常见问题
 - [ ] 代码实现示例（Python）
 - [ ] 对比分析表（Agent 内存 vs 推荐系统）
 - [ ] 项目应用案例

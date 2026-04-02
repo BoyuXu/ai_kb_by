@@ -18,7 +18,7 @@ Continuous Batching相比静态batching，吞吐量提升约3x；vLLM相比Faste
 - Chunked prefill和decode的资源争抢需要精细调优
 - 多模型serving（多LoRA）需要特殊的KV cache隔离策略
 
-## 面试考点
+## 常见考点
 1. **Q: Continuous Batching（Orca）解决什么问题？** A: 传统静态batching需要等最长序列完成，新请求必须等待；continuous batching允许即时加入
 2. **Q: PagedAttention的核心思想？** A: 借鉴OS虚拟内存，KV cache用固定大小的块（page）管理，逻辑连续物理分散
 3. **Q: LLM推理的两个阶段prefill和decode各自的特点？** A: Prefill：处理prompt，计算密集（compute-bound）；Decode：逐token生成，内存密集（memory-bound）

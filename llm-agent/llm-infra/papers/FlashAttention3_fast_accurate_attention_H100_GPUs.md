@@ -22,7 +22,7 @@ FlashAttention-2 在 A100 GPU 上达到理论峰值 70% FLOP 利用率，但在 
 - 与 vLLM/TensorRT-LLM 集成：需要更新 attention kernel 调用接口
 - 自定义 attention（如 Sliding Window、Cross-attention）需手动移植 FlashAttention-3 模板
 
-## 面试考点
+## 常见考点
 - Q: FlashAttention 的核心思想？
   - A: 传统 attention 需要将 Q×K^T 的完整 attention 矩阵存到 HBM（IO 密集）；FlashAttention 将 Q/K/V 分块（tiling）在 SRAM 内完成计算，大幅减少 HBM 读写，attention 从 IO-bound 变为 compute-bound
 - Q: FlashAttention 如何处理 softmax 的归一化（需要全局 max/sum）？

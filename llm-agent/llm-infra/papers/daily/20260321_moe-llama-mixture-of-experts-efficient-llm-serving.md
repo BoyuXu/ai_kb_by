@@ -106,7 +106,7 @@ MoE 总显存 = Attention 层 + Top-K Expert × 激活率
 - **负载不均导致 OOM**：某 GPU 的 expert 过热 → 监控各 expert 的 token 分配，调整 balance 超参
 - **量化 MoE**：Expert 参数可 INT4 量化，routing/attention 保持 BF16
 
-## 面试考点
+## 常见考点
 
 - Q: MoE 架构的核心原理是什么？为什么能提升效率？
   A: 将 FFN 层替换为 N 个 Expert FFN + 1 个 Router，Router 对每个 token 选择 Top-K Expert 执行。总参数量 = N×Expert_size，但每 token 只激活 K/N 比例的参数（如 8 Expert Top-2 激活 25%），FLOPs 不随总参数线性增长。在相同激活参数预算下，MoE 能够存储更多知识，通常性能优于同等激活参数的 Dense 模型。

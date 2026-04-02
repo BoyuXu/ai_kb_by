@@ -36,7 +36,7 @@ KV Cache 是 LLM 推理的核心性能组件，也是显存瓶颈。随着上下
 - 稀疏化策略需要评估 task sensitivity（摘要任务 > 代码生成 > 问答 对 KV 稀疏更敏感）
 - 卸载场景需要异步 prefetch，隐藏 IO 延迟
 
-## 面试考点
+## 常见考点
 - Q: PagedAttention 的原理和优势？
   - A: 类比 OS 虚拟内存分页：将 KV Cache 切成固定大小 block（默认 16 token），按需分配，避免内存碎片；支持请求间 block 共享（prefix caching）
 - Q: StreamingLLM（Sink Token）的核心发现？

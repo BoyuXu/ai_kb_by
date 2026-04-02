@@ -22,7 +22,7 @@
 - Generative Retrieval 需要预先建立 document semantic ID 索引，新文档入库需实时分配 ID
 - 适合专业知识库检索（法律/医疗/学术），通用网页搜索提升有限
 
-## 面试考点
+## 常见考点
 - Q: 为什么对比学习在推理检索上有局限？
   - A: 对比学习优化 embedding 空间相似度，但推理相关性 ≠ 语义相似性。数学题和其解题文档的 embedding 可能很不相似，但推理上高度相关
 - Q: "Think-then-Retrieve" vs 标准 RAG 的区别？

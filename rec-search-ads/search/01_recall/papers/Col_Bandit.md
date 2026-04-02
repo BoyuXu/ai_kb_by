@@ -39,7 +39,7 @@
 - **与精排的配合**：Col-Bandit 作为 ColBERT 精排阶段的加速组件，不影响第一阶段 ANN 召回。
 - **调参**：UCB 的探索系数 c 需在效果-速度之间调参，通常 c=1-2 为最优区间。
 
-## 面试考点
+## 常见考点
 
 **Q: ColBERT 的 MaxSim 操作是什么？**
 - 对每个 query token embedding，在 document 的所有 token embedding 中找余弦相似度最大的，取该最大值；所有 query token 的最大值求和得到最终 score。捕捉细粒度 token 级匹配。

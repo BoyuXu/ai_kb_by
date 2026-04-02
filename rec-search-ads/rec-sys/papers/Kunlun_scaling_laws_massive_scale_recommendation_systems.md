@@ -27,7 +27,7 @@ $$
 - 数据新鲜度（data freshness）影响 scaling 效果，需控制变量
 - 建议在小规模实验（1/100 参数量）验证 scaling 趋势，再外推大模型配置
 
-## 面试考点
+## 常见考点
 - Q: 推荐系统 scaling law 和 LLM scaling law 的核心差异？
   - A: LLM 主要是 dense 参数（transformer 权重），推荐系统 embedding 是稀疏的高维查表，两者的 compute/memory 权衡完全不同
 - Q: 为什么推荐系统中 embedding 比 DNN 更 scale-efficient？

@@ -18,7 +18,7 @@
 - 可以对思考过程进行缓存，相同用户profile复用思考结果
 - 思考内容可以用于推荐解释（explainability），提升用户信任
 
-## 面试考点
+## 常见考点
 1. **Q: 为什么推荐系统需要"思考"步骤？** A: 捕获隐式用户意图，处理复杂多意图场景，提升长尾场景的推荐质量
 2. **Q: Chain-of-Thought在推荐中的挑战？** A: 推理token增加latency、工业场景无监督思考数据、思考质量难以评估
 3. **Q: Chunk自回归相比token自回归的优势？** A: 并行处理chunk内的token（speculative decoding），降低推理延迟

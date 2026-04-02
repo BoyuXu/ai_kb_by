@@ -62,7 +62,7 @@ LinkedIn Search 服务于 People Search（人才发现）和 Job Search（职位
 5. **多教师蒸馏**：单个 student 模型同时继承 relevance + engagement 两个专家的知识，避免部署多模型
 6. **SAGE 评估治理**：建立标准化 LLM 评估框架，保证实验和上线决策的一致性
 
-## 面试考点
+## 常见考点
 
 **Q1：LinkedIn 语义搜索为什么选择 Prefill-Only 推理架构？**
 > A：LLM 排序任务只需要对 query-document pair 打分（pointwise 或 listwise），不需要生成文本。Prefill 阶段可以计算整个输入序列的 representation，然后直接从最后 token 的 hidden state 提取分数，无需 autoregressive decode。这将推理吞吐提升了 75x，是 LLM ranking 生产化的关键。

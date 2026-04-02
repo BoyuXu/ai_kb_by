@@ -127,7 +127,7 @@ $$
 | 冷启动 | 规则覆盖 | LLM 泛化 |
 | 维护成本 | 高（规则维护） | 低（数据驱动） |
 
-## 面试考点
+## 常见考点
 
 **Q1: RGAlign-Rec 的"闭环对齐"与 RLHF 有何相似之处？**
 A: 非常相似。RLHF 中，人类偏好作为奖励信号训练 Reward Model，再用 RL 优化 LLM；RGAlign-Rec 中，下游排序模型的排名效果作为奖励信号（Ranking Reward），通过类 Policy Gradient 方法优化 LLM 生成的意图查询。本质都是"用下游任务信号指导上游生成"。

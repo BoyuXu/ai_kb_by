@@ -81,7 +81,7 @@ GQA（Llama 2 采用）速度快 5-10%，质量损失 < 1%。
 - **精度检验**：对关键应用（医学诊断、代码生成）量化后需要 benchmark，验证精度衰减是否可接受。
 - **框架支持**：vLLM 内置了 KV quantization 和 paged attention；HuggingFace Transformers 的 bitsandbytes 支持量化；TensorRT-LLM 对 INT8/INT4 有特殊优化。
 
-## 面试考点
+## 常见考点
 
 - Q: 为什么 KV cache 这么占显存？
   A: 自回归 LLM 生成时，第 i 个 token 需要 attend 到前 i-1 个 token。如果每次都重新计算 K,V，会浪费计算（许多重复）。KV cache 保存历史 K,V，避免重复计算，但需要存储所有历史。Batch 推理时，多个请求的历史长度不同，无法完全共享。

@@ -76,7 +76,7 @@ video_emb = TemporalTransformer(frame_embs)
 - 多模态融合权重：图片权重通常高于文字（视觉信息量更大），经验 0.6:0.4。
 - 部署注意：CLIP 图片 encoder 约 307M 参数（ViT-L），推理需 GPU；文字 encoder 较小可以 CPU 推理。
 
-## 面试考点
+## 常见考点
 
 - Q: CLIP 为什么能做零样本分类？
   A: CLIP 将图片和文字映射到同一空间，类别名（如"dog", "cat"）可以作为文字 embedding。对于新图片，计算其与所有类别文字 embedding 的相似度，取最高的类别即为预测结果。无需针对该分类任务训练，故称"零样本"。

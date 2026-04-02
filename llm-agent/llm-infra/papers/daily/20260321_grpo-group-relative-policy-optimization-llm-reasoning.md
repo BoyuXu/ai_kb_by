@@ -109,7 +109,7 @@ batch_size: 256   # 有效 batch = 256 × G = 2048 responses
 - 监控组内 reward variance（接近 0 说明问题太简单或太难）
 - 建议先 SFT 冷启动再 GRPO（避免早期探索崩溃）
 
-## 面试考点
+## 常见考点
 
 - Q: GRPO 和 PPO 的核心区别是什么？
   A: PPO 需要独立的 Critic 模型估计值函数（V function），以 V 值作为 baseline 计算 advantage。GRPO 对同一问题采样 G 个回答，用组内 reward 的均值和标准差归一化来估计 advantage，无需 Critic 模型，节省 50% 显存，同时组统计比单次 V 函数估计方差更低。

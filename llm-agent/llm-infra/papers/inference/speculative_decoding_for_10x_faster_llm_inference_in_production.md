@@ -82,7 +82,7 @@ def speculative_decode(prompt, target_model, draft_model, gamma=4):
 4. **vLLM 集成**：vLLM 已内置 Speculative Decoding，开启方式：`--speculative-model draft_model --num-speculative-tokens 5`
 5. **动态 gamma**：根据历史接受率动态调整 gamma（高接受率时增大 gamma）
 
-## 面试考点
+## 常见考点
 **Q1: 投机解码为什么能在不降低质量的情况下加速？**
 A: 关键是接受/拒绝机制（重要性采样）：只有当小模型的预测分布 "覆盖" 大模型分布时才接受，否则拒绝并从修正分布采样。数学上可证明：最终生成的 token 序列分布与直接用大模型采样完全相同，加速不以牺牲输出质量为代价。
 

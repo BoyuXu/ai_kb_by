@@ -72,7 +72,7 @@ $$
 4. **多任务目标权重**：λ和μ需根据线上指标调优，通常先固定Ranker loss权重，调Generator loss
 5. **冷启动item处理**：新item无协同信号时，可用文本语义embedding初始化，通过align损失快速融入协同空间
 
-## 面试考点
+## 常见考点
 
 **Q1：GRank相比传统双塔召回的核心优势是什么？**
 A：双塔编码器独立，召回时用户embedding固定，无法感知具体候选item特征。GRank通过Generator-Ranker串联，让Ranker能做细粒度user-item交叉，同时保持召回阶段的低延迟（GPU MIPS比ANN更快）。

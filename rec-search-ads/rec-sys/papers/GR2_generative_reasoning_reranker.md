@@ -22,7 +22,7 @@
 - 输出排列的解码需专门 constrained decoding（只允许候选 ID 出现）
 - 可与传统重排模型（PRM）并联，A/B 实验逐步替换
 
-## 面试考点
+## 常见考点
 - Q: 重排（Re-ranking）的核心挑战是什么？
   - A: ① 候选间上下文依赖（互补/竞争关系）；② 多样性 vs 相关性权衡；③ 实时性（latency <100ms）
 - Q: Listwise 排序和 Pointwise/Pairwise 的区别？

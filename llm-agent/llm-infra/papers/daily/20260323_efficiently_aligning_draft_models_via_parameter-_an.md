@@ -18,7 +18,7 @@ Speculative Decoding（投机解码）需要draft model（小模型）和target 
 - draft model和target model必须共享词表，否则token分布无法对齐
 - 生产系统中，draft model更新比target model更频繁（适应新任务）
 
-## 面试考点
+## 常见考点
 1. **Q: Speculative Decoding的工作原理？** A: 小draft model先生成多个token，大target model并行验证并接受/拒绝，接受则加速
 2. **Q: draft model接受率如何计算？** A: 接受率α = draft分布与target分布的最小值之比，α高则加速比好
 3. **Q: LoRA用于draft model对齐的具体实现？** A: 在draft model的注意力层添加LoRA矩阵，用target model的logits做KD训练

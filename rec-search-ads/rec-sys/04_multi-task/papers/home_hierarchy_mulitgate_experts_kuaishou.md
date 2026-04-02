@@ -81,7 +81,7 @@ $$
 4. **梯度不均衡处理**：使用GradNorm或Uncertainty Weighting对各任务loss动态加权，防止大任务dominant
 5. **监控指标**：线上监控每个专家的激活频率，若某专家激活率<5%则触发报警和人工干预
 
-## 面试考点
+## 常见考点
 
 **Q1：MMoE和HoME的主要区别是什么？**
 A：MMoE（Multi-gate MoE）：每个任务有独立门控，从同一批专家中选取不同权重组合。HoME在此基础上增加了：(1)专家同质化正则防止Collapse；(2)层次化门控防止shared expert退化；(3)任务自适应分配解决稀疏任务Underfitting。HoME是对MMoE工业落地问题的系统性修复。

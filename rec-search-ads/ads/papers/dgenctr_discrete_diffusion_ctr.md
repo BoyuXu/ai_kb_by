@@ -29,7 +29,7 @@ $$
 - 可与传统CTR模型ensemble
 - 掩码预测支持缺失特征自然处理
 
-## 面试考点
+## 常见考点
 
 1. **Absorbing State vs Gaussian扩散？** 前者适合离散数据
 2. **掩码预测与BERT的关系？** 类似MLM但在特征空间

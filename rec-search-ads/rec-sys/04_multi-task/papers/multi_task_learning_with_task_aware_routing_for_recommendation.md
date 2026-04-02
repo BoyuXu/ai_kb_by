@@ -52,7 +52,7 @@ L_corr = -Σ_{t1,t2} corr(t1,t2) · cosine(gate_t1, gate_t2)
 4. **在线推理优化**：Top-K Hard Routing（K=2）大幅减少计算量
 5. **任务损失权重**：根据业务优先级设置（GMV > CTR > 停留时长）
 
-## 面试考点
+## 常见考点
 **Q1: MMoE 相比 Shared Bottom 多任务模型的优势？**
 A: Shared Bottom 强制所有任务共享同一表示，对差异大的任务（CTR/CVR）会导致负迁移。MMoE 通过 K 个专家 + 任务专属门控，允许不同任务使用不同的特征组合，减少冲突。
 

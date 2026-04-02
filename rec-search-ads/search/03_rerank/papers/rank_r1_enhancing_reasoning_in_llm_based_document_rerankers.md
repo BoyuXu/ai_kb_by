@@ -66,7 +66,7 @@ reward = α·reasoning_accuracy + β·ranking_accuracy(nDCG)
 4. **Listwise 扩展**：对 Top-K 文档列表整体推理（比 Pointwise 更高效）
 5. **缓存**：相同（query, doc）对的推理结果缓存复用
 
-## 面试考点
+## 常见考点
 **Q1: 为什么推理（CoT）能提升文档重排序质量？**
 A: 复杂查询需要多步推理（如：需要推断"this paper proposes X" 的 X 是否回答了 query 的问题）。CoT 将隐式的推理过程显式化，使 LLM 逐步思考"查询意图是什么→文档内容是什么→是否匹配"，每步的注意力分配更合理，最终打分更准确。
 

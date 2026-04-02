@@ -44,7 +44,7 @@ LLandMark 提出多智能体框架，每个 agent 负责不同模态或检索子
 - 多智能体协作需要消息传递协议，建议用 LangGraph 或 AutoGen 框架实现。
 - 用户反馈收集：隐式反馈（点击/停留）>显式反馈（标注好/坏），工程上更易收集。
 
-## 面试考点
+## 常见考点
 
 - Q: CLIP 是什么？在视频检索中怎么用？
   A: CLIP（Contrastive Language-Image Pre-Training）用对比学习训练文字和图片在同一空间的 embedding。视频检索中：将每帧编码为图片 embedding，用户 query 编码为文字 embedding，计算余弦相似度进行检索。可扩展：视频 embedding = 多帧 embedding 的时序聚合。

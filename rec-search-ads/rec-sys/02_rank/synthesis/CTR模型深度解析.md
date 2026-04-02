@@ -905,7 +905,7 @@ $$
 | **PLE** | 2020 | 渐进式分离 | 多任务学习 | 参数量大 |
 | **SIM** | 2020 | 两阶段长序列 | 精排(超长序列) | 依赖索引质量 |
 
-> 📝 面试考点见：[rec_qa_extracted.md [BROKEN]](../../interview/rec_qa_extracted.md)
+> 📝 常见考点见：[rec_qa_extracted.md [BROKEN]](../../interview/rec_qa_extracted.md)
 
 
 ## 📐 核心公式直观理解

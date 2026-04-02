@@ -53,7 +53,7 @@ $$
 4. **在线路由缓存**：用户的任务路由结果可以短时间缓存（5-10分钟），减少Expert推理次数
 5. **新任务接入**：新增任务时，先冻结现有Expert，只训练新任务的task embedding和输出层
 
-## 面试考点
+## 常见考点
 Q1: MMoE和Task-Aware Routing的核心区别？
 A: MMoE：门控网络的输入只有input feature，同一个输入的门控结果对所有任务通用（softmax(W·x)），Expert是"软选择"的。Task-Aware Routing：门控输入包含task embedding，不同任务对同一input可能选择不同的Expert组合，更个性化。推理时可以用硬路由，只激活被选中的Expert，效率更高。
 

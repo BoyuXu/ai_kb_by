@@ -22,7 +22,7 @@ Speculative Decoding（推测解码）通过草稿模型生成候选 token、目
 - 动态草稿长度需要运行时决策逻辑，建议用简单启发式（历史接受率移动平均）
 - 与 KV Cache 优化兼容：草稿模型和目标模型共享 prefix KV Cache
 
-## 面试考点
+## 常见考点
 - Q: Speculative Decoding 的原理和保证？
   - A: 草稿模型快速生成 k 个 token，目标模型并行验证（一次 forward 处理 k 个 token），用 rejection sampling 保证输出分布与目标模型完全一致（无近似误差）
 - Q: 什么因素影响 Speculative Decoding 的加速比？

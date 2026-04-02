@@ -18,7 +18,7 @@ SGLang相比原生HuggingFace，JSON生成吞吐量提升约4x；多轮对话吞
 - 结构化输出（JSON Schema）在tool calling和数据抽取场景必备
 - SGLang在多GPU serving和张量并行上有优化，适合生产部署
 
-## 面试考点
+## 常见考点
 1. **Q: RadixAttention如何实现prefix cache？** A: 用Radix Tree存储所有历史KV，相同prefix的请求自动共享，无需重新计算
 2. **Q: Constrained decoding（约束解码）如何保证JSON格式？** A: 在生成每个token时，只允许满足当前grammar状态的token（用FSM跟踪状态）
 3. **Q: SGLang和vLLM的主要差异？** A: SGLang在结构化输出和prefix sharing上更优；vLLM通用性和生态更成熟

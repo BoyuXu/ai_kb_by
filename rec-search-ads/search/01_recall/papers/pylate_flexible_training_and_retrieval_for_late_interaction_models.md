@@ -67,7 +67,7 @@ d_j ≈ centroids[assign_j] + residual_j
 4. **使用场景**：精度要求高且延迟可接受（50-100ms）的场景，如高价值搜索/法律/医疗
 5. **PyLate API**：开源工具，pip 安装，统一训练/评估/检索接口
 
-## 面试考点
+## 常见考点
 **Q1: Late Interaction（ColBERT）相比 Bi-encoder 和 Cross-encoder 的定位？**
 A: 三者精度/速度权衡：Bi-encoder（最快，精度最低）< Late Interaction（中间）< Cross-encoder（最慢，精度最高）。Late Interaction 通过 Token-level MaxSim 在不完全拼接 Q/D 的情况下保留更多交互信息。
 

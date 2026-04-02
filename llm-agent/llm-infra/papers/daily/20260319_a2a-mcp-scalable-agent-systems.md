@@ -28,7 +28,7 @@
 - 本地开发用stdio传输，生产环境用HTTP+SSE或WebSocket
 - AgentCard应描述Agent的能力边界、输入输出格式、速率限制
 
-## 面试考点
+## 常见考点
 **Q: MCP解决了什么核心问题？**
 A: 解决LLM工具调用的碎片化问题。每个AI应用之前需要自己实现工具接口，MCP提供统一标准，工具厂商实现一次MCP Server，所有支持MCP的LLM客户端都能使用。
 

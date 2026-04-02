@@ -32,7 +32,7 @@
 - **Confidence-based stopping**：用检索结果的相关性分数作为置信度指标，阈值可调
 - **与 BM25/稀疏检索集成**：DLLM 生成的扩展 query 可直接用于 BM25 检索，无需 dense retrieval
 
-## 面试考点
+## 常见考点
 
 1. **Q：扩散 LLM 和自回归 LLM 在搜索 Agent 场景的核心区别？**
    A：自回归串行生成 token（延迟高，无法并行规划）；扩散 LLM 并行去噪所有 token（延迟低），且双向上下文使全局规划更好

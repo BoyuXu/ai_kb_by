@@ -21,7 +21,7 @@
 - 新物品在 codebook 中的位置分配需实时系统支持
 - 生成式模型对物品空间大小敏感（>1000万商品需 Hierarchical Beam Search）
 
-## 面试考点
+## 常见考点
 - Q: 生成式召回和双塔模型召回的核心区别？
   - A: 双塔：user/item 向量内积，ANN 检索；生成式：直接 autoregressive 生成 item ID，天然排序，但受限于 Beam 宽度
 - Q: RQ-VAE 在生成式推荐中的作用？

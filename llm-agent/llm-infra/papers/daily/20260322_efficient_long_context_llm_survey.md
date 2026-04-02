@@ -48,7 +48,7 @@
 - **KV cache 管理**：生产环境强烈建议 vLLM 的 PagedAttention
 - **"Lost in Middle" 缓解**：重要内容放文档开头/结尾；使用 re-rank 后处理
 
-## 面试考点
+## 常见考点
 
 1. **Q：如何评估 LLM 的长上下文能力？**
    A：RULER（合成任务：needle-in-haystack、多跳追踪）；LongBench（真实任务：长文档 QA、多文档摘要）；关键是测中间位置 token 的利用率

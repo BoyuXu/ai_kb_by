@@ -18,7 +18,7 @@ BM25S比Elasticsearch快约10x（延迟从10ms降至1ms），比pyserini快约10
 - 预计算的稀疏矩阵可以pickle保存，加载速度快（秒级）
 - Python生态中，可直接集成到RAG pipeline，替换Elasticsearch减少依赖
 
-## 面试考点
+## 常见考点
 1. **Q: BM25的完整公式是什么？** A: score(q,d) = Σ IDF(qi) × [tf(qi,d)×(k1+1)] / [tf(qi,d)+k1×(1-b+b×|d|/avgdl)]
 2. **Q: BM25相比TF-IDF的改进？** A: 词频饱和（k1参数）防止高频词过度主导、文档长度归一化（b参数）
 3. **Q: CSR稀疏矩阵格式的优势？** A: 高效行访问（document检索）、低内存（只存非零元素）、向量运算友好

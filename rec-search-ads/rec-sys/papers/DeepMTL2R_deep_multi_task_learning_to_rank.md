@@ -21,7 +21,7 @@
 - 多任务训练需要各任务数据量级均衡，否则小任务被大任务淹没
 - Pairwise loss 需要在线负采样，建议 in-batch negative（高效且无 bias）
 
-## 面试考点
+## 常见考点
 - Q: 多任务学习中负迁移（Negative Transfer）的原因和解决方案？
   - A: 原因：任务梯度方向冲突，一个任务的更新损害另一个；解法：PCGrad（投影去除冲突分量）、MMOE（软路由隔离）、Gradient Surgery
 - Q: Listwise 排序 loss（如 ListMLE、LambdaLoss）的训练难点？

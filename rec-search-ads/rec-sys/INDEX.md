@@ -40,8 +40,8 @@
 
 ## 📚 论文笔记
 
-- [经典模型面试考点](./papers/01_classic_models.md)
-- [机器学习核心面试考点](./papers/04_ml_fundamentals.md)
+- [经典模型常见考点](./papers/01_classic_models.md)
+- [机器学习核心常见考点](./papers/04_ml_fundamentals.md)
 - [多模态推荐系统深度解析（图文/视频融合）](./papers/10_multimodal_rec_deep.md)
 - [A Generative Re-ranking Model for List-level Multi-objective...](./papers/A_Generative_Re_ranking_Model_for_List_level_Multi_object.md)
 - [A Unified Language Model for Large Scale Search, Recommendat...](./papers/A_Unified_Language_Model_for_Large_Scale_Search_Recommend.md)
@@ -164,7 +164,7 @@
 | 文件 | 主题 | 类型 |
 |------|------|------|
 | synthesis/生成式推荐系统技术全景.md | 今日10篇rec-sys论文全景综述 | 新建（上午session） |
-| synthesis/推理链RL范式跨域整合_搜广推全景.md | 跨域整合：搜广推的共同演进，20题面试考点 | 新建（深度整合） |
+| synthesis/推理链RL范式跨域整合_搜广推全景.md | 跨域整合：搜广推的共同演进，20题常见考点 | 新建（深度整合） |
 
 ## 2026-03-31 新增论文
 

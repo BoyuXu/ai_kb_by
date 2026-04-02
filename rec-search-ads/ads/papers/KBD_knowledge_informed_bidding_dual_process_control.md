@@ -22,7 +22,7 @@
 - 双层控制中，high-level controller 需要比 policy 更低频更新（分钟级 vs 毫秒级）
 - RL 训练需要模拟器（Auction Simulator）避免线上探索成本
 
-## 面试考点
+## 常见考点
 - Q: 自动出价（Auto-bidding）的核心优化目标是什么？
   - A: 在预算约束 $\sum b_i \leq B$ 下最大化目标（GMV/转化数/曝光）。形式化为约束 RL 问题
 - Q: Lagrangian Relaxation 如何处理预算约束？

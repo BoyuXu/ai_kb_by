@@ -79,7 +79,7 @@ Switch Transformer（Google, 2021）
 
 ---
 
-## 🎓 面试考点（6条）
+## 🎓 常见考点（6条）
 
 ### Q1: MoE 模型的基本结构？
 **30秒答案**：每个 Transformer 层的 FFN 被替换为 N 个 Expert（每个 Expert 是一个小 FFN）+ 1 个 Router（门控网络）。Router 对每个 token 计算得分，选择 top-K 个 Expert 处理。输出 = Σ(gate_score_i × expert_i(x))。

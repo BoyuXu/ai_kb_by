@@ -70,7 +70,7 @@ CTR / 排序得分
 
 ---
 
-## 5. 面试考点
+## 5. 常见考点
 
 **Q1: 为什么 item ID embedding 在大规模系统中有扩展性问题？**
 > Hash embedding table 参数量 = item 数 × dim，亿级 item 需要 TB 级参数；且不同平台的 item 空间不共享，无法预训练复用

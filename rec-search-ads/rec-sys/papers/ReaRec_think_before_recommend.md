@@ -116,7 +116,7 @@ def reason_and_recommend(user_sequence, model, K=3):
 - **长尾内容平台**：物品语义稀疏，需要更深入的推理
 - **高价值决策场景**：延迟容忍度稍高的金融/医疗推荐
 
-## 面试考点
+## 常见考点
 
 **Q1: ReaRec 的"推理时计算"和 LLM 的 Chain-of-Thought 有什么联系与区别？**
 A: 联系：两者都是增加推理时计算量来提升性能的思路，都是对中间推理状态的迭代优化。区别：LLM 的 CoT 是在离散 token 空间做显式推理，可解释；ReaRec 在连续 embedding 空间做隐式推理，不可解释但效率更高。ReaRec 不需要 LLM 的语言能力，适合协同过滤场景。

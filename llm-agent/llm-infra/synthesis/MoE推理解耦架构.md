@@ -130,7 +130,7 @@ MegaScale-Infer:
 
 ---
 
-## 🎯 面试考点
+## 🎯 常见考点
 
 **Q1：为什么 MoE 的 FFN 层是"内存密集"的？**
 A：MoE 有 N 个专家，但每个 token 只激活其中 Top-K 个。这意味着大量专家参数常驻 GPU 内存但不参与计算，导致 compute/memory ratio 极低，GPU 计算单元等待内存加载，成为内存瓶颈而非计算瓶颈。

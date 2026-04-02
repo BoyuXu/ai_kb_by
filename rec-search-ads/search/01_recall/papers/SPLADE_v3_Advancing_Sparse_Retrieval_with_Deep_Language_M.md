@@ -110,7 +110,7 @@ sparse_vecs = model.encode_documents(docs, batch_size=512)
 - 新品/文档增量添加无需重建全量索引（倒排索引天然支持增量更新）
 - 在线 inference 可用 ONNX Runtime 加速，INT8 量化后 latency 降 40%
 
-## 面试考点
+## 常见考点
 
 - Q: SPLADE 和 BM25 的核心区别是什么？
   A: BM25 基于字面词频统计，无法处理同义词；SPLADE 通过 BERT MLM Head 在整个词汇表空间生成稀疏权重，实现了查询/文档的词汇扩展（如"car"→"automobile"也有权重），保留倒排索引结构的同时具备语义泛化能力。

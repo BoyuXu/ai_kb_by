@@ -41,7 +41,7 @@
 3. **批量推理**：批量处理多个 Document 时，Bandit 采样策略可并行化
 4. **与检索流水线集成**：Col-Bandit 适合作为 ANN 初检 + ColBERT 重排管道中的加速组件
 
-## 面试考点
+## 常见考点
 
 - **Q: ColBERT 的 Late-Interaction 是什么？**
   A: Query 和 Document 分别独立编码为 token-level 向量（$Q = [q_1,...,q_m]$，$D = [d_1,...,d_n]$）；相关性分数为 $\text{score} = \sum_{q_i} \max_{d_j} q_i \cdot d_j$（MaxSim）。Document 向量可离线预算，只有 MaxSim 计算在线，比 Cross-Encoder 快得多。

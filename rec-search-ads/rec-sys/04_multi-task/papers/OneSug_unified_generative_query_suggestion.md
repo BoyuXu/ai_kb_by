@@ -57,7 +57,7 @@ $$
 4. **多语言支持**：中文搜索需要character-level Trie，英文可以subword-level
 5. **A/B实验**：新方案建议先灰度10%流量，监控搜索成功率和GMV
 
-## 面试考点
+## 常见考点
 Q1: Trie约束Beam Search如何工作？
 A: Trie（前缀树）中存储所有合法的候选query。在Beam Search的每个解码步，对当前所有beam路径，查询Trie树获取合法的下一个token集合（字符或subword）。只在合法token上做softmax，屏蔽其他token的logits（设为-inf）。这样保证所有生成结果都在预定义的合法空间内，完全消除幻觉。
 

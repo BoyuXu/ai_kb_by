@@ -1257,4 +1257,4 @@ bid_final = value × shading_factor × pacing_multiplier
 
 15. **TD3**: Fujimoto et al. "Addressing Function Approximation Error in Actor-Critic Methods." *ICML*, 2018.
 
-> 📝 面试考点见：[ads_qa_extracted.md [BROKEN]](../../interview/ads_qa_extracted.md)
+> 📝 常见考点见：[ads_qa_extracted.md [BROKEN]](../../interview/ads_qa_extracted.md)

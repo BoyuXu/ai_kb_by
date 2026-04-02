@@ -19,7 +19,7 @@ LLaMA 3.1 70B在大多数benchmark接近GPT-4；405B模型在推理任务（MATH
 - context length 8K（base）到128K（128K版本），需要RoPE外推
 - 开源权重可以用vLLM/SGLang等框架直接部署
 
-## 面试考点
+## 常见考点
 1. **Q: GQA（Grouped Query Attention）如何减少KV cache？** A: 多个Query head共享一个KV head，将KV head数从H降到H/G，显存减少G倍
 2. **Q: RoPE（旋转位置编码）相比绝对位置编码的优势？** A: 相对位置感知、长上下文外推能力强（RoPE Scaling）、无需特殊位置token
 3. **Q: LLaMA 3的后训练pipeline？** A: SFT（指令跟随）→拒绝采样（RS）精选高质量数据→DPO/PPO（偏好对齐）

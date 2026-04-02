@@ -13,7 +13,7 @@
 - **FPA Shading 原理** → [第一价格拍卖（FPA）中的 Bid Shading](./AutoBidding技术演进_从规则到RL.md#第一价格拍卖fpa中的-bid-shading)
 - **Wasserstein 自适应** → [非平稳环境下的 Wasserstein Pacing](./AutoBidding技术演进_从规则到RL.md#非平稳环境下的-wasserstein-pacing)
 - **Pacing 最佳实践** → [预算 Pacing 最佳实践](./AutoBidding技术演进_从规则到RL.md#预算-pacing-最佳实践)
-- **面试考点** → [Q12: 预算 Pacing 和广告出价的关系？](./AutoBidding技术演进_从规则到RL.md#q12预算-pacing-和广告出价是什么关系)、[Q13: 多约束 Pacing](./AutoBidding技术演进_从规则到RL.md#q13多约束情况下预算--roas-约束如何设计-pacing)
+- **常见考点** → [Q12: 预算 Pacing 和广告出价的关系？](./AutoBidding技术演进_从规则到RL.md#q12预算-pacing-和广告出价是什么关系)、[Q13: 多约束 Pacing](./AutoBidding技术演进_从规则到RL.md#q13多约束情况下预算--roas-约束如何设计-pacing)
 
 ## 内容迁移说明
 
@@ -24,7 +24,7 @@
 | 对偶梯度下降 | 主文档·对偶梯度下降详解 | 详细展开了在线更新规则 |
 | FPA Shading | 主文档·第一价格拍卖详解 | 补充了实践估计方法 |
 | Wasserstein | 主文档·Wasserstein Pacing | 增加了遗憾界分析 |
-| 面试考点 | 主文档·Q12-Q14, Q11 | 重组并补充了细节 |
+| 常见考点 | 主文档·Q12-Q14, Q11 | 重组并补充了细节 |
 
 ---
 

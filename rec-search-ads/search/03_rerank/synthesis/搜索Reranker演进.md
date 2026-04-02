@@ -74,7 +74,7 @@ $$
 
 ---
 
-## 🎓 面试考点（4条）
+## 🎓 常见考点（4条）
 
 ### Q1: Cross-Encoder Reranker 和 Bi-Encoder 的本质区别？
 **30秒答案**：Bi-Encoder 将 query 和 doc 独立编码为向量再算内积（交互少但快）；Cross-Encoder 将 [query; doc] 拼接后过整个 Transformer（全交互但慢 100x）。Bi-Encoder 做召回，Cross-Encoder 做精排/重排。

@@ -66,7 +66,7 @@ else:
 - **K 值调优**：K 越大加速比越高，但 draft 错误累积增加；通常 K=4-16 是最优。
 - **框架支持**：TensorRT-LLM、vLLM 都已支持 speculative decoding；Hugging Face transformers 暂不支持。
 
-## 面试考点
+## 常见考点
 
 - Q: 投机解码为什么不产生额外误差（biasing）？
   A: 采样 rejection sampling 的接受概率 = p_large / p_small，保证了事后概率分布严格来自大模型。数学上这是重要性采样（Importance Sampling）的应用，理论上无偏。

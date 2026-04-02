@@ -21,7 +21,7 @@
 - 工业部署可用 Speculative Decoding 提速，推理 token 由草稿模型生成
 - 推理质量对 reward 信号设计敏感，需精心设计 hit@k / diversity 组合
 
-## 面试考点
+## 常见考点
 - Q: 生成式推荐和传统 CTR 排序的核心区别？
   - A: 传统 CTR 逐物品打分（pointwise/listwise），生成式直接 autoregressive 生成物品序列，天然支持长程依赖
 - Q: GRPO 和 PPO 的区别？

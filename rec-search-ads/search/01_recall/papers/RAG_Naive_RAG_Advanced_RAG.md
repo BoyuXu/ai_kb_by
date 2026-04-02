@@ -73,7 +73,7 @@ query → retrieve → generate partial answer → identify missing info
 - 评估框架：RAGAS（检索召回率、答案忠实度、答案相关性三维度自动评估）。
 - 延迟优化：rerank 是主要瓶颈，用批处理 + GPU 加速，或用轻量 reranker（ms-marco-MiniLM）。
 
-## 面试考点
+## 常见考点
 
 - Q: RAG 的核心评估指标有哪些？
   A: (1) Context Recall：检索到的文档是否包含答案所需信息；(2) Context Precision：检索到的文档中有多少比例真正有用（避免噪声）；(3) Answer Faithfulness：生成答案是否忠实于检索内容（衡量幻觉）；(4) Answer Relevance：生成答案是否回答了用户问题。RAGAS 框架自动计算这些指标。

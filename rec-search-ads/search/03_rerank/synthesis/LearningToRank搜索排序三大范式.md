@@ -108,7 +108,7 @@ BM25 启发式排序（~2005）→ RankSVM/RankNet Pairwise（2005-2010）
 
 ---
 
-## 🎓 面试考点（5条）
+## 🎓 常见考点（5条）
 
 ### Q1: Pointwise/Pairwise/Listwise 的区别？
 **30秒答案**：Pointwise 将排序转化为回归/分类（预测每个文档的相关性分数）；Pairwise 转化为文档对的比较（A 比 B 更相关？）；Listwise 直接优化整个列表的排序指标（如 NDCG）。Pointwise 最简单，Listwise 理论最优。

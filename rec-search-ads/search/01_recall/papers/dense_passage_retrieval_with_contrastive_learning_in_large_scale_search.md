@@ -55,7 +55,7 @@ in_batch_negatives = [other_positive for q' in batch if q' != q]
 4. **增量索引**：新文档实时 encode + 增量更新 ANN 索引（HNSW 支持增量添加）
 5. **量化部署**：embedding 做 PQ 量化（Product Quantization），减少 ANN 内存
 
-## 面试考点
+## 常见考点
 **Q1: Dense Retrieval 相比 BM25 的核心优势和局限？**
 A: 优势：语义匹配（词汇不匹配问题）、泛化性好（同义词/同义表达）、端到端可优化。局限：需要大量训练数据；对分布外查询泛化差；完全依赖 embedding，精确词匹配反而不如 BM25；计算成本高。最佳实践：BM25 + Dense 混合检索。
 

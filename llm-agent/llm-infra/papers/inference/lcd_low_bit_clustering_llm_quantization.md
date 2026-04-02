@@ -57,7 +57,7 @@ $$
 4. **与 GPTQ/AWQ 对比**：LCD 在 2-3 bit 更有优势，4 bit 时差距缩小
 5. **模型规模效应**：更大的模型（70B+）量化后精度损失相对更小
 
-## 面试考点
+## 常见考点
 
 **Q1: 聚类量化（Clustering Quantization）与均匀量化（Uniform Quantization）的核心区别？**
 

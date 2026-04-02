@@ -34,7 +34,7 @@ RAG 系统每次请求流程：检索文档 → 拼接 prompt（system + retriev
 - **Chunking 策略**：文档分 chunk 越小，命中率越高（粒度细，复用性强），但管理开销越大；建议 chunk size = 512-1024 tokens。
 - **与流式生成结合**：TTFT 优化对用户体验影响最直接（首字延迟），需在流式场景优先验证。
 
-## 面试考点
+## 常见考点
 
 **Q: LLM 推理的 Prefill 和 Decode 阶段的区别？**
 - Prefill：将输入 prompt 所有 token 并行计算，生成 KV Cache，计算密集（矩阵乘）；Decode：逐 token 自回归生成，每步用前缀 KV Cache，内存带宽密集。TTFT 受 Prefill 决定，吞吐受 Decode 决定。

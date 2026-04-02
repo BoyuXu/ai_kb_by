@@ -51,7 +51,7 @@ L_CL = -log(sim(z_u, z_u') / Σ sim(z_u, z_k))  # InfoNCE loss
 - In-batch 负采样简单高效，大 batch size（512-2048）能提供足够的负样本。
 - 线上部署：对比学习只在训练阶段使用，推理时无额外开销。
 
-## 面试考点
+## 常见考点
 
 - Q: InfoNCE Loss 的形式是什么？
   A: L = -log(exp(sim(z, z+)/τ) / (exp(sim(z, z+)/τ) + Σ_k exp(sim(z, z_k-)/τ)))。其中 τ 是温度系数，控制分布的锐度。τ 小则梯度集中于难负例；τ 大则梯度更均匀。

@@ -141,7 +141,7 @@ LLM 推理效率提升路线图：
 
 ---
 
-## 面试考点
+## 常见考点
 
 **Q：GRPO 和 PPO 在数学推理上谁更好？**  
 答：GRPO 在可验证 reward 任务上效果不差于 PPO，且计算成本更低（省去 Critic）。DeepSeek-Math-7B 用 GRPO 在 MATH 基准达到 51.7%，超过 PPO 基线。但 GRPO 的「组相对」方式需要 G 个回答中有明确好坏对比，如果所有回答 reward 相似则梯度信号弱。

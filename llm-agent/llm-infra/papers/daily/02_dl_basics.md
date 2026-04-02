@@ -1,4 +1,4 @@
-# 深度学习基础面试考点
+# 深度学习基础常见考点
 
 > 来源：AIGC-Interview-Book 深度学习基础章节
 > 更新：2026-03-12
@@ -210,7 +210,7 @@ for i, (x, y) in enumerate(loader):
 
 ---
 
-## 八、高频面试题
+## 八、高频常见题
 
 1. **BN和LN的区别，为什么Transformer用LN？**
    → BN依赖batch维度统计，NLP中batch小且序列长度不固定；LN对每个样本独立归一化

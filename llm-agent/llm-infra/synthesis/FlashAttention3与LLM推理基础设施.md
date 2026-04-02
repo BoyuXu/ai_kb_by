@@ -43,7 +43,7 @@
 - 显存节省：FA3 的 IO-aware 算法使 Attention 显存 O(n) 而非 O(n²)，8K 序列下节省约 10GB
 - 与 GQA/MQA 协同：FA3 对 GQA 原生支持，head_dim 灵活
 
-**面试考点**：
+**常见考点**：
 - Q: FlashAttention 为什么能省显存？ → Fused kernel：不把完整注意力矩阵 (n×n) 写入 HBM，分块计算 + online softmax，只存 O(n) 的输出
 - Q: H100 Hopper 架构带来了哪些对 LLM 重要的新特性？ → ① TMA（硬件级异步内存传输）；② WGMMA（新矩阵乘指令，吞吐远超 Ampere）；③ FP8 原生支持；④ NVLink 4.0（MoE 通信加速）
 - Q: Speculative Decoding 的基本原理？ → 小草稿模型先快速生成多个 token，大模型一次验证（并行前向）；验证通过的 token 直接接受，不通过的回退重生成。等效推理速度提升 2-4x

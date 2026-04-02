@@ -616,7 +616,7 @@ def get_remarketing_bid(user_behavior: dict, base_bid: float) -> float:
 
 ---
 
-## 六、面试考点5条
+## 六、常见考点5条
 
 ### 考点 1：什么是出价调整系数？多维度出价调整如何叠加？
 

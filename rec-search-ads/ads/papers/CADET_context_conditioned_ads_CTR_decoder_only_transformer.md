@@ -22,7 +22,7 @@
 - Causal attention 使历史行为不能双向 attend，可能损失部分信息（可用 Prefix attention 缓解）
 - 建议 batch size ≥ 128（Transformer 小 batch 效率低），配合混合精度（BF16）训练
 
-## 面试考点
+## 常见考点
 - Q: Decoder-Only 和 Encoder-Only 在 CTR 场景的区别？
   - A: Encoder（BERT）双向 attention，全局理解历史；Decoder 因果 attention，建模序列生成过程，更符合用户行为时序因果。CTR 场景两者均可，Decoder 更自然地支持 next-item 预训练
 - Q: KV Cache 在 CTR 预估中的作用？

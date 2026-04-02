@@ -41,7 +41,7 @@ RAG 场景中，LLM 需要处理 `[System Prompt] + [Retrieved Documents] + [Use
 3. **缓存预热**：热门文档列表可离线统计，系统启动时预先填充缓存
 4. **Fusion 开关**：精度要求高的场景可关闭 approximate fusion，使用精确计算
 
-## 面试考点
+## 常见考点
 
 - **Q: KV Cache 在 LLM 推理中的作用？**
   A: Transformer 自回归生成时，每个新 token 需要与所有历史 token 计算注意力。KV Cache 存储历史 token 的 Key 和 Value 矩阵，避免重复计算，使生成时间从 $O(n^2)$ 降至 $O(n)$。

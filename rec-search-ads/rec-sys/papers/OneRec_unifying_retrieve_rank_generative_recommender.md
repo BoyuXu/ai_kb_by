@@ -22,7 +22,7 @@
 - 物品 ID 的 code 层次数影响 recall 和精度：层次越多，表达越精细但生成步骤越多
 - 需要专用推理引擎（TensorRT/vLLM 定制）支持 item token 空间约束的 Beam Search
 
-## 面试考点
+## 常见考点
 - Q: OneRec 如何保证生成物品的多样性？
   - A: Beam Search 天然保留多条路径；加入 diversity penalty（相似 item score 惩罚）；训练时加入 negative sampling 避免热门物品垄断
 - Q: 为什么生成式推荐的延迟比双塔+ANN 高？

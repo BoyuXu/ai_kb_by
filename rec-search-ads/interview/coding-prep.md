@@ -73,7 +73,7 @@ def three_sum(nums):
     return result
 ```
 
-#### 例题3：滑动窗口最小子串（高频面试题）
+#### 例题3：滑动窗口最小子串（高频常见题）
 
 ```python
 def min_window(s: str, t: str) -> str:

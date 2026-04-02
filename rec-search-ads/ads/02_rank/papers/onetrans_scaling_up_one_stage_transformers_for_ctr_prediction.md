@@ -58,7 +58,7 @@ L_distill = KL(student_logits, teacher_logits) + BCE(student_logits, labels)
 4. **分布式训练**：Embedding 参数服务器 + 模型 DP/TP 混合并行
 5. **延迟分析**：大模型离线排序，小模型（蒸馏）在线服务，100ms 延迟预算
 
-## 面试考点
+## 常见考点
 **Q1: CTR 模型为什么要用 Transformer 替代 DNN？**
 A: DNN 只做加法特征组合（通过网络隐式交叉），Transformer 的自注意力能显式捕获任意两个特征 field 之间的交互，且是自适应加权（不同特征对的重要性不同）。对于广告CTR，用户特征与广告特征的交叉尤为重要。
 

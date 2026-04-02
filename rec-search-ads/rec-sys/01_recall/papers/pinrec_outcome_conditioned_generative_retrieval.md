@@ -57,7 +57,7 @@ Pinterest工业A/B测试结果：
 4. **Outcome向量的业务接入**：由运营配置层下发outcome权重，召回服务在请求时动态拼接到condition向量
 5. **冷启动新item**：新item只需通过RQ-VAE量化得到token序列，无需等待协同信号积累，解决新item冷启动
 
-## 面试考点
+## 常见考点
 
 **Q1：为什么大规模工业推荐需要Multi-Token而不是Single-Token生成式召回？**
 A：Single-token方案要求词表大小=item数量。亿级item的softmax概率计算需要GBs级参数矩阵，训练显存和推理延迟都不可接受。Multi-token方案（如L=4, V=4096）将词表固定在可控范围，通过组合表示亿级item。

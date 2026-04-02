@@ -22,7 +22,7 @@
 - 万亿参数模型需 MoE + Expert Parallelism，通信开销是瓶颈
 - 长序列分片训练需解决 padding/masking 跨分片对齐问题
 
-## 面试考点
+## 常见考点
 - Q: Transformer 在推荐系统中的瓶颈是什么？
   - A: O(n²) 注意力复杂度导致长序列无法处理；大批次 embedding lookup 导致访存带宽成为瓶颈
 - Q: SSM（Mamba）和 Transformer attention 的本质区别？

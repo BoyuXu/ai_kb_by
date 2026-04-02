@@ -87,7 +87,7 @@ $$
 
 ---
 
-## 🎓 面试考点（8条）
+## 🎓 常见考点（8条）
 
 ### Q1: FlashAttention 的核心原理？
 **30秒答案**：传统 Attention 需要将 QK^T（n×n 矩阵）写到 GPU HBM 再读回来做 softmax，IO 成本 O(n²)。FlashAttention 将 Q/K/V 分块（tiling），在 SRAM 中完成分块 attention 计算（online softmax），避免写出完整 n×n 矩阵。

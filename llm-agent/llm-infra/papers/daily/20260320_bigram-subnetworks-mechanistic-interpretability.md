@@ -109,7 +109,7 @@ Pythia-1B在OSCAR数据集上的loss变化：
 | **MLP as Key-Value Memories** | 第一层MLP存储bigram知识 |
 | **Superposition** | 小参数实现bigram可能是超位置编码的结果 |
 
-## 面试考点
+## 常见考点
 
 **Q1: 什么是电路的"必要性"和"充分性"？为什么两者都需要验证？**
 

@@ -60,7 +60,7 @@ PyLate = Sentence Transformers (ST) 的 multi-vector 原生扩展：
 5. **多模态扩展性**：由于索引与建模解耦（操作 embedding 层），可支持 ColPali 等多模态 late interaction 模型
 6. **评估兼容**：基于 `ranx`，兼容 `ir-datasets` 格式，直接跑 MTEB/BEIR benchmark
 
-## 面试考点
+## 常见考点
 
 **Q1：Late Interaction 与 Single-Vector Dense Retrieval、Cross-Encoder 的本质区别是什么？**
 > A：Single-Vector：query/document 各编码为单个向量，信息压缩有损，召回快但精度有限。Cross-Encoder：query+document 拼接后一起过模型（early interaction），精度最高但无法预计算 document，无法大规模用。Late Interaction（ColBERT）：分别编码但保留每个 token 向量，通过 MaxSim 做 token-level 匹配 — 兼顾了 dense 的预计算能力和 cross-encoder 的细粒度匹配，是 sweet spot。

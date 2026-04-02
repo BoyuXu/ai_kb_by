@@ -48,7 +48,7 @@
 3. **EOS token 阈值**：停止阈值 ε 是关键超参，过小 → ID 过长，过大 → 物品区分度下降；建议在验证集上用网格搜索确定
 4. **监控 ID 长度分布**：线上需要监控 ID 长度分布，若发现所有物品 ID 趋同（退化为相同长度），说明 Stop Criterion 失效
 
-## 面试考点
+## 常见考点
 
 - Q: RQ-VAE 是什么？在 Semantic ID 生成中如何使用？
   A: Residual Quantization VAE，在标准 VQ-VAE 基础上增加残差量化：第一层量化后，对量化误差（残差）再做一次 VQ，如此叠加多层。每层量化对应 Semantic ID 的一个 token，多层组合形成层次化的物品编码，浅层 token 代表粗粒度语义，深层 token 代表细粒度特征。

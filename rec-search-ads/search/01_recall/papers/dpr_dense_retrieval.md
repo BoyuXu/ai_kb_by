@@ -58,7 +58,7 @@ L = -log( exp(sim(q, p+)) / (exp(sim(q, p+)) + Σ exp(sim(q, p-))) )
 - 增量更新：新文档只需编码并添加到 FAISS 索引，无需重训练（Bi-encoder 的最大优势）。
 - 多语言：替换为 mBERT/XLM-R 作为 backbone，支持跨语言检索。
 
-## 面试考点
+## 常见考点
 
 - Q: DPR 和 BM25 应该用哪个？什么时候混合？
   A: 有标注数据（query-passage 对）时 DPR 更强；零样本或跨领域时 BM25 更稳。工业界最佳实践是 Hybrid 检索：BM25（词汇匹配）+ DPR（语义匹配），用 RRF（Reciprocal Rank Fusion）合并结果。

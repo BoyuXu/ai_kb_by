@@ -56,7 +56,7 @@ L_debiased = Σ_i weight_i · L_i  # 加权损失
 4. **在线评估**：NDCG 的 A/B 实验需要注意 Position Bias 影响，用无偏点击率评估
 5. **特征更新频率**：BM25 特征离线，用户行为特征近实时（1h 延迟）
 
-## 面试考点
+## 常见考点
 **Q1: Pointwise/Pairwise/Listwise 三类 LTR 方法的本质区别？**
 A: Pointwise：独立评分，忽略列表结构；Pairwise：考虑文档对的相对顺序，优化对的误序率；Listwise：直接优化整个列表的排序质量（NDCG/MAP），最符合搜索用户的实际体验。工业中通常 Listwise > Pairwise > Pointwise。
 

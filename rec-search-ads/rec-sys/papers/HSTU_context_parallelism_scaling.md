@@ -131,7 +131,7 @@ Jagged Tensor 避免了 padding 的显存浪费，在用户序列长度方差大
 3. **Activation Checkpointing 结合**：CP 减少前向的激活显存，配合 checkpointing 进一步降低
 4. **与 Tensor Parallel 的关系**：CP 沿 seq 维度切分，TP 沿 hidden 维度切分，两者可以叠加
 
-## 面试考点
+## 常见考点
 
 **Q1: 什么是上下文并行（Context Parallelism），它解决了什么问题？**
 A: CP 将一个超长序列切分到多个 GPU 并行处理注意力计算，解决注意力激活内存 O(L²) 的瓶颈。与数据并行（不同 sample 到不同 GPU）和张量并行（矩阵切分到不同 GPU）不同，CP 是序列维度的并行。在推荐系统中，CP 允许建模更长的用户历史序列，从而提升推荐准确性。

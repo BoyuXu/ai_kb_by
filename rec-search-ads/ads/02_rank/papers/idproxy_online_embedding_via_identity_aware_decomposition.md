@@ -59,7 +59,7 @@ def get_embedding_online(id, features):
 4. **残差 Table 压缩**：仅保存高频 ID 的残差，Hash 冲突用 Group Embedding 解决
 5. **梯度截断**：proxy_net 梯度来自所有 ID，需梯度 clipping 防止高频 ID 主导
 
-## 面试考点
+## 常见考点
 **Q1: 为什么大规模广告系统中 ID Embedding 是核心挑战？**
 A: 广告系统有数十亿 ID（用户、广告、商品），每个独立 embedding 需要 TB 级内存；长尾 ID 训练样本不足导致欠拟合；新 ID 无 embedding 导致冷启动差。IDProxy 通过属性特征的结构共享解决这三个问题。
 

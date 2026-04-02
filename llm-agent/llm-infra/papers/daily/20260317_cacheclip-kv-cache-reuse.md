@@ -40,7 +40,7 @@
 3. **RoPE 重计算 kernel**：实现高效的 CUDA kernel 进行批量旋转矩阵应用
 4. **兼容性**：需确认所用 LLM 的位置编码类型（RoPE/Alibi/Learned），选择对应复用策略
 
-## 面试考点
+## 常见考点
 
 - **Q: RoPE 为什么可以分解为"无位置 KV"+ 旋转？**
   A: RoPE 将位置信息编码为旋转变换：$K_{pos}[i] = R(\theta, pos) K_{base}[i]$，其中 $R$ 是 2D 旋转矩阵。由于旋转是线性变换且 $R$ 只依赖 position，可以先存储 $K_{base}$，需要时快速计算 $R(\theta, pos) K_{base}$。

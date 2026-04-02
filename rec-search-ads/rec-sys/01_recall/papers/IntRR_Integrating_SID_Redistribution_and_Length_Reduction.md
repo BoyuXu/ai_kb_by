@@ -37,7 +37,7 @@ IntRR 同时解决这两个问题。
 - 注意：SID 重分配后旧 SID 失效，需要更新 item embedding 和索引。
 - 与 KV Cache 结合：SID 前缀共享可利用 prefix KV Cache，进一步加速批量推理。
 
-## 面试考点
+## 常见考点
 
 - Q: 什么是 RQ-VAE？为什么用它生成 SID？
   A: Residual Quantization VAE 是一种分层向量量化方法。Item 嵌入被逐层量化，每层量化残差，最终得到多个码本索引组成的 SID 序列。优点是语义保留好、码本利用率高；缺点是序列长、热门聚集。

@@ -22,7 +22,7 @@
 - 探索强度需要根据广告主风险偏好动态调整（ROI 敏感广告主降低探索）
 - 因果反事实估计需要 IPW（Inverse Propensity Weighting）校正历史数据偏差
 
-## 面试考点
+## 常见考点
 - Q: 广告出价中 Exploration vs Exploitation 为什么难？
   - A: 探索成本实际（真金白银），不像 RL 仿真环境；广告主 KPI 短期要求严格；市场竞争环境非平稳，历史数据 stale
 - Q: Value-Guided Diffusion 和标准 Diffusion 的区别？

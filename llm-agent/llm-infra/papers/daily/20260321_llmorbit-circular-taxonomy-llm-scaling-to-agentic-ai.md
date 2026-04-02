@@ -83,7 +83,7 @@ LLMOrbit 提出一个**环形分类法（Circular Taxonomy）**，将 LLM 技术
    - 订阅 arxiv cs.CL + cs.LG daily digest
    - 关注 vLLM、SGLang、TensorRT-LLM release notes（工程突破往往领先论文）
 
-## 面试考点
+## 常见考点
 
 - Q: 当前 LLM Scaling 的主要瓶颈是什么？
   A: 数据瓶颈（互联网文本已接近枯竭，合成数据质量有上限）、能耗/成本瓶颈（Scaling 边际收益递减）、推理部署瓶颈（超大模型消费级不可行）。突破方向：MoE架构（参数多但激活少）、Speculative Decoding、量化、模型蒸馏。

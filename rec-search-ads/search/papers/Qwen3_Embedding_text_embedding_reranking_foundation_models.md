@@ -25,7 +25,7 @@
 - Matryoshka 训练：先训练全维度，再 fine-tune 低维度头（cascaded training）
 - 向量库选型：768 维以下建议 HNSW（Faiss），高维考虑 PQ 压缩
 
-## 面试考点
+## 常见考点
 - Q: Dense Retrieval 和 BM25 Sparse Retrieval 的优缺点？
   - A: Dense：语义理解强，同义词/多语言支持好；缺点：计算密集，模型依赖。BM25：精确关键词匹配，轻量可解释；缺点：语义缺失。实际常用 Hybrid（RRF 融合）
 - Q: Contrastive Learning（InfoNCE）如何训练 embedding 模型？

@@ -29,7 +29,7 @@ $$
 - 适合batch=1低延迟场景
 - 需修改serving框架（如vLLM）
 
-## 面试考点
+## 常见考点
 
 1. **MTP与Speculative Decoding区别？** MTP同一模型多头并行，SD是不同模型draft-verify
 2. **需要验证机制？** MTP预测的后续token质量不如自回归

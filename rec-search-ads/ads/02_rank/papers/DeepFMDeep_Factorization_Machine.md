@@ -45,7 +45,7 @@ $$
 4. **正则化**：Dropout 在 DNN 层有效，Embedding L2 正则防止过拟合
 5. **工程变体**：xDeepFM（显式高阶交叉）、DCN（Cross Network）、AutoInt（Attention 交叉）
 
-## 面试考点
+## 常见考点
 
 - **Q: DeepFM 相比 Wide&Deep 的核心优势？**
   A: DeepFM 的 FM 侧不需要手工构造交叉特征，且 FM 和 DNN 共享 Embedding，参数更高效，梯度信号更充分。Wide&Deep 的 Wide 侧需要领域知识设计交叉特征。

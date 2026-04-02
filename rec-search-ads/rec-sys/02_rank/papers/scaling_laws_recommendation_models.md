@@ -64,7 +64,7 @@ $$
 4. **Embedding 分离扩展**：ID embedding table 可以独立扩展（分布式 embedding），不影响计算网络
 5. **渐进式验证**：Scaling 实验按 2× → 10× → 100× 渐进验证，避免一步到位浪费资源
 
-## 面试考点
+## 常见考点
 
 **Q1：推荐系统的 Scaling Law 与 LLM 的 Scaling Law 最大区别是什么？**
 > A：LLM Scaling 以 token 数据量和参数量为主导变量，指数 α≈0.3，scaling 效率高。推荐 Scaling 的影响因素更复杂：（1）ID 空间稀疏，embedding scaling 边际效益递减快；（2）时序特性强，历史数据价值衰减；（3）多目标导致 loss 组合复杂，难以用单一 Loss 刻画 scaling；（4）架构 diversity 大（CF/DNN/Transformer），不同架构 scaling 行为差异大。

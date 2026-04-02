@@ -32,7 +32,7 @@
 - **批量推理**：Speculative Decoding 在 batch size >1 时效率下降（因为不同请求的接受 token 数不一致），适合单请求低延迟场景
 - **硬件优化**：Draft model 和 target model 共驻 GPU，需规划显存分配（draft 通常占 target 的 10-20%）
 
-## 面试考点
+## 常见考点
 
 1. **Q：投机解码的核心原理是什么？为什么能加速？**
    A：Draft model 并行生成 K 个 token（速度快），target model 并行验证（一次 forward pass 验证 K 个 token，计算量不变但吞吐提升）。当接受率高时，相当于每次 forward 产出多个 token

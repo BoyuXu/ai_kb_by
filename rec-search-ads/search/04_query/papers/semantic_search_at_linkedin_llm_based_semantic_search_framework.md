@@ -61,7 +61,7 @@ LLM_search = fine_tune(LLM_linkedin, fine_tune_data, loss=ListwiseLoss)
 4. **业务规则融合**：语义分数 × 业务分数（职位薪资/公司规模/匹配程度）
 5. **A/B 实验框架**：搜索实验需要 Interleaving（避免 novelty effect）
 
-## 面试考点
+## 常见考点
 **Q1: LinkedIn 搜索为什么特别适合语义搜索而非关键词搜索？**
 A: 职业场景的词汇高度多样：同一工作有数十种叫法（"软件工程师/SWE/程序员/开发"）；技能描述方式不一致（"会Python/Python熟练/精通Python"）；跨语言查询占比大。语义搜索天然解决这些多样化表达问题。
 

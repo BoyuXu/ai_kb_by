@@ -29,7 +29,7 @@
 - 推理延迟高于 FAISS ANN，需结合 speculative decoding 或量化加速。
 - 与 HNSW 混合：GR 负责语义召回，ANN 负责高频热门 item，融合后 QPS 可接受。
 
-## 面试考点
+## 常见考点
 
 - Q: 生成式检索和传统双塔检索的核心区别是什么？
   A: 双塔检索分离 query/item 编码后做向量点积，GR 直接自回归生成 item ID 序列。GR 天然建模 multi-hop 关系，但推理慢；双塔简单高效但建模能力有限。

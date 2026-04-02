@@ -33,7 +33,7 @@ Dense Retrieval（向量检索，如 DPR/bi-encoder）和 Sparse Retrieval（词
 - **Sparse 更新**：重建倒排索引，速度更快（分钟级 vs Dense 小时级）
 - **成本**：Dense 检索内存开销约为 Sparse 的 5-10×（向量维度 768 vs 稀疏向量）
 
-## 面试考点
+## 常见考点
 
 1. **Q：Dense 和 Sparse Retrieval 各自的适用场景？**
    A：Sparse（BM25）适合精确匹配（有品牌/型号的查询）；Dense 适合语义相似匹配（描述性、模糊查询）；混合最鲁棒

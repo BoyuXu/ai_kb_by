@@ -46,7 +46,7 @@ $$
 4. **候选物 Lookup 缓存**：候选 embedding 可预先 batch lookup，减少在线 IO
 5. **延伸**：DIN → DIEN（引入序列演化 GRU）→ DIN-SQL（长序列用 SIM 检索）
 
-## 面试考点
+## 常见考点
 
 - **Q: DIN 中 attention 为什么不用 softmax？**
   A: softmax 会归一化权重之和为 1，使得绝对兴趣强度信息丢失。若用户对候选无兴趣，softmax 仍会给某些行为高权重；不 softmax 可以保留"用户总体兴趣强度"信息。

@@ -50,7 +50,7 @@ $$
 
 ---
 
-## 🎓 面试考点（5条）
+## 🎓 常见考点（5条）
 
 ### Q1: Transformer Decoder-Only 的预训练目标？
 **30秒答案**：Causal Language Modeling（CLM）——给定前 n 个 token，预测第 n+1 个 token。Loss = -Σ log P(x_t | x_{<t})。Causal mask 确保每个位置只能看到之前的 token，不能看到未来。

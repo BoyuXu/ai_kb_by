@@ -61,7 +61,7 @@ SENet 做的是全局平均池化后的 channel-wise 权重；MaskNet 是 instan
 5. **计算开销**：相比普通 DNN 增加约 20-30% 计算，但收益显著
 6. **冷启动**：新用户无足够历史，Mask 生成质量下降，需要回退策略
 
-## 面试考点
+## 常见考点
 
 **Q：MaskNet 与 SENet 的核心区别是什么？**
 A：SENet 做全局 squeeze-excitation，权重对同一 batch 内所有样本相同（channel-wise）；MaskNet 的 mask 由每个 instance 的特征动态生成，每个样本有不同的 mask，粒度更细是 instance-specific 的。

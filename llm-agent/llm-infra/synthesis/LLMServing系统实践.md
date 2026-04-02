@@ -50,7 +50,7 @@ $$
 
 ---
 
-## 🎓 面试考点（5条）
+## 🎓 常见考点（5条）
 
 ### Q1: vLLM 的核心创新？
 **30秒答案**：PagedAttention——将 KV Cache 按 page 管理（类似 OS 虚拟内存），动态分配/回收 page，解决了 KV Cache 碎片化和预分配浪费问题。配合 Continuous Batching 实现请求动态加入/退出。

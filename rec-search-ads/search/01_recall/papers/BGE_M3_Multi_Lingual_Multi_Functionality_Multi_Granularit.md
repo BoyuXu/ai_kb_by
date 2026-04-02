@@ -209,7 +209,7 @@ result = model.encode(sentences,
 - 稀疏检索需要建立倒排索引（Lucene）
 - 多向量检索计算成本高，建议仅用于Top-K重排序
 
-## 面试考点
+## 常见考点
 
 **Q1：BGE-M3的"M3"代表什么？**
 A：Multi-Linguality（多语言）、Multi-Functionality（多功能）、Multi-Granularity（多粒度）。分别对应：支持100+语言、统一密集/稀疏/多向量三种检索、处理从短句到8192 tokens长文档。

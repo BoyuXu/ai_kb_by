@@ -161,7 +161,7 @@ def hipporag2_retrieve(query, kg, top_k=5):
 
 ---
 
-## 面试考点
+## 常见考点
 
 **Q1：RAG 为什么难以模拟人类长期记忆？HippoRAG 2 的核心思路是什么？**
 

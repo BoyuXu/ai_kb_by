@@ -72,7 +72,7 @@ for position in generation:
 4. **成本控制**：每次 LLM 调用计费，复杂问题 Agentic RAG 成本是普通 RAG 的 5-20x
 5. **可观察性**：记录每步的 Action/Observation，便于调试和改进
 
-## 面试考点
+## 常见考点
 **Q1: Agentic RAG 与传统 RAG 的核心区别是什么？**
 A: 传统 RAG：单次检索 → 固定生成，无自适应能力。Agentic RAG：① 动态决策（何时检索/检索什么）②多步迭代（根据中间结果调整检索）③工具扩展（不只检索，还可执行/搜索/API调用）④自我反思（评估答案质量，不满足则重来）。
 

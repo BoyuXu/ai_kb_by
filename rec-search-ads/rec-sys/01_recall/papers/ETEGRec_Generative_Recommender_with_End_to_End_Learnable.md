@@ -18,7 +18,7 @@
 - Gumbel temperature需要退火调度，初期高温探索，后期低温收敛
 - 工业场景中物品动态增减需要支持tokenizer的在线更新
 
-## 面试考点
+## 常见考点
 1. **Q: 为什么分离训练tokenizer会导致次优？** A: tokenizer优化重建loss，不直接优化推荐目标，存在目标gap
 2. **Q: Gumbel-Softmax如何实现可微分离散化？** A: 通过温度参数τ控制softmax的sharp程度，τ→0时近似argmax
 3. **Q: 端到端训练的主要困难是什么？** A: 离散化操作不可微、梯度消失、码本崩溃（codebook collapse）

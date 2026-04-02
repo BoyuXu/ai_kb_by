@@ -18,7 +18,7 @@ RankLLM提出用大语言模型（GPT-4、LLaMA等）进行搜索结果重排序
 - Sliding window步长设为文档数的50%，确保边界文档被充分评估
 - 可以用RankLLM生成训练数据，蒸馏到cross-encoder进一步降低成本
 
-## 面试考点
+## 常见考点
 1. **Q: LLM重排的sliding window方法如何工作？** A: 取窗口大小N的文档，LLM排序后移动半个窗口继续，覆盖所有文档
 2. **Q: LLM重排为何使用listwise而非pointwise？** A: LLM一次性考虑文档间的相对关系，比独立打分更准确；pointwise缺乏比较视角
 3. **Q: 如何降低LLM重排的API成本？** A: 开源模型替代（Mistral/LLaMA）、蒸馏到cross-encoder、只对TopK文档重排

@@ -50,7 +50,7 @@ $$
 
 ---
 
-## 🎓 面试考点（5条）
+## 🎓 常见考点（5条）
 
 ### Q1: Item2Vec vs Graph Embedding 的区别？
 **30秒答案**：Item2Vec 将用户行为序列类比句子，物品类比单词，用 Word2Vec 训练物品 Embedding。Graph Embedding（EGES/Node2Vec）在物品共现图上随机游走生成序列，再用 Word2Vec 训练。Graph 方法可以利用更丰富的图结构信息。

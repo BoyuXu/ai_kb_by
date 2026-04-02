@@ -68,7 +68,7 @@ $$
 4. **工程集成**：基于PyTorch实现，可直接替换现有GNN/Graph Transformer层，保持相同接口
 5. **节点排序开销**：排序本身O(N log N)，通常远小于Mamba的O(N)推理，不是瓶颈
 
-## 面试考点
+## 常见考点
 
 **Q1：Mamba（SSM）相比Transformer的核心优势是什么？**
 A：Mamba基于线性RNN的Selective SSM：(1) 时间/空间复杂度O(N)，Transformer是O(N²)；(2) 推理时可以缓存hidden state，不需要存储所有历史token（无KV cache爆炸问题）；(3) 通过输入依赖的选择机制，动态控制信息保留，在长序列上比稀疏Attention更数据自适应。

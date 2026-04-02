@@ -19,7 +19,7 @@
 - prefix cache大幅降低生成推理的首token延迟
 - 新物品冷启动需要内容tower和行为tower的异步更新机制
 
-## 面试考点
+## 常见考点
 1. **Q: OneRec中IPA（迭代偏好对齐）的具体实现？** A: 收集用户正负反馈→构建偏好对→DPO/PPO训练→更新策略模型→循环
 2. **Q: RQ-VAE如何用于物品tokenization？** A: 残差量化VAE，将物品embedding量化为多层离散码本，形成层级token
 3. **Q: 为什么快手选择OneRec而不是传统pipeline？** A: 行为多样性高（短视频），多阶段pipeline的目标不一致更明显

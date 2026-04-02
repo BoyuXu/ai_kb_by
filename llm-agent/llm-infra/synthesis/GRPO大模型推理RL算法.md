@@ -34,7 +34,7 @@
 - 用 vLLM 并行采样 G 个回答，加速采样阶段
 - 监控 KL divergence（>0.1 需降 LR）和组内 reward 方差（接近 0 = 题太简单/难）
 
-**面试考点**：
+**常见考点**：
 - Q: GRPO 为何特别适合数学/代码任务？ → 有可验证 reward（规则判对错），无需人工标注偏好
 - Q: DeepSeek-R1-Zero 为何自发产生 CoT？ → GRPO 优化压力下发现"先想再答"答对率更高，reward 更高，行为被强化稳定涌现
 - Q: GRPO 的 advantage 归一化为什么有效？ → 消除 reward scale 影响，只保留相对优劣信号，类似 batch normalization 的稳定效果

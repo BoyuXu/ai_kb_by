@@ -110,7 +110,7 @@ final = llm.generate(conversation)  # 前缀 KV 被缓存
 
 ---
 
-## 面试考点
+## 常见考点
 
 **Q1：多 Agent 系统（MAS）相比单 Agent 的本质优势是什么？什么场景下 MAS 才真正必要？**
 

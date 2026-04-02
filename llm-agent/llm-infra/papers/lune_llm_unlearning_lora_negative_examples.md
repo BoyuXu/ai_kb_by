@@ -184,7 +184,7 @@ class LUNEUnlearner:
 
 ---
 
-## 面试考点
+## 常见考点
 
 **Q1：什么是机器遗忘（Machine Unlearning）？为什么对 LLM 特别重要？**
 

@@ -18,7 +18,7 @@ ColBERT v3在MS-MARCO、BEIR等benchmark上超越v2约1-2% NDCG；相比cross-en
 - PLAID索引结构支持高效的MIPS检索，是ColBERT工业化的关键
 - 适合需要高精度且有一定延迟余量的场景（reranking而非首次召回）
 
-## 面试考点
+## 常见考点
 1. **Q: ColBERT的Late Interaction原理？** A: query和doc分别独立编码（效率），在token级别用MaxSim交互（精度），取中间路线
 2. **Q: Bi-encoder vs Cross-encoder vs ColBERT的三角权衡？** A: Bi-encoder最快(ANN)精度低；Cross-encoder最精确但O(N)；ColBERT中间
 3. **Q: MaxSim操作如何计算？** A: 对每个query token，找document中最相似的token；所有query token的MaxSim求和

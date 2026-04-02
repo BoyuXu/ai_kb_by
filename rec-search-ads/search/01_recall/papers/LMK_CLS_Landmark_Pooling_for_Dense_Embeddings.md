@@ -43,7 +43,7 @@
 3. **与 Late-Interaction 结合**：LMK pooling 是 Single-Vector，存储比 ColBERT 小得多
 4. **微调策略**：建议先在 LMK token 位置做 masked language modeling 预热，再做检索微调
 
-## 面试考点
+## 常见考点
 
 - **Q: 为什么 [CLS] 对长文档效果差？**
   A: Transformer 的全局注意力使 [CLS] 需要聚合所有 token 的信息，文档越长，[CLS] 的注意力越分散，难以捕获关键信息。注意力矩阵的稀疏性在长文档中更加严重。

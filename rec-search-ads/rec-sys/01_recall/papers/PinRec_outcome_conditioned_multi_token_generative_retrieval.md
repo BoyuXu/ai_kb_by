@@ -52,7 +52,7 @@
 4. **推理延迟控制**：beam search 宽度和 token 长度需根据延迟预算调整
 5. **A/B 实验框架**：不同 outcome condition 可对应不同实验桶，便于业务迭代
 
-## 面试考点
+## 常见考点
 
 **Q1：Outcome-Conditioned Generation 的核心思想是什么？与传统多目标排序有何不同？**
 > A：传统多目标排序在精排层加权融合多指标，模型固定。PinRec 的 condition 在召回层即生效，同一个模型可根据不同 condition 生成不同分布的候选，更灵活。本质是将业务目标的优化前移到召回阶段，减少精排纠偏压力。

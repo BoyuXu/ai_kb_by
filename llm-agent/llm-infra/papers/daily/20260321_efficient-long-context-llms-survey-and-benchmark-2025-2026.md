@@ -55,7 +55,7 @@ LLM 的上下文窗口从 GPT-3 的 2k token 扩展到 2025 年的 1M+ token（G
 3. **分布式推理**：超长上下文需要 Sequence Parallelism（序列并行），将序列分段到不同 GPU，用 Ring Attention 通信
 4. **预填充 vs 解码优化**：长上下文的预填充（Prefill）阶段计算量大，需要分离 Prefill 和 Decode 服务（Chunked Prefill/Disaggregated Serving）
 
-## 面试考点
+## 常见考点
 
 - Q: KV Cache 是什么？为什么是长上下文的主要瓶颈？
   A: KV Cache 是推理时缓存的注意力 Key/Value 矩阵，避免每次生成新 token 时重新计算历史 token 的 K/V。大小 = 2 × num_layers × num_kv_heads × seq_len × head_dim × dtype_bytes。长上下文时 KV Cache 线性增长，128k token × 70B 模型可达 ~100GB，远超单卡显存。

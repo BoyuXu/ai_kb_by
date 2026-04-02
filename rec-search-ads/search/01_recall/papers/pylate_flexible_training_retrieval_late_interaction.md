@@ -60,7 +60,7 @@ trainer.train()
    - 在线：ColBERT Serving（如 RAGatouille）做近似 MaxSim 检索
 5. **长文档处理**：Late Interaction 天然适合长文档，chunk-level MaxSim 效果优于单向量
 
-## 面试考点
+## 常见考点
 
 **Q1: ColBERT 与 bi-encoder 的核心区别是什么？**
 A: Bi-encoder 将 query/doc 各压缩成一个向量，用点积比较；ColBERT 保留所有 token embedding，用 MaxSim（对每个 query token 找最相似的 doc token，再求和）计算相关性，信息损失更少

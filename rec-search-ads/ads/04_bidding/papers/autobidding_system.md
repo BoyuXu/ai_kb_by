@@ -771,7 +771,7 @@ def multi_objective_bid(
 
 ---
 
-## 六、面试考点
+## 六、常见考点
 
 ### 考点1：Autobidding的对偶优化推导
 

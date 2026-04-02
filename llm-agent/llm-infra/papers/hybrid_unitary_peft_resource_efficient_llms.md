@@ -188,7 +188,7 @@ class UnitaryAdapter(nn.Module):
 
 ---
 
-## 面试考点
+## 常见考点
 
 **Q1：BOFT 与 LoRA 的核心区别是什么？各自适用场景？**
 

@@ -151,7 +151,7 @@ Rank-R1 = DeepSeek-R1 思想在搜索排序领域的直接迁移：
 
 ---
 
-## 🎓 面试考点
+## 🎓 常见考点
 
 **Q1: 为什么 GRPO 比 PPO 更适合 LLM 推理任务？**
 A: PPO 需要 Critic 网络（与 policy 同规模），训练时显存 2x。GRPO 用"组内相对奖励"替代 Critic——对同一 prompt 采样 G 个输出，advantage = (个人奖励 - 组均值)/组标准差，不需要绝对价值估计。对于推理任务，奖励信号是 0/1（答案对错），组内比较足够，无需精确价值函数。DeepSeek-R1 用 GRPO 训练，AIME 从 9% 提升到 80%。

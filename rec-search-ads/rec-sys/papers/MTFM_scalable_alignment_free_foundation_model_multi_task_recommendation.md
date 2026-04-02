@@ -22,7 +22,7 @@
 - Backbone 预训练数据选择：用全量曝光（不区分任务）最优
 - 推理时所有任务共享一次 backbone forward，只多跑 task head，延迟友好
 
-## 面试考点
+## 常见考点
 - Q: MMOE 和 PLE 的区别？
   - A: MMOE 所有任务共享专家池 + 各任务门控选专家；PLE 在此基础上增加 task-specific experts，减少任务间干扰
 - Q: Foundation Model 在推荐系统中的主要挑战？

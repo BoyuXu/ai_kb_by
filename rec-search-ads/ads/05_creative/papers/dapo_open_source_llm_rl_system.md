@@ -69,7 +69,7 @@ $$
 5. **内存管理**：70B 模型 RL 训练需要 ZeRO-3 + 梯度 checkpoint，仔细管理内存
 6. **监控**：关键指标：entropy（防止策略崩溃）、reward distribution、KL divergence from reference
 
-## 面试考点
+## 常见考点
 
 **Q：DAPO 的 Clip-Higher 为什么要非对称地设置 clip 范围？**
 A：正向 advantage 的动作应该被增强，给更大的 $\epsilon_{high}$ 允许策略更快学习好的行为；负向 advantage 的动作应该被抑制，但过大的惩罚容易导致策略过度收缩失去多样性，小 $\epsilon_{low}$ 更保守。非对称设计在探索效率和稳定性之间取得更好平衡。

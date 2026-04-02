@@ -101,7 +101,7 @@ SFG 是一个**框架（Framework）**而非特定模型：
 5. **与预训练结合**：Encoder-Decoder 可以先无监督预训练再 CTR 微调
 6. **Embedding 维度**：SFG 对低维 Embedding（如 16D）提升更大，高维（512D）提升较小
 
-## 面试考点
+## 常见考点
 
 **Q1: 什么是 Embedding Dimensional Collapse？为什么会发生？**
 A: 判别式训练时，优化目标只关心类别间的决策边界，导致 Embedding 向量趋于相似方向（秩降低）。这是因为对决策边界没有贡献的维度会被梯度忽略，最终退化到低维流形。

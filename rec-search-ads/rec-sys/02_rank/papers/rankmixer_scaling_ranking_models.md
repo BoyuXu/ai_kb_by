@@ -62,7 +62,7 @@ $$
 4. **分布式训练**：千亿参数需Expert Parallelism + Tensor Parallelism，常用框架：Megatron-LM, DeepSpeed
 5. **增量更新**：工业场景需支持每日增量训练，MoE结构支持只更新激活的专家，效率更高
 
-## 面试考点
+## 常见考点
 
 **Q1：MoE（Mixture of Experts）在推荐排序中的优势是什么？**
 A：MoE允许模型参数量（容量）与计算量解耦。通过稀疏激活，千亿参数模型的单次推理FLOPs可以和百亿Dense模型相当，但模型容量（记忆能力、表达能力）更强，特别适合推荐系统中的长尾特征学习。

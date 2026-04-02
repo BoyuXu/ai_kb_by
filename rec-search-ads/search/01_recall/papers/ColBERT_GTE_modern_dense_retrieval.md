@@ -74,7 +74,7 @@ $$
 4. **ColBERT的token数量**：Query token数量影响推理速度，通常限制≤32 tokens
 5. **混合方案**：PLAID Stage1用BM25做候选过滤，Stage2用ColBERT精确打分
 
-## 面试考点
+## 常见考点
 Q1: ColBERT的MaxSim操作相比双塔的内积有什么优势？
 A: 双塔的单向量内积相当于"整体语义相似度"，无法捕获词级别的精确匹配。ColBERT的MaxSim对Query每个词独立找最匹配的Doc词，可以准确处理多关键词查询（"苹果 手机 维修"中，每个词分别找到Doc中对应的词）。代价：Doc需要存储所有token向量（N×d），比双塔的1×d多N倍。
 

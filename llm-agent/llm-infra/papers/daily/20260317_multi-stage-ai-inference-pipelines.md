@@ -52,7 +52,7 @@
 3. **降级策略**：重排超时时跳过重排直接使用召回结果；LLM 超时时返回 cached 答案
 4. **监控指标**：各阶段 P50/P99 延迟、吞吐量、队列深度、错误率
 
-## 面试考点
+## 常见考点
 
 - **Q: Continuous Batching 的核心思想？**
   A: 传统 Static Batching 需要等待 batch 内所有请求完成才能接受新请求，导致 GPU 空闲（短请求完成后等长请求）。Continuous Batching 允许新请求在任意时刻加入正在执行的 batch，GPU 持续处于最高利用率。

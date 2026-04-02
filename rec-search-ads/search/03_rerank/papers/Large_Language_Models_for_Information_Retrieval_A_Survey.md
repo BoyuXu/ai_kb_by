@@ -49,7 +49,7 @@
 - **向量索引**：Elasticsearch 8.x 内置 dense_vector，支持 HNSW 近似检索；生产环境也常用 Qdrant/Weaviate/Milvus。
 - **Embedding 更新**：文档库更新时需要增量更新 embedding（不能全量重算），用 FAISS 的 IVF 索引支持动态添加。
 
-## 面试考点
+## 常见考点
 
 - Q: BM25 的公式是什么？有哪些参数？
   A: BM25(q,d) = Σ IDF(t) × f(t,d)×(k1+1) / (f(t,d) + k1×(1-b+b×|d|/avgdl))。k1（词频饱和，通常1.2-2.0）控制词频的边际效益；b（长度归一化，通常0.75）控制文档长度的影响。IDF = log((N-df+0.5)/(df+0.5))。

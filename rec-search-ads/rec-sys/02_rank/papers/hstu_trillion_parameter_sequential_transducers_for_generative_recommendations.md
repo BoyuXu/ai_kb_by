@@ -42,7 +42,7 @@ y_t = Softmax(H_t · E^T)   # E为item embedding矩阵
 4. **两阶段推理**：检索阶段用轻量 HSTU，排序阶段用完整模型
 5. **量化部署**：INT8 量化 embedding，FP16 计算层
 
-## 面试考点
+## 常见考点
 **Q1: HSTU 如何解决长序列 O(n²) 问题？**
 A: 采用线性注意力近似（Linear Attention），通过核函数分解将 QK^T·V 变为 K^T·V 先行计算，复杂度降为 O(n·d²)，支持万级序列建模。
 

@@ -125,7 +125,7 @@ KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → 
 |------|------|------|
 | [synthesis/多Token预测与Agent工程化.md](synthesis/多Token预测与Agent工程化.md) | LCD 2-bit量化 + Double双源投机解码 + FastMTP + Agent安全/ADK | **新建**（深度综述，含15题Q&A） |
 
-> 📌 上午 `20260331_llm_inference_optimization_and_agent_engineering.md` 为快速综述；下午 `多Token预测与Agent工程化.md` 为深度整合版本（含横向对比、工程落地分析、面试Q&A）。
+> 📌 上午 `20260331_llm_inference_optimization_and_agent_engineering.md` 为快速综述；下午 `多Token预测与Agent工程化.md` 为深度整合版本（含横向对比、工程落地分析、常见Q&A）。
 
 ### 2026-04-02 新增
 

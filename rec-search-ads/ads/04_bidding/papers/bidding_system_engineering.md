@@ -802,7 +802,7 @@ def check_advance_conditions(metrics_window):
 
 ---
 
-## 七、面试考点5条
+## 七、常见考点5条
 
 ### 考点1：出价系统的延迟如何控制在10ms以内？
 

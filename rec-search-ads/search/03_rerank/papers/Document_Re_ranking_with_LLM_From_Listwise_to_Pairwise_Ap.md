@@ -18,7 +18,7 @@ Listwise在TREC DL benchmark上NDCG@10最高，比pointwise高约4%；但listwis
 - Position bias是关键问题，需要随机shuffle文档顺序或多次采样取均值
 - 工业场景通常：稀疏/稠密召回 → bi-encoder rerank → LLM精排（Top50→Top10）
 
-## 面试考点
+## 常见考点
 1. **Q: LLM重排序的position bias问题？** A: LLM倾向于认为prompt开头/结尾的文档更相关，与实际内容无关
 2. **Q: RankGPT的listwise重排序如何工作？** A: 向LLM提供文档列表，要求直接输出相关性排序，用sliding window处理长列表
 3. **Q: Pairwise重排序的O(N²)开销如何优化？** A: 冒泡排序近似（只比较相邻）、锦标赛排序（O(N log N)比较次数）

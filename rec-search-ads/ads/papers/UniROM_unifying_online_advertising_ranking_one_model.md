@@ -22,7 +22,7 @@
 - 部分目标实时性要求不同（CTR 秒级更新，LTV 天级更新），需分层更新策略
 - A/B 实验设计：同时评估多个指标，防止指标"内卷"（一个指标上升另一个下降）
 
-## 面试考点
+## 常见考点
 - Q: 广告 eCPM 计算公式？
   - A: $\text{eCPM} = \text{CTR} \times \text{CVR} \times \text{Bid} \times 1000$（或 $= \text{CTR} \times \text{Bid}$ 对 CPC 广告）
 - Q: 多任务排序中如何平衡不同目标的重要性？

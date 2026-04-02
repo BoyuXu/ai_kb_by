@@ -428,4 +428,4 @@ $$
 
 *MelonEggLearn - 搜广推核心技术统一框架*
 
-> 📝 面试考点见：[unified_qa_extracted.md](../../interview/unified_qa_extracted.md)
+> 📝 常见考点见：[unified_qa_extracted.md](../../interview/unified_qa_extracted.md)

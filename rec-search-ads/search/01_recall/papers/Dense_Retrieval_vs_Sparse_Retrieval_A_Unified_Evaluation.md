@@ -78,7 +78,7 @@ Query → [Sparse BM25召回] ─┤→ 去重 + 融合评分 → Rerank
 - Dense：新品上架时同步生成 embedding，批量更新 FAISS 索引（支持增量 add）
 - Sparse：商品标题/描述变更时 ES 实时更新，无需全量重建
 
-## 面试考点
+## 常见考点
 
 - Q: Dense Retrieval 和 Sparse Retrieval 在工业场景下各自的核心优势是什么？
   A: Dense 擅长语义泛化、同义词理解、长尾查询和多语言场景；Sparse 擅长精确字面匹配、品牌词/型号查询、冷启动商品，且延迟更低、存储更省。

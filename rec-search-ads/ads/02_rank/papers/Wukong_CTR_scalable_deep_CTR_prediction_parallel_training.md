@@ -77,7 +77,7 @@ $$
 4. **在线服务的 Embedding Cache**：高频 Item/User Embedding 在线缓存，减少实时 lookup
 5. **增量更新**：支持 Embedding 的流式增量更新，日志触发更新而非全量重训
 
-## 面试考点
+## 常见考点
 
 **Q1: CTR 预估系统中，Embedding Table 的规模是如何决定的？扩展 Embedding vs 扩展 DNN 哪个收益更高？**
 A: Embedding 大小 = 特征域数量 × 每个特征的 embedding 维度 × vocab 大小。一般扩展 Embedding（更大 vocab 或更高维度）比扩展 DNN 层数收益更高，因为稀疏特征的信息密度远高于 dense 层的参数利用率。

@@ -83,7 +83,7 @@ Request → Draft Model (small, fast) → 生成 γ=4 候选token
 - 在线监控 acceptance rate，低于阈值（如 0.6）时降低 γ 或切换顺序解码
 - A/B 测试：speculative vs 顺序解码的 TTFT（首 token 延迟）和整体吞吐
 
-## 面试考点
+## 常见考点
 
 - Q: Speculative Decoding 的原理是什么？为什么能加速推理？
   A: 用小 Draft Model 串行生成 γ 个候选 token，再用大 Target Model 一次并行验证（类似 GPU 的并行计算），将 γ+1 次串行前向传播压缩为 2 次（draft + verify）。加速比取决于接受率 α：期望加速比 ≈ (1+α+α²+...+α^γ)/(γ·cost_draft + cost_target)。

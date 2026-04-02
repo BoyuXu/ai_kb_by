@@ -26,7 +26,7 @@
 - 与Google Cloud深度集成
 - 开源版本支持多种LLM后端
 
-## 面试考点
+## 常见考点
 
 1. **为什么需要Agent框架？** 减少重复工程、标准化接口、提升可靠性
 2. **ADK vs LangChain/AutoGen？** ADK更偏声明式和生产级

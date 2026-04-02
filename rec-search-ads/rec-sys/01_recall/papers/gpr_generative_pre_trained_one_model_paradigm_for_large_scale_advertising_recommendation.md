@@ -46,7 +46,7 @@ P(item_id | user_context, task_prefix) = Π P(token_t | token_{<t}, context)
 4. **增量更新**：新 item 需及时生成 Semantic ID 并更新码本映射
 5. **延迟控制**：生成式解码比向量检索慢，需 speculative decoding 加速
 
-## 面试考点
+## 常见考点
 **Q1: GPR 为什么能统一召回和排序？**
 A: 通过任务前缀条件化，同一模型根据不同前缀 token 切换行为模式：召回时做全库 beam search 生成，排序时做候选集 scoring，共享底层语义表示。
 

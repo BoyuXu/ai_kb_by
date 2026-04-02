@@ -58,7 +58,7 @@ $$
 4. **渐进训练调度**：通常先跑10轮SP-DPO收敛基础偏好，再切换RF-DPO持续fine-tune
 5. **模型规模**：论文使用7B LLM backbone，工业场景建议结合知识蒸馏压缩到推理友好规模
 
-## 面试考点
+## 常见考点
 
 **Q1：Align³GR的三级对齐分别解决什么问题？**
 A：Token-level对齐解决ID与语义空间鸿沟（双重tokenization）；Behavior-level对齐确保行为序列与语言序列互相监督（双向对齐）；Preference-level对齐通过DPO让模型学会区分用户真实偏好（渐进式DPO）。

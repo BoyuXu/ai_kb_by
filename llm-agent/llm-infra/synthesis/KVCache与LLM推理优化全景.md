@@ -223,7 +223,7 @@ KV INT4 + 稀疏化组合 (2024-2025) → 压缩 80% 显存
 
 ---
 
-## 面试考点
+## 常见考点
 
 1. **Q: KV Cache 的显存占用公式？**
    A: `2 × num_layers × num_heads × head_dim × seq_len × precision_bytes`
