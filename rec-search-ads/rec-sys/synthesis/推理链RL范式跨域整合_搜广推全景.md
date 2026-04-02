@@ -268,3 +268,31 @@ LLM-Infra: compute-optimal 资源分配
 
 ### llm-infra
 > - [LLM推理加速与高效训练技术全景](../../../llm-agent/llm-infra/synthesis/LLM推理加速与高效训练技术全景.md) — infra 今日全景综述
+
+
+## 📐 核心公式直观理解
+
+### RLHF 在推荐中的应用
+
+$$
+\mathcal{L}_{\text{RLHF}} = -\mathbb{E}_{a \sim \pi_\theta}[R(s, a)] + \beta \cdot \text{KL}(\pi_\theta \| \pi_{\text{ref}})
+$$
+
+**直观理解**：让推荐策略 $\pi_\theta$ 最大化用户满意度（reward $R$），同时不能偏离参考策略 $\pi_{\text{ref}}$ 太远（KL 正则）。KL 项防止模型为了追求 reward 而走极端（比如只推高 CTR 但低质量的标题党内容）。
+
+### 推理链（CoT）增强排序
+
+$$
+\text{score}(d|q) = \text{LLM}(\text{"思考步骤："} + \text{reasoning} + \text{"相关性评分："})
+$$
+
+**直观理解**：让 LLM 先"想一想"为什么这个文档和 query 相关（或不相关），再给出评分。推理过程中 LLM 会发现细微的匹配关系（如"文档讨论的是 GPU 架构，query 问的是 CUDA 编程，两者密切相关因为..."），比直接打分更准确。
+
+### 跨域迁移的统一 embedding
+
+$$
+e_{\text{unified}} = \text{Proj}(e_{\text{search}}) \approx \text{Proj}(e_{\text{rec}}) \approx \text{Proj}(e_{\text{ads}})
+$$
+
+**直观理解**：搜索、推荐、广告三个系统各有各的 embedding 空间。统一 embedding 让用户在搜索中的行为（"搜过跑步鞋"）能直接帮助推荐（推跑步装备）和广告（投运动品牌广告）——跨域信号复用，冷启动效果大幅提升。
+

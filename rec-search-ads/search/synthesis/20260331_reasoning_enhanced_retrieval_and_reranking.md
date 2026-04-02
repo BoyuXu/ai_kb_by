@@ -96,3 +96,31 @@ A: DEAR使用约50K个(query, document_list)样本，teacher为每个生成ranki
 3. Reasonrank: Empowering Passage Ranking with Reasoning (arXiv:2508.07050)
 4. O1 Embedder: Let Retrievers Think Before Action (arXiv:2509.25085)
 5. DEAR: Dual-stage Reranking with Reasoning Agents (arXiv:2508.16998)
+
+
+## 📐 核心公式直观理解
+
+### 推理增强检索的 decomposition
+
+$$
+\{q_1, ..., q_K\} = \text{LLM}(\text{"分解为子问题："} + q), \quad \text{result} = \text{Merge}(\text{Retrieve}(q_k))
+$$
+
+**直观理解**：复杂问题拆成简单子问题分别检索再合并——"谁发明了 Transformer 为什么获得了图灵奖"拆成"Transformer 发明者"和"该发明者的图灵奖"。检索简单子问题比检索复杂原始 query 准确得多。
+
+### Self-Consistency Reranking
+
+$$
+\text{score}(d) = \sum_{k=1}^{K} \mathbb{1}[\text{LLM}_k(q, d) \text{ says relevant}]
+$$
+
+**直观理解**：多次用不同 prompt/温度让 LLM 判断文档相关性，投票决定最终排序。单次 LLM 判断可能不稳定（受 prompt 措辞影响），多次投票更鲁棒——5 次中 4 次说"相关"比 1 次说"相关"更可信。
+
+### Reward Model 引导的检索
+
+$$
+q' = \arg\max_q \; R(\text{LLM}(q, \text{Retrieve}(q)))
+$$
+
+**直观理解**：用 reward model 评估"query→检索→生成"整条链路的最终答案质量，反向优化 query。不是让检索结果"看起来相关"，而是让检索结果"真正帮助生成正确答案"——end-to-end 优化检索。
+

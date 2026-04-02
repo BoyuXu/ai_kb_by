@@ -183,3 +183,31 @@ $$
 - [clip](../../papers/clip.md)
 - [GPT-4](../../papers/gpt_4.md)
 
+
+
+## 📐 核心公式直观理解
+
+### Query2Doc
+
+$$
+d_{\text{pseudo}} = \text{LLM}(\text{"生成一段回答以下问题的文档："} + q)
+$$
+
+**直观理解**：让 LLM 先"想象"一篇理想的答案文档，再用这篇伪文档增强检索。伪文档虽然可能有错误，但在 embedding 空间中和真相关文档更近（都是"答案风格"的文本），比直接用 query（问题风格）检索效果好 10-20%。
+
+### 检索增强生成的 FiD（Fusion-in-Decoder）
+
+$$
+P(y | q, d_1, ..., d_K) = \text{Decoder}(\text{Enc}(q, d_1) \oplus ... \oplus \text{Enc}(q, d_K))
+$$
+
+**直观理解**：每个检索到的文档和 query 分别编码（encoder 内文档间独立），然后在 decoder 中融合所有编码。这比把所有文档拼接后输入更高效——encoder 部分可并行，融合推理只在 decoder 做。
+
+### 搜索 Agent 的迭代检索
+
+$$
+q_{t+1} = \text{LLM}(q_t, d_{1:K}^{(t)}, \text{"哪些信息还缺？请改写 query"})
+$$
+
+**直观理解**：第一轮检索可能找不到完整答案，LLM 分析返回结果后自动改写 query 做第二轮检索——就像研究者在图书馆"越查越精确"。通常 2-3 轮迭代就能找到全面的答案。
+

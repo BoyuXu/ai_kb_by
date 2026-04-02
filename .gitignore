@@ -41,3 +41,8 @@ api_keys.json
 cron_jobs.json
 .env*
 *.log
+
+# 简历/项目生成产出 - 仅本地，不推远端
+resume/
+**/resume/
+**/llm_project_ideas.md

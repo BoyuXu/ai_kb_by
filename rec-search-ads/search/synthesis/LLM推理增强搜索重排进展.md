@@ -273,3 +273,31 @@ LLM 生成（利用推理链作为参考）
 - **动态推理预算**：根据查询复杂度自动调整推理深度
 - **在线学习**：利用用户反馈实时优化推理策略
 - **端到端推理检索**：将查询扩展和重排融合为单一推理步骤
+
+
+## 📐 核心公式直观理解
+
+### Pointwise LLM Scoring
+
+$$
+\text{score}(q, d) = \text{LLM}(\text{"1-5分评估相关性："} + q + d)
+$$
+
+**直观理解**：直接让 LLM 打分。简单但不稳定——LLM 倾向于给高分（positivity bias），且对评分尺度不敏感（3 分和 4 分的区别不如"A 比 B 好"直观）。适合快速原型验证，生产环境需要更结构化的方法。
+
+### Pairwise LLM Comparison
+
+$$
+P(d_i \succ d_j) = \text{LLM}(\text{"以下两篇文档哪个更相关？"} + q + d_i + d_j)
+$$
+
+**直观理解**：让 LLM 做两两比较而非绝对打分——更符合 LLM 的能力特点（判断相对好坏比打绝对分数稳定）。缺点是 $O(n^2)$ 次调用，优化方案：先用传统 reranker 粗排 top-20，再对 top-20 做 LLM pairwise rerank。
+
+### Setwise LLM Reranking（折中方案）
+
+$$
+\text{best}(d_1, ..., d_m) = \text{LLM}(\text{"以下} m \text{篇文档中最相关的是？"} + q + d_{1:m})
+$$
+
+**直观理解**：每次给 LLM 看 $m$ 篇文档（如 5 篇），选最好的一篇。比 pairwise 快（$O(n/m)$ 次调用），比 listwise 稳定（context window 压力小）。通过 heap sort 策略可以 $O(n \log n / m)$ 次调用完成排序。
+

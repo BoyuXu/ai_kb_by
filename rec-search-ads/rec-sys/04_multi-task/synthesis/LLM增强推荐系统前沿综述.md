@@ -243,3 +243,31 @@ $$
 | 从低 MFU → 硬件感知设计 | RankMixer | GPU 效率是 Scaling 的基础 |
 | 从并列专家 → 层级化专家 | HoME | 解决工业 MTL 的专家退化问题 |
 | 从 ID 表示 → 语义+协同双塔 | RLMRec | 冷启动和长尾的系统性解法 |
+
+
+## 📐 核心公式直观理解
+
+### LLM 作为特征增强器
+
+$$
+e_{\text{item}}' = \text{Concat}(e_{\text{id}}, \text{LLM\_Emb}(\text{title + desc}))
+$$
+
+**直观理解**：传统推荐用 ID embedding 表示物品（冷启动时为零向量）。把 LLM 对标题/描述的 embedding 拼接进来，新物品也有了丰富的语义表示——"一款轻便的越野跑步鞋"对 LLM 是有意义的文本，但对 ID embedding 是空白。
+
+### Prompt-based 推荐
+
+$$
+P(\text{item} | \text{user}) = \text{LLM}(\text{"用户喜欢 [历史物品列表]，推荐下一个："})
+$$
+
+**直观理解**：把推荐问题转化为自然语言的文本生成——LLM 的世界知识可以做"常识推理"（喜欢徒步的人可能喜欢登山杖），但 LLM 不了解平台的具体物品库，容易"幻觉"出不存在的物品。
+
+### 知识蒸馏到推荐模型
+
+$$
+\mathcal{L} = \mathcal{L}_{\text{task}} + \alpha \cdot \text{MSE}(e_{\text{rec}}, \text{sg}(e_{\text{LLM}}))
+$$
+
+**直观理解**：LLM 推理太慢，不能直接在线服务推荐。蒸馏把 LLM 的语义知识"灌入"轻量推荐模型——让小模型的 embedding 空间对齐 LLM 的表示空间，享受 LLM 的语义能力但保持小模型的速度。
+

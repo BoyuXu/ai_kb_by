@@ -145,3 +145,31 @@ SPLADE-v3（今日）→ DeBERTa 基座 + 蒸馏 + 量化 = 接近 Dense 效果 
 
 ### Q10: 搜索系统的 freshness（时效性）怎么做？
 **30秒答案**：①时间衰减因子：较新文档加权；②实时索引更新：新文档分钟级可搜；③时效性意图识别：检测「最新」「今天」等时效性 query。电商搜索中 freshness 影响较小，新闻搜索中至关重要。
+
+
+## 📐 核心公式直观理解
+
+### BM25 的词汇匹配
+
+$$
+\text{BM25}(q, d) = \sum_{t \in q \cap d} \text{IDF}(t) \cdot \frac{(k_1+1) \cdot \text{tf}(t,d)}{k_1(1-b+b \cdot dl/avdl) + \text{tf}(t,d)}
+$$
+
+**直观理解**：BM25 只看 query 和 document 的共现词。优势：精确匹配（搜"iPhone 16 Pro"必须含这些词），零 shot 不需训练，可解释。劣势：语义鸿沟（搜"苹果手机"匹配不到含"iPhone"的文档）。
+
+### Dense Retrieval 的语义匹配
+
+$$
+\text{score} = \cos(\text{E}(q), \text{E}(d)) = \frac{\text{E}(q)^T \text{E}(d)}{\|\text{E}(q)\| \cdot \|\text{E}(d)\|}
+$$
+
+**直观理解**：Dense 检索把文本压缩为连续向量后算余弦相似度。优势：语义匹配（"苹果手机" ≈ "iPhone"）。劣势：需要标注数据训练 encoder，对罕见术语/实体名表现差（训练时没见过）。
+
+### 决策框架
+
+$$
+\text{Choose} = \begin{cases} \text{Sparse} & \text{if entity-heavy, exact match critical} \\ \text{Dense} & \text{if semantic, natural language} \\ \text{Hybrid} & \text{if mixed query types (default)} \end{cases}
+$$
+
+**直观理解**：搜产品型号/代码/人名 → 用 BM25（精确匹配）；搜"怎么减肥" → 用 Dense（语义理解）；不确定 → 用 Hybrid（两者融合，通常最优）。工业系统默认 Hybrid，因为用户 query 类型多样无法预判。
+
