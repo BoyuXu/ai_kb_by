@@ -545,3 +545,44 @@ Meta Lattice 解决方案：①跨域知识共享（统一 User Tower）②Domai
 6. **统一模型架构**：从N×M个专门模型到统一架构（Meta Lattice），降低运维成本同时提升效果
 
 
+
+
+---
+
+## 附录：合并自 广告系统CTR预估与排序前沿综述.md 的独有内容
+
+### 生成式广告重排技术
+
+**GR2 生成式推理重排**：将重排分解为推理+排序两步：
+$$
+P(rank | q, u, \mathcal{C}) = P(reasoning | q, u) \cdot P(rank | reasoning, \mathcal{C})
+$$
+CoT推理链迫使模型先理解用户意图再排序。
+
+**HiGR ORPO 三阶段目标优化**：
+$$
+\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma\left(\sum_t l_\theta(x, y^+_t) - \sum_t l_\theta(x, y^-_t)\right)
+$$
+
+### DAPO 大规模 RL 训练
+
+**解耦裁剪策略**：正负样本不同clip阈值（ε_high > ε_low），加速正样本学习同时稳定负样本惩罚。
+
+**Token级策略梯度**：
+$$
+\mathcal{L}_{token} = -\frac{1}{\sum_t |tokens_t|} \sum_t \sum_k A_t \log \pi_\theta(a_{t,k} | s_{t,k})
+$$
+
+解决长序列信用分配问题。
+
+### 补充 Q&A
+
+**Q: HiGR的CRQ-VAE为什么排除最后一层做对比学习？**
+A: 前D-1层共享粗粒度语义，最后一层负责区分具体物品。对最后层做对比约束会强制不同物品最终ID也相似，破坏唯一性。
+
+**Q: 广告系统A/B实验中有哪些常见偏差？**
+A: 网络效应（对照组污染）、幸存者偏差（只分析有点击样本）、长期效应遗漏、新奇效应。规避：user bucketing、Holdout实验、分层实验、Switchback实验。
+
+**Q: Instance-Guided Mask和Self-Attention的区别？**
+A: Mask是基于实例MLP生成固定掩码做element-wise乘法（O(d)），Attention是Query-Key动态计算的加权求和（O(n²d)）。Mask做特征内部增强，Attention做特征间关系建模，可组合使用。
+
