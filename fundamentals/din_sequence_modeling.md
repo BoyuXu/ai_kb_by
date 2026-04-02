@@ -444,3 +444,40 @@ Hard Search（类目匹配）的优势：实现简单、速度极快（倒排索
 - Gu et al. "MAMBA4Rec: Towards Efficient Sequential Recommendation with Selective State Space Models" (2024)
 - Gu & Dao. "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" (2023)
 - Kang & McAuley. "Self-Attentive Sequential Recommendation" (SASRec, ICDM 2018)
+
+## 🃏 面试速查卡
+
+**记忆法**：DIN 像"逛超市时的眼神"——你看到 iPhone 手机壳广告时，大脑自动回忆"我之前买过手机壳"（高权重），而不是"我上周买的书"（低权重）。Target Attention 就是"用当前广告去翻用户的购物历史"。SIM 是"历史太长先用目录索引筛一遍再精读"。
+
+**核心考点**：
+1. DIN 为什么不用 softmax 归一化注意力权重？（避免多个相关行为被稀释，允许权重叠加）
+2. DIN 注意力中为什么用 e_i-e_ad 和 e_i⊙e_ad？（差向量=相似度信号，积向量=共同兴趣信号）
+3. SIM Hard Search vs Soft Search 的选择？（Hard=类目倒排快但无跨类目语义，Soft=ANN 召回质量高但工程复杂）
+4. DIEN 辅助损失的作用？（为 GRU 每个时间步提供直接语义监督，防止兴趣表示退化）
+5. 超长序列（10000+）的工程挑战和解决方案？（SIM 两阶段检索、ETA SimHash、Mamba O(n) 复杂度）
+
+**代码片段**：
+```python
+import torch, torch.nn as nn
+
+class DINAttention(nn.Module):
+    def __init__(self, dim=32):
+        super().__init__()
+        self.mlp = nn.Sequential(nn.Linear(4*dim, 64), nn.ReLU(), nn.Linear(64, 1))
+
+    def forward(self, hist, target):
+        # hist: (B, L, D), target: (B, D)
+        t = target.unsqueeze(1).expand_as(hist)
+        feat = torch.cat([hist, t, hist - t, hist * t], dim=-1)
+        w = torch.sigmoid(self.mlp(feat).squeeze(-1))  # (B, L)
+        return (w.unsqueeze(-1) * hist).sum(dim=1)      # (B, D)
+
+attn = DINAttention(dim=32)
+user_emb = attn(torch.randn(4, 20, 32), torch.randn(4, 32))
+print(f"User embedding: {user_emb.shape}")  # (4, 32)
+```
+
+**常见踩坑**：
+1. 将 DIN 的注意力等同于 Transformer 注意力——DIN 是单 Query（目标广告）对序列，不做 softmax 归一化
+2. SIM 中忘记考虑实时索引更新的工程开销——用户每次交互后需要 append 到 ANN 索引
+3. 忽略 GAUC 和全局 AUC 的区别——GAUC 按用户分组计算更能反映个性化效果

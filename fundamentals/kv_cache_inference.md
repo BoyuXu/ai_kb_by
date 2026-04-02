@@ -371,3 +371,35 @@ Prefill 阶段（处理整个 prompt）：计算密集型，大矩阵乘法，GP
 - Frantar et al. "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers" (2022)
 - Leviathan et al. "Fast Inference from Transformers via Speculative Decoding" (2023)
 - Yu et al. "Orca: A Distributed Serving System for Transformer-Based Generative Models" (Continuous Batching, 2022)
+
+## 🃏 面试速查卡
+
+**记忆法**：KV Cache 像"考试时的草稿纸"——每算一步就把中间结果记下来，下一步直接查（而不是重新算）。PagedAttention 像"操作系统虚拟内存"——不预分配整本笔记本，用多少页撕多少页，用完的还能回收。GQA 像"几个人共用一本参考书"——减少副本数量省空间。
+
+**核心考点**：
+1. KV Cache 内存公式：2 × 层数 × KV头数 × 头维度 × 序列长度 × dtype字节数
+2. PagedAttention 和 OS 虚拟内存的异同？（分页/按需分配/CoW 相同；无磁盘 swap/Block 大小不同）
+3. Prefill vs Decode 阶段的计算特性差异？（Prefill=计算密集，Decode=内存带宽瓶颈）
+4. 推测解码（Speculative Decoding）的加速原理和适用场景？（小模型 draft+大模型验证，适合长输出）
+5. Continuous Batching 如何提升 GPU 利用率？（完成即释放+新请求即加入，消除等待浪费）
+
+**代码片段**：
+```python
+def estimate_kv_cache_memory(n_layers, n_kv_heads, d_head, seq_len,
+                              batch_size, dtype_bytes=2):
+    """估算 KV Cache 显存占用 (bytes)"""
+    per_token = 2 * n_layers * n_kv_heads * d_head * dtype_bytes
+    total = per_token * seq_len * batch_size
+    print(f"Per token: {per_token/1024:.1f} KB")
+    print(f"Total: {total/1024**3:.2f} GB")
+    return total
+
+# LLaMA-3-70B (GQA 8 KV heads), BF16, batch=32, seq=4096
+estimate_kv_cache_memory(n_layers=80, n_kv_heads=8, d_head=128,
+                         seq_len=4096, batch_size=32, dtype_bytes=2)
+```
+
+**常见踩坑**：
+1. 计算 KV Cache 时用了 Q 的头数而非 KV 的头数——GQA 下 KV 头数远小于 Q 头数
+2. 忽略 Decode 阶段是内存带宽瓶颈而非算力瓶颈——增大 batch 对 decode 吞吐提升显著
+3. 认为 PagedAttention 会降低精度——它只改变内存管理策略，计算结果与标准注意力完全一致

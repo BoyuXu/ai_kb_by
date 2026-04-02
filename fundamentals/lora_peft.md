@@ -394,3 +394,41 @@ LoRA 是矩阵乘法的低秩分解，合并后无额外推理开销，且权重
 - Dettmers et al. "QLoRA: Efficient Finetuning of Quantized LLMs" (2023)
 - Li & Liang. "Prefix-Tuning: Optimizing Continuous Prompts for Generation" (2021)
 - Aghajanyan et al. "Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning" (2020)
+
+## 🃏 面试速查卡
+
+**记忆法**：LoRA 像"在大师画作上贴便签纸"——原画（W₀）冻结不动，便签纸（BA）记录微调信息。便签很小（低秩 r），但能精准修改画作效果。合并时把便签内容直接画到原画上（W'=W₀+BA），以后看画就不用翻便签了（零推理开销）。B 初始为零=刚开始便签是空白的。
+
+**核心考点**：
+1. LoRA 为什么初始化 B=0、A 用高斯？（保证初始 ΔW=0 等于原模型，A 非零提供梯度方向）
+2. LoRA 参数量计算：(d+k)×r，相比全参数 d×k 压缩了多少倍？
+3. LoRA vs Adapter 的核心区别？（LoRA 可合并权重零推理开销，Adapter 串行执行有延迟）
+4. r 越大越好吗？（不是，大 r 过拟合+失去正则化作用，从 r=8 开始实验）
+5. QLoRA 中为什么基础模型 4-bit 但 LoRA 参数用 BF16？（4-bit 不可微，LoRA 参数少用高精度代价不大）
+
+**代码片段**：
+```python
+import torch, torch.nn as nn
+
+class LoRALinear(nn.Module):
+    def __init__(self, in_dim, out_dim, r=8, alpha=16):
+        super().__init__()
+        self.W = nn.Linear(in_dim, out_dim, bias=False)
+        self.W.weight.requires_grad = False  # 冻结原权重
+        self.A = nn.Parameter(torch.randn(r, in_dim) * 0.01)
+        self.B = nn.Parameter(torch.zeros(out_dim, r))
+        self.scale = alpha / r
+
+    def forward(self, x):
+        return self.W(x) + (x @ self.A.T @ self.B.T) * self.scale
+
+layer = LoRALinear(512, 512, r=8)
+trainable = sum(p.numel() for p in layer.parameters() if p.requires_grad)
+total = sum(p.numel() for p in layer.parameters())
+print(f"Trainable: {trainable} / {total} = {trainable/total:.2%}")
+```
+
+**常见踩坑**：
+1. 忘记 α/r 的 scaling——不加 scaling 时改变 r 会隐式改变学习率，对比实验不公平
+2. 对 Embedding 层加 LoRA——语义空间大改容易灾难性遗忘，通常不推荐
+3. 合并多个 LoRA 时忽略基础模型一致性——不同基础模型训练的 LoRA 无法合并

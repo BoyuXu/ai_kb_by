@@ -481,3 +481,38 @@ m 控制动量编码器（Key Encoder）的更新速度：$\theta_k \leftarrow m
 - Yi et al. "Sampling-Bias-Corrected Neural Modeling for Large Corpus Item Recommendations" (频率修正, 2019)
 - Reimers & Gurevych. "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks" (2019)
 - Chuang et al. "Debiased Contrastive Learning" (假负样本修正, 2020)
+
+## 🃏 面试速查卡
+
+**记忆法**：对比学习像"人脸识别考勤机"——同一个人的不同角度照片要拉近（正样本），不同人的照片要推开（负样本）。温度 τ 像"严格程度"：τ 小=严厉老师只看最难的题，τ 大=佛系老师不怎么区分。InfoNCE 本质上就是"N 选 1 的多分类交叉熵"。
+
+**核心考点**：
+1. InfoNCE Loss 的公式推导及其与交叉熵的等价性？（N 类分类问题，正例为目标类）
+2. 温度参数 τ 对训练的影响？（小 τ 集中于 hard negative，大 τ 趋于均匀分布）
+3. In-batch Negative 的采样偏差问题及修正方法？（热门物品过度惩罚，用 log p(item) 修正）
+4. SimCLR vs MoCo 的核心区别？（大 batch vs 动量编码器+队列，解决负样本数量问题）
+5. 表示坍塌（Representation Collapse）是什么？如何防止？（负样本/不对称设计/协方差正则）
+
+**代码片段**：
+```python
+import torch, torch.nn.functional as F
+
+def info_nce_loss(query, positive_key, temperature=0.07):
+    """InfoNCE: in-batch contrastive loss"""
+    query = F.normalize(query, dim=-1)       # (N, d)
+    positive_key = F.normalize(positive_key, dim=-1)  # (N, d)
+    logits = torch.matmul(query, positive_key.T) / temperature  # (N, N)
+    labels = torch.arange(len(query), device=query.device)
+    return F.cross_entropy(logits, labels)
+
+# 演示：batch=32, dim=128
+q = torch.randn(32, 128)
+k = torch.randn(32, 128)
+loss = info_nce_loss(q, k, temperature=0.07)
+print(f"InfoNCE loss: {loss.item():.4f}")
+```
+
+**常见踩坑**：
+1. 忘记 L2 归一化——不归一化时点积量级不可控，温度参数失去意义
+2. 混淆 τ 的方向——τ 越小分布越尖锐（不是越平滑），是常见面试陷阱
+3. 认为负样本越多越好——超过一定数量后假负样本问题加剧，收益递减

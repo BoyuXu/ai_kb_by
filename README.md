@@ -97,6 +97,126 @@ ai-kb/
 LLM 基础设施（llm-infra）和 Agent 研究（agent-context-management）。
 专注 LLM 推理优化、微调、部署，以及 Agent 系统设计与上下文管理。
 
+## 🗺️ 知识图谱
+
+```mermaid
+graph LR
+    subgraph fundamentals["基础理论层 fundamentals/"]
+        F1[Attention/Transformer]
+        F2[Embedding/ANN]
+        F3[多任务学习/MMoE]
+        F4[对比学习]
+        F5[RLHF/奖励建模]
+        F6[LoRA/PEFT]
+        F7[CTR校准]
+        F8[DIN序列建模]
+        F9[BM25/稀疏检索]
+        F10[KV Cache推理]
+        F11[Uplift建模]
+        F12[拍卖理论]
+    end
+
+    subgraph rec["推荐系统 rec-sys/"]
+        R1[召回/粗排/精排/重排]
+        R2[多目标排序]
+        R3[用户序列建模]
+        R4[推荐Scaling定律]
+    end
+
+    subgraph search["搜索系统 search/"]
+        S1[语义检索/混合检索]
+        S2[查询理解/重写]
+        S3[推理增强重排]
+    end
+
+    subgraph ads["广告系统 ads/"]
+        A1[CTR/CVR预估]
+        A2[竞价机制/GSP/VCG]
+        A3[广告创意生成]
+    end
+
+    subgraph llm["LLM基础设施 llm-infra/"]
+        L1[推理优化/Serving]
+        L2[对齐/微调]
+        L3[FlashAttention]
+        L4[RAG/Agent]
+    end
+
+    subgraph cross["跨域融合层 cross-domain/"]
+        C1[统一模型架构]
+        C2[偏差治理体系]
+        C3[多目标优化框架]
+        C4[LLM集成框架]
+        C5[生成式范式统一]
+        C6[MoE跨域设计]
+        C7[端到端消除StageGap]
+        C8[强化学习跨域统一]
+        C9[长序列处理]
+    end
+
+    subgraph interview["面试输出层 interview/"]
+        I1[算法面试题库]
+        I2[系统设计面试]
+        I3[场景深度题]
+        I4[编程/PyTorch]
+        I5[模拟面试]
+        I6[ML基础速查]
+    end
+
+    %% 基础理论 → 推荐
+    F1 --> R3
+    F3 --> R2
+    F4 --> R1
+    F8 --> R3
+
+    %% 基础理论 → 搜索
+    F1 --> S1
+    F9 --> S1
+    F2 --> S1
+
+    %% 基础理论 → 广告
+    F7 --> A1
+    F12 --> A2
+    F3 --> A1
+    F11 --> A1
+
+    %% 基础理论 → LLM
+    F1 --> L3
+    F5 --> L2
+    F6 --> L2
+    F10 --> L1
+
+    %% 领域应用 → 跨域融合
+    R1 --> C1
+    R2 --> C3
+    S1 --> C1
+    S3 --> C9
+    A1 --> C3
+    A2 --> C2
+    L1 --> C4
+    L4 --> C4
+    R4 --> C6
+    R1 --> C7
+
+    %% 跨域融合 → 面试
+    C1 --> I2
+    C2 --> I3
+    C3 --> I1
+    C4 --> I1
+    C5 --> I3
+    C8 --> I3
+
+    %% 领域应用 → 面试（直接通路）
+    R1 --> I1
+    S1 --> I1
+    A1 --> I1
+    L1 --> I2
+
+    %% 基础理论 → 面试
+    F1 --> I6
+    F2 --> I4
+```
+
 ## 🏗️ 知识架构
 
 每个核心领域采用 **三层架构**：

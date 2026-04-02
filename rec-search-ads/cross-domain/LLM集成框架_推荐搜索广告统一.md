@@ -56,6 +56,26 @@ graph TB
 
 ### 核心原理
 
+#### 数学基础
+
+LLM 的核心计算单元为 Scaled Dot-Product Attention：
+
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+多头注意力将多个注意力头拼接后线性投影：
+
+$$
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O
+$$
+
+在搜广推场景中，推荐侧特征与 LLM 语义空间的融合通过 Cross-Attention 实现：
+
+$$
+\text{CrossAttn}(Q_{rec}, K_{llm}, V_{llm}) = \text{softmax}\left(\frac{Q_{rec}K_{llm}^T}{\sqrt{d}}\right)V_{llm}
+$$
+
 LLM 在搜广推三大系统中的应用遵循统一的分层范式：
 
 ```
@@ -139,6 +159,22 @@ LLM 在搜广推三大系统中的应用遵循统一的分层范式：
   - 广告系统：eCPM +8-15%
 - **成本**：20-50ms per reranking
 
+#### MoE 路由机制
+
+大规模 LLM 常采用 Mixture-of-Experts 架构实现高效推理：
+
+$$
+y = \sum_{i=1}^{N} G(x)_i \cdot E_i(x), \quad G(x) = \text{Softmax}(\text{TopK}(x \cdot W_g))
+$$
+
+为防止专家负载不均衡，引入辅助损失：
+
+$$
+\mathcal{L}_{balance} = N \cdot \sum_{i=1}^{N} f_i \cdot P_i
+$$
+
+其中 $f_i$ 为第 $i$ 个专家被分配的 token 比例，$P_i$ 为路由概率均值。
+
 #### 推荐系统深化：冷启动 + 多样性控制
 #### 搜索系统深化：RankLLM + 意图分类
 #### 广告系统深化：竞价决策 + 多目标优化
@@ -155,6 +191,64 @@ LLM 在搜广推三大系统中的应用遵循统一的分层范式：
 #### 推荐系统：对话推荐 + 多轮推理
 #### 搜索系统：生成式检索 + Agent 搜索
 #### 广告系统：生成式竞价框架
+
+#### 核心训练公式
+
+**Instruction Tuning Loss**（自回归训练目标）：
+
+$$
+\mathcal{L}_{IT} = -\sum_{t} \log P_\theta(y_t | y_{<t}, x)
+$$
+
+**RLHF PPO 目标**（基于人类反馈的强化学习）：
+
+$$
+\mathcal{L}_{PPO} = -E_t\left[\min(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t)\right]
+$$
+
+加入 KL 惩罚防止策略偏离参考模型：
+
+$$
+\mathcal{L} = \mathcal{L}_{PPO} - \beta D_{KL}(\pi_\theta \| \pi_{ref})
+$$
+
+**Reward Model 训练**（Bradley-Terry 偏好模型）：
+
+$$
+\mathcal{L}_{RM} = -\log\sigma(r_\theta(x, y_w) - r_\theta(x, y_l))
+$$
+
+其中 $y_w$ 为人类偏好的回答，$y_l$ 为被拒绝的回答。
+
+**LoRA 低秩适配**（高效微调）：
+
+$$
+W' = W_0 + \Delta W = W_0 + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times k}
+$$
+
+秩 $r \ll \min(d, k)$，大幅降低可训练参数量（通常 $r = 4 \sim 64$）。
+
+**Embedding 对齐损失**（推荐特征与 LLM 空间对齐）：
+
+$$
+\mathcal{L}_{align} = \|f_{LLM}(x) - g_{rec}(x)\|_2^2
+$$
+
+**Temperature Sampling**（生成多样性控制）：
+
+$$
+P(x_i) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}
+$$
+
+$T \to 0$ 趋向贪心解码，$T \to \infty$ 趋向均匀采样。
+
+**Prompt 构造模板**：
+
+$$
+\text{input} = [\text{instruction}; \text{user\_history}; \text{candidate\_items}]
+$$
+
+将用户行为序列和候选物品编码为自然语言，输入 LLM 进行推理。
 
 ---
 

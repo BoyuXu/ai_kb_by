@@ -252,3 +252,45 @@ A：第1个月（快速见效）：数据质量提升——清洗机器流量（
    ├─ 高频item给更高维度（hierarchical embedding）
    └─ 冷启动item用内容embedding初始化
 ```
+
+## 系统架构
+
+```mermaid
+graph TD
+    subgraph 推荐Scaling["推荐系统Scaling"]
+        RS1["数据Scaling (beta=0.28)<br/>10x数据→1.9x性能提升"]
+        RS2["Embedding Scaling<br/>V*d对数正比性能"]
+        RS3["模型Scaling (alpha=0.07)<br/>10x参数→1.17x提升"]
+        RS4["MoE架构<br/>RankMixer突破百亿瓶颈"]
+    end
+
+    subgraph 广告Scaling["广告系统Scaling"]
+        AS1["CTR数据飞轮<br/>更多曝光→更多标注"]
+        AS2["Wukong大规模并行<br/>Pre-LN+混合并行"]
+        AS3["Embedding Table<br/>广告主/创意ID扩展"]
+        AS4["DHEN层次Ensemble<br/>结构深化边际递减"]
+    end
+
+    subgraph 搜索Scaling["搜索系统Scaling"]
+        SS1["索引规模Scaling<br/>覆盖更多文档"]
+        SS2["LLM语义理解<br/>参数Scaling效益高"]
+        SS3["Dense Retriever<br/>Embedding维度扩展"]
+    end
+
+    subgraph 决策框架["资源分配优先级"]
+        D1["优先级1: 数据质量 60%"]
+        D2["优先级2: Embedding规模 30%"]
+        D3["优先级3: 模型参数 10%"]
+    end
+
+    D1 --> RS1
+    D1 --> AS1
+    D2 --> RS2
+    D2 --> AS3
+    D2 --> SS3
+    D3 --> RS3
+    D3 --> AS4
+
+    RS4 -.->|"稀疏激活解耦<br/>参数与延迟"| RS3
+    AS2 -.->|"工程基础设施<br/>支撑Scaling落地"| AS1
+```

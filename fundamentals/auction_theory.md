@@ -343,3 +343,43 @@ $$b^*(v) = v - \frac{\int_0^v F^{n-1}(t) dt}{F^{n-1}(v)} = \mathbb{E}[v_{(n-1)} 
 ### 面试：为什么广告市场从 GSP 切换到 First-Price？
 
 > 答：三个原因。①程序化广告（RTB）的兴起使 DSP 掌握了竞价数据，能精确预测 clearing price，GSP 的"激励相容"特性被打破，变成了博弈性出价（需要出低于真实估值）；②First-Price 对平台更透明，买方清楚自己付了多少，减少了信息不对称；③行业整合推动（IAB OpenRTB 2.5 标准化 First-Price）。切换后主要挑战是 bid shading 导致平台收入短期波动，Google 通过优化 Reserve Price 弥补。
+
+## 🃏 面试速查卡
+
+**记忆法**：拍卖机制就像"餐厅竞价"——GSP 是"你只需付比你低一名的价格"（广义第二价），VCG 是"你付的是你给其他人造成的损失"（外部性定价），一价拍卖是"出多少付多少但大家都砍价"（bid shading）。收入等价定理说"不管怎么拍，平均收入差不多"。
+
+**核心考点**：
+1. GSP 为什么不是激励相容的？举具体数值例子证明（通过降低出价获取更好位置可提高利润）
+2. VCG 定价公式推导：支付 = 有你参与时他人损失的福利（外部性原理）
+3. 收入等价定理的条件和广告场景为什么违反？（位置效应破坏独立性假设）
+4. First-Price Auction 的最优 bid shading 策略：b*(v) = v·(N-1)/N
+5. oCPC 出价公式：CPC_bid = CPA_target × pCVR，为什么依赖校准精度？
+
+**代码片段**：
+```python
+import numpy as np
+
+def simulate_gsp_auction(values, ctrs, num_slots=3):
+    """GSP 拍卖模拟：按 eCPM 排序，支付下一名的最低出价"""
+    n = len(values)
+    ecpm = np.array(values) * np.array(ctrs)
+    ranking = np.argsort(ecpm)[::-1]
+    payments = []
+    for slot in range(min(num_slots, n)):
+        winner = ranking[slot]
+        if slot + 1 < n:
+            next_bidder = ranking[slot + 1]
+            pay = values[next_bidder] * ctrs[next_bidder] / ctrs[winner]
+        else:
+            pay = 0.0
+        payments.append((winner, round(pay, 2)))
+    return payments
+
+results = simulate_gsp_auction([10, 8, 3], [0.1, 0.08, 0.05])
+print(f"GSP winners & payments: {results}")
+```
+
+**常见踩坑**：
+1. 混淆 GSP 和 VCG——GSP 付下一名出价，VCG 付外部性损失，二者定价不同
+2. 认为"二价拍卖=诚实出价"——GSP 不是严格激励相容的，只有 VCG 是 DSIC
+3. 忽略 oCPC 中 CTR/CVR 校准误差对出价的放大效应——高估 10% CTR 就多付 10% 费用

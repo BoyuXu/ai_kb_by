@@ -157,3 +157,50 @@ $$
 
 ### Q10: 算法工程师的核心竞争力？
 **30秒答案**：①业务理解（指标 → 技术方案的转化能力）；②工程能力（模型能上线、能调优、能排查问题）；③论文能力（快速读懂并判断论文的实用价值）；④系统思维（全链路优化而非单点优化）。
+
+## 系统架构
+
+```mermaid
+graph TD
+    subgraph 输入层["统一输入格式"]
+        I1["[SEARCH] query: 好的跑步播客"]
+        I2["[REC] history: pod1 pod2 pod3"]
+        I3["[REASON] question: 跑10km配什么音乐"]
+    end
+
+    subgraph 共享层["共享Transformer Backbone (1B参数)"]
+        B1["Token Embedding层"]
+        B2["多层Self-Attention"]
+        B3["用户意图表征"]
+    end
+
+    subgraph 任务层["任务特定Head (各5M参数)"]
+        H1["搜索Head<br/>query-item相关性"]
+        H2["推荐Head<br/>next-item预测"]
+        H3["推理Head<br/>语义问答匹配"]
+    end
+
+    subgraph 知识迁移["跨域知识迁移"]
+        K1["搜索→推荐<br/>精确意图提升推荐相关性"]
+        K2["推荐→搜索<br/>行为理解增强上下文"]
+        K3["推理→全局<br/>深层语义理解共享"]
+    end
+
+    subgraph 工程保障["工程落地"]
+        E1["延迟SLA隔离<br/>搜索<100ms/推荐<200ms"]
+        E2["Head级灰度发布<br/>独立回滚"]
+        E3["异构数据采样<br/>搜索:推荐:文本=3:2:1"]
+    end
+
+    I1 --> B1
+    I2 --> B1
+    I3 --> B1
+    B1 --> B2 --> B3
+    B3 --> H1
+    B3 --> H2
+    B3 --> H3
+
+    K1 -.-> H2
+    K2 -.-> H1
+    K3 -.-> B3
+```

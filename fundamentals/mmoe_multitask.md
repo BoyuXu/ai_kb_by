@@ -386,3 +386,45 @@ Uncertainty Weighting 实现简单（只需在损失函数中加可学习的 $\s
 - Ma et al. "Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate" (ESMM, SIGIR 2018)
 - Chen et al. "GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks" (ICML 2018)
 - Kendall et al. "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics" (CVPR 2018)
+
+## 🃏 面试速查卡
+
+**记忆法**：MMoE 像"公司的专家顾问团"——有 n 个专家各有专长，每个部门（任务）有自己的秘书（门控网络）决定"这个问题找哪几位专家"。PLE 更进一步：每个部门有专属顾问（私有专家），还有公司公共顾问（共享专家），分工更明确。梯度冲突就像"两个部门抢同一个顾问往相反方向拉"。
+
+**核心考点**：
+1. 梯度冲突的数学定义？（两任务梯度余弦相似度 <0，夹角>90°时联合更新可能伤害某任务）
+2. MMoE 的门控公式：f^k(x) = Σ g^k_i(x)·e_i(x)，g^k = softmax(W_gk · x)
+3. PLE 相比 MMoE 的改进？（显式私有+共享专家分离，减少专家坍塌和跷跷板效应）
+4. GradNorm vs Uncertainty Weighting 如何选？（UW 实现简单首选，GradNorm 更精细但开销大 20-30%）
+5. 多任务学习什么时候不如分开训练？（任务负相关、数据量极不均衡、特征空间差异大时）
+
+**代码片段**：
+```python
+import torch, torch.nn as nn, torch.nn.functional as F
+
+class SimpleMoE(nn.Module):
+    def __init__(self, in_dim=64, expert_dim=32, n_experts=4, n_tasks=2):
+        super().__init__()
+        self.experts = nn.ModuleList([nn.Sequential(
+            nn.Linear(in_dim, expert_dim), nn.ReLU()) for _ in range(n_experts)])
+        self.gates = nn.ModuleList([nn.Linear(in_dim, n_experts) for _ in range(n_tasks)])
+        self.towers = nn.ModuleList([nn.Linear(expert_dim, 1) for _ in range(n_tasks)])
+
+    def forward(self, x):
+        expert_out = torch.stack([e(x) for e in self.experts], dim=1)
+        outputs = []
+        for gate, tower in zip(self.gates, self.towers):
+            w = F.softmax(gate(x), dim=-1).unsqueeze(-1)
+            mixed = (w * expert_out).sum(dim=1)
+            outputs.append(torch.sigmoid(tower(mixed)))
+        return outputs
+
+model = SimpleMoE()
+ctr, cvr = model(torch.randn(8, 64))
+print(f"CTR: {ctr.shape}, CVR: {cvr.shape}")  # (8,1), (8,1)
+```
+
+**常见踩坑**：
+1. 混淆 MMoE（dense gating，所有专家都激活）和 LLM MoE（sparse，只激活 Top-K 专家）
+2. 忽略专家坍塌问题——大多数专家不被使用时等价于 Shared-Bottom，需监控门控权重分布
+3. 多任务排序公式中忘记 CTR 校准——各 task 输出的绝对概率值必须准确才能正确组合

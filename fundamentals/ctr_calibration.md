@@ -490,3 +490,40 @@ GBDT（XGBoost/LightGBM）：输出通常是叶子节点的比例，已有一定
 - Zadrozny & Elkan. "Transforming Classifier Scores into Accurate Multiclass Probability Estimates" (Isotonic Regression, KDD 2002)
 - Niculescu-Mizil & Caruana. "Predicting Good Probabilities With Supervised Learning" (ICML 2005)
 - He et al. "Practical Lessons from Predicting Clicks on Ads at Facebook" (广告 CTR 校准实践, KDD 2014)
+
+## 🃏 面试速查卡
+
+**记忆法**：校准就像"温度计校正"——AUC 高只说明排序对了（温度计能分出冷热），但绝对值可能差很远（显示 50°C 实际才 25°C）。Platt Scaling 是"线性校正"（Ax+B），Isotonic Regression 是"分段查表"，Temperature Scaling 是"统一缩放"（只调一个 T）。oCPC 出价直接乘以预测概率，差 10% 就多花 10% 钱。
+
+**核心考点**：
+1. 为什么 AUC 高的模型还需要校准？（AUC 只衡量排序性，oCPC 出价依赖绝对概率值）
+2. ECE 的计算方法？（分桶后加权 |实际频率 - 预测均值|）
+3. Platt Scaling vs Isotonic Regression 的适用场景？（数据少用 Platt 2参数，数据多用 Isotonic 非参数）
+4. Temperature Scaling 为什么对深度模型特别有效？（DNN 主要问题是过度自信，只需缩放不需平移）
+5. 负样本下采样后如何修正概率偏差？（Prior Correction: p/(p+(1-p)*r/R)）
+
+**代码片段**：
+```python
+import numpy as np
+from scipy.optimize import minimize_scalar
+
+def temperature_scaling(val_logits, val_labels):
+    """找到最优温度 T 使 NLL 最小"""
+    def nll(T):
+        probs = 1 / (1 + np.exp(-val_logits / T))
+        probs = np.clip(probs, 1e-7, 1 - 1e-7)
+        return -np.mean(val_labels * np.log(probs) + (1 - val_labels) * np.log(1 - probs))
+    result = minimize_scalar(nll, bounds=(0.1, 10.0), method='bounded')
+    print(f"Optimal T={result.x:.3f} ({'over-confident' if result.x > 1 else 'under-confident'})")
+    return result.x
+
+# 模拟过度自信模型
+logits = np.random.randn(1000) * 2  # 放大 logits
+labels = (logits + np.random.randn(1000) > 0).astype(float)
+T = temperature_scaling(logits, labels)
+```
+
+**常见踩坑**：
+1. 校准后忘记检查 AUC 是否下降——校准不应改变排序性，AUC 下降说明方法有误
+2. 在训练集上做校准——必须用独立验证集，否则 Isotonic Regression 严重过拟合
+3. 忽略下采样的概率修正——训练时 1:10 采样但预测时面对 1:1000 真实比例，概率系统性偏高
