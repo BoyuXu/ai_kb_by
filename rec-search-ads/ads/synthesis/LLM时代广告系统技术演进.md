@@ -1,6 +1,6 @@
 # LLM时代广告系统技术演进（持续更新）
 
-> 领域：ads | 类型：综合综述 | 覆盖论文：20篇 | 最近更新：2026-03-31
+> 领域：ads | 类型：综合综述 | 覆盖论文：26篇 | 最近更新：2026-04-02
 
 ## 一、技术演进脉络
 
@@ -8,11 +8,14 @@
 传统广告 (2018-2022)                 生成式广告 1.0 (2023-2024)          生成式广告 2.0 (2025-2026)
 ──────────────────────────────       ──────────────────────────────       ──────────────────────────────
 DIN/DIEN 序列建模 CTR               CADET Decoder-Only CTR               DGenCTR 离散扩散 CTR
-FM/DeepFM 特征交叉                   DCN-V2 矩阵 Cross 特征交叉           统一 token 化生成式预测
-GSP 拍卖 + 规则出价                  Lagrangian 对偶自动出价              FPA 时代 Bid Shading + 竞价动态
-人工设计广告素材                     MLLM 驱动创意生成                    多场景统一生成式排序（MTGR）
-独立 CTR/CVR/LTV 模型               UniROM 统一排序模型                  LLM 轻量离线特征增强
-纯 ID 特征冷启动困难                 Multimodal Proxy 解决冷启动          显隐式反馈联合训练
+FM/DeepFM 特征交叉                   DCN-V2 矩阵 Cross 特征交叉           统一 token 化生成式预测（MTGR多任务）
+GSP 拍卖 + 规则出价                  Lagrangian 对偶自动出价              FPA Bid Shading + 竞价动态（Bid2X）
+人工设计广告素材                     MLLM 驱动创意生成                    多场景统一生成式排序（MTGR美团）
+独立 CTR/CVR/LTV 模型               UniROM 统一排序模型                  ELEC 离线 LLM 特征工厂（<2ms延迟）
+纯 ID 特征冷启动困难                 Multimodal Proxy 解决冷启动          广告基础模型预训练 + Adapter 微调
+静态 ID Embedding                    隐式→显式反馈联合训练               GRAD 生成式预训练通用出价模型
+单广告主 RL 出价                     Offline RL 出价（BCQ/CQL）          短视频多模态个性化（NextAds）
+                                                                         毫秒级生成式广告推荐（GR4AD）
 ```
 
 ## 二、核心技术维度
@@ -98,8 +101,65 @@ LLM → Embedding 生成  →  Feature Store → 查表(1ms) → 融合 MLP(1ms)
 **对齐损失**（将 LLM Embedding 对齐到 ID Embedding 空间）：
 
 $$
-L}}_{\text{{align}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
+L_{\text{align}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
 $$
+
+#### ELEC：LLM 离线特征工厂（2025 工业最实用方案）
+
+**三层特征增强架构**：
+
+| 粒度 | LLM 输出 | 在线使用 |
+|------|----------|---------|
+| Item-level | 品类语义标签 + 跨模态描述 | 物品内容 Embedding |
+| User-level | 用户画像 summary | 用户兴趣 Embedding |
+| User×Item | 交互强度评分 | 个性化交叉特征 |
+
+**关键工程**：4096 → 64 维压缩（Knowledge Distillation），在线零 LLM 开销，延迟 +0.3ms。
+
+**ELEC vs 在线 LLM 推理对比**：
+
+| 维度 | ELEC（离线） | 在线 LLM |
+|------|------------|---------|
+| 延迟增量 | +0.3ms | +100-200ms |
+| 特征时效 | 小时级 | 实时 |
+| 冷启动效果 | AUC +2.8% | AUC +3.5% |
+| 工程复杂度 | 中（Feature Store） | 高（在线 LLM 集群） |
+
+**结论**：ELEC 是 LLM × CTR 的工业最优解；在线 LLM 仅在超低流量/高价值广告场景可考虑。
+
+#### 广告基础模型（Foundation Model for Ads）
+
+借鉴 NLP Scaling Law，广告系统也存在**数据规模 → 模型性能**的幂律关系：
+
+$$
+\text{AUC} \propto D^{\alpha}, \quad \alpha \approx 0.07 \text{（广告域经验值）}
+$$
+
+**场景自适应设计**（Adapter 架构）：
+```
+基础模型（跨平台预训练）
+    ↓
+Adapter Layer（场景专有，参数量仅 2-5%）
+    ↓
+搜索广告 / 信息流广告 / 开屏广告
+```
+
+**价值**：新场景冷启动减少 70% 标注数据，是 LLM fine-tuning 范式向广告系统的迁移。
+
+#### 美团 MTGR 多任务生成式排序
+
+在生成式架构基础上引入多任务：
+
+$$
+\mathcal{L}_{MTGR} = \sum_{k} w_k \mathcal{L}_k + \underbrace{\mathcal{L}_{cross-task}}_{\text{任务间注意力}}
+$$
+
+**关键发现**：生成式架构 ≠ 放弃 DLRM 特征交叉，两者互补：
+- 生成式 HSTU 负责序列建模（时序依赖）
+- DLRM Cross 层负责特征交叉（协同关系）
+- Pareto 搜索替代人工调权，效率 ×10
+
+**GMV +2.1%，CTR +0.8%，CVR +1.5%（美团广告在线 A/B）**
 
 ### 2.2 自动出价：从规则到生成式分布
 
@@ -154,6 +214,24 @@ $$
 | 时序性 | 弱（单次竞价） | 强（前瞻性调整） |
 | 适用拍卖 | FPA RTB | FPA + 程序化广告 |
 | 核心优化目标 | 避免过度支付 | 预判市场趁机出价 |
+
+#### GRAD：生成式预训练通用出价模型
+
+**核心范式**：跨广告主大规模预训练，单一模型服务所有广告主：
+
+$$
+P(\text{bid}_t | \text{bid}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
+$$
+
+Diffusion 在连续出价空间建模（多峰分布）：
+
+$$
+b_0 \sim p_\theta(b_0 | b_T, c) = \text{DDIM}(b_T, c, T_{\text{steps}})
+$$
+
+其中 $c$ = 广告主 prompt（KPI + 历史表现），$T_{\text{steps}}$ = 10-20（DDIM 加速）。
+
+**工业价值**：1000 个广告主 → 1 个 GRAD 模型，维护成本 -99%；新广告主（<7天历史）ROI +9.8%（预训练市场知识迁移）。
 
 **四种出价方案对比**：
 | 方法 | 核心思想 | 稳定性 | 最优性 | 工业可行性 |
@@ -211,7 +289,42 @@ $$
 \mathcal{L} = r_\text{CTR} - \beta \cdot \text{KL}(\pi_\theta || \pi_\text{ref}) + \gamma \cdot r_\text{quality}
 $$
 
-### 2.6 广告拍卖机制创新
+### 2.6 短视频广告多模态个性化（NextAds）
+
+**挑战**：短视频广告 = 多模态理解（视频帧 + 音频 + 字幕）× 强用户体验约束（用户容忍度低）。
+
+**技术架构**：
+```
+视频内容 → ViT + AudioEncoder + ASR/OCR → 融合 Embedding
+用户历史视频行为 → 完播率 + 互动率 → 视频消费偏好
+                                           ↓
+                              广告-内容语义对齐（场景融合）
+                                           ↓
+                              动态出价（高沉浸溢价 +12% CVR）
+```
+
+**核心 insight**："场景融合广告"（广告风格贴近有机内容）VTR 比强制插入高 23%。这是广告系统从"曝光最大化"到"体验-收入双优"的典型范式转变。
+
+**关键指标**：VTR +8.2%，CVR +4.5%，高沉浸场景 CVR +12%，eCPM +6%。
+
+### 2.7 毫秒级生成式广告推荐（GR4AD）
+
+**问题**：生成式推荐的自回归解码天然慢（O(K) 步），在线广告 SLA = 50ms P99。
+
+**解法矩阵**：
+
+| 优化技术 | 延迟收益 | 质量损失 |
+|---------|---------|---------|
+| 动态束搜索（Beam Width 自适应） | 中 | 低 |
+| 预计算 KV Cache 复用 | 高（缓存命中率 >85%）| 极低 |
+| 投机解码（Speculative Decoding） | 高 | 低 |
+| INT8 量化 | 中 | 低 |
+
+**组合优化结果**：P99 延迟 5ms 内，相比贪心解码 CTR +1.3%。
+
+**工程决策**：GR4AD 的延迟优化路径 = 缓存命中率优先（ROI 最高），其次量化，最后投机解码。
+
+### 2.8 广告拍卖机制创新
 
 LLM 时代对话式广告拍卖：
 
@@ -234,8 +347,11 @@ $$
 | $p(w \| x) = \sum_k \pi_k \mathcal{N}(w \| \mu_k, \sigma_k^2)$ | GBS 出价分布 | 混合高斯 Bid Shading |
 | $\mathcal{L}(b,\lambda) = \mathbb{E}[\sum_t(v_t - \lambda b_t)] + \lambda B$ | Lagrangian 出价 | 预算约束优化 |
 | $\text{eCPM} = \text{CTR} \times \text{CVR} \times \text{Bid} \times 1000$ | eCPM | 广告排序核心指标 |
-| $L_{align} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID})/\tau)}{\sum_j \exp(\cdot)}$ | 跨模态对齐 | LLM 特征融入 CTR |
+| $L_{\text{align}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID})/\tau)}{\sum_j \exp(\cdot)}$ | 跨模态对齐 | LLM 特征融入 CTR |
 | $\mathcal{L} = r_\text{CTR} - \beta \cdot \text{KL}(\pi_\theta \|\| \pi_\text{ref}) + \gamma r_q$ | 创意生成 | 防 Reward Hacking |
+| $\mathcal{L}_{MTGR} = \sum_k w_k \mathcal{L}_k + \mathcal{L}_{cross-task}$ | MTGR 多任务 | 生成式多目标排序 |
+| $\text{AUC} \propto D^{0.07}$ | 广告 Scaling Law | 基础模型预训练 |
+| $b_0 \sim \text{DDIM}(b_T, c, T_{\text{steps}})$ | GRAD Diffusion 出价 | 跨广告主通用出价 |
 
 ## 四、🎯 核心洞察
 
@@ -252,6 +368,12 @@ $$
 6. **DCN-V2 的工程价值：低秩分解解决了特征维度灾难**：广告系统特征维度动辄 10 万+，全矩阵参数量爆炸；低秩分解让高阶特征交叉在工业可承受的参数量下实现，这是 DCN-V2 成为广告系统基础架构的根本原因。
 
 7. **显隐式反馈统一是信号质量问题而非数据融合问题**：不是"多少数据"而是"多干净的信号"，去噪和质量感知加权才是核心，而非简单的多任务联合训练。
+
+8. **广告基础模型的 Scaling Law 是降低工程成本的杠杆**：广告 AUC ∝ D^0.07 的幂律意味着数据量翻倍只带来约 5% AUC 提升，但多场景 Adapter 微调使新场景上线成本降低 70% 标注。"预训练一次 + 微调多次"的 NLP 范式终于在广告域找到落地路径。
+
+9. **短视频广告的核心差异化：场景融合而非强制插入**：NextAds 的实验数据（场景融合 VTR 比强插高 23%）表明，广告与有机内容的风格一致性是短视频广告效果的关键变量，优先于内容本身的质量。动态出价（高沉浸溢价）是与之配套的竞价策略。
+
+10. **GR4AD 的工程经验：延迟优化 = 缓存命中率 > 量化 > 投机解码**：生成式广告推荐的延迟瓶颈在自回归步数，缓存热门用户的部分解码状态（命中率 >85%）是 ROI 最高的优化手段，其次才是模型量化和投机解码。
 
 ## 五、🎓 面试 Q&A（15题）
 
@@ -300,6 +422,21 @@ $$
 **Q15**: 统一广告排序模型（UniROM）的工程挑战？
 > ① 各任务数据量级差异大（CTR >> CVR >> LTV），需均衡采样；② 任务更新频率不同（实时 CTR vs 天级 LTV）；③ 梯度冲突时的 PCGrad/MGDA 优化；④ 多维指标内卷需系统化 A/B。
 
+**Q16**: ELEC 与广告基础模型（Foundation Model）的区别与分工？
+> ELEC（离线 LLM 特征工厂）：用已有 LLM（如 BERT/LLaMA）生成增强特征，**不改变 CTR 模型结构**，工程改动小，是近期最可落地方案。Foundation Model for Ads：从零预训练专属广告大模型，参数量更大，需要跨平台数据，是 **3-5 年的工程路线**。两者并不对立——ELEC 用于今日业务，Foundation Model 是未来方向。
+
+**Q17**: GRAD（Diffusion 出价）相比 RL 出价的核心优势？
+> RL 出价：每广告主独立训练，维护 1000 个模型，成本高；冷启动广告主无历史数据，策略质量差。GRAD：**一个模型服务所有广告主**，通过 Prompt condition 个性化；预训练学到了市场通用规律，新广告主（<7天历史）直接受益（ROI +9.8%）。不足：Diffusion 推理需控制步数，DDIM 10-20 步满足实时约束，但比 RL 单步前向仍慢。
+
+**Q18**: 短视频广告"场景融合"的技术实现路径？
+> ① 提取有机视频和广告视频的共同语义 Embedding（ViT + 文本）；② 计算风格相似度（内容主题 + 画面节奏 + 情感色调）；③ 候选广告按相似度排序，优先展示风格一致的广告；④ 动态出价：相似度高的场景出价上限提升 20-30%（高 VTR 潜力），相似度低的降价保量。工程挑战：视频特征提取成本高，必须离线预计算 + 定期批量更新。
+
+**Q19**: 生成式广告推荐（GR4AD）的延迟优化为什么以缓存为主？
+> 广告场景用户-广告交互具有高度重复性（热门广告主 × 主流用户群），KV Cache 缓存高频解码状态命中率可达 85%+。而量化（INT8/INT4）需要重新评估模型精度损失，投机解码需要额外草稿模型，工程复杂度高。缓存的工程 ROI 最高：**简单、高效、无精度损失**。缓存失效策略（TTL + LRU）需精心设计以维持命中率。
+
+**Q20**: 广告 Scaling Law（$\text{AUC} \propto D^{0.07}$）意味着什么？
+> 幂律指数 0.07 意味着数据量翻倍只带来 ~5% AUC 提升（$2^{0.07} \approx 1.05$），但与 NLP（~0.1-0.15）相比更平缓，说明广告系统的提升瓶颈不仅在数据量，也在**特征质量和模型架构**。实践启示：① 追求数据量翻倍的边际效益在下降，特征工程和架构创新更有价值；② 多场景 Adapter 微调（参数量仅 2-5%）可以在不增加基础模型成本的前提下快速获取新场景收益。
+
 ## 六、📐 横向对比：工程落地视角
 
 ```
@@ -311,9 +448,11 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 ```
 
 **工程选型建议**：
-- **主排序模型**：DCN-V2 / DNN 为主干，LightweightLLM 为补充特征
-- **生成式探索**：DGenCTR 可作为离线评估 baseline，上线需专门优化延迟
-- **新场景快速上线**：MTGR 统一模型 + 场景 Prompt，比训练独立模型快 3-5 倍
+- **主排序模型**：DCN-V2 / DNN 为主干，ELEC 离线 LLM 特征为补充（+0.3ms 零感知增强）
+- **生成式探索**：DGenCTR 可作为离线评估 baseline，上线需专门优化延迟（GR4AD 路线）
+- **新场景快速上线**：MTGR 统一模型 + 场景 Prompt，比训练独立模型快 3-5 倍；或 Foundation Model + Adapter 微调
+- **自动出价选型**：单广告主高价值 → KBD（稳定+知识注入）；多广告主平台 → GRAD（跨广告主通用，维护成本低）
+- **短视频广告**：NextAds 的场景融合 + 动态出价组合，是 2026 年短视频广告系统的参考架构
 
 ## 📚 参考文献
 
@@ -321,14 +460,18 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 > - [bid2x_bidding_dynamics_forecasting](../papers/bid2x_bidding_dynamics_forecasting.md) — 竞价动态预测前瞻性出价优化
 > - [dcn_v2_deep_cross_network](../papers/dcn_v2_deep_cross_network.md) — DCN-V2 改进的深度交叉网络
 > - [mtgr_meituan_generative_recommendation](../papers/mtgr_meituan_generative_recommendation.md) — 美团工业级多场景生成式推荐
+> - [mtgr_multi_task_generative_ranking](../papers/mtgr_multi_task_generative_ranking.md) — 美团多任务生成式排序（HSTU + DLRM + Pareto）
 > - [dgenctr_discrete_diffusion_ctr](../papers/dgenctr_discrete_diffusion_ctr.md) — 离散扩散生成式 CTR 预测
 > - [generative_user_interest_shift_cohort_ctr](../papers/generative_user_interest_shift_cohort_ctr.md) — 生成式用户兴趣漂移群组建模
 > - [revisiting_explicit_implicit_feedback](../papers/revisiting_explicit_implicit_feedback.md) — 重新审视显式与隐式反馈
-> - [lightweight_llm_enhanced_ctr](../papers/lightweight_llm_enhanced_ctr.md) — 轻量化 LLM 增强 CTR 预测
+> - [ELEC_efficient_llm_empowered_click_through_rate_prediction](../papers/ELEC_efficient_llm_empowered_click_through_rate_prediction.md) — LLM 离线特征工厂高效 CTR 增强
+> - [foundation_model_ads_ctr](../papers/foundation_model_ads_ctr.md) — 广告基础模型预训练 + Scaling Law
+> - [NextAds_next_generation_personalized_video_advertising](../papers/NextAds_next_generation_personalized_video_advertising.md) — 短视频多模态个性化广告
+> - [gr4ad_generative_recommendation_advertising](../papers/gr4ad_generative_recommendation_advertising.md) — 毫秒级生成式广告推荐（GR4AD）
 > - [gbs_generative_bid_shading_rtb](../papers/gbs_generative_bid_shading_rtb.md) — 生成式 Bid Shading RTB
 > - [dgenctr_universal_generative_ctr](../papers/dgenctr_universal_generative_ctr.md) — 通用生成式 CTR 范式
 > - [CADET_context_conditioned_ads_CTR_decoder_only_transformer](../papers/CADET_context_conditioned_ads_CTR_decoder_only_transformer.md) — Decoder-Only 因果建模广告 CTR
-> - [GRAD_generative_pretrained_models_automated_ad_bidding](../papers/GRAD_generative_pretrained_models_automated_ad_bidding.md) — 生成式预训练模型自动出价
+> - [GRAD_generative_pretrained_models_automated_ad_bidding](../papers/GRAD_generative_pretrained_models_automated_ad_bidding.md) — 生成式预训练模型自动出价（跨广告主通用）
 > - [GAVE_generative_auto_bidding_value_guided_explorations](../papers/GAVE_generative_auto_bidding_value_guided_explorations.md) — 价值引导扩散模型出价探索
 > - [KBD_knowledge_informed_bidding_dual_process_control](../papers/KBD_knowledge_informed_bidding_dual_process_control.md) — 知识引导双过程控制自动出价
 > - [CTR_driven_advertising_image_generation_MLLM](../papers/CTR_driven_advertising_image_generation_MLLM.md) — CTR 驱动广告图像生成

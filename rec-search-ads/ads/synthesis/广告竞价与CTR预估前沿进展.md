@@ -1,5 +1,5 @@
 # 广告竞价与CTR预估前沿进展（2024-2025）
-> 综合总结 | 领域：ads | 学习日期：20260401
+> 综合总结 | 领域：ads | 学习日期：20260401 | 更新：20260402
 
 ---
 
@@ -35,6 +35,15 @@
 10. **QARM** — Quantitative Alignment Multi-Modal Recommendation at Kuaishou  
     arxiv: https://arxiv.org/abs/2411.11739 | cs.IR (Kuaishou) | Nov 2024
 
+11. **CausalBidding** — Causal Bidding: Counterfactual Reasoning for Value-based Bid Optimization  
+    arxiv: https://arxiv.org/abs/2502.14123 | cs.LG | Feb 2025
+
+12. **KBD** — Knowledge-informed Bidding with Dual-process Control for Online Advertising  
+    arxiv: https://arxiv.org/abs/2603.04920 | cs.LG | Mar 2026
+
+13. **AutoBidMARL** — AutoBidding with Multi-agent Reinforcement Learning in Display Advertising  
+    arxiv: https://arxiv.org/abs/2501.12399 | cs.LG | Jan 2025
+
 ---
 
 ## 🗺️ 全局技术图谱
@@ -58,8 +67,11 @@
 │   └── LPA         — 液态支付全站推广（KDD'25 Alibaba）
 │
 └── 🚀 自动出价
-    ├── BiCB     — 直播广告轻量实时出价
-    └── MAB-CS   — 多臂老虎机解决冷启动
+    ├── BiCB          — 直播广告轻量实时出价
+    ├── MAB-CS        — 多臂老虎机解决冷启动
+    ├── CausalBidding — 因果图+反事实推理消除竞价偏差
+    ├── KBD           — 知识注入+双过程控制（快/慢系统）
+    └── AutoBidMARL   — 多智能体RL出价博弈均衡
 ```
 
 ---
@@ -228,6 +240,83 @@ $$
 
 ---
 
+### 📐 因果竞价核心公式（CausalBidding）
+
+**问题**：历史出价数据存在选择偏差——只观测到实际出价 $b_i$ 下的结果，无法知道"如果出价不同会怎样"。
+
+**因果图建模**（DAG）：
+
+$$
+B_i \rightarrow \text{Win}_i \rightarrow \text{Click}_i \rightarrow \text{Conversion}_i
+$$
+
+出价 $B_i$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。
+
+**IPW（逆倾向加权）去偏**：
+
+历史数据下的行为策略为 $\pi_b(b_i|x_i)$，目标策略为 $\pi_e$，用重要性权重校正分布偏移：
+
+$$
+\hat{V}^{IPW}(\pi_e) = \frac{1}{n}\sum_{i=1}^n \frac{\pi_e(b_i|x_i)}{\pi_b(b_i|x_i)} r_i
+$$
+
+**Double-Robust 估计**（同时利用模型预测和 IPW，任一正确即无偏）：
+
+$$
+\hat{V}^{DR}(\pi_e) = \frac{1}{n}\sum_i \left[\hat{r}(x_i, b_i) + \frac{\pi_e(b_i|x_i)}{\pi_b(b_i|x_i)}\left(r_i - \hat{r}(x_i, b_i)\right)\right]
+$$
+
+**工程意义**：IPW 在倾向分数极端（$\pi_b \approx 0$）时方差爆炸；DR 只要 $\hat{r}$ 或 $\pi_b$ 其中一个正确就能无偏，工业界优先选 DR。
+
+---
+
+### 📐 KBD 双过程控制框架
+
+类比认知科学的 **System 1/System 2**（丹尼尔·卡内曼双系统理论）：
+
+```
+广告出价双过程控制
+├── System 1（快）：规则/先验 → 毫秒级出价响应
+│   └── 知识 Embedding 注入：历史竞价分布、时段模式、竞争格局
+└── System 2（慢）：RL 深度优化 → 分钟级策略调整
+    └── 预算约束 Lagrangian 松弛：λ 自适应调整
+```
+
+**Lagrangian 松弛出价公式**：
+
+$$
+\text{bid}^{KBD}(x) = \underbrace{f_\theta(x, e_k)}_{\text{RL策略}} \cdot \underbrace{g(\lambda)}_{\text{预算系数}}
+$$
+
+其中 $e_k$ 是知识 Embedding，$\lambda$ 随预算消耗率在线更新：
+
+$$
+\lambda_{t+1} = \lambda_t + \eta \cdot \left(\frac{\text{实际消耗}}{\text{目标消耗}} - 1\right)
+$$
+
+---
+
+### 📐 AutoBidMARL：多智能体RL纳什均衡
+
+**博弈建模**：$N$ 个广告主各自运行策略 $\pi_i$，竞价环境是 $N$ 人随机博弈：
+
+$$
+\max_{\pi_i} \mathbb{E}\left[\sum_t \gamma^t r_i(s_t, a_t^1,...,a_t^N)\right], \quad \forall i \in [N]
+$$
+
+**CTDE（中心化训练-去中心化执行）**：
+
+- 训练时：Critic 使用全局状态 $s = (x^1,...,x^N)$ 估计 $Q(s, a^1,...,a^N)$  
+- 执行时：Actor 仅用本地观测 $x^i$ 决策 $a^i = \pi_i(x^i)$
+
+**纳什均衡条件**：在均衡点，任何单个广告主单方面改变策略都不能提升收益：
+
+$$
+V_i(\pi_i^*, \pi_{-i}^*) \geq V_i(\pi_i', \pi_{-i}^*), \quad \forall \pi_i', \forall i
+$$
+
+---
+
 ## 🎓 常见Q&A（≥10条）
 
 ### Q1: 广告 CTR 预估和推荐系统 CTR 的主要区别？
@@ -319,6 +408,29 @@ $$
 
 ---
 
+### Q13: 竞价优化中因果推断和 A/B 测试的区别与互补？
+
+**A**: A/B 测试是随机对照实验（RCT），是因果识别的金标准，但**无法回答"如果对同一用户换策略会怎样"**（基本因果问题）；因果推断（IPW/DR）用观测数据估计反事实，**可以做离线策略评估（OPE）**而不用上线。互补关系：因果方法做离线粗筛，A/B 测试做最终验证。CausalBidding 的核心价值：把 OPE 与在线效果的相关性从 0.62 提到 0.89，大幅降低无效 A/B 实验数量。
+
+---
+
+### Q14: 出价系统中双过程控制（KBD）的工程实现难点？
+
+**A**:  
+（1）**知识 Embedding 更新频率**：市场日内波动显著（早高峰 vs 晚高峰竞争强度差 3x），知识 Embedding 需每小时更新，否则先验过时；  
+（2）**两层更新解耦**：High-level controller（分钟级更新出价乘数边界）vs Low-level policy（毫秒级在线决策），时间尺度差 6 个量级，需要异步架构；  
+（3）**Lagrangian 乘子 $\lambda$ 收敛**：$\lambda$ 过大导致保守出价欠消耗，过小导致超支。实践中用 PID 类控制器稳定 $\lambda$，而非纯梯度更新。
+
+---
+
+### Q15: 多智能体RL（MARL）自动出价为什么比单智能体更好？何时反而更差？
+
+**A**:  
+**更好的场景**：竞争格局稳定（广告主集中度高，头部玩家互相博弈），市场价格可预测性强——MARL 学到了竞争均衡策略，避免"军备竞赛"式恶性出价。  
+**更差的场景**：（1）长尾市场（万级小广告主），建模为 MARL 计算不可行；（2）竞争者快速替换（新广告主频繁加入），历史学到的博弈策略快速失效；（3）合谋风险：MARL 在训练中可能学到隐性勾结策略（压低出价让平台收益下降），需要平台层面的安全约束。
+
+---
+
 ## 🔑 关键趋势总结
 
 ### 趋势1：生成式范式全面崗位
@@ -339,6 +451,15 @@ $$
 - MAB 已成为广告冷启动的工业标配
 - 受控探索（有界探索预算）是平衡短期/长期收益的关键
 
+### 趋势5：因果推断进入广告出价优化主流
+- 历史数据偏差问题长期被忽视，CausalBidding 将因果图+DR估计引入出价，OPE→在线相关性显著提升
+- Offline RL + 反事实估计 正在成为自动出价的新标准方法论
+
+### 趋势6：多智能体博弈从理论走向工业落地
+- 单广告主视角 RL → 全市场博弈均衡视角 MARL
+- CTDE 架构解决了"训练需全局信息、部署只能用本地信息"的矛盾
+- 平台安全合规（防隐性勾结）成为 MARL 系统设计的新约束
+
 ---
 
-*本综合总结涵盖 2024-2025 年广告系统最新进展，聚焦自动出价、CTR/CVR预估、创意优化、竞价机制四大方向。*
+*本综合总结涵盖 2024-2026 年广告系统最新进展，聚焦自动出价（因果/多智能体/知识注入新方向）、CTR/CVR预估、创意优化、竞价机制五大方向。*
