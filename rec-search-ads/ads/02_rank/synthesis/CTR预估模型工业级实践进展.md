@@ -338,3 +338,210 @@ $$
 
 ### Q10: 特征交叉方法的演进路线？
 > LR（手工交叉）→ FM（自动二阶）→ [DeepFM](../papers/DeepFMDeep_Factorization_Machine.md)（FM+DNN）→ DCN/DCNv2（Cross Network 显式多阶）→ AutoInt（Attention 交叉）→ [MaskNet](../papers/MaskNet_feature_wise_multiplication_CTR_instance_guided_mask.md)（乘性交互）→ [DHEN](../papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md)（异构集成）。
+
+---
+
+## 补充内容（合并自 广告系统CTR预估与排序前沿综述.md）
+
+### 一、技术脉络概览
+
+广告推荐系统的核心链路：**召回 → 粗排 → 精排（CTR预估）→ 重排 → 广告创意生成**
+
+本批论文覆盖了这条链路的各个关键阶段：
+
+| 阶段 | 代表论文 | 核心技术 |
+|------|---------|---------|
+| CTR 精排 | DHEN, MaskNet, Wukong CTR | 异构集成/乘性交互/大规模并行 |
+| 重排 | GR2, LLM Reranker | 生成式推理/LLM+传统模型混合 |
+| 列表推荐 | HiGR | 层次化生成式 Slate 推荐 |
+| 广告排序策略 | Hierarchy Policy Opt | 层次化强化学习 |
+| 系统架构 | Meta Lattice | 多域多目标模型空间重设计 |
+| LLM RL 基础 | DAPO | 大规模强化学习算法 |
+| 创意生成 | BannerAgency | 多模态 LLM 广告素材自动生成 |
+
+---
+
+
+### 二、核心技术主题深度解析
+
+### 主题1：特征交互建模的演进
+
+**从加性到乘性的演进路径：**
+
+```
+FM (2010): w₁x₁ + w₂x₂ + v₁·v₂·x₁x₂   ← 引入乘性二阶交互
+    ↓
+DeepFM (2017): FM + DNN                    ← 加性高阶 + 乘性二阶
+    ↓
+xDeepFM (2018): Compressed Interaction Network ← 显式高阶乘性
+    ↓
+MaskNet (2021): Instance-Guided Mask ⊙ FFN ← 实例动态乘性
+    ↓
+DHEN (2022): 异构模块层次集成              ← 多种交互方式集成
+    ↓
+Wukong (2023): 低秩压缩交互 + 大规模并行   ← 可扩展高效乘性交互
+```
+
+**关键公式：MaskBlock**
+
+$$
+\text{MaskBlock}(X) = \text{FFN}\left(\text{LayerNorm}\left(\text{MLP}}_{\text{{mask}}(X) \odot X\right)\right)
+$$
+
+**关键公式：DHEN 层次集成**
+
+$$
+h_l = \text{Aggregate}\left(\text{FM}(h_{l-1}), \text{DCN}(h_{l-1}), \text{DIN}(h_{l-1}), ...\right)
+$$
+
+---
+
+### 主题2：生成式推荐与重排的兴起
+
+**LLM 在广告推荐系统中的定位演变：**
+
+```
+早期尝试：LLM 作为独立推荐器 → 失败（ID 空间爆炸，协同过滤信号缺失）
+...(已整合)
+
+### 三、关键指标对照表
+
+| 论文 | 数据集/平台 | 关键指标提升 |
+|------|-----------|------------|
+| HiGR | 腾讯（数亿用户） | 观看时长+1.22%，视频播放+1.73%，推理5× |
+| DHEN | Meta 广告系统 | NE +0.27%，训练吞吐 1.2× |
+| MaskNet | 3个公开数据集 | AUC +0.1%~0.5% vs DeepFM |
+| GR2 | 2个真实数据集 | Recall@5 +2.4%，NDCG@5 +1.3% vs SOTA |
+| Meta Lattice | Meta 全产品线 | 收入 +10%，满意度 +11.5%，容量节省 20% |
+| DAPO | AIME 2024 | 50分（Qwen2.5-32B base） |
+
+---
+
+
+### 四、📐 核心公式汇总（≥3个）
+
+### 公式1: MaskBlock 特征乘性交互
+
+$$
+\text{MaskBlock}(X) = \text{FFN}\left(\text{LayerNorm}\left(\text{MLP}}_{\text{{mask}}(X) \odot X\right)\right)
+$$
+
+- $\odot$：逐元素乘法（Hadamard product）
+- $\text{MLP}}_{\text{{mask}}(X)$：基于输入实例动态生成的掩码
+- **意义**：引入实例引导的乘性特征交互，突破加性 FFN 的局限
+
+### 公式2: DHEN 层次集成
+
+$$
+h_l = \text{Aggregate}\left(\{\text{Module}}_{\text{k(h}}_{\text{{l-1}})\}_{k=1}^K\right)
+$$
+
+$$
+\mathcal{L}_{NE} = -\frac{1}{N}\sum_{i=1}^N \left[y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\right] / H(p)
+$$
+
+- $H(p) = -p\log p - (1-p)\log(1-p)$：背景 CTR $p$ 对应的熵
+- **意义**：Normalized Entropy 归一化评估，消除不同数据集 CTR 差异的影响
+
+### 公式3: HiGR CRQ-VAE 对比量化损失
+
+$$
+\mathcal{L}_{CRQ-VAE} = \mathcal{L}_{recon} + \lambda_1 \mathcal{L}_{global\_quan} + \lambda_2 \mathcal{L}_{cont}
+$$
+
+$$
+\mathcal{L}_{cont} = -\frac{1}{D-1}\sum_{d=1}^{D-1} w_d \log \frac{\exp(\cos(e_a^d, e_p^d)/\tau)}{\exp(\cos(e_a^d, e_p^d)/\tau) + \sum_{n\neq a,p}\exp(\cos(e_a^d, e_n^d)/\tau)}
+$$
+
+- **意义**：Prefix-level InfoNCE 使相似物品共享 ID 前缀，提升语义 ID 的结构化
+
+### 公式4: DAPO 解耦裁剪目标
+
+$$
+...(已整合)
+
+### 五、📚 参考文献列表
+
+1. **HiGR** - Pang et al. "HiGR: Efficient Generative Slate Recommendation via Hierarchical Planning." arXiv:2512.24787 (2025).
+
+2. **BannerAgency** - Wang et al. "BannerAgency: Advertising Banner Design with Multimodal LLM Agents." EMNLP 2025. arXiv:2503.11060.
+
+3. **DHEN** - Zhang et al. "DHEN: A Deep and Hierarchical Ensemble Network for Large-Scale CTR Prediction." arXiv:2203.11014 (2022).
+
+4. **GR2** - Liang et al. "Generative Reasoning Re-ranker." arXiv:2602.07774 (2026).
+
+5. **Meta Lattice** - Luo et al. "Meta Lattice: Model Space Redesign for Cost-Effective Industry-Scale Ads Recommendations." KDD 2026. arXiv:2512.09200.
+
+6. **LLM Reranker** - Sun et al. "LLM as Explainable Re-Ranker for Recommendation System." arXiv:2512.03439 (2025).
+
+7. **DAPO** - Yu et al. "DAPO: An Open-Source LLM Reinforcement Learning System at Scale." arXiv:2503.14476 (2025).
+
+8. **Wukong CTR** - "Wukong CTR: Scalable Deep CTR Prediction via Massive Parallel Training." (2023).
+
+9. **MaskNet** - Zhang et al. "MaskNet: Introducing Feature-Wise Multiplication to CTR Ranking Models by Instance-Guided Mask." DLP-KDD 2021. arXiv:2102.07619.
+
+10. **Hierarchy Policy Optimization** - "Hierarchy Enhanced Policy Optimization for Ad Ranking." arXiv:2603.xxxx (2026).
+
+### 相关基础工作
+- **DeepFM** - Guo et al. (2017). Combined FM + DNN for CTR.
+- **xDeepFM** - Lian et al. (2018). Compressed Interaction Network.
+- **DCN** - Wang et al. (2017). Deep & Cross Network.
+- **BERT4Rec** - Sun et al. (2019). Self-attentive sequential recommendation.
+- **OneRec** - 字节跳动. 统一检索与精排的生成式推荐框架.
+- **TIGER** - Rajput et al. (2023). Semantic ID-based generative recommendation.
+
+---
+
+
+### 六、🎓 面试 Q&A（≥10道）
+
+### Q1: CTR 预估中，加性特征交互和乘性特征交互有什么本质区别？各自的代表方法是什么？
+
+**A**: 
+- **加性交互**：特征通过加权求和组合，如 $o = \sigma(\sum_i w_i \cdot h_i)$。代表方法：MLP/DNN（全连接层本质是加性操作）
+- **乘性交互**：特征通过逐元素或矩阵乘法组合，如 FM 的 $\langle v_i, v_j \rangle x_i x_j$。代表方法：FM、MaskNet（element-wise mask）、DCN（cross product）
+- **本质区别**：加性操作从数学角度无法高效表达两个特征的乘性关系（需要无限多个隐层单元），乘性操作直接建模特征间的交叉影响
+
+---
+
+### Q2: 工业 CTR 系统为什么用 NE（Normalized Entropy）而不是 AUC 来评估模型？
+
+**A**: 
+- **AUC** 衡量排序能力，与绝对概率值无关（量级无关）
+- **NE** 衡量概率校准精度，归一化后消除不同数据集背景 CTR 不同的影响
+- 工业广告系统的出价（bidding）依赖精确的 CTR 预估值（$\text{bid} = \text{eCPM} / \text{CTR}$），AUC 好但 NE 差会导致出价严重失真，影响收入
+- 因此：**NE** 更能反映工业系统的真实价值，0.1% NE 改进通常对应可观收入提升
+
+---
+
+### Q3: Multi-Domain Multi-Objective（MDMO）推荐系统的主要挑战是什么？Meta Lattice 如何解决？
+
+**A**: 
+主要挑战：①数据碎片化（跨产品线信号无法共享）②负迁移（强域压制弱域）③参数爆炸（N×M个独立模型）④系统运维复杂度
+Meta Lattice 解决方案：①跨域知识共享（统一 User Tower）②Domain-adaptive 损失权重（防负迁移）③统一模型+路由（从N×M缩至1）④蒸馏+系统优化（保效果降成本）
+结果：一个模型同时服务所有产品线，+10%收入，-20%算力。
+
+---
+
+### Q4: 生成式推荐（Generative Recommendation）相比判别式推荐（Discriminative Recommendation）有什么优势和劣势？
+
+**A**: 
+| | 生成式 | 判别式 |
+|--|--------|--------|
+| **优势** | ①端到端优化整个列表 ②天然支持多样性控制 ③可利用 LLM 世界知识 ④扩展能力强（Scaling Law） | ①延迟低 ②对超大候选集高效 ③协同过滤信号更充分 |
+| **劣势** | ①推理延迟高 ②ID 空间大时难处理 ③冷启动依赖语义 | ①缺乏全局列表规划 ②多样性需要额外 post-processing ③可解释性差 |
+
+**工业实践**：两者结合，判别式做粗排，生成式做精排/重排（如 GR2、HiGR）。
+
+...(已整合)
+
+### 七、技术趋势与展望
+
+1. **生成式 Ranking 全面兴起**：从判别式 CTR 到生成式 Slate，端到端优化列表质量
+2. **LLM 与传统模型深度融合**：LLM 不是替代者，而是传统模型的上层"理解与对齐"模块
+3. **大规模 RL 普及**：DAPO 等算法使工业 RL 从实验室走向大规模生产部署
+4. **多模态广告创意**：从文字优化到图文联合优化，素材自动生成成为核心竞争力
+5. **系统级协同设计**：模型架构与训练/服务系统协同设计（DHEN、Wukong）成为主流范式
+6. **统一模型架构**：从N×M个专门模型到统一架构（Meta Lattice），降低运维成本同时提升效果
+
+
