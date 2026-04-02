@@ -88,3 +88,40 @@ $$
 - **上游依赖**：Transformer 架构、分布式训练、数据工程
 - **下游应用**：SFT/RLHF 对齐、推理部署、下游微调
 - **相关 synthesis**：LLM对齐方法演进.md, MoE架构设计.md
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：Chinchilla Scaling Law
+
+$$
+L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + L_\infty
+$$
+
+- $N$：模型参数量
+- $D$：训练数据 token 数
+- $A, B, \alpha, \beta$：拟合常数
+- $L_\infty$：不可约损失（entropy of natural text）
+
+**直观理解**：预训练 loss 由两项决定——模型太小（第一项大）或数据太少（第二项大）。Chinchilla 的核心发现是 $N$ 和 $D$ 应该等比例增长：参数翻倍时数据也必须翻倍，否则就是浪费算力训一个"吃不饱"或"消化不了"的模型。
+
+### 公式 2：Next Token Prediction 损失
+
+$$
+\mathcal{L}_{\text{NTP}} = -\frac{1}{T}\sum_{t=1}^{T} \log P(x_t | x_{<t}; \theta)
+$$
+
+- $T$：序列长度
+- $x_t$：第 $t$ 个 token
+- $\theta$：模型参数
+
+**直观理解**：预训练的唯一目标——给定前面所有 token，预测下一个 token。这个看似简单的目标之所以强大，是因为预测下一个词需要理解语法、语义、世界知识、推理能力——你必须"理解"一段话才能续写。
+
+### 公式 3：学习率调度（Cosine Schedule）
+
+$$
+\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{t}{T}\pi\right)\right)
+$$
+
+**直观理解**：学习率从大到小余弦衰减——开始大步探索（快速降 loss），后期小步精调（避免震荡）。Warmup 阶段线性增大学习率是为了让 Adam 的动量估计稳定，避免初始梯度不准时走偏。
+

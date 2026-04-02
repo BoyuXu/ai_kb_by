@@ -126,3 +126,12 @@ KVCache全景 → FlashAttention3 → LLMServing系统实践 → GRPO算法 → 
 | [synthesis/多Token预测与Agent工程化.md](synthesis/多Token预测与Agent工程化.md) | LCD 2-bit量化 + Double双源投机解码 + FastMTP + Agent安全/ADK | **新建**（深度综述，含15题Q&A） |
 
 > 📌 上午 `20260331_llm_inference_optimization_and_agent_engineering.md` 为快速综述；下午 `多Token预测与Agent工程化.md` 为深度整合版本（含横向对比、工程落地分析、面试Q&A）。
+
+### 2026-04-02 新增
+
+- [Train Small, Infer Large: LoRA](./papers/train_small_infer_large_lora.md)
+- [Chain of Agents: Long-Context](./papers/chain_of_agents_long_context.md)
+- [WSO: Warmup-Stable-Only Pretraining](./papers/wso_warmup_stable_only_pretraining.md)
+- [SpargeAttention: Sparse Acceleration](./papers/sparge_attention_sparse_acceleration.md)
+- [SimpleMem: Lifelong Memory for Agents](./papers/simplemem_lifelong_memory_agents.md)
+- **Synthesis**: [LLM基础设施前沿综合分析 20260402](./synthesis/20260402_LLM基础设施前沿综合分析.md)

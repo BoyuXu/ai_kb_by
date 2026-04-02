@@ -93,3 +93,31 @@ $$
 - [BERT](../../papers/bert.md)
 - [CLIP](../../papers/clip.md)
 
+
+
+## 📐 核心公式直观理解
+
+### Word2Vec (Skip-gram) 目标
+
+$$
+\max \sum_{(w, c)} \log \sigma(\mathbf{v}_w^T \mathbf{v}_c') - k \cdot \mathbb{E}_{n \sim P_n} \log \sigma(\mathbf{v}_w^T \mathbf{v}_n')
+$$
+
+**直观理解**：经常一起出现的词应该有相似的向量（"巴黎"和"法国"），很少一起出现的应该不同（"巴黎"和"显卡"）。推荐系统中把用户行为序列当"句子"，物品当"词"——连续点击的物品 embedding 会相近。
+
+### Hash Embedding 压缩
+
+$$
+e(i) = \frac{1}{K}\sum_{k=1}^{K} E_k[h_k(i)]
+$$
+
+**直观理解**：不给每个物品单独存 embedding（数亿物品太贵），而是用 $K$ 个哈希函数映射到 $K$ 个小表中取平均。少量哈希冲突会让部分物品共享表示，但 $K$ 越大冲突影响越小——像布隆过滤器的思想。
+
+### 对比学习 embedding
+
+$$
+\mathcal{L} = -\log \frac{\exp(\text{sim}(z, z^+)/\tau)}{\exp(\text{sim}(z, z^+)/\tau) + \sum_{z^-} \exp(\text{sim}(z, z^-)/\tau)}
+$$
+
+**直观理解**："相似的拉近、不同的推远"。关键在于正负样本定义——用户的两次点击是正对（应该相近），不同用户的点击是负对（应该远离）。温度 $\tau$ 越小，模型对 hard negative 越敏感。
+

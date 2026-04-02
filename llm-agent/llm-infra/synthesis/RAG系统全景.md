@@ -115,3 +115,36 @@ $$
 - **上游依赖**：向量检索（Dense Retrieval）、LLM、Cross-Encoder
 - **下游应用**：企业知识库问答、客服系统、搜索增强
 - **相关 synthesis**：混合检索融合_多路召回实践.md, LLM推理优化完整版.md, 搜索Query理解.md
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：BM25 稀疏检索分数
+
+$$
+\text{BM25}(q, d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{\text{TF}(t, d) \cdot (k_1 + 1)}{\text{TF}(t, d) + k_1 \cdot (1 - b + b \cdot \frac{|d|}{\text{avgdl}})}
+$$
+
+- $\text{TF}(t,d)$：词 $t$ 在文档 $d$ 中的频率
+- $\text{IDF}(t)$：逆文档频率，稀有词权重高
+- $k_1$：TF 饱和参数（通常 1.2）
+- $b$：文档长度归一化（通常 0.75）
+
+**直观理解**：BM25 的核心逻辑——一个词在某篇文档里出现很多次（TF 高）且在整个语料库里很少见（IDF 高），说明这篇文档和包含这个词的 query 高度相关。$k_1$ 防止 TF 无限增长（一个词出现 100 次不比出现 10 次重要 10 倍），$b$ 修正长文档天然 TF 高的偏差。
+
+### 公式 2：Hybrid Retrieval 融合
+
+$$
+\text{score}_{\text{hybrid}} = \alpha \cdot \text{score}_{\text{dense}} + (1-\alpha) \cdot \text{score}_{\text{sparse}}
+$$
+
+**直观理解**：Dense 检索擅长语义匹配（"汽车"≈"轿车"），Sparse 检索擅长精确匹配（型号、代码）。混合检索取长补短——$\alpha=0.7$ 偏语义，$\alpha=0.3$ 偏精确。实践中 hybrid 几乎总是优于单一方法。
+
+### 公式 3：Reranker 交叉编码器得分
+
+$$
+\text{score}(q, d) = \text{MLP}(\text{CLS\_token}(\text{BERT}([q; \text{SEP}; d])))
+$$
+
+**直观理解**：Reranker 把 query 和 document 拼接后一起过 BERT，让每个 token 都能"看到"对方——这比双塔（分别编码后算内积）精确得多，但慢得多（不能预计算）。所以工业上先用双塔/BM25 粗检索 top-100，再用 reranker 精排 top-10。
+

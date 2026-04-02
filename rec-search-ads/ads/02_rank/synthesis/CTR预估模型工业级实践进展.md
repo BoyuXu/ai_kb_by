@@ -269,3 +269,38 @@ $$
 - 先优化 MFU（从 4.5% → 45%），再谈 Scaling；否则 Scaling 毫无意义
 - 推荐 Scaling 优先级：Embedding 扩展 >> MLP 加深 >> MoE 专家数量
 - 数据 10× ≈ 参数 3× 的等效收益（数据飞轮效应更强）
+
+
+## 📐 核心公式直观理解
+
+### DeepFM 的特征交叉
+
+$$
+\hat{y} = \sigma\left(w_0 + \sum_i w_i x_i + \underbrace{\sum_{i<j} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j}_{\text{FM 二阶交叉}} + \underbrace{\text{DNN}(\mathbf{x})}_{\text{高阶交叉}}\right)
+$$
+
+- $\mathbf{v}_i \in \mathbb{R}^k$：特征 $i$ 的隐向量
+- $\langle \mathbf{v}_i, \mathbf{v}_j \rangle$：FM 用内积近似任意两个特征的交叉权重
+
+**直观理解**：FM 部分自动学"用户年龄×商品品类"这类二阶交叉（不需要手动构造），DNN 部分学更复杂的高阶交叉。两者互补——FM 对稀疏特征交叉高效，DNN 对稠密信号捕获非线性关系。
+
+### Calibration（校准）
+
+$$
+\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{N} |\bar{y}_m - \bar{p}_m|
+$$
+
+- $B_m$：第 $m$ 个分桶内的样本集合
+- $\bar{y}_m$：桶内真实正样本比例
+- $\bar{p}_m$：桶内预测概率均值
+
+**直观理解**：如果模型预测"点击率 10%"的那群用户真实点击率也是 10%，说明校准良好。ECE 衡量"模型说的概率和实际频率差多远"。广告出价直接乘以 pCTR，所以校准比排序更重要——排序错了少挣钱，校准错了可能亏钱。
+
+### 在线学习的增量更新
+
+$$
+\theta_{t+1} = \theta_t - \eta_t \cdot \frac{\partial \ell(y_t, \hat{y}_t)}{\partial \theta_t}, \quad \eta_t = \frac{\alpha}{\beta + \sqrt{\sum_{s=1}^{t} g_s^2}}
+$$
+
+**直观理解**：广告 CTR 模型必须实时更新——昨天的热门商品今天可能无人问津。FTRL/AdaGrad 的自适应学习率让频繁更新的特征步长小（稳定），罕见特征步长大（抓住稀疏信号）。
+

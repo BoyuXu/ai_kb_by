@@ -373,3 +373,34 @@ Meta Lattice 解决方案：①跨域知识共享（统一 User Tower）②Domai
 4. **多模态广告创意**：从文字优化到图文联合优化，素材自动生成成为核心竞争力
 5. **系统级协同设计**：模型架构与训练/服务系统协同设计（DHEN、Wukong）成为主流范式
 6. **统一模型架构**：从N×M个专门模型到统一架构（Meta Lattice），降低运维成本同时提升效果
+
+
+## 📐 核心公式直观理解
+
+### DCN v2 的交叉层
+
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_0 \odot (W_l \mathbf{x}_l + \mathbf{b}_l) + \mathbf{x}_l
+$$
+
+- $\mathbf{x}_0$：原始特征
+- $W_l$：可学习的交叉权重矩阵
+
+**直观理解**：每一层都和原始输入 $\mathbf{x}_0$ 做 element-wise 乘法，实现显式的特征交叉。$L$ 层交叉网络能建模 $L+1$ 阶特征交互——比 DNN 隐式交叉更可控，比手动构造特征更自动化。
+
+### 位置偏差矫正
+
+$$
+P(\text{click}) = P(\text{examine} | \text{pos}) \times P(\text{relevant} | \text{query, ad})
+$$
+
+**直观理解**：用户点不点击 = "有没有看到" × "看到了觉得相不相关"。排第一的广告被看到的概率远高于排第十的，如果不修正位置偏差，模型会认为排第一的广告质量更好——形成"越排前面越被点→越被点越排前面"的死循环。
+
+### 知识蒸馏的 soft label
+
+$$
+\mathcal{L}_{\text{KD}} = \alpha \cdot \text{CE}(y, \hat{y}_s) + (1-\alpha) \cdot \tau^2 \cdot \text{KL}\left(\frac{\hat{y}_t}{\tau} \| \frac{\hat{y}_s}{\tau}\right)
+$$
+
+**直观理解**：大模型（teacher）的"犹豫"包含丰富信息——如果 teacher 对某个样本说"70% 会点击"（而非 100%），这个 30% 的不确定性反映了样本的难度。小模型（student）学习这种 soft distribution 比只学 hard label（0/1）效果更好。
+

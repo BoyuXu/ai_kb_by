@@ -192,3 +192,36 @@ $\Delta$：量化步长，分组量化使 $\Delta$ 更小。
 > - [MiniKV_2bit_KV_cache_compression_system_codesign](../papers/MiniKV_2bit_KV_cache_compression_system_codesign.md) — 2-bit KV Cache 量化，8x 压缩精度损失 <2%
 > - [KV_Cache_optimization_strategies_scalable_efficient_LLM_inference](../papers/KV_Cache_optimization_strategies_scalable_efficient_LLM_inference.md) — KV Cache 优化策略全景综述
 > - [FlashAttention3_fast_accurate_attention_H100_GPUs](../papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md) — H100 Hopper 架构专属 FlashAttention-3 优化
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：混合精度训练的 loss scaling
+
+$$
+\text{scaled\_loss} = \text{loss} \times S, \quad \text{grad}_{\text{fp32}} = \frac{\text{grad}_{\text{fp16}}}{S}
+$$
+
+- $S$：loss scaling factor（通常 $2^{16}$ 起步，动态调整）
+
+**直观理解**：FP16 的最小可表示正数约 $6 \times 10^{-8}$，而梯度经常比这还小（下溢为零）。Loss scaling 把梯度"放大"到 FP16 可表示的范围内计算，更新参数前再"缩回来"。就像用放大镜看微小文字——放大看清后按原比例记录。
+
+### 公式 2：GQA（Grouped Query Attention）KV Cache 节省
+
+$$
+M_{\text{GQA}} = M_{\text{MHA}} \times \frac{n_{\text{kv\_heads}}}{n_{\text{q\_heads}}}
+$$
+
+- $n_{\text{q\_heads}}$：query 头数量
+- $n_{\text{kv\_heads}}$：KV 头数量（GQA 中远少于 query 头）
+
+**直观理解**：MHA 给每个 query head 配一个独立的 KV head（1:1），GQA 让多个 query head 共享一个 KV head（N:1）。LLaMA-2 70B 用 8 个 KV head 服务 64 个 query head，KV Cache 直接缩小 8 倍——这是超长上下文推理的关键。
+
+### 公式 3：FSDP 显存占用
+
+$$
+M_{\text{FSDP}} = \frac{M_{\text{params}} + M_{\text{grads}} + M_{\text{optim}}}{N_{\text{GPUs}}} + M_{\text{activations}}
+$$
+
+**直观理解**：FSDP 把模型参数、梯度、优化器状态都切片分散到多个 GPU 上，每个 GPU 只存 $1/N$ 的份额。需要时再 all-gather 拼回来，用完立刻丢弃。代价是多了通信开销，但使得单 GPU 能"装下"远超其显存容量的模型。
+

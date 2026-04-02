@@ -199,3 +199,38 @@ A: (1) 工具调用并行化（无依赖工具同时执行）；(2) 预计算 Pr
 7. Anonymous. "RAG with Adaptive Retrieval and Multi-Hop Reasoning for Complex QA." arXiv:2601.xxxx (2026).
 
 8. Anonymous. "Agent Framework with Tool-Use and Reasoning for Recommendation." arXiv:2603.xxxx (2026).
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：Prefill vs Decode 阶段计算量对比
+
+$$
+\text{FLOPs}_{\text{prefill}} = 2 \times N \times d_{\text{model}}^2 \times L, \quad \text{FLOPs}_{\text{decode}} = 2 \times d_{\text{model}}^2 \times L
+$$
+
+- $N$：prompt 长度
+- $d_{\text{model}}$：模型维度
+- $L$：层数
+
+**直观理解**：Prefill 处理整个 prompt（矩阵乘矩阵，compute-bound），Decode 每次只生成一个 token（矩阵乘向量，memory-bound）。这就是为什么 Prefill 和 Decode 需要不同的优化策略——分离部署（disaggregated serving）让两种 workload 各自用最合适的硬件。
+
+### 公式 2：Agent 工具调用的 token 效率
+
+$$
+\text{Efficiency} = \frac{\text{task\_completion\_rate}}{\text{total\_tokens\_consumed}}
+$$
+
+**直观理解**：Agent 每次调用工具都要消耗 token（生成调用指令 + 解析返回结果），如果 Agent 总是"试错"式调用，token 消耗爆炸。高效的 Agent 应该"想清楚再动手"——用 CoT 规划减少无效调用，用工具描述优化减少误调用。
+
+### 公式 3：多跳 RAG 的信息增益
+
+$$
+\text{IG}(r_k) = H(A | r_1, ..., r_{k-1}) - H(A | r_1, ..., r_k)
+$$
+
+- $H(A|\cdot)$：给定已检索文档后答案的条件熵
+- $r_k$：第 $k$ 轮检索到的文档
+
+**直观理解**：每多检索一轮，对最终答案的不确定性应该降低。如果某轮检索的信息增益接近零，说明继续检索已无意义——这是自适应多跳 RAG（如 FLARE）的停止条件。
+

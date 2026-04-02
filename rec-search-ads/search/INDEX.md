@@ -136,3 +136,12 @@
 | 文件 | 主题 | 更新内容 |
 |------|------|---------|
 | [synthesis/推理增强检索技术综述.md](synthesis/推理增强检索技术综述.md) | O1-Embedder + LimRank + Reasonrank + DEAR + Qagent | **重大更新**：新增今日5篇论文深度分析（LimRank Less-is-More原理、DEAR蒸馏机制、Qagent多轮搜索）、与昨日内容横向对比、工程选型建议；扩展至15题Q&A |
+
+### 2026-04-02 新增
+
+- [Reasoning-enhanced Query Understanding](./papers/reasoning_enhanced_query_understanding.md)
+- [Model Architectures in IR Survey](./papers/model_architectures_information_retrieval_survey.md)
+- [Theoretical Limitations of Embedding Retrieval](./papers/theoretical_limitations_embedding_retrieval.md)
+- [Rec-R1: Generative LLM Recommendation via RL](./papers/rec_r1_generative_llm_recommendation_rl.md)
+- [TongSearch-QR: Reinforced Query Reasoning](./papers/tongsearch_qr_reinforced_query_reasoning.md)
+- **Synthesis**: [搜索系统前沿综合分析 20260402](./synthesis/20260402_搜索系统前沿综合分析.md)

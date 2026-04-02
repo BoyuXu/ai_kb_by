@@ -182,3 +182,34 @@ PPO 更新策略网络（支持多轮迭代改写）
 
 ### Q10: 如何准备不同公司的面试？
 **30秒答案**：①字节：重工程实现+大规模系统+实际效果；②阿里：重业务理解+电商场景+系统设计；③腾讯：重算法深度+创新性+论文理解；④快手/小红书：重内容推荐+短视频场景+多模态。
+
+
+## 📐 核心公式直观理解
+
+### Query Expansion 的相关反馈
+
+$$
+q' = \alpha \cdot q + \beta \cdot \frac{1}{|D_r|}\sum_{d \in D_r} d - \gamma \cdot \frac{1}{|D_n|}\sum_{d \in D_n} d
+$$
+
+- $D_r$：相关文档集
+- $D_n$：不相关文档集
+
+**直观理解**：Rocchio 算法让 query 向"好结果"靠近、远离"坏结果"。如果搜索"苹果"返回了水果和手机的结果，用户点了手机相关的——下一轮 query 就会自动偏向"苹果手机"的语义方向。LLM 时代用 prompt 替代 Rocchio，但思想一致。
+
+### HyDE（Hypothetical Document Embedding）
+
+$$
+\text{score}(q, d) = \cos(\text{Enc}(\text{LLM}(q)), \text{Enc}(d))
+$$
+
+**直观理解**：先让 LLM 根据 query 生成一篇"假文档"（可能包含幻觉），再用这篇假文档的 embedding 去检索真文档。妙处在于假文档和真相关文档在 embedding 空间更近（都是"答案风格的文本"），比 query（问题风格）直接检索效果好。
+
+### Query 理解的多任务框架
+
+$$
+\mathcal{L} = \mathcal{L}_{\text{intent}} + \lambda_1 \mathcal{L}_{\text{NER}} + \lambda_2 \mathcal{L}_{\text{rewrite}}
+$$
+
+**直观理解**：一个查询同时需要理解意图（导航/信息/交易）、抽取实体（品牌/型号/地点）、改写为标准形式。多任务学习让底层表示共享三种理解能力的知识，比三个独立模型更高效也更准。
+

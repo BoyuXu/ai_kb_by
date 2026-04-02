@@ -269,3 +269,39 @@ agent:
 > - [lcd_extreme_low_bit_clustering_llm](../papers/lcd_extreme_low_bit_clustering_llm.md) — LCD: 聚类量化实现极端 2-bit LLM
 > - [framework_formalizing_llm_agent_security](../papers/framework_formalizing_llm_agent_security.md) — 形式化 LLM Agent 安全框架
 > - [google_agent_development_kit_adk](../papers/google_agent_development_kit_adk.md) — Google ADK: 声明式 Agent 开发工具包
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：Multi-Token Prediction 损失
+
+$$
+\mathcal{L}_{\text{MTP}} = -\sum_{k=1}^{K} \frac{1}{T-k} \sum_{t=1}^{T-k} \log P_k(x_{t+k} | x_{\leq t}; \theta)
+$$
+
+- $K$：同时预测的 token 数
+- $P_k$：第 $k$ 个预测头的概率分布
+
+**直观理解**：标准预训练只预测"下一个词"，MTP 同时预测"下 K 个词"。这迫使模型在每一步就想好"后面几步要说什么"——类似人说话前先在心里组织好一个短语而非逐字蹦。训练时多个预测头共享 backbone，推理时可以用 speculative decoding 一次验证多个 token。
+
+### 公式 2：Agent 规划的树搜索
+
+$$
+V(s) = \max_a \left[R(s, a) + \gamma \sum_{s'} P(s'|s,a) V(s')\right]
+$$
+
+- $s$：Agent 当前状态（上下文）
+- $a$：可选动作（工具调用、生成文本等）
+- $R(s,a)$：即时奖励
+- $\gamma$：折扣因子
+
+**直观理解**：Agent 在执行任务时面临"先做 A 还是先做 B"的选择。树搜索评估每条路径的长期收益——可能先调 API 再搜索比反过来更高效。$\gamma < 1$ 让 Agent 偏好"快速完成"而非"完美但慢"。
+
+### 公式 3：工具调用的 token 成本分析
+
+$$
+\text{Cost}_{\text{tool}} = \text{token}_{\text{call}} + \text{token}_{\text{result}} + \text{token}_{\text{parse}} \approx 3-5x \text{ single generation}
+$$
+
+**直观理解**：每次工具调用消耗的 token 远多于直接生成——要格式化调用指令、接收返回结果、解析并整合到上下文中。Agent 的 token 效率取决于"能否一次调对工具"——错误的工具调用不仅浪费 token，还可能引入错误信息。
+

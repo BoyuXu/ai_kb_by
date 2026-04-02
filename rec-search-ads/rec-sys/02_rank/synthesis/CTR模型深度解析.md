@@ -906,3 +906,31 @@ $$
 | **SIM** | 2020 | 两阶段长序列 | 精排(超长序列) | 依赖索引质量 |
 
 > 📝 面试考点见：[rec_qa_extracted.md [BROKEN]](../../interview/rec_qa_extracted.md)
+
+
+## 📐 核心公式直观理解
+
+### FM 的二阶特征交叉
+
+$$
+\hat{y} = w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n}\sum_{j=i+1}^{n} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j
+$$
+
+**直观理解**：FM 的精髓在于用低维向量内积 $\langle \mathbf{v}_i, \mathbf{v}_j \rangle$ 代替直接学 $w_{ij}$。直接学需要 $O(n^2)$ 参数（稀疏特征下大部分交叉没观测），FM 只需 $O(nk)$ 参数——每个特征一个 $k$ 维向量，任意两个特征的交叉权重自动由向量内积决定。
+
+### DIN 的 Activation Unit
+
+$$
+a(e_i, e_t) = \text{MLP}([e_i; e_t; e_i - e_t; e_i \odot e_t])
+$$
+
+**直观理解**：DIN 的注意力打分函数输入四部分：两个向量本身 + 差值 + 逐元素乘积。差值捕捉"哪些维度不同"，逐元素乘积捕捉"哪些维度同时大/同时小"。比纯内积更丰富，让模型能学到复杂的相关性模式。
+
+### Deep & Cross Network
+
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_0 \mathbf{x}_l^T \mathbf{w}_l + \mathbf{b}_l + \mathbf{x}_l
+$$
+
+**直观理解**：每层交叉都把原始输入 $\mathbf{x}_0$ 和当前层 $\mathbf{x}_l$ 做外积——$L$ 层后能表示 $L+1$ 阶多项式特征交叉，且参数只有 $O(Ld)$（线性增长）。DNN 的隐式交叉 + Cross 的显式交叉互补，是 Google 广告系统的核心架构。
+

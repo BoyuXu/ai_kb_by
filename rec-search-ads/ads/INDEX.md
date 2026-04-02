@@ -195,3 +195,17 @@
 | 文件 | 主题 | 更新内容 |
 |------|------|---------|
 | [synthesis/LLM时代广告系统技术演进.md](synthesis/LLM时代广告系统技术演进.md) | 生成式CTR/竞价/多场景统一 | **重大更新**：新增DGenCTR离散扩散、GBS混合高斯、Bid2X动态预测、MTGR多场景、DCN-V2特征交叉深度分析；更新技术演进三阶段图谱；扩展至15题Q&A |
+
+### 2026-04-02 新增
+
+- [LLM Creative Ad Generation with Quality Control](./papers/llm_creative_ad_generation_quality_control.md)
+- [MTGR: Multi-Task Generative Ranking](./papers/mtgr_multi_task_generative_ranking.md)
+- [AutoBidding with Multi-agent RL](./papers/autobidding_multi_agent_rl.md)
+- [Causal Bidding: Counterfactual Reasoning](./papers/causal_bidding_counterfactual.md)
+- [Foundation Model for Ads CTR](./papers/foundation_model_ads_ctr.md)
+- [EST: Efficient Scaling Laws CTR](./papers/est_efficient_scaling_laws_ctr.md)
+- [RQ-GMM: Multimodal Semantic Discretization](./papers/rq_gmm_multimodal_semantic_discretization.md)
+- [GenCI: User Interest Shift CTR](./papers/genci_user_interest_shift_ctr.md)
+- [EGA: End-to-End Generative Advertising](./papers/ega_end_to_end_generative_advertising.md)
+- [GR4AD: Generative Recommendation Advertising](./papers/gr4ad_generative_recommendation_advertising.md)
+- **Synthesis**: [广告系统前沿综合分析 20260402](./synthesis/20260402_广告系统前沿综合分析.md)

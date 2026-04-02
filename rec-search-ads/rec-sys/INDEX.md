@@ -188,3 +188,17 @@
 | 文件 | 主题 | 更新内容 |
 |------|------|---------|
 | [synthesis/生成式推荐系统技术全景.md](synthesis/生成式推荐系统技术全景.md) | 生成式召回+排序基础模型+LLM融合 | **重大更新**：新增CoLLM/TagCF深度分析、MFLI可学习索引、LinkedIn CLM召回、iRanker基础模型、GNOLR有序多任务、Graph-Mamba图序列；三阶段技术演进图谱；扩展至15题Q&A |
+
+### 2026-04-02 新增
+
+- [OneRec-V2: Lazy Decoder-Only Architecture](./papers/onerec_v2_lazy_decoder_only.md)
+- [LIGER: Unifying Generative and Dense Retrieval](./papers/liger_unified_generative_dense_retrieval.md)
+- [MTMD: Multi-Task Multi-Domain Pinterest](./papers/mtmd_multi_task_multi_domain_pinterest.md)
+- [Robust Training Objectives for Embedding Retrieval](./papers/robust_training_objectives_embedding_retrieval.md)
+- [Agent0: LLM Agents for Multi-value Features](./papers/agent0_llm_multi_value_features.md)
+- [GNOLR: Neural Ordinal Logistic Regression](./papers/gnolr_neural_ordinal_logistic_regression.md)
+- [MTMH: Multi-Task Multi-Head I2I Retrieval](./papers/mtmh_multi_task_multi_head_i2i_retrieval.md)
+- [Kunlun: Scaling Laws for Meta Ads](./papers/kunlun_scaling_laws_meta_ads.md)
+- [TagCF: LLM-Enhanced Logic Graph](./papers/tagcf_llm_enhanced_logic_graph.md)
+- [Deep Hierarchical Ensemble for CVR](./papers/deep_hierarchical_ensemble_cvr.md)
+- **Synthesis**: [推荐系统前沿综合分析 20260402](./synthesis/20260402_推荐系统前沿综合分析.md)

@@ -88,3 +88,39 @@ $$
 - **上游依赖**：GPU 架构、模型量化、分布式系统
 - **下游应用**：ChatBot 部署、API 服务、Agent 推理
 - **相关 synthesis**：LLM推理优化完整版.md, MoE架构设计.md
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：Continuous Batching 吞吐公式
+
+$$
+\text{Throughput} = \frac{B_{\text{eff}} \times \bar{L}_{\text{output}}}{\bar{T}_{\text{latency}}}
+$$
+
+- $B_{\text{eff}}$：有效 batch 大小（持续填入新请求）
+- $\bar{L}_{\text{output}}$：平均输出序列长度
+- $\bar{T}_{\text{latency}}$：平均端到端延迟
+
+**直观理解**：传统 static batching 必须等最长的请求完成才能释放 batch 槽位，像"等最慢的人吃完才能收桌子"。Continuous batching 允许已完成的请求随时离开、新请求随时加入，GPU 永远保持满载——吞吐提升 2-5 倍。
+
+### 公式 2：PagedAttention 显存利用率
+
+$$
+\text{Utilization} = \frac{\sum_{i} \text{actual\_len}_i}{\sum_{i} \text{allocated\_pages}_i \times \text{page\_size}}
+$$
+
+**直观理解**：传统系统为每个请求预分配最大长度的连续显存，大部分空间浪费。PagedAttention 像操作系统的虚拟内存分页——按需分配小块显存，显存碎片从 60-80% 降到 <5%。这就是 vLLM 的核心创新。
+
+### 公式 3：SLA 约束下的最优 batch 策略
+
+$$
+B^* = \arg\max_B \; \text{Throughput}(B) \quad \text{s.t.} \quad P_{99}(\text{TTFT}(B)) \leq T_{\text{SLA}}
+$$
+
+- $B^*$：最优 batch 大小
+- TTFT：Time To First Token（首 token 延迟）
+- $T_{\text{SLA}}$：SLA 要求的延迟上限
+
+**直观理解**：推理服务的核心矛盾——batch 越大吞吐越高但延迟越大。最优 batch 大小是"刚好用满 GPU 计算能力，同时不违反延迟约束"的那个点。实际中通过动态调节实现。
+

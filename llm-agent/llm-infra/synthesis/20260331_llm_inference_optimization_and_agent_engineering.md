@@ -101,3 +101,46 @@ A: 限制Agent的行为空间（防止无限循环）、支持断点恢复（出
 3. FastMTP: Enhanced Multi-Token Prediction (arXiv:2509.18362)
 4. A Framework for Formalizing LLM Agent Security (arXiv:2603.19469)
 5. Google Agent Development Kit (github.com/google/adk-docs)
+
+
+## 📐 核心公式直观理解
+
+### 公式 1：KV Cache 显存占用
+
+$$
+M_{\text{KV}} = 2 \times L \times n_h \times d_h \times s \times b \times \text{sizeof}(\text{dtype})
+$$
+
+- $L$：Transformer 层数
+- $n_h$：注意力头数
+- $d_h$：每个头的维度
+- $s$：序列长度
+- $b$：batch size
+- 系数 2：K 和 V 各一份
+
+**直观理解**：KV Cache 是"用空间换时间"的典型——把每一层每个位置的 Key/Value 缓存下来，避免每生成一个 token 都重算整个序列的注意力。代价是显存和序列长度线性增长，长文本场景下 KV Cache 往往比模型参数本身还占空间。
+
+### 公式 2：Speculative Decoding 加速比
+
+$$
+\text{Speedup} = \frac{\mathbb{E}[\text{accepted tokens}] + 1}{1 + \frac{T_{\text{draft}} \times \gamma}{T_{\text{verify}}}}
+$$
+
+- $\gamma$：每轮草稿 token 数量
+- $T_{\text{draft}}$：草稿模型生成一个 token 的耗时
+- $T_{\text{verify}}$：大模型验证一批 token 的耗时（并行前向）
+
+**直观理解**：小模型快速"打草稿"，大模型一次"审批"。如果草稿质量高（接受率>70%），相当于大模型一次前向生成了多个 token，总吞吐提升 2-4 倍。草稿质量越高、小模型越快，加速比越大。
+
+### 公式 3：量化误差与精度权衡
+
+$$
+\text{MSE}_{\text{quant}} = \mathbb{E}\left[(W - Q(W))^2\right] \approx \frac{\Delta^2}{12}
+$$
+
+- $W$：原始权重
+- $Q(W)$：量化后的权重
+- $\Delta = \frac{\max(W) - \min(W)}{2^b - 1}$：量化步长（$b$ 为比特数）
+
+**直观理解**：量化的本质是用更少的比特数表示浮点权重，引入的误差和量化步长的平方成正比。从 FP16 到 INT8 步长翻倍，误差放大 4 倍，但推理速度可提升 2 倍——这就是精度和效率的权衡核心。
+
