@@ -44,7 +44,9 @@ timeline
 ### 1. eCPM（effective Cost Per Mille）
 
 $$
+
 \text{eCPM} = \text{pCTR} \times \text{bid} \times 1000
+
 $$
 
 **直觉**：广告排序不只看出价，还要看质量（预估点击率）。高质量低出价的广告可以排在低质量高出价之上。
@@ -52,7 +54,9 @@ $$
 ### 2. GSP 拍卖（Generalized Second Price）
 
 $$
+
 \text{Cost}\_i = \frac{\text{eCPM}\_{i+1}}{\text{pCTR}\_i}
+
 $$
 
 **直觉**：赢者支付的不是自己的出价，而是刚好超过下一名所需的最低价格。激励广告主如实报价。
@@ -60,7 +64,9 @@ $$
 ### 3. ESMM（Entire Space Multi-Task Model）
 
 $$
+
 \text{pCVR} = \frac{P(\text{click} \cap \text{convert})}{P(\text{click})} = \frac{P(\text{CTCVR})}{P(\text{CTR})}
+
 $$
 
 **直觉**：直接用点击样本训练 CVR 有样本选择偏差（只有点击的才有转化标签）。ESMM 在全量曝光空间建模 CTCVR = CTR × CVR，绕过偏差。
@@ -974,7 +980,9 @@ b_i* = pCVR_i / λ*
 **问题背景：** 对偶优化给出了
 
 $$
+
 b_i^* = pCVR_i / \lambda^*
+
 $$
 
 ，但 λ* 依赖于对手出价分布的准确估计。如果对手出价分布偏移，最优出价也会变化。

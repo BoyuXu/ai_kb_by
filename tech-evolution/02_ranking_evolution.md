@@ -42,7 +42,9 @@ timeline
 ### 1. FM（Factorization Machines）
 
 $$
+
 \hat{y}(x) = w\_0 + \sum\_{i=1}^n w\_i x\_i + \sum\_{i=1}^n \sum\_{j=i+1}^n \langle \mathbf{v}\_i, \mathbf{v}\_j \rangle x\_i x\_j
+
 $$
 
 **符号说明**：$w\_0$ 偏置，$w\_i$ 一阶权重，$\mathbf{v}\_i \in \mathbb{R}^k$ 第 $i$ 个特征的隐向量，$\langle \cdot,\cdot \rangle$ 内积。
@@ -52,7 +54,9 @@ $$
 ### 2. DIN Attention
 
 $$
+
 \mathbf{v}\_u = \sum\_{i=1}^N \alpha\_i \mathbf{e}\_i, \quad \alpha\_i = \frac{\exp(f(\mathbf{e}\_i, \mathbf{e}\_a))}{\sum\_{j=1}^N \exp(f(\mathbf{e}\_j, \mathbf{e}\_a))}
+
 $$
 
 **符号说明**：$\mathbf{e}\_i$ 为用户历史行为 $i$ 的 Embedding，$\mathbf{e}\_a$ 为候选广告 Embedding，$f$ 为 Attention 网络。
@@ -62,11 +66,15 @@ $$
 ### 3. MMoE Gate 机制
 
 $$
+
 y\_k = h\_k\left(\sum\_{i=1}^n g\_k^{(i)}(x) \cdot f\_i(x)\right)
+
 $$
 
 $$
+
 g\_k(x) = \text{softmax}(W\_{gk} \cdot x)
+
 $$
 
 **直觉**：每个任务 $k$ 有自己的 Gate 网络，自适应选择 Expert 的输出组合。不同任务可以学到不同的 Expert 使用模式。

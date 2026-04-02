@@ -44,7 +44,9 @@ timeline
 ### 1. BPR Loss（Bayesian Personalized Ranking）
 
 $$
+
 \mathcal{L}\_{BPR} = -\sum\_{(u,i,j) \in D\_s} \ln \sigma(\hat{r}\_{ui} - \hat{r}\_{uj}) + \lambda \|\Theta\|^2
+
 $$
 
 **符号说明**：
@@ -58,11 +60,15 @@ $$
 ### 2. DSSM 双塔 Loss
 
 $$
+
 P(d|q) = \frac{\exp(\cos(\mathbf{q}, \mathbf{d})/ \tau)}{\sum\_{d' \in D} \exp(\cos(\mathbf{q}, \mathbf{d}')/ \tau)}
+
 $$
 
 $$
+
 \mathcal{L} = -\sum\_{(q,d^+)} \log P(d^+|q)
+
 $$
 
 **符号说明**：
@@ -75,11 +81,15 @@ $$
 ### 3. LightGCN 聚合
 
 $$
+
 \mathbf{e}\_u^{(k+1)} = \sum\_{i \in \mathcal{N}\_u} \frac{1}{\sqrt{|\mathcal{N}\_u||\mathcal{N}\_i|}} \mathbf{e}\_i^{(k)}
+
 $$
 
 $$
+
 \mathbf{e}\_u = \sum\_{k=0}^{K} \alpha\_k \mathbf{e}\_u^{(k)}
+
 $$
 
 **直觉**：去掉 GCN 的特征变换和非线性，只保留邻域加权平均，最终 Embedding 是各层的加权和。简单但实测效果不亚于复杂 GCN。

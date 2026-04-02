@@ -58,7 +58,9 @@ timeline
 ### 1. Self-Attention
 
 $$
+
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+
 $$
 
 - Transformer 核心计算
@@ -66,7 +68,9 @@ $$
 ### 2. KV Cache
 
 $$
+
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
+
 $$
 
 - KV Cache 内存占用公式
@@ -74,7 +78,9 @@ $$
 ### 3. LoRA
 
 $$
+
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
+
 $$
 
 - 低秩适配，r << d 大幅减少可训练参数
@@ -135,7 +141,9 @@ $$
 ### 公式 1：Continuous Batching 吞吐公式
 
 $$
+
 \text{Throughput} = \frac{B_{\text{eff}} \times \bar{L}_{\text{output}}}{\bar{T}_{\text{latency}}}
+
 $$
 
 - $B_{\text{eff}}$：有效 batch 大小（持续填入新请求）
@@ -147,7 +155,9 @@ $$
 ### 公式 2：PagedAttention 显存利用率
 
 $$
+
 \text{Utilization} = \frac{\sum_{i} \text{actual\_len}_i}{\sum_{i} \text{allocated\_pages}_i \times \text{page\_size}}
+
 $$
 
 **直观理解**：传统系统为每个请求预分配最大长度的连续显存，大部分空间浪费。PagedAttention 像操作系统的虚拟内存分页——按需分配小块显存，显存碎片从 60-80% 降到 <5%。这就是 vLLM 的核心创新。
@@ -155,7 +165,9 @@ $$
 ### 公式 3：SLA 约束下的最优 batch 策略
 
 $$
+
 B^* = \arg\max_B \; \text{Throughput}(B) \quad \text{s.t.} \quad P_{99}(\text{TTFT}(B)) \leq T_{\text{SLA}}
+
 $$
 
 - $B^*$：最优 batch 大小

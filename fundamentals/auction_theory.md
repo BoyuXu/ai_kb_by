@@ -42,7 +42,9 @@ graph LR
 现实中，广告位置不完全按出价排序，而是按**有效出价（eCPM）**：
 
 $$
+
 \text{eCPM}}_{\text{i = \text{CTR}}_i \times b_i
+
 $$
 
 - $\text{CTR}}_{\text{i$：平台预估的广告 $i$ 的点击率
@@ -62,7 +64,9 @@ $$
 每个广告主支付**使其恰好能保住当前位置所需的最低出价**：
 
 $$
+
 p}}_{\text{i = b}}_{\text{{i+1}} \cdot \frac{\text{CTR}}_{\text{{i+1}}}{\text{CTR}}_{\text{i}}
+
 $$
 
 即：广告主 $i$ 支付的每次点击费用 = 广告主 $i+1$（排名紧接其后者）的出价 × CTR 比值。
@@ -81,7 +85,9 @@ $$
 GSP 的一个 Nash 均衡满足：
 
 $$
+
 b_2 \geq \frac{(\alpha_1 - \alpha_2)v_2 + \alpha_2 v_3}{\alpha_1}
+
 $$
 
 这意味着广告主 2 的出价高于其真实价值 $v_2$（超出部分是阻止广告主 3 抢占位置的战略出价），与诚实出价不同。
@@ -103,7 +109,9 @@ VCG 是社会福利最大化的机制设计：
 广告主 $i$ 的 VCG 价格 = 因有广告主 $i$ 参与而导致其他广告主损失的福利之和：
 
 $$
+
 p_i^{VCG} = \sum_{j \in W(N) \setminus \{i\}} \alpha_{k_j} v_j - \sum_{j \in W(N \setminus \{i\})} \alpha_{k_j} v_j
+
 $$
 
 其中 $W(N)$ 为全部广告主参与时赢得广告位的集合，$W(N \setminus \{i\})$ 为去掉广告主 $i$ 后赢得广告位的集合，$k_j$ 为广告主 $j$ 获得的位置编号。
@@ -111,11 +119,15 @@ $$
 化简后（对于位置 $k$）：
 
 $$
+
 p_i^{VCG} = \sum_{k'=k}^{K} \alpha_{k'} \cdot b_{k'+1} - \sum_{k'=k+1}^{K} \alpha_{k'} \cdot b_{k'+1}
+
 $$
 
 $$
+
 = \sum_{k'=k}^{K} (\alpha_{k'} - \alpha_{k'+1}) \cdot b_{k'+1}
+
 $$
 
 其中 $b_{k'+1}$ 是排在第 $k'+1$ 位的广告主出价，$\alpha_{K+1} = 0$（超出位置数无折扣）。
@@ -151,13 +163,17 @@ $$
 oCPC 让广告主出每次转化的目标成本（CPA_target），平台代为估算合适的点击出价：
 
 $$
+
 \text{CPC}}_{\text{{\text{bid}}} = \text{CPA}}_{\text{{\text{target}}} \times \hat{p}(\text{CVR})
+
 $$
 
 进一步展开到每次展示的 eCPM：
 
 $$
+
 \text{eCPM} = \text{CPC}}_{\text{{\text{bid}}} \times \hat{p}(\text{CTR}) = \text{CPA}}_{\text{{\text{target}}} \times \hat{p}(\text{CVR}) \times \hat{p}(\text{CTR})
+
 $$
 
 **系统架构**：
