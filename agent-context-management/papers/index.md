@@ -83,14 +83,72 @@
 
 | 状态 | 数量 |
 |------|------|
-| ⭐⭐⭐ 高优先级 | 4 |
-| ⭐⭐ 中优先级 | 5 |
+| ⭐⭐⭐ 高优先级 | 6 |
+| ⭐⭐ 中优先级 | 7 |
 | ✅ 已读 | 0 |
-| 🔲 未读 | 9 |
+| 🔲 未读 | 13 |
 
 ---
 
-*最后更新：2026-03-31 | MelonEggLearn*
+## 📅 2026-04-03 新增
+
+### Memory in the LLM Era: Modular Architectures and Strategies in a Unified Framework
+- **提交时间：** 2026-04-02
+- **作者：** Yanchen Wu, Tenghui Lin, Yingli Zhou, Fangyuan Zhang et al.
+- **性质：** 综述论文
+- **arXiv 搜索：** `Memory LLM Era Modular Architectures Unified Framework`
+- **核心贡献：**
+  - 将 LLM memory 统一为三大范式：参数记忆 / 上下文记忆 / 外部记忆
+  - 提出模块化架构视角（写/索引/检索/使用/精炼）
+  - 覆盖当前主流方法，适合作为领域综述入门
+- **面试价值：** ★★★★★ — memory 系统设计必读综述，可作面试框架
+- **待读状态：** 🔲 未读
+
+---
+
+### ContextBudget: Budget-Aware Context Management for Long-Horizon Search Agents
+- **提交时间：** 2026-04-02
+- **作者：** Yong Wu, YanZhao Zheng, TianZe Xu, ZhenTao Zhang et al.
+- **arXiv 搜索：** `ContextBudget Budget-Aware Context Management Long-Horizon`
+- **核心贡献：**
+  - 提出"context 预算"概念——将 token window 视为可分配资源
+  - 按信息重要性动态压缩历史 context，高价值信息受保护
+  - 在长 horizon 搜索任务上显著优于朴素截断策略
+- **关键技术：** Priority-Based Compression + Budget Allocation + Dynamic Summarization
+- **面试价值：** ★★★★★ — "如何处理超长 context" 面试必备方案
+- **待读状态：** 🔲 未读
+
+---
+
+### ByteRover: Agent-Native Memory Through LLM-Curated Hierarchical Context
+- **提交时间：** 2026-04-02
+- **作者：** Andy Nguyen, Danh Doan, Hoang Pham et al.
+- **arXiv 搜索：** `ByteRover Agent-Native Memory LLM-Curated Hierarchical`
+- **核心贡献：**
+  - Memory-Augmented Generation (MAG) 的分层实现
+  - LLM 主动策划记忆（非规则过滤），3 层分层架构
+  - 跨会话持久化，Agent-Native 设计（memory 内建非外挂）
+- **关键技术：** MAG + Hierarchical Curation + LLM-Driven Memory Selection
+- **面试价值：** ★★★★☆ — agent 持久记忆工程实现参考
+- **待读状态：** 🔲 未读
+
+---
+
+### Oblivion: Self-Adaptive Agentic Memory Control through Decay-Driven Activation
+- **提交时间：** 2026-03-31
+- **作者：** Ashish Rana, Chia-Chien Hung, Qumeng Sun, Julian Kunkel, Carolin Lawrence
+- **arXiv 搜索：** `Oblivion Self-Adaptive Agentic Memory Decay-Driven Activation`
+- **核心贡献：**
+  - 仿 Ebbinghaus 遗忘曲线的 memory 衰减机制
+  - 上下文相关时记忆可被重新激活（联想触发）
+  - Self-Adaptive 衰减率，无需人工调参
+- **关键技术：** Decay Function + Contextual Reactivation + Adaptive Rate
+- **面试价值：** ★★★★☆ — 认知科学 + AI memory 的交叉，答题加分项
+- **待读状态：** 🔲 未读
+
+---
+
+*最后更新：2026-04-03 | MelonEggLearn*
 
 ---
 
