@@ -481,3 +481,50 @@ print(f"User embedding: {user_emb.shape}")  # (4, 32)
 1. 将 DIN 的注意力等同于 Transformer 注意力——DIN 是单 Query（目标广告）对序列，不做 softmax 归一化
 2. SIM 中忘记考虑实时索引更新的工程开销——用户每次交互后需要 append 到 ANN 索引
 3. 忽略 GAUC 和全局 AUC 的区别——GAUC 按用户分组计算更能反映个性化效果
+
+
+---
+## DICE 激活函数完整推导
+
+### 为什么 DIN 不用标准 PReLU？
+
+PReLU 的问题：固定的分叉点（0 附近），对所有样本都一样。
+
+DICE（Data-dependent activation）的思想：**分叉点应该根据数据分布自适应调整**。
+
+### DICE 公式
+
+$$\text{DICE}(s) = p(s) \cdot s + (1 - p(s)) \cdot \alpha s$$
+
+其中 $p(s)$ 是数据依赖的门控：
+
+$$p(s) = \sigma\left(\frac{s - E[s]}{\sqrt{\text{Var}[s] + \epsilon}}\right)$$
+
+$E[s]$ 和 $\text{Var}[s]$ 用 mini-batch 统计（类似 BN 的方式），推理时用移动平均。
+
+### 直觉解释
+
+- 当 $s$ 大于 batch 均值（高激活）：$p(s) \approx 1$，DICE 接近恒等映射 $s$（强信号直接传播）
+- 当 $s$ 小于 batch 均值（低激活）：$p(s) \approx 0$，DICE 接近 $\alpha s$（弱信号被抑制）
+- 分叉点不是固定的 0，而是 **当前 batch 的均值** → 数据自适应
+
+### DICE vs PReLU vs ReLU 对比
+
+| 激活函数 | 分叉点 | 负值处理 | 数据自适应 |
+|---------|-------|---------|---------|
+| ReLU | 固定=0 | 截断 | ❌ |
+| PReLU | 固定=0 | $\alpha \cdot x$ | ❌（$\alpha$ 学习但分叉点固定）|
+| DICE | 动态=batch均值 | $\alpha \cdot x$ | ✅ |
+
+### 工程实现注意事项
+
+```python
+# 推理时不能用 batch norm（batch size=1）
+# 使用训练时的移动平均 mean/var
+dice_mean = running_mean  # 训练时用 EMA 累积
+dice_var = running_var
+p = sigmoid((s - dice_mean) / sqrt(dice_var + eps))
+output = p * s + (1 - p) * alpha * s
+```
+
+典型的 $\alpha$ 初始化为 0（等价于从 ReLU 开始），通过梯度学习。

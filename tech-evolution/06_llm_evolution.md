@@ -1317,4 +1317,37 @@ Stage 2: DeepSeek-R1
 
 ---
 
+## 2025-2026 关键趋势
+
+### 趋势1：后ScalingLaw时代
+
+MoE架构普及：DeepSeek-V3 671B（激活37B）成本比dense 70B还低。
+
+推理时Compute（Inference-Time Compute）：o1/o3系列证明"让模型多想"有时比"更大模型"更有效。
+
+### 趋势2：RLVR成为主流
+
+DeepSeek-R1（2025-01）用RLVR在数学推理上超过o1，开源社区大量复现（GRPO、DAPO）。
+
+关键发现：Aha Moment——模型在RL训练中自发学会反思（"Wait, let me reconsider..."），Long CoT是RL优化的自然结果，非人工设计。
+
+局限：RLVR对有标准答案任务效果好，对主观任务效果不明。
+
+### 趋势3：Agent工程化成熟
+
+A2A（Agent-to-Agent）协议：Google推出，多Agent通信标准化。
+MCP（Model Context Protocol）：Anthropic推出，工具调用标准化。
+Agentic RAG：Agent自主决定何时检索、检索什么、是否信任检索结果。
+
+### 趋势4：LLM成本急剧下降
+
+| 时间 | GPT-4级别成本（/1M tokens）|
+|------|--------------------------|
+| 2023 Q1 | $60 |
+| 2023 Q4 | $30 |
+| 2024 Q2 | $10 |
+| 2025 Q1 | $2（DeepSeek-V3）|
+
+---
+
 *文档结束 | MelonEggLearn | 2026-03-16*

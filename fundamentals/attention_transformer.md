@@ -445,3 +445,26 @@ print(f"Output shape: {out.shape}")  # (1, 2, 4, 8)
 1. 忘记除以 √d_k 导致 softmax 饱和，面试时推导方差分析是关键考点
 2. 混淆 Self-Attention 和 Cross-Attention——前者 QKV 同源，后者 Q 来自 decoder、KV 来自 encoder
 3. 认为多头的参数量是单头的 h 倍——实际上 d_k=d_model/h，总参数量不变
+
+
+---
+### Attention 公式的直觉解释
+
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
+
+**每个符号是什么**：
+- $Q$（Query）：我想找什么 → 当前 token 在问"谁和我相关"
+- $K$（Key）：我有什么 → 每个 token 在说"我的特征是这些"
+- $V$（Value）：我给什么 → 每个 token 在说"如果你选我，我提供这个信息"
+
+**为什么除以 $\sqrt{d_k}$**：
+$QK^T$ 的点积值随维度 $d_k$ 增大而增大（$E[QK^T] \propto d_k$），维度高时 softmax 输入过大 → 梯度消失（softmax 饱和）。除以 $\sqrt{d_k}$ 使方差归一化。
+
+具体数字：$d_k=64$ 时不除的点积方差=64，除以 8 后方差=1，softmax 梯度正常。
+
+**Self-Attention vs Cross-Attention**：
+- Self-Attention：$Q, K, V$ 都来自同一个序列 → 序列内部建立依赖关系（Transformer Encoder）
+- Cross-Attention：$Q$ 来自 Decoder，$K, V$ 来自 Encoder 输出 → 翻译任务中"当前生成词参考源文"
+
+**Multi-Head 的必要性**：
+单头 Attention 只能学一种"注意力模式"（比如语法关系）；多头允许不同头学不同模式（句法/语义/位置）。合并时用拼接而非加法，保留各头的独立性。

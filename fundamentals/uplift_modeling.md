@@ -464,3 +464,47 @@ print(f"Uplift scores: {uplift.round(3)}")
 1. 用 CTR 模型代替 Uplift 模型——CTR 高的用户可能是 Sure Things（无需投广告），浪费预算
 2. 在非随机数据上直接训练 T-Learner——选择偏差导致 CATE 有偏，需要 IPW 或倾向得分匹配
 3. 忘记 Uplift 模型无法在个体层面验证——只能在群体（分桶）层面通过 Qini 曲线评估排序质量
+
+
+---
+## Uplift Modeling 的工业落地案例
+
+### 案例1：电商优惠券发放策略
+
+**场景**：100万用户，要发总额 100万元的优惠券（平均每人 1 元），目标最大化新增 GMV。
+
+**传统做法（CVR 排序）**：按 CVR 高的用户发券 → 但 CVR 高的用户本来就会买，优惠券是白送的。
+
+**Uplift 做法**：发券给"有券才买、没券不买"的用户（Persuadables）
+
+**四象限分析**：
+
+| | 有券会买 | 有券不买 |
+|---|---------|---------|
+| **没券也会买** | 白送钱的用户（Sure Things）| 顽固不买（Lost Causes）|
+| **没券不会买** | ✅ 目标用户（Persuadables）| 无关（Lost Causes）|
+
+**Uplift 模型预测**：$\tau(x) = E[Y|T=1, X=x] - E[Y|T=0, X=x]$（有券 vs 无券的购买概率差）
+
+**实际效果**：相同优惠券预算，Uplift-based 策略比 CVR-based 新增 GMV 提升 15-30%。
+
+### 案例2：广告精准触达（Incremental ROAS）
+
+**问题**：广告主关心的不是"有多少人购买"，而是"广告带来了多少额外购买"（Incremental Conversions）
+
+传统 ROAS = 总转化价值 / 广告花费（包含了没广告也会购买的部分）
+真实 Incremental ROAS = 广告导致的额外转化价值 / 广告花费
+
+**Uplift 在广告中的用途**：
+- 识别 Persuadables → 只对这部分用户投广告，不浪费预算
+- Meta 的 "Conversion Lift" 产品就是用 Geo Experiment 测量 Incremental ROAS
+
+### Uplift 模型评估：Qini Curve
+
+标准准确率无法评估 Uplift（没有 counterfactual ground truth）。
+
+Qini Curve：按预测 uplift 从高到低排序用户，计算"如果只对 Top K% 用户处理，能获得多少增量转化"。
+
+$$\text{Qini Coefficient} = \frac{\text{曲线面积} - \text{随机策略面积}}{\text{理想策略面积} - \text{随机策略面积}}$$
+
+Qini > 0.2 通常认为有显著效果。
