@@ -1032,3 +1032,113 @@ Novelty = 推荐物品的平均 -log(popularity)
 
 > 📅 生成时间：2026-03-16 | 作者：MelonEggLearn | 版本：v1.0
 > 📁 参考来源：ai-kb/rec-sys/ 全系列
+
+---
+
+## 🆕 2026 Q1 新增卡片（2026-04-04 融合）
+
+---
+
+### 卡片：Mamba SSM vs Transformer 序列推荐
+
+**核心机制**：
+- Mamba 用**选择性状态空间**（SSM）替代 Self-Attention
+- 状态转移：`h_t = exp(Δ_t A) · h_{t-1} + Δ_t·B_t·x_t`
+- `Δ_t` 是输入自适应参数（大 = 关注当前，小 = 保持历史）
+
+**关键对比**：
+
+| | Transformer | Mamba |
+|--|------------|-------|
+| 复杂度 | O(n²) | O(n) |
+| 推理显存 | O(n) KV Cache | O(1) 固定状态 |
+| 序列上限 | ~4096 | 理论无限 |
+| 选择性遗忘 | ❌（全局注意力） | ✅（Δ_t 控制） |
+
+**推荐场景适配原因**：用户历史稀疏有价值信号，大部分是噪声 → Mamba 选择性遗忘天然契合。
+
+**工业落地（MambaRec）**：延迟 280ms → 45ms，CTR +6.8%，季节性品类 GMV +23%
+
+**面试一句话**：Mamba 不只是"更快的 Transformer"，是**选择机制**让它特别适合推荐中"值得记住的信号稀疏"的场景。
+
+---
+
+### 卡片：HSTU ReLU Pointwise Attention（Meta）
+
+**改了什么**：把 `softmax(QKᵀ/√d)` 改成 `ReLU(QKᵀ)`
+
+**为什么改**：
+- softmax 在超长序列（推荐常见 2000-5000 token）下浪费算力：大量权重趋近 0 但还是要全局归一化
+- ReLU 自然过滤负相关（输出 0），无需归一化，天然稀疏
+
+**收益**：推理速度提升 3-5×，支持更长序列，允许单模型统一召回+排序。
+
+**代价**：注意力权重不再是概率分布，训练稳定性更敏感（需 LayerNorm + 梯度裁剪）
+
+**与 FlashAttention 区别**：FlashAttention 是 IO 优化（减少 HBM 读写），仍是 O(n²)；HSTU 是**算法级**改变，实际 FLOP 减少。
+
+---
+
+### 卡片：MTGR 双流融合（美团外卖）
+
+**为什么不直接用纯 HSTU**：HSTU 序列建模忽略 side features（价格、品类、上下文），这些在 DLRM 框架中通过特征交叉被充分利用。
+
+**双流设计**：
+```
+行为序列 → [HSTU 序列流] → h_seq
+结构化特征 → [DLRM 特征流] → h_feat
+→ Adaptive Gating → h_final
+```
+
+**Adaptive Gating**：`g = σ(W·concat(h_seq, h_feat))`，冷启动用户特征流权重自动上升。
+
+**渐进式训练**：① 预训 HSTU ② 固定序列流训特征流 ③ 联合 fine-tune —— 防止两路相互干扰
+
+**效果**：GAUC +2.88pp，GMV +2.1%
+
+---
+
+### 卡片：生成式推荐 Semantic ID 演进
+
+| 方案 | 核心思路 | 问题 |
+|------|---------|------|
+| 随机 Item ID | 整数编号 | 无语义性 |
+| RQ-VAE（TIGER）| 离散码本量化 | 量化误差 + 碰撞 + 梯度断裂 |
+| Differentiable Semantic ID | Gumbel-Softmax 可微量化 | 端到端但仍有离散化 |
+| UniGRec Soft Identifiers | 直接用连续向量，ANN 检索定位 | 存储大，但无碰撞无量化误差 |
+
+**UniGRec 关键设计**：自回归生成下一个物品的连续向量 → FAISS ANN 检索最近邻定位物品
+
+**Recall@10 对比**：Soft ID 比 RQ-VAE 高 5.8%，碰撞率从 3.2% → 0%
+
+---
+
+### 卡片：Test-Time Compute 推荐（PROMISE）
+
+**核心思想**：推荐不是"一次贪心解码"，而是 Beam Search 探索多个候选列表，用 PRM（过程奖励模型）评估。
+
+**PRM vs ORM**：
+- ORM：只看最终列表质量 → 无法定位是哪步选错
+- PRM：每步打分 → 密集监督信号，学习效率更高，效果好 2.3%
+
+**Beam Search K=8 ≈ Best-of-64 效果**（PROMISE 实验），Recall@10 +9.1%。
+
+**工业延迟方案**：
+1. 离线大算力 Beam Search → 缓存 100 候选，在线轻量 PRM 重排（<5ms）
+2. 分级：高价值用户 Beam Search，普通用户贪心解码
+3. PRM 蒸馏 → 1-2 层轻量 PRM，<3ms
+
+---
+
+### 卡片：O1 Embedder（推理增强检索）
+
+**核心改进**：在编码 query 前先生成"内部推理链"，拼接后再编码。
+
+$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+
+**与传统 Query 扩展的区别**：
+- 传统：先改 query 文字，再编码 → 改变了 query 表面形式
+- O1 Embedder：内部推理，query 文字不变 → 完全兼容已有 ANN 索引，无需重建
+
+**适用场景**：知识型 query（"比铝轻的常见金属"），不适合高频简单 query（延迟代价大）
+

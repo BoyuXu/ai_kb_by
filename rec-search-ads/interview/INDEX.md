@@ -29,3 +29,26 @@
 - [LLM工程 分层知识卡片](./cards/llm_engineering_cards.md)
 - [推荐系统 分层知识卡片](./cards/rec_sys_cards.md)
 - [搜索算法 分层知识卡片](./cards/search_cards.md)
+
+---
+
+## 🆕 2026 Q1 更新（2026-04-04）
+
+### 新增文件
+- [热题榜单 2026-04-04](./热题榜单_20260404.md) — 25道最新精选题，TOP 10 + 系统设计题 + 开放高分题
+- [面试官最想听到什么](./面试官最想听到什么.md) — 高分答案框架（Before/After+工程约束+踩坑）
+
+### 题库更新
+- `qa-bank.md` — 追加 2026-03-28 至 2026-04-03 共 25 道题（5278 → 6579 行）
+
+### 知识卡片更新
+- `cards/rec_sys_cards.md` — 新增：Mamba SSM、HSTU ReLU Attention、MTGR双流融合、Semantic ID演进、PROMISE Test-Time Compute、O1 Embedder
+- `cards/ads_system_cards.md` — 新增：生存分析延迟CVR、Causal Bidding、BundleNet、FPA+GBS出价分布、Shapley归因
+
+### 核心主题覆盖（新增）
+- **序列建模**：Mamba SSM、HSTU、Differentiable Semantic ID、UniGRec Soft ID
+- **延迟CVR**：生存分析、软标签重加权
+- **生成式广告**：EGA端到端框架
+- **因果出价**：Causal Bidding、GBS分布出价、FPA Bid Shading
+- **Test-Time Compute**：PROMISE、PRM、Beam Search推荐
+- **推理增强检索**：O1 Embedder、Rank1、REARANK
