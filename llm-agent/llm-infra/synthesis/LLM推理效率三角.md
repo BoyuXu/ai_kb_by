@@ -240,3 +240,40 @@ $$
 
 **直观理解**：TTFT 主要由 prefill 阶段决定——prompt 越长首 token 越慢。这就是为什么 RAG 系统（prompt 动辄上万 token）特别关注 TTFT 优化：FlashAttention 减少 IO、Chunked Prefill 平滑计算、Prefix Caching 避免重复计算。
 
+
+
+---
+## 真实系统中的延迟数字
+
+### 各组件延迟 Benchmark（7B 模型，A100 40GB）
+
+| 场景 | TTFT | TPOT | 吞吐（tokens/s）|
+|------|------|------|----------------|
+| 无优化基线 | 500ms | 20ms | 50 |
+| + Continuous Batching | 300ms | 15ms | 200 |
+| + PagedAttention | 250ms | 12ms | 300 |
+| + INT8 量化 | 200ms | 8ms | 450 |
+| + 投机解码（小模型草稿）| 200ms | 3ms | 1200 |
+
+**结论**：投机解码是单序列延迟提升最大的技术（TPOT降低6×），Continuous Batching是吞吐提升最大的技术（4×）。
+
+### KV Cache 的"隐藏成本"
+
+一个 LLaMA-2-70B 的 KV Cache（每 token）：
+- 每层：2 × 8 heads × 128 dim × 2 bytes = 4KB（GQA后降低4×）  
+- 80 层：320KB/token（原始），80KB/token（GQA优化后）
+- 4096 token 对话：320MB（原始），80MB（GQA）
+
+这就是为什么 70B 模型在 A100 40GB 上只能跑 batch_size=4-8：KV Cache 把显存吃完了。
+
+### 量化的精度 vs 速度权衡
+
+| 量化精度 | 模型压缩比 | 推理速度 | 精度损失 | 适用场景 |
+|---------|----------|---------|---------|---------|
+| FP16（基线）| 1× | 1× | 0 | 高精度要求 |
+| INT8（W8A8）| 2× | 1.5-2× | 极小 | 通用生产 |
+| INT4（AWQ/GPTQ）| 4× | 2-3× | 小（数学稍差）| 成本敏感 |
+| INT4+激活INT8 | 4× | 2.5× | 中 | 边缘设备 |
+| INT2 | 8× | 3× | 大（不推荐）| 极端资源限制 |
+
+实践原则：**先上 INT8，观察质量无损失后再考虑 INT4**。
