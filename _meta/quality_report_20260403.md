@@ -31,6 +31,23 @@
 - fundamentals：12 篇核心算法文档，4500+ 行
 - rec-search-ads：三域 × 四阶段结构，300+ 文件
 
+## 2026-04-03 20轮深化优化总结（Part B R1-R20）
+
+### 新增文件（本轮）
+
+- interview/面试官最想听到什么.md — 高分答案框架
+- llm-infra/synthesis/RAG_vs_Finetune决策框架.md — 决策树+成本对比
+- llm-infra/synthesis/Agent失败模式与解法.md — 5类失败模式+成功概率公式
+- llm-infra/synthesis/LLM常见认知误区.md — 5个学界vs工业界差距
+- industry-challenges-2026.md — 行业痛点调研报告
+
+### 内容改善
+
+- rec-sys召回：补充双塔延迟原理、多路配额策略、SemanticID工程坑
+- tech-evolution/06_llm_evolution：补充2025-2026趋势（MoE/RLVR/Agent工程化/成本下降）
+- fundamentals/attention_transformer：补充QKV语义直觉解释
+- fundamentals/uplift_modeling：补充工业落地案例（优惠券四象限+Qini曲线）
+
 ## 待改进项（下轮建议）
 
 1. tech-evolution/02_ranking_evolution.md（1651行，仅16公式）——仍偏少，可继续补充序列建模公式
