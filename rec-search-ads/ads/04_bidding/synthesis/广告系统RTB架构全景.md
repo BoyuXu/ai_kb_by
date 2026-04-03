@@ -97,3 +97,25 @@ $$
 - **上游依赖**：拍卖理论、CTR/CVR 预估、用户画像
 - **下游应用**：出价策略、预算控制、广告效果归因
 - **相关 synthesis**：广告出价体系全景.md, 广告系统多目标优化.md
+
+
+---
+## 核心公式补充
+
+### GSP（广义第二价格拍卖）
+
+广告主 $i$ 按出价排名，排第 $k$ 位的广告主支付第 $k+1$ 位的出价：
+
+$$\text{CPC}_k = \text{bid}_{k+1} \cdot \frac{\text{Quality}_{k+1}}{\text{Quality}_k} + 0.01$$
+
+eCPM 排序：
+
+$$\text{eCPM}_i = \text{pCTR}_i \times \text{bid}_i \times \text{quality}_i$$
+
+### 广告主 ROI 约束下的最优出价
+
+广告主期望 ROI ≥ 目标 $r$：
+
+$$\text{bid}^* = \frac{\text{pCVR} \times \text{价值}}{r} = \frac{\text{CPA}_{\text{target}} \times \text{pCVR}}{1}$$
+
+当 pCVR 估计偏高时，出价过高，导致 ROI 不达标。这是 CTR/CVR 校准对广告系统至关重要的原因。
