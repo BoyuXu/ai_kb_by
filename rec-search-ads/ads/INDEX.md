@@ -211,3 +211,36 @@
 - [EGA: End-to-End Generative Advertising](./papers/ega_end_to_end_generative_advertising.md)
 - [GR4AD: Generative Recommendation Advertising](./papers/gr4ad_generative_recommendation_advertising.md)
 - **Synthesis**: [广告系统前沿综合分析 20260402](./synthesis/20260402_广告系统前沿综合分析.md)
+
+## 2026-04-04 深度整合（下午 Session）
+
+已有综述文件（20260403）覆盖今日所有ads新论文，INDEX.md更新如下：
+
+### 今日关键 Synthesis 文件
+- [**工业广告系统生成式革命（20260403）**](./synthesis/工业广告系统生成式革命_20260403.md) — 10篇广告生成式论文综述（GPR/EGA-v2/GenBidShading/IDProxy/MGOE等），12题Q&A，三阶段落地路线
+
+### 2026-04-04 新增论文（21篇）
+
+| 文件 | 论文 | 关键词 |
+|------|------|--------|
+| ELEC_efficient_llm_empowered_click_through_rate_prediction.md | ELEC: 高效LLM离线CTR增强 | 离线LLM特征工厂, 延迟+0.3ms |
+| idproxy_cold_start_ctr_multimodal_llm.md | IDProxy: 多模态LLM冷启动代理ID | 小红书, 冷启动CTR+8.5% |
+| mtgr_multi_task_generative_ranking.md | MTGR: 多任务生成式排序 | 双流融合, DLRM+HSTU |
+| strategic_bid_shading_minority_game_theory.md | 战略出价遮蔽：少数博弈 | 博弈均衡, FPA, 竞争感知 |
+| gpr_generative_pretrained_one_model_advertising.md | GPR: 华为生成式预训练统一模型 | HHD, 四阶段统一, 广告收入+3.8% |
+| causal_bidding_counterfactual.md | 因果竞价：反事实推理出价优化 | IPW, Double-Robust, ROI+11.3% |
+| icl_bandit_relevance_labeling_llm.md | ICL-Bandit: Bandit优化LLM标注 | LinUCB, few-shot, 准确率+6.3% |
+| GRAD_generative_pretrained_models_automated_ad_bidding.md | GRAD: Diffusion生成式自动出价 | 跨广告主预训练, GMV+4.2% |
+| NextAds_next_generation_personalized_video_advertising.md | NextAds: 下一代个性化视频广告 | 多模态, 视频广告, 个性化 |
+| foundation_model_ads_ctr.md | 广告CTR基础模型预训练 | Scaling Law, Adapter, AUC+1.5% |
+| revisiting_explicit_implicit_feedback.md | 显式vs隐式反馈重新审视 | 反馈信号, 联合训练 |
+| ega_v2_end_to_end_generative_advertising.md | EGA-v2: 全链路Semantic ID生成 | RQ-VAE, 广告覆盖率+15% |
+| mtfm_scalable_foundation_model_recommendation.md | MTFM: 美团推荐基础模型 | 1B→10B Scaling, AUC+2.3% |
+| mgoe_macro_graph_experts_billion_scale.md | MGOE: 亿级宏观专家图 | DAG, Gumbel-Softmax, 任务级路由 |
+| gr4ad_generative_recommendation_advertising.md | GR4AD: 毫秒级生成式广告 | 动态beam, KV cache, <5ms |
+| generative_bid_shading_real_time_bidding.md | 生成式Bid Shading: RTB出价 | 自回归, GRPO, ROI约束+95% |
+| generative_recommendation_large_scale_advertising.md | 大规模广告生成式推荐 | 动态Token化, PQ增量更新 |
+| autoifs_automated_information_flow_selection.md | AutoIFS: 自动信息流选择 | NAS, 多场景, 信息流拓扑 |
+| UniROM_unifying_online_advertising_ranking_one_model.md | UniROM: 统一广告排序单一模型 | CTR+CVR+LTV统一, GMV+2.3% |
+| llm_creative_ad_generation_quality_control.md | LLM广告创意生成与质量控制 | 创意优化, 质量评估 |
+| ega_end_to_end_generative_advertising.md | EGA: 端到端生成式广告框架 | 三维建模, Semantic ID, RPM+4.5% |

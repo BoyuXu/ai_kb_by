@@ -4,14 +4,20 @@
 
 | 分类 | 文档数 | 描述 |
 |------|--------|------|
-| **Papers** | 64篇 | 学术论文笔记 |
-| **Synthesis** | 26篇 | 提炼总结 |
-| **总计** | 90篇 | - |
+| **Papers** | 74篇 | 学术论文笔记（+10 2026-04-04：HSTU/生成式推荐/Agentic等） |
+| **Synthesis** | 28篇 | 提炼总结（+2 2026-04-04） |
+| **总计** | 102篇 | - |
 
 ---
 
 ## 📝 Synthesis 总结文档
 
+### 🌟 最新综述（2026-04-04）
+- [**推荐广告生成式范式统一全景**](./synthesis/推荐广告生成式范式统一全景.md) ⭐ **跨域整合** — 推荐×广告统一演进全景，20个Q&A，跨域技术对照表（新建 2026-04-04）
+- [**生成式推荐范式统一（20260403）**](./synthesis/生成式推荐范式统一_20260403.md) ⭐ **最新一日综述** — HSTU/MTGR/SMES/OneTrans/Agentic，12个Q&A（更新 2026-04-03）
+- [**推理链RL范式跨域整合**](./synthesis/推理链RL范式跨域整合_搜广推全景.md) — 搜广推RL推理全景
+
+### 📚 经典主题综述
 - [Boyu 个人学习档案](./synthesis/Boyu个人学习档案.md)
 - [N个Expert网络（每个是独立的全连接网络）](./synthesis/CTR模型深度解析.md)
 - [Embedding 学习：推荐系统的表示基石](./synthesis/Embedding学习_推荐系统表示基石.md)
@@ -202,3 +208,24 @@
 - [TagCF: LLM-Enhanced Logic Graph](./papers/tagcf_llm_enhanced_logic_graph.md)
 - [Deep Hierarchical Ensemble for CVR](./papers/deep_hierarchical_ensemble_cvr.md)
 - **Synthesis**: [推荐系统前沿综合分析 20260402](./synthesis/20260402_推荐系统前沿综合分析.md)
+
+## 2026-04-04 深度整合（下午 Session）
+
+| 文件 | 主题 | 更新内容 |
+|------|------|---------|
+| [synthesis/推荐广告生成式范式统一全景.md](synthesis/推荐广告生成式范式统一全景.md) | 推荐×广告跨域整合 | **新建**：41篇论文跨域综述，5大核心公式，20题Q&A，技术演进路线图，方法对比速查表 |
+
+### 2026-04-04 新增论文（10篇）
+
+| 文件 | 论文 | 关键词 |
+|------|------|--------|
+| promise_process_reward_test_time_scaling.md | PROMISE: 过程奖励+测试时扩展 | PRM, test-time scaling, 生成式推荐 |
+| smes_scalable_multi_task_expert_sparsity.md | SMES: 稀疏专家多任务扩展 | MoE, 稀疏路由, 20+任务 |
+| reasoning_semantic_ids_generative_recommendation.md | 推理增强Semantic ID生成推荐 | RQ-VAE, chain-of-thought, 生成式 |
+| actions_speak_louder_trillion_parameter_sequential.md | HSTU: Meta万亿参数序列Transformer | Pointwise Agg Attn, scaling law |
+| generative_recommenders_meta_hstu_implementation.md | Meta HSTU + M-FALCON 开源实现 | 工程实现, Jagged Tensor, FSDP |
+| bigel_behavior_graph_embedding_multi_task.md | BiGEL: 图增强多行为多任务 | R-GCN, 多行为, 协同信号 |
+| onetrans_unified_feature_interaction_sequence.md | OneTrans: 统一特征交叉+序列建模 | 异构注意力掩码, 字节跳动 |
+| rethinking_recommendation_pipelines_to_agentic.md | 从Pipeline到Agentic推荐系统 | 感知/规划/行动/反思, LLM Agent |
+| unigrec_unified_generative_soft_identifiers.md | UniGRec: 连续空间生成式推荐 | Soft Identifiers, 无量化误差 |
+| mtgr_multi_task_generative_ranking.md | MTGR: 美团双流融合生成式推荐 | DLRM+HSTU双流, 自适应gating |

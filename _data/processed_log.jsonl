@@ -775,3 +775,34 @@
 {"date": "20260403", "domain": "llm-infra", "title": "PLENA: Hardware-Software Co-Design for Long-Context Agentic LLM Inference", "url": "https://arxiv.org/abs/2509.09505", "processed_at": "2026-04-03T10:25:47.300609", "output_dir": "llm-agent/llm-infra/papers/"}
 {"date": "20260403", "domain": "llm-infra", "title": "Search-R1: Training LLMs to Reason and Leverage Search Engines with RL", "url": "https://arxiv.org/abs/2503.09516", "processed_at": "2026-04-03T10:25:47.300620", "output_dir": "llm-agent/llm-infra/papers/"}
 {"date": "20260403", "domain": "llm-infra", "title": "TongsearchQR: Reinforced Query Reasoning for Retrieval", "url": "https://arxiv.org/abs/2506.11603", "processed_at": "2026-04-03T10:25:47.300630", "output_dir": "llm-agent/llm-infra/papers/"}
+{"title": "Cold-Starts in Generative Recommendation", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Efficient Sequential Recommendation for Long Term User Interest Via Personalization (PerSRec)", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "ItemRAG: Item-Based Retrieval-Augmented Generation for LLM-Based Recommendation", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "GeoGR: A Generative Retrieval Framework for Spatio-Temporal Aware POI Recommendation", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "LLM Reasoning for Cold-Start Item Recommendation", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "UFO: Unfair-to-Fair Evolving Mitigates Unfairness in LLM-based Recommender Systems via Self-Play Fine-tuning", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Token-Controlled Re-ranking for Sequential Recommendation via LLMs", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Time Matters: Enhancing Sequential Recommendations with Time-Guided Graph Neural ODEs", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Save, Revisit, Retain: A Scalable Framework for Enhancing User Retention in Large-Scale Recommender Systems", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Large Language Model Enhanced Graph Invariant Contrastive Learning for Out-of-Distribution Recommendation", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "An Efficient LLM-based Evolutional Recommendation with Locate-Forget-Update Paradigm", "domain": "rec-sys", "date": "20260404", "status": "processed"}
+{"title": "Multi-task Offline Reinforcement Learning for Online Advertising (MTORL)", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "DLF: Dynamic Low-Order-Aware Fusion for CTR Prediction", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "IDProxy: Cold-Start CTR Prediction for Ads and Recommendation at Xiaohongshu", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "EST: Towards Efficient Scaling Laws in Click-Through Rate Prediction", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "OneTrans: Unified Feature Interaction and Sequence Modeling with One Transformer in Industrial Recommender", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "DAIAN: Deep Adaptive Intent-Aware Network for CTR Prediction in Trigger-Induced Advertising", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "R2LED: Equipping Retrieval and Refinement in Lifelong User Modeling", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "No One Left Behind: How to Exploit Incomplete and Skewed Multi-Label Data for Conversion Rate Prediction", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "PRECTR-V2: Unified Relevance-CTR Framework with Cross-User Preference Mining", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "One Model, Two Markets: Bid-Aware Generative Recommendation", "domain": "ads", "date": "20260404", "status": "processed"}
+{"title": "LLM-Embedder: Leveraging LLMs for Text Embeddings in Retrieval", "domain": "search", "date": "20260404", "status": "processed"}
+{"title": "Search-o1: Agentic Search-Enhanced Large Reasoning Models", "domain": "search", "date": "20260404", "status": "processed"}
+{"title": "RankRAG: Unifying Context Ranking with Retrieval-Augmented Generation", "domain": "search", "date": "20260404", "status": "processed"}
+{"title": "GTE-Qwen2: Multi-Lingual Embeddings for Dense Retrieval", "domain": "search", "date": "20260404", "status": "processed"}
+{"title": "Query Reformulation with LLMs for Zero-Shot Dense Retrieval", "domain": "search", "date": "20260404", "status": "processed"}
+{"title": "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention", "domain": "llm-infra", "date": "20260404", "status": "processed"}
+{"title": "SOAP: SGD-like Memory, AdamW-level Performance (LLM Optimizer)", "domain": "llm-infra", "date": "20260404", "status": "processed"}
+{"title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation (Microsoft)", "domain": "llm-infra", "date": "20260404", "status": "processed"}
+{"title": "ABBA: Highly Expressive Hadamard Product Adaptation", "domain": "llm-infra", "date": "20260404", "status": "processed"}
+{"title": "ReasonIR: Training Retrievers for Reasoning Tasks", "domain": "llm-infra", "date": "20260404", "status": "processed"}
