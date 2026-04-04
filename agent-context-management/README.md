@@ -19,7 +19,7 @@
 
 | 日期 | 论文数 | 亮点 | 笔记链接 |
 |------|--------|------|---------|
-| 2026-04-04 | 5 精选 | Reasoning Shift 噪声context破坏推理(★★★★★), HippoCamp PC端上下文Benchmark(★★★★), SkillReducer Agent技能Token优化(★★★★) | [daily/2026-04-04.md](daily/2026-04-04.md) |
+| 2026-04-04 | 5+1 精选 | Reasoning Shift 噪声context破坏推理(★★★★★), HippoCamp PC端上下文Benchmark(★★★★), SkillReducer Agent技能Token优化(★★★★), 晚补：Novel Memory Forgetting Techniques(★★★★) | [daily/2026-04-04.md](daily/2026-04-04.md) |
 | 2026-04-03 | 7 精选 | Memory in LLM Era 综述(★★★★★), ContextBudget 预算感知上下文压缩(★★★★★), ByteRover LLM 分层记忆, Oblivion 衰减驱动遗忘 | [daily/2026-04-03.md](daily/2026-04-03.md) |
 | 2026-04-01 | 5 精选 | MuSEAgent 原子决策经验库 (★★★★★), AdaptToken 熵驱动 token 选择, Marco DeepResearch 验证驱动轨迹 | [daily/2026-04-01.md](daily/2026-04-01.md) |
 | 2026-03-31 | 5 精选 | HyDRA Hybrid Memory (HF🔥133), Trace2Skill 轨迹→技能蒸馏, Dual-Memory 架构, MCP代码记忆 | [daily/2026-03-31.md](daily/2026-03-31.md) |
@@ -45,7 +45,7 @@ agent-context-management/
 - **Memory 检索**：外部向量 DB 检索 memory → 与召回系统机制相通
 
 ---
-*最后更新：2026-04-03 | MelonEggLearn*
+*最后更新：2026-04-04 | MelonEggLearn*
 
 ---
 ## Context 管理实战技巧
