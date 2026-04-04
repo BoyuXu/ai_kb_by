@@ -50,7 +50,9 @@
 
 ### 公式1：Sampled Softmax Loss
 
-$$\mathcal{L} = -\log \frac{e^{u \cdot v^+ / \tau}}{e^{u \cdot v^+ / \tau} + \sum_{j=1}^{K} e^{u \cdot v_j^- / \tau}}$$
+$$
+\mathcal{L} = -\log \frac{e^{u \cdot v^+ / \tau}}{e^{u \cdot v^+ / \tau} + \sum_{j=1}^{K} e^{u \cdot v_j^- / \tau}}
+$$
 
 **解释：**
 - $u$：用户向量
@@ -61,7 +63,9 @@ $$\mathcal{L} = -\log \frac{e^{u \cdot v^+ / \tau}}{e^{u \cdot v^+ / \tau} + \su
 
 ### 公式2：Sampling Bias Correction
 
-$$s_{corrected}(u, v) = u \cdot v - \log p(v)$$
+$$
+s_{corrected}(u, v) = u \cdot v - \log p(v)
+$$
 
 **解释：**
 - $p(v)$：物品 $v$ 被采样为负样本的概率（热门物品 $p(v)$ 大）
@@ -70,9 +74,13 @@ $$s_{corrected}(u, v) = u \cdot v - \log p(v)$$
 
 ### 公式3：Hard Negative Mining
 
-$$\text{NegSet}(u) = \text{Random}(K_1) \cup \text{Hard}(K_2)$$
+$$
+\text{NegSet}(u) = \text{Random}(K_1) \cup \text{Hard}(K_2)
+$$
 
-$$\text{Hard}(K_2) = \text{TopK}_{v \notin \text{Pos}(u)}(u \cdot v)$$
+$$
+\text{Hard}(K_2) = \text{TopK}}_{\text{{v \notin \text{Pos}}(u)}(u \cdot v)
+$$
 
 **解释：**
 - 混合随机负样本 + 难负样本（被召回但未点击的物品）
@@ -81,9 +89,13 @@ $$\text{Hard}(K_2) = \text{TopK}_{v \notin \text{Pos}(u)}(u \cdot v)$$
 
 ### 公式4：多兴趣扩展（MIND）
 
-$$[u_1, u_2, \ldots, u_K] = \text{CapsuleRouting}(e_1, e_2, \ldots, e_N)$$
+$$
+[u_1, u_2, \ldots, u_K] = \text{CapsuleRouting}(e_1, e_2, \ldots, e_N)
+$$
 
-$$\text{score}(u, v) = \max_k (u_k \cdot v)$$
+$$
+\text{score}(u, v) = \max_k (u_k \cdot v)
+$$
 
 **解释：**
 - 用胶囊网络将用户行为序列路由为 K 个兴趣向量

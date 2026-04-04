@@ -45,19 +45,25 @@
 
 ### 公式1：LR 基线
 
-$$P(y=1|x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$$
+$$
+P(y=1|x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}
+$$
 
 **解释：** 线性模型，特征交叉完全依赖手工构造。
 
 ### 公式2：FM 二阶交叉
 
-$$\hat{y}_{FM} = w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j$$
+$$
+\hat{y}_{FM} = w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j
+$$
 
 **解释：** 自动学习二阶特征交叉，参数量 $O(nk)$，是 CTR 模型的里程碑。
 
 ### 公式3：DCN Cross Network
 
-$$x_{l+1} = x_0 \cdot x_l^T \cdot w_l + b_l + x_l$$
+$$
+x_{l+1} = x_0 \cdot x_l^T \cdot w_l + b_l + x_l
+$$
 
 **解释：**
 - $x_0$：原始输入
@@ -67,13 +73,17 @@ $$x_{l+1} = x_0 \cdot x_l^T \cdot w_l + b_l + x_l$$
 
 ### 公式4：DIN Attention
 
-$$\text{Attention}(e_i, e_a) = \sigma(W[e_i; e_a; e_i - e_a; e_i \odot e_a])$$
+$$
+\text{Attention}(e_i, e_a) = \sigma(W[e_i; e_a; e_i - e_a; e_i \odot e_a])
+$$
 
 **解释：** 目标广告驱动的注意力机制，动态激活用户兴趣。
 
 ### 公式5：多任务 eCPM 排序
 
-$$\text{eCPM} = \text{bid} \times \hat{p}_{CTR} \times \hat{p}_{CVR} \times f(\text{quality\_score})$$
+$$
+\text{eCPM} = \text{bid} \times \hat{p}_{CTR} \times \hat{p}_{CVR} \times f(\text{quality}}_{\text{{\text{score}}})
+$$
 
 **解释：** 综合广告出价、点击率、转化率和质量分进行广告排序。
 
@@ -137,7 +147,7 @@ $$\text{eCPM} = \text{bid} \times \hat{p}_{CTR} \times \hat{p}_{CVR} \times f(\t
 > ① 增量训练（每小时/每天用新数据更新模型）② 在线学习（实时更新部分参数）③ 特征时效性控制（用最近 N 天数据）④ Batch Normalization 缓解分布偏移 ⑤ 定期全量重训。
 
 **Q7：Embedding 维度如何选择？**
-> 经验公式：$d = 6 \times (\text{category\_size})^{1/4}$（Google 经验）。高频特征可用较高维度（16-64），低频特征用较低维度（4-8）。也可以用 NAS 自动搜索每个 field 的最优维度。
+> 经验公式：$d = 6 \times (\text{category}}_{\text{{\text{size}}})^{1/4}$（Google 经验）。高频特征可用较高维度（16-64），低频特征用较低维度（4-8）。也可以用 NAS 自动搜索每个 field 的最优维度。
 
 **Q8：CTR 模型的校准（Calibration）为什么重要？**
 > 广告出价依赖精确的 CTR 值（不仅是排序），pCTR=0.1 意味着广告系统认为每 10 次展示有 1 次点击。校准不准 → 出价偏差 → 广告主 ROI 异常。常用 Platt Scaling 或 Isotonic Regression 做后校准。

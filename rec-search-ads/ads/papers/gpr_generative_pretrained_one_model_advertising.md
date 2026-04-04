@@ -22,7 +22,9 @@ GPR的核心架构是Hierarchical Hybrid Decoder(HHD)，包含三个层级：
 
 生成概率采用层级分解：
 
-$$P(a|u, C) = \sum_{k=1}^{K} P_{coarse}(g_k|u) \cdot P_{fine}(a|g_k, u) \cdot P_{interact}(y|a, u)$$
+$$
+P(a|u, C) = \sum_{k=1}^{K} P_{coarse}(g_k|u) \cdot P_{fine}(a|g_k, u) \cdot P_{interact}(y|a, u)
+$$
 
 其中 $u$ 是用户表示，$C$ 是候选广告集合，$g_k$ 是第 $k$ 个粗粒度分组，$a$ 是具体广告，$y$ 是交互结果。
 
@@ -30,7 +32,9 @@ $$P(a|u, C) = \sum_{k=1}^{K} P_{coarse}(g_k|u) \cdot P_{fine}(a|g_k, u) \cdot P_
 
 GPR采用两阶段训练：预训练使用大规模用户行为序列学习通用表示，微调阶段针对广告特定的CTR/CVR目标优化。预训练目标结合了自回归生成损失和对比学习损失：
 
-$$\mathcal{L}_{pretrain} = -\sum_{t=1}^{T} \log P(a_t | a_{<t}, u; \theta) + \lambda \cdot \mathcal{L}_{contrastive}$$
+$$
+\mathcal{L}_{pretrain} = -\sum_{t=1}^{T} \log P(a_t | a_{<t}, u; \theta) + \lambda \cdot \mathcal{L}_{contrastive}
+$$
 
 其中自回归部分学习用户行为序列的生成模式，对比学习部分拉近相似用户-广告对的表示距离。
 

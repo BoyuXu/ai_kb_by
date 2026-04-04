@@ -1188,10 +1188,16 @@ shading_factor ≈ 历史赢单价格 / 历史出价
 **生存函数**：S(t) = P(转化发生在 t 之后 | 已发生转化)
 
 **Weibull 参数化**：
-$$S(t; λ, k) = \exp(-(t/λ)^k), \quad h(t) = (k/λ)(t/λ)^{k-1}$$
+
+$$
+S(t; λ, k) = \exp(-(t/λ)^k), \quad h(t) = (k/λ)(t/λ)^{k-1}
+$$
 
 **训练损失（右截尾 MLE）**：
-$$L = \prod_{i:\text{converted}} h(t_i) \cdot S(t_i) \times \prod_{j:\text{not yet}} S(w_j)$$
+
+$$
+L = \prod_{i:\text{converted}} h(t_i) \cdot S(t_i) \times \prod_{j:\text{not yet}} S(w_j)
+$$
 
 **样本重加权**：未转化样本用 `1 - S(24h)/S(t_elapsed)` 作为软标签，而不是直接标 0。
 
@@ -1207,7 +1213,9 @@ $$L = \prod_{i:\text{converted}} h(t_i) \cdot S(t_i) \times \prod_{j:\text{not y
 
 **解法**：学习潜在结果模型，估计反事实：
 
-$$\text{CATE}(x) = E[Y(b_{high}) - Y(b_{low}) | x]$$
+$$
+\text{CATE}(x) = E[Y(b_{high}) - Y(b_{low}) | x]
+$$
 
 **最优出价**：边际收益 = 竞价成本时的出价点（而非点估计 eCPM）
 
@@ -1223,7 +1231,9 @@ $$\text{CATE}(x) = E[Y(b_{high}) - Y(b_{low}) | x]$$
 
 **解法**：神经网络对广告 bundle 联合打分：
 
-$$f(B_k) = \text{Self-Attention}(\{a_i, a_j, ...\}) \rightarrow \text{bundle eCPM}$$
+$$
+f(B_k) = \text{Self-Attention}(\{a_i, a_j, ...\}) \rightarrow \text{bundle eCPM}
+$$
 
 **枚举爆炸**：Top-20 候选 → 枚举 C(20,3)=1140 三元组，可接受。
 
@@ -1240,11 +1250,16 @@ $$f(B_k) = \text{Self-Attention}(\{a_i, a_j, ...\}) \rightarrow \text{bundle eCP
 - FPA：**必须 Bid Shading**（出低于真实价值），否则 winner's curse
 
 **最优 Bid Shading**：
-$$b^* = \arg\max_b \left[ v \cdot P(\text{win}|b) - b \cdot P(\text{win}|b) \right]$$
+
+$$
+b^* = \arg\max_b \left[ v \cdot P(\text{win}|b) - b \cdot P(\text{win}|b) \right]
+$$
 
 **GBS（生成式出价分布）**：不是给一个出价点，而是建模出价分布（混合高斯）：
 
-$$p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))$$
+$$
+p(w | x) = \sum_{k=1}^{K} \pi_k(x) \cdot \mathcal{N}(w | \mu_k(x), \sigma_k^2(x))
+$$
 
 - $\sigma_k$ 量化出价不确定性 → 可以做保守/激进策略切换
 - K=3-5，在线只做采样（O(K)，<1ms）

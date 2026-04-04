@@ -49,7 +49,9 @@
 
 ### 公式1：FM 组件（显式二阶交叉）
 
-$$y_{FM} = \langle w, x \rangle + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j$$
+$$
+y_{FM} = \langle w, x \rangle + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j
+$$
 
 **解释：**
 - $w \in \mathbb{R}^n$：一阶权重向量
@@ -60,7 +62,9 @@ $$y_{FM} = \langle w, x \rangle + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v
 
 ### 公式2：FM 二阶项计算优化
 
-$$\sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j = \frac{1}{2} \sum_{f=1}^{k} \left[ \left( \sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right]$$
+$$
+\sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j = \frac{1}{2} \sum_{f=1}^{k} \left[ \left( \sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right]
+$$
 
 **解释：**
 - $f$：隐向量的第 $f$ 维
@@ -68,9 +72,17 @@ $$\sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle v_i, v_j \rangle x_i x_j = \frac{1}{2}
 
 ### 公式3：Deep 组件（隐式高阶交叉）
 
-$$a^{(0)} = [e_1, e_2, \ldots, e_m]$$
-$$a^{(l+1)} = \sigma(W^{(l)} a^{(l)} + b^{(l)}), \quad l = 0, 1, \ldots, L-1$$
-$$y_{DNN} = W^{(L)} a^{(L)} + b^{(L)}$$
+$$
+a^{(0)} = [e_1, e_2, \ldots, e_m]
+$$
+
+$$
+a^{(l+1)} = \sigma(W^{(l)} a^{(l)} + b^{(l)}), \quad l = 0, 1, \ldots, L-1
+$$
+
+$$
+y_{DNN} = W^{(L)} a^{(L)} + b^{(L)}
+$$
 
 **解释：**
 - $e_i$：第 $i$ 个 field 的 embedding（与 FM 共享）
@@ -80,7 +92,9 @@ $$y_{DNN} = W^{(L)} a^{(L)} + b^{(L)}$$
 
 ### 公式4：最终输出
 
-$$\hat{y} = \sigma(y_{FM} + y_{DNN})$$
+$$
+\hat{y} = \sigma(y_{FM} + y_{DNN})
+$$
 
 **解释：**
 - $\sigma$：sigmoid 函数，输出 CTR 概率

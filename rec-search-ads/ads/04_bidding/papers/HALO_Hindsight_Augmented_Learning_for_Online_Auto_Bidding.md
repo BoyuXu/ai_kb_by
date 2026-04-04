@@ -48,7 +48,9 @@
 
 ### 公式1：Hindsight Experience Replay（HER）核心思想
 
-$$r'(s_t, a_t, g') = \mathbb{1}[\text{achieved}(s_{t+1}) = g']$$
+$$
+r'(s_t, a_t, g') = \mathbb{1}[\text{achieved}(s_{t+1}) = g']
+$$
 
 **解释：**
 - 原始目标 $g$ 未达到时，将实际达到的结果 $g'$ 作为新目标
@@ -57,9 +59,13 @@ $$r'(s_t, a_t, g') = \mathbb{1}[\text{achieved}(s_{t+1}) = g']$$
 
 ### 公式2：HALO 增强状态
 
-$$s_t^{aug} = [s_t; h_t]$$
+$$
+s_t^{aug} = [s_t; h_t]
+$$
 
-$$h_t = [\text{clearing\_price}_t, \text{competitor\_bid\_mean}_t, \text{market\_intensity}_t]$$
+$$
+h_t = [\text{clearing}}_{\text{{\text{price}}}_t, \text{competitor}}_{\text{{\text{bid}}}_{\text{mean}}_t, \text{market}}_{\text{{\text{intensity}}}_t]
+$$
 
 **解释：**
 - $s_t$：标准在线可观测状态（剩余预算、时间、历史CPA等）
@@ -68,7 +74,9 @@ $$h_t = [\text{clearing\_price}_t, \text{competitor\_bid\_mean}_t, \text{market\
 
 ### 公式3：知识蒸馏损失
 
-$$\mathcal{L}_{distill} = \text{KL}(\pi_T(\cdot|s_t^{aug}) \| \pi_S(\cdot|s_t)) + \beta \cdot \text{MSE}(V_T(s_t^{aug}), V_S(s_t))$$
+$$
+\mathcal{L}_{distill} = \text{KL}(\pi_T(\cdot|s_t^{aug}) \| \pi_S(\cdot|s_t)) + \beta \cdot \text{MSE}(V_T(s_t^{aug}), V_S(s_t))
+$$
 
 **解释：**
 - $\pi_T$：Teacher 策略（有 Hindsight）
@@ -79,7 +87,9 @@ $$\mathcal{L}_{distill} = \text{KL}(\pi_T(\cdot|s_t^{aug}) \| \pi_S(\cdot|s_t)) 
 
 ### 公式4：预算节奏控制
 
-$$\text{pacing\_signal}_t = \frac{\text{budget\_spent}_t / \text{budget\_total}}{\text{time\_elapsed}_t / \text{time\_total}}$$
+$$
+\text{pacing}}_{\text{{\text{signal}}}_t = \frac{\text{budget}}_{\text{{\text{spent}}}_t / \text{budget}}_{\text{{\text{total}}}}{\text{time}}_{\text{{\text{elapsed}}}_t / \text{time}}_{\text{{\text{total}}}}
+$$
 
 **解释：**
 - $> 1$：消耗超前，应降低出价

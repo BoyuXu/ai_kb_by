@@ -53,8 +53,13 @@
 
 ### 公式1：Item-level LLM 编码
 
-$$h_i = \text{ItemLLM}(\text{Tokenize}(t_i))[-1]$$
-$$e_i = W_p \cdot h_i + b_p$$
+$$
+h_i = \text{ItemLLM}(\text{Tokenize}(t_i))[-1]
+$$
+
+$$
+e_i = W_p \cdot h_i + b_p
+$$
 
 **解释：**
 - $t_i$：第 $i$ 个物品的文本描述（标题+属性+品类）
@@ -64,7 +69,9 @@ $$e_i = W_p \cdot h_i + b_p$$
 
 ### 公式2：User-level LLM 序列建模
 
-$$P(item_{n+1} | item_1, \ldots, item_n) = \text{UserLLM}(e_1, e_2, \ldots, e_n)$$
+$$
+P(item_{n+1} | item_1, \ldots, item_n) = \text{UserLLM}(e_1, e_2, \ldots, e_n)
+$$
 
 **解释：**
 - $e_i$：Item LLM 输出的物品 embedding（经 Projector 对齐后）
@@ -73,7 +80,9 @@ $$P(item_{n+1} | item_1, \ldots, item_n) = \text{UserLLM}(e_1, e_2, \ldots, e_n)
 
 ### 公式3：两级知识蒸馏
 
-$$\mathcal{L}_{distill} = \text{KL}(P_{user} \| P_{item}) + \lambda \cdot \text{MSE}(e_i^{user}, e_i^{item})$$
+$$
+\mathcal{L}_{distill} = \text{KL}(P_{user} \| P_{item}) + \lambda \cdot \text{MSE}(e_i^{user}, e_i^{item})
+$$
 
 **解释：**
 - $P_{user}$：User LLM 学到的物品偏好分布
@@ -84,9 +93,13 @@ $$\mathcal{L}_{distill} = \text{KL}(P_{user} \| P_{item}) + \lambda \cdot \text{
 
 ### 公式4：训练损失
 
-$$\mathcal{L} = \mathcal{L}_{rec} + \alpha \cdot \mathcal{L}_{distill}$$
+$$
+\mathcal{L} = \mathcal{L}_{rec} + \alpha \cdot \mathcal{L}_{distill}
+$$
 
-$$\mathcal{L}_{rec} = -\sum_{n=1}^{N} \log P(item_{n+1} | item_1, \ldots, item_n)$$
+$$
+\mathcal{L}_{rec} = -\sum_{n=1}^{N} \log P(item_{n+1} | item_1, \ldots, item_n)
+$$
 
 **解释：**
 - $\mathcal{L}_{rec}$：下一个物品预测的交叉熵损失（序列推荐主任务）

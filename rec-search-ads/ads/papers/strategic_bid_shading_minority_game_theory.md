@@ -16,7 +16,9 @@
 
 将 $N$ 个广告主的bid shading决策建模为Minority Game。每个广告主 $i$ 在每轮竞拍中选择策略 $s_i \in \{H, L\}$（High bid或Low bid）。定义少数方为选择人数较少的策略组：
 
-$$\text{Minority}(t) = \begin{cases} H, & \text{if } \sum_{i=1}^{N} \mathbb{1}[s_i(t)=H] < N/2 \\ L, & \text{otherwise} \end{cases}$$
+$$
+\text{Minority}(t) = \begin{cases} H, & \text{if } \sum_{i=1}^{N} \mathbb{1}[s_i(t)=H] < N/2 \\ L, & \text{otherwise} \end{cases}
+$$
 
 选择少数方策略的广告主获得正收益(选H时竞争少成本低，选L时保守但不参与过度竞争)。长期均衡下，各策略的选择比例趋向 $N/2$。
 
@@ -24,7 +26,9 @@ $$\text{Minority}(t) = \begin{cases} H, & \text{if } \sum_{i=1}^{N} \mathbb{1}[s
 
 在混合策略Nash均衡中，每个广告主以概率 $p^*$ 选择高出价策略。均衡概率 $p^*$ 满足：
 
-$$p^* = \frac{1}{2} + \frac{v - c_{H}}{2(c_{H} - c_{L})} \cdot \frac{1}{\binom{N-1}{\lfloor N/2 \rfloor} \cdot 2^{-(N-1)}}$$
+$$
+p^* = \frac{1}{2} + \frac{v - c_{H}}{2(c_{H} - c_{L})} \cdot \frac{1}{\binom{N-1}{\lfloor N/2 \rfloor} \cdot 2^{-(N-1)}}
+$$
 
 其中 $v$ 是广告展示的期望价值，$c_H$ 和 $c_L$ 分别是高出价和低出价的成本。当广告主数量 $N$ 增大时，$p^*$ 趋近于 $1/2$，市场趋向完全随机化均衡。
 

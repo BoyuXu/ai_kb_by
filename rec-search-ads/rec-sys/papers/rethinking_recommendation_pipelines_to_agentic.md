@@ -16,13 +16,17 @@
 
 1. **Perception（感知）**：Agent 能够理解多模态用户输入（文本查询、点击行为、上下文信号），并构建用户状态的动态表示：
 
-$$\mathbf{s}_t = f_{\text{perceive}}(\mathbf{o}_t, \mathbf{s}_{t-1}, \mathbf{m}_t)$$
+$$
+\mathbf{s}_t = f_{\text{perceive}}(\mathbf{o}_t, \mathbf{s}_{t-1}, \mathbf{m}_t)
+$$
 
 其中 $\mathbf{o}_t$ 是当前观察（用户行为），$\mathbf{s}_{t-1}$ 是历史状态，$\mathbf{m}_t$ 是外部记忆（长期用户画像）。
 
 2. **Planning（规划）**：Agent 根据当前用户状态，动态规划推荐策略——不是固定走 pipeline，而是根据需要选择性地调用不同模块：
 
-$$\pi^* = \arg\max_{\pi} \mathbb{E}\left[\sum_{t=0}^{T} \gamma^t R(s_t, a_t) \mid \pi\right]$$
+$$
+\pi^* = \arg\max_{\pi} \mathbb{E}\left[\sum_{t=0}^{T} \gamma^t R(s_t, a_t) \mid \pi\right]
+$$
 
 例如，对于目标明确的用户直接调用精排模块，对于探索性用户则增加召回的多样性。
 

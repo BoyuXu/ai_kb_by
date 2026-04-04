@@ -18,15 +18,19 @@ TongsearchQR 的方法论包括三个核心创新：
 
 **2. Retrieval-Grounded Reward。** 使用实际检索系统的指标作为 RL 奖励。对于生成的查询 $q'$，通过检索系统获取 Top-K 文档，计算与标注相关文档的 NDCG 作为奖励：
 
-$$R(q') = \text{NDCG}@K\left(\text{Retrieve}(q'), \mathcal{D}^+\right) = \frac{\text{DCG}@K}{\text{IDCG}@K} = \frac{\sum_{i=1}^{K} \frac{2^{rel_i} - 1}{\log_2(i+1)}}{\sum_{i=1}^{K} \frac{2^{rel_i^*} - 1}{\log_2(i+1)}}$$
+$$
+R(q') = \text{NDCG}@K\left(\text{Retrieve}(q'), \mathcal{D}^+\right) = \frac{\text{DCG}@K}{\text{IDCG}@K} = \frac{\sum_{i=1}^{K} \frac{2^{rel_i} - 1}{\log_2(i+1)}}{\sum_{i=1}^{K} \frac{2^{rel_i^*} - 1}{\log_2(i+1)}}
+$$
 
 其中 $\mathcal{D}^+$ 为标注的相关文档集合，$rel_i$ 为检索到的第 $i$ 个文档的相关性标签。
 
 **3. Multi-Granularity Query Generation。** 模型学习生成多粒度的查询变体：keyword query（关键词组合）、natural query（自然语言问句）、expanded query（带同义词和相关概念的扩展查询），并通过检索结果的融合（reciprocal rank fusion）来提升召回率。融合公式为：
 
-$$\text{RRF}(d) = \sum_{q' \in \mathcal{Q}} \frac{1}{k + \text{rank}_{q'}(d)}$$
+$$
+\text{RRF}(d) = \sum_{q' \in \mathcal{Q}} \frac{1}{k + \text{rank}}_{\text{{q'}}(d)}
+$$
 
-其中 $\mathcal{Q}$ 为多粒度查询集合，$\text{rank}_{q'}(d)$ 为文档 $d$ 在查询 $q'$ 下的排名，$k$ 为平滑常数（通常取 60）。
+其中 $\mathcal{Q}$ 为多粒度查询集合，$\text{rank}}_{\text{{q'}}(d)$ 为文档 $d$ 在查询 $q'$ 下的排名，$k$ 为平滑常数（通常取 60）。
 
 训练采用 PPO 算法，状态为用户原始查询 + 推理历史，动作为生成下一个 token，奖励在生成完整查询后一次性给出。
 

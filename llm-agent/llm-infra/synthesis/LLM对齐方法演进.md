@@ -68,18 +68,33 @@ $$
 **推导步骤：**
 
 1. **RLHF 的隐式偏好模型**：RLHF 在最优性下，最优策略满足 Bradley-Terry 偏好模型：
-   $$\pi^*(y|x) = \frac{1}{Z(x)}\pi_{\text{ref}}(y|x)\exp\left(\frac{1}{\beta}r^*(y,x)\right)$$
+
+$$
+\pi^*(y|x) = \frac{1}{Z(x)}\pi_{\text{ref}}(y|x)\exp\left(\frac{1}{\beta}r^*(y,x)\right)
+$$
+
    其中 $Z(x)$ 是分配函数，$r^*$ 是 RLHF 学出的奖励函数，$\beta$ 控制温度。
 
 2. **反演奖励函数**：从上式反演 $r^*$：
-   $$r^*(y,x) = \beta\log\frac{\pi^*(y|x)}{\pi_{\text{ref}}(y|x)}$$
+
+$$
+r^*(y,x) = \beta\log\frac{\pi^*(y|x)}{\pi_{\text{ref}}(y|x)}
+$$
+
    DPO 的关键洞察：**直接用偏好数据训练 $\pi_\theta$，无需显式学 $r^*$**。
 
 3. **偏好成对建模**：对于优先的回答 $y_w$ 和劣质的回答 $y_l$，由 Bradley-Terry 模型：
-   $$P(y_w \succ y_l | x) = \sigma\left(r^*(y_w, x) - r^*(y_l, x)\right)$$
+
+$$
+P(y_w \succ y_l | x) = \sigma\left(r^*(y_w, x) - r^*(y_l, x)\right)
+$$
 
 4. **DPO 目标代入**：将反演的 $r^*$ 代入，得到 DPO loss：
-   $$\mathcal{L}_{\text{DPO}} = -\log\sigma\left(\beta\left[\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right]\right)$$
+
+$$
+\mathcal{L}_{\text{DPO}} = -\log\sigma\left(\beta\left[\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right]\right)
+$$
+
    这个 loss 可以直接优化，无需 Reward Model 或 PPO。
 
 **符号说明：**

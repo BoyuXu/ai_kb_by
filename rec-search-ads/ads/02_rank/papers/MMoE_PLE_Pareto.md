@@ -39,9 +39,13 @@ Hard Sharing        MMoE                    PLE (Progressive Layered Extraction)
 
 ### 公式1：MMoE 专家混合
 
-$$f^k(x) = \sum_{i=1}^{n} g^k_i(x) \cdot f_i(x)$$
+$$
+f^k(x) = \sum_{i=1}^{n} g^k_i(x) \cdot f_i(x)
+$$
 
-$$g^k(x) = \text{softmax}(W_{g^k} \cdot x)$$
+$$
+g^k(x) = \text{softmax}(W_{g^k} \cdot x)
+$$
 
 **解释：**
 - $f_i(x)$：第 $i$ 个 Expert Network 的输出
@@ -52,7 +56,9 @@ $$g^k(x) = \text{softmax}(W_{g^k} \cdot x)$$
 
 ### 公式2：PLE 层级提取
 
-$$f^k_l(x) = \sum_{i=1}^{m_k} g^k_{l,i}(x) \cdot E^k_{l,i}(x) + \sum_{j=1}^{m_s} g^k_{l,j+m_k}(x) \cdot E^s_{l,j}(x)$$
+$$
+f^k_l(x) = \sum_{i=1}^{m_k} g^k_{l,i}(x) \cdot E^k_{l,i}(x) + \sum_{j=1}^{m_s} g^k_{l,j+m_k}(x) \cdot E^s_{l,j}(x)
+$$
 
 **解释：**
 - $E^k_{l,i}$：第 $l$ 层任务 $k$ 的第 $i$ 个**任务特定专家**
@@ -63,8 +69,13 @@ $$f^k_l(x) = \sum_{i=1}^{m_k} g^k_{l,i}(x) \cdot E^k_{l,i}(x) + \sum_{j=1}^{m_s}
 
 ### 公式3：PLE 逐层提取（多层堆叠）
 
-$$h^k_l = f^k_l(h^k_{l-1}, h^s_{l-1})$$
-$$h^s_l = f^s_l(h^1_{l-1}, h^2_{l-1}, \ldots, h^K_{l-1}, h^s_{l-1})$$
+$$
+h^k_l = f^k_l(h^k_{l-1}, h^s_{l-1})
+$$
+
+$$
+h^s_l = f^s_l(h^1_{l-1}, h^2_{l-1}, \ldots, h^K_{l-1}, h^s_{l-1})
+$$
 
 **解释：**
 - 每一层的输入来自上一层的**所有任务输出和共享输出**
@@ -73,7 +84,9 @@ $$h^s_l = f^s_l(h^1_{l-1}, h^2_{l-1}, \ldots, h^K_{l-1}, h^s_{l-1})$$
 
 ### 公式4：Pareto 多目标优化 - MGDA
 
-$$\min_{\alpha \in \Delta^K} \left\| \sum_{k=1}^{K} \alpha_k \nabla_\theta \mathcal{L}_k(\theta) \right\|^2$$
+$$
+\min_{\alpha \in \Delta^K} \left\| \sum_{k=1}^{K} \alpha_k \nabla_\theta \mathcal{L}_k(\theta) \right\|^2
+$$
 
 **解释：**
 - $\alpha_k$：第 $k$ 个任务的梯度权重，$\alpha \in \Delta^K$（单纯形约束）
@@ -83,7 +96,9 @@ $$\min_{\alpha \in \Delta^K} \left\| \sum_{k=1}^{K} \alpha_k \nabla_\theta \math
 
 ### 公式5：Uncertainty Weighting（Kendall 2018）
 
-$$\mathcal{L} = \sum_{k=1}^{K} \frac{1}{2\sigma_k^2} \mathcal{L}_k + \log \sigma_k$$
+$$
+\mathcal{L} = \sum_{k=1}^{K} \frac{1}{2\sigma_k^2} \mathcal{L}_k + \log \sigma_k
+$$
 
 **解释：**
 - $\sigma_k$：任务 $k$ 的可学习不确定性参数

@@ -16,11 +16,15 @@
 
 将ICL example selection形式化为contextual bandit。给定query $q$、广告 $a$ 以及候选示例池 $\mathcal{D} = \{d_1, d_2, ..., d_N\}$，目标是选择 $K$ 个示例组成prompt。定义上下文特征向量 $\mathbf{c} = \phi(q, a)$，每个arm $d_i$ 的期望奖励为：
 
-$$r_i(\mathbf{c}) = \mathbf{c}^T \boldsymbol{\theta}_i + \epsilon_i$$
+$$
+r_i(\mathbf{c}) = \mathbf{c}^T \boldsymbol{\theta}_i + \epsilon_i
+$$
 
 其中 $\boldsymbol{\theta}_i$ 是arm $d_i$ 的参数向量，$\epsilon_i$ 是噪声项。采用LinUCB策略选择top-K arms：
 
-$$d^* = \arg\max_{d_i \in \mathcal{D}} \left( \hat{\mathbf{c}}^T \hat{\boldsymbol{\theta}}_i + \alpha \sqrt{\mathbf{c}^T \mathbf{A}_i^{-1} \mathbf{c}} \right)$$
+$$
+d^* = \arg\max_{d_i \in \mathcal{D}} \left( \hat{\mathbf{c}}^T \hat{\boldsymbol{\theta}}_i + \alpha \sqrt{\mathbf{c}^T \mathbf{A}_i^{-1} \mathbf{c}} \right)
+$$
 
 其中 $\mathbf{A}_i$ 是arm $d_i$ 的特征协方差矩阵，$\alpha$ 控制exploration-exploitation平衡。UCB项 $\sqrt{\mathbf{c}^T \mathbf{A}_i^{-1} \mathbf{c}}$ 鼓励探索不确定性高的示例。
 

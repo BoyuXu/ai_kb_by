@@ -51,7 +51,9 @@
 
 ### 公式1：广告排名公式
 
-$$\text{AdScore} = \alpha \cdot \text{bid} + (1-\alpha) \cdot R(\text{ad}, \text{context})$$
+$$
+\text{AdScore} = \alpha \cdot \text{bid} + (1-\alpha) \cdot R(\text{ad}, \text{context})
+$$
 
 **解释：**
 - $\text{bid}$：广告主出价
@@ -60,19 +62,25 @@ $$\text{AdScore} = \alpha \cdot \text{bid} + (1-\alpha) \cdot R(\text{ad}, \text
 
 ### 公式2：相关性评分
 
-$$R(\text{ad}, \text{context}) = \text{CrossEncoder}(\text{ad\_text}, \text{context\_summary})$$
+$$
+R(\text{ad}, \text{context}) = \text{CrossEncoder}(\text{ad}}_{\text{{\text{text}}}, \text{context}}_{\text{{\text{summary}}})
+$$
 
 **解释：** 用 fine-tuned cross-encoder 计算广告创意与对话上下文的语义匹配度。
 
 ### 公式3：广告自然度约束
 
-$$\text{Naturalness}(\text{ad}, \text{context}) = \text{LLM\_judge}(\text{response\_with\_ad}) \geq \tau$$
+$$
+\text{Naturalness}(\text{ad}, \text{context}) = \text{LLM}}_{\text{{\text{judge}}}(\text{response}}_{\text{{\text{with}}}_{\text{ad}}) \geq \tau
+$$
 
 **解释：** LLM judge 评估插入广告后回答的自然度，低于阈值 $\tau$ 的广告不参与排名。
 
 ### 公式4：支付计算
 
-$$\text{payment} = \frac{\text{AdScore}_2}{\alpha + (1-\alpha) \cdot R_1} + \epsilon$$
+$$
+\text{payment} = \frac{\text{AdScore}}_{\text{2}}{\alpha + (1-\alpha) \cdot R_1} + \epsilon
+$$
 
 **解释：** 类似 GSP 的二价机制，用第二名的 AdScore 除以赢家的相关性调整因子。
 

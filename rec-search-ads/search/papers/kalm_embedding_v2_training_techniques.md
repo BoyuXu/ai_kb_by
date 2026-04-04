@@ -25,7 +25,9 @@ KaLM-Embedding-V2 的核心技术贡献在于提出了一套 **Progressive Multi
 
 标准的 InfoNCE 对比损失对所有负样本等权对待，但在大规模训练中，大量 easy negatives 贡献的梯度信号有限。KaLM-V2 引入了 Focal 重加权机制：
 
-$$\mathcal{L}_{\text{focal}} = -\log \frac{e^{s(q, d^+)/\tau}}{\sum_{i} (1 - p_i)^{\gamma} \cdot e^{s(q, d_i)/\tau}}$$
+$$
+\mathcal{L}_{\text{focal}} = -\log \frac{e^{s(q, d^+)/\tau}}{\sum_{i} (1 - p_i)^{\gamma} \cdot e^{s(q, d_i)/\tau}}
+$$
 
 其中 $p_i$ 是样本 $d_i$ 被正确分类的概率，$\gamma$ 是聚焦参数。当 $\gamma > 0$ 时，easy negatives 的权重被降低，hard negatives 得到更多关注。
 
@@ -37,7 +39,9 @@ $$\mathcal{L}_{\text{focal}} = -\log \frac{e^{s(q, d^+)/\tau}}{\sum_{i} (1 - p_i
 
 查询 $q$ 与文档 $d$ 的相似度通过余弦相似度计算：
 
-$$s(q, d) = \frac{\mathbf{h}_q^T \mathbf{h}_d}{\|\mathbf{h}_q\| \cdot \|\mathbf{h}_d\|}$$
+$$
+s(q, d) = \frac{\mathbf{h}_q^T \mathbf{h}_d}{\|\mathbf{h}_q\| \cdot \|\mathbf{h}_d\|}
+$$
 
 其中 $\mathbf{h}_q, \mathbf{h}_d$ 分别为 query 和 document 经过 encoder 后的 [CLS] token 表示或 mean pooling 表示。
 

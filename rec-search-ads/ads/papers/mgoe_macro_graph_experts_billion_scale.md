@@ -16,7 +16,9 @@ MGOE(Macro Graph of Experts)提出在宏观层面(macro-level)进行专家路由
 
 MGOE将L层的多专家网络表示为有向无环图 $G = (V, E)$。节点集 $V$ 包含每层的 $M$ 个专家，加上输入节点和各任务的输出节点。边集 $E$ 连接相邻层的专家节点。对于任务 $t$，其信息流由一条从输入到输出的路径 $\pi_t$ 决定：
 
-$$h_t^{(l)} = \sum_{m=1}^{M} w_{t,m}^{(l)} \cdot \text{Expert}_m^{(l)}(h_t^{(l-1)})$$
+$$
+h_t^{(l)} = \sum_{m=1}^{M} w_{t,m}^{(l)} \cdot \text{Expert}}_{\text{m^{(l)}}(h_t^{(l-1)})
+$$
 
 其中 $w_{t,m}^{(l)}$ 是任务 $t$ 在第 $l$ 层选择专家 $m$ 的路由权重。不同于微观MoE对每个样本独立路由，MGOE的路由权重是任务级别的全局参数。
 
@@ -24,7 +26,9 @@ $$h_t^{(l)} = \sum_{m=1}^{M} w_{t,m}^{(l)} \cdot \text{Expert}_m^{(l)}(h_t^{(l-1
 
 MGOE通过可微分的结构学习优化图的拓扑。引入结构参数 $\boldsymbol{\alpha}$ 控制边的连接强度，使用Gumbel-Softmax采样实现离散结构的可微分优化：
 
-$$w_{t,m}^{(l)} = \frac{\exp((\alpha_{t,m}^{(l)} + g_m) / \tau)}{\sum_{m'=1}^{M} \exp((\alpha_{t,m'}^{(l)} + g_{m'}) / \tau)}$$
+$$
+w_{t,m}^{(l)} = \frac{\exp((\alpha_{t,m}^{(l)} + g_m) / \tau)}{\sum_{m'=1}^{M} \exp((\alpha_{t,m'}^{(l)} + g_{m'}) / \tau)}
+$$
 
 其中 $g_m$ 是Gumbel噪声，$\tau$ 是温度参数。训练完成后，通过硬阈值截断获得稀疏的专家图结构。最终每个任务对应图中的一条稀疏路径，路径间的重叠部分对应共享知识，独占部分对应任务特定知识。
 

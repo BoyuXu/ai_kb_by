@@ -41,13 +41,17 @@
 
 ### 公式1：随机行为策略学习
 
-$$\hat{\pi}_b = \arg\max_{\pi} \sum_{i=1}^{N} \log \pi(a_i | s_i)$$
+$$
+\hat{\pi}_b = \arg\max_{\pi} \sum_{i=1}^{N} \log \pi(a_i | s_i)
+$$
 
 **解释：** 用最大似然估计拟合历史日志中的行为策略概率分布，而非假设确定性映射。
 
 ### 公式2：IPS 估计器
 
-$$\hat{V}_{IPS}(\pi_{new}) = \frac{1}{N} \sum_{i=1}^{N} \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)} \cdot r_i$$
+$$
+\hat{V}_{IPS}(\pi_{new}) = \frac{1}{N} \sum_{i=1}^{N} \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)} \cdot r_i
+$$
 
 **解释：**
 - $\pi_{new}$：待评估的新策略
@@ -57,7 +61,9 @@ $$\hat{V}_{IPS}(\pi_{new}) = \frac{1}{N} \sum_{i=1}^{N} \frac{\pi_{new}(a_i|s_i)
 
 ### 公式3：Doubly Robust 估计器
 
-$$\hat{V}_{DR}(\pi_{new}) = \frac{1}{N}\sum_i \left[\hat{r}(s_i, a_i^{new}) + \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)}(r_i - \hat{r}(s_i, a_i))\right]$$
+$$
+\hat{V}_{DR}(\pi_{new}) = \frac{1}{N}\sum_i \left[\hat{r}(s_i, a_i^{new}) + \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)}(r_i - \hat{r}(s_i, a_i))\right]
+$$
 
 **解释：**
 - $\hat{r}(s,a)$：直接奖励预测模型
@@ -67,7 +73,9 @@ $$\hat{V}_{DR}(\pi_{new}) = \frac{1}{N}\sum_i \left[\hat{r}(s_i, a_i^{new}) + \f
 
 ### 公式4：截断重要性权重（方差控制）
 
-$$w_i^{clipped} = \min\left(M, \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)}\right)$$
+$$
+w_i^{clipped} = \min\left(M, \frac{\pi_{new}(a_i|s_i)}{\hat{\pi}_b(a_i|s_i)}\right)
+$$
 
 **解释：** 截断极端权重防止方差爆炸，$M$ 通常取 10-100。引入少量偏差换取大幅方差降低。
 

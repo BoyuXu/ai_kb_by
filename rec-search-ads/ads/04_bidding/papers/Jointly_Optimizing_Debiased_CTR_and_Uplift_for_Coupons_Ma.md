@@ -39,7 +39,9 @@
 
 ### 公式1：潜在结果框架（Potential Outcome Framework）
 
-$$\text{ITE}(x) = E[Y(1)|X=x] - E[Y(0)|X=x]$$
+$$
+\text{ITE}(x) = E[Y(1)|X=x] - E[Y(0)|X=x]
+$$
 
 **解释：**
 - $Y(1)$：接收优惠券（处理组）时的潜在结果
@@ -49,7 +51,9 @@ $$\text{ITE}(x) = E[Y(1)|X=x] - E[Y(0)|X=x]$$
 
 ### 公式2：逆倾向加权（IPW）去偏
 
-$$\hat{E}[Y(t)] = \frac{1}{N} \sum_{i:T_i=t} \frac{Y_i}{P(T_i=t|X_i)}$$
+$$
+\hat{E}[Y(t)] = \frac{1}{N} \sum_{i:T_i=t} \frac{Y_i}{P(T_i=t|X_i)}
+$$
 
 **解释：**
 - $P(T=t|X)$：倾向分（Propensity Score），用户被投券的概率
@@ -58,7 +62,9 @@ $$\hat{E}[Y(t)] = \frac{1}{N} \sum_{i:T_i=t} \frac{Y_i}{P(T_i=t|X_i)}$$
 
 ### 公式3：双重鲁棒估计（Doubly Robust, DR）
 
-$$\hat{\tau}_{DR} = \frac{1}{N}\sum_i \left[\hat{\mu}_1(X_i) - \hat{\mu}_0(X_i) + \frac{T_i(Y_i - \hat{\mu}_1(X_i))}{\hat{e}(X_i)} - \frac{(1-T_i)(Y_i - \hat{\mu}_0(X_i))}{1-\hat{e}(X_i)}\right]$$
+$$
+\hat{\tau}_{DR} = \frac{1}{N}\sum_i \left[\hat{\mu}_1(X_i) - \hat{\mu}_0(X_i) + \frac{T_i(Y_i - \hat{\mu}_1(X_i))}{\hat{e}(X_i)} - \frac{(1-T_i)(Y_i - \hat{\mu}_0(X_i))}{1-\hat{e}(X_i)}\right]
+$$
 
 **解释：**
 - $\hat{\mu}_t(X)$：结果模型对处理组/对照组的预测
@@ -67,9 +73,13 @@ $$\hat{\tau}_{DR} = \frac{1}{N}\sum_i \left[\hat{\mu}_1(X_i) - \hat{\mu}_0(X_i) 
 
 ### 公式4：联合训练损失
 
-$$\mathcal{L} = \mathcal{L}_{CTR}^{DR} + \alpha \cdot \mathcal{L}_{Uplift} + \beta \cdot \mathcal{L}_{consistency}$$
+$$
+\mathcal{L} = \mathcal{L}_{CTR}^{DR} + \alpha \cdot \mathcal{L}_{Uplift} + \beta \cdot \mathcal{L}_{consistency}
+$$
 
-$$\mathcal{L}_{consistency} = \|ITE(x) - (\hat{Y}(1|x) - \hat{Y}(0|x))\|^2$$
+$$
+\mathcal{L}_{consistency} = \|ITE(x) - (\hat{Y}(1|x) - \hat{Y}(0|x))\|^2
+$$
 
 **解释：** 因果一致性正则化确保 Uplift 预测与去偏 CTR 预测的差值一致。
 

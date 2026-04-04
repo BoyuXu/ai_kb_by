@@ -270,7 +270,6 @@ $$
 - 推荐 Scaling 优先级：Embedding 扩展 >> MLP 加深 >> MoE 专家数量
 - 数据 10× ≈ 参数 3× 的等效收益（数据飞轮效应更强）
 
-
 ## 📐 核心公式直观理解
 
 ### DeepFM 的特征交叉
@@ -304,7 +303,6 @@ $$
 
 **直观理解**：广告 CTR 模型必须实时更新——昨天的热门商品今天可能无人问津。FTRL/AdaGrad 的自适应学习率让频繁更新的特征步长小（稳定），罕见特征步长大（抓住稀疏信号）。
 
-
 ---
 
 ## 面试高频考点（10题 Q&A）
@@ -328,7 +326,7 @@ $$
 > 大模型（Teacher，如 [DHEN](../papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md) 集成）离线训练达到最佳效果。小模型（Student）通过蒸馏学习 Teacher 的 soft label，在线推理用 Student 满足延迟要求（<10ms）。
 
 ### Q7: Embedding 维度如何选择？
-> 经验公式：$d = 6 \times (\text{category\_size})^{1/4}$（Google）。高频特征用较高维度（16-64），低频用较低维度（4-8）。也可用 NAS 自动搜索每个 field 的最优维度。
+> 经验公式：$d = 6 \times (\text{category}}_{\text{{\text{size}}})^{1/4}$（Google）。高频特征用较高维度（16-64），低频用较低维度（4-8）。也可用 NAS 自动搜索每个 field 的最优维度。
 
 ### Q8: CTR 模型中如何处理正负样本不均衡？
 > ① 负采样（1:n），需校准 ② Focal Loss 对难分样本加权 ③ 正样本加权 ④ 分层采样（按用户活跃度分层）⑤ 校准步骤恢复真实 CTR 分布。
@@ -360,7 +358,6 @@ $$
 | 创意生成 | BannerAgency | 多模态 LLM 广告素材自动生成 |
 
 ---
-
 
 ### 二、核心技术主题深度解析
 
@@ -416,7 +413,6 @@ $$
 | DAPO | AIME 2024 | 50分（Qwen2.5-32B base） |
 
 ---
-
 
 ### 四、📐 核心公式汇总（≥3个）
 
@@ -492,7 +488,6 @@ $$
 
 ---
 
-
 ### 六、🎓 面试 Q&A（≥10道）
 
 ### Q1: CTR 预估中，加性特征交互和乘性特征交互有什么本质区别？各自的代表方法是什么？
@@ -544,9 +539,6 @@ Meta Lattice 解决方案：①跨域知识共享（统一 User Tower）②Domai
 5. **系统级协同设计**：模型架构与训练/服务系统协同设计（DHEN、Wukong）成为主流范式
 6. **统一模型架构**：从N×M个专门模型到统一架构（Meta Lattice），降低运维成本同时提升效果
 
-
-
-
 ---
 
 ## 附录：合并自 广告系统CTR预估与排序前沿综述.md 的独有内容
@@ -555,24 +547,28 @@ Meta Lattice 解决方案：①跨域知识共享（统一 User Tower）②Domai
 
 **GR2 生成式推理重排**：将重排分解为推理+排序两步：
 $$
+
 P(rank | q, u, \mathcal{C}) = P(reasoning | q, u) \cdot P(rank | reasoning, \mathcal{C})
+
 $$
 CoT推理链迫使模型先理解用户意图再排序。
 
 **HiGR ORPO 三阶段目标优化**：
 $$
-\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma\left(\sum_t l_\theta(x, y^+_t) - \sum_t l_\theta(x, y^-_t)\right)
-$$
 
+\mathcal{L}_{post} = -\log \pi_\theta(y^+|x) - \alpha \log \sigma\left(\sum_t l_\theta(x, y^+_t) - \sum_t l_\theta(x, y^-_t)\right)
+
+$$
 ### DAPO 大规模 RL 训练
 
 **解耦裁剪策略**：正负样本不同clip阈值（ε_high > ε_low），加速正样本学习同时稳定负样本惩罚。
 
 **Token级策略梯度**：
 $$
-\mathcal{L}_{token} = -\frac{1}{\sum_t |tokens_t|} \sum_t \sum_k A_t \log \pi_\theta(a_{t,k} | s_{t,k})
-$$
 
+\mathcal{L}_{token} = -\frac{1}{\sum_t |tokens_t|} \sum_t \sum_k A_t \log \pi_\theta(a_{t,k} | s_{t,k})
+
+$$
 解决长序列信用分配问题。
 
 ### 补充 Q&A

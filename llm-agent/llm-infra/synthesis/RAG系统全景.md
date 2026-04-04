@@ -129,7 +129,6 @@ $$
 - **下游应用**：企业知识库问答、客服系统、搜索增强
 - **相关 synthesis**：混合检索融合_多路召回实践.md, LLM推理优化完整版.md, 搜索Query理解.md
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：BM25 稀疏检索分数
@@ -148,7 +147,7 @@ $$
 ### 公式 2：Hybrid Retrieval 融合
 
 $$
-\text{score}_{\text{hybrid}} = \alpha \cdot \text{score}_{\text{dense}} + (1-\alpha) \cdot \text{score}_{\text{sparse}}
+\text{score}}_{\text{{\text{hybrid}}} = \alpha \cdot \text{score}}_{\text{{\text{dense}}} + (1-\alpha) \cdot \text{score}}_{\text{{\text{sparse}}}
 $$
 
 **直观理解**：Dense 检索擅长语义匹配（"汽车"≈"轿车"），Sparse 检索擅长精确匹配（型号、代码）。混合检索取长补短——$\alpha=0.7$ 偏语义，$\alpha=0.3$ 偏精确。实践中 hybrid 几乎总是优于单一方法。
@@ -156,7 +155,7 @@ $$
 ### 公式 3：Reranker 交叉编码器得分
 
 $$
-\text{score}(q, d) = \text{MLP}(\text{CLS\_token}(\text{BERT}([q; \text{SEP}; d])))
+\text{score}(q, d) = \text{MLP}(\text{CLS}}_{\text{{\text{token}}}(\text{BERT}([q; \text{SEP}; d])))
 $$
 
 **直观理解**：Reranker 把 query 和 document 拼接后一起过 BERT，让每个 token 都能"看到"对方——这比双塔（分别编码后算内积）精确得多，但慢得多（不能预计算）。所以工业上先用双塔/BM25 粗检索 top-100，再用 reranker 精排 top-10。

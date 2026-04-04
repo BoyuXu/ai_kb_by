@@ -94,7 +94,7 @@ $$
 $$
 
 - $\text{draft}}_{\text{1$：小型语言模型（擅长通用生成）
-- $\text{draft}_2$：基于 retrieval 的 prompt lookup（擅长重复片段）
+- $\text{draft}}_{\text{2$：基于 retrieval 的 prompt lookup（擅长重复片段）
 - 取两者**最大概率**作为接受分母，降低接受门槛
 - 接受率从 ~60% 提升到 ~80%
 
@@ -112,7 +112,7 @@ $$
 **核心思想**：一次 forward pass 并行预测 K 个未来 token：
 
 $$
-P(t_{i+k} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k)), \quad k = 1, 2, ..., K
+P(t}}_{\text{{i+k}} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k)), \quad k = 1, 2, ..., K
 $$
 
 其中 $\text{PE}(k)$ 是位置偏移编码，告诉第 $k$ 个预测头"预测当前位置后 k 步的 token"。
@@ -306,7 +306,6 @@ agent:
 > - [framework_formalizing_llm_agent_security](../papers/framework_formalizing_llm_agent_security.md) — 形式化 LLM Agent 安全框架
 > - [google_agent_development_kit_adk](../papers/google_agent_development_kit_adk.md) — Google ADK: 声明式 Agent 开发工具包
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：Multi-Token Prediction 损失
@@ -336,7 +335,7 @@ $$
 ### 公式 3：工具调用的 token 成本分析
 
 $$
-\text{Cost}_{\text{tool}} = \text{token}_{\text{call}} + \text{token}_{\text{result}} + \text{token}_{\text{parse}} \approx 3-5x \text{ single generation}
+\text{Cost}}_{\text{{\text{tool}}} = \text{token}}_{\text{{\text{call}}} + \text{token}}_{\text{{\text{result}}} + \text{token}}_{\text{{\text{parse}}} \approx 3-5x \text{ single generation}
 $$
 
 **直观理解**：每次工具调用消耗的 token 远多于直接生成——要格式化调用指令、接收返回结果、解析并整合到上下文中。Agent 的 token 效率取决于"能否一次调对工具"——错误的工具调用不仅浪费 token，还可能引入错误信息。

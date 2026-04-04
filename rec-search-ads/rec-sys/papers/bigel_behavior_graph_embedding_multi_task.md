@@ -14,7 +14,9 @@ BiGEL（Behavior-informed Graph Embedding Learning）针对多行为多任务推
 
 **Cascaded Gating Feedback（级联门控反馈）**：行为之间存在天然的转化漏斗关系（view -> click -> purchase），BiGEL 通过级联门控让高层行为（如 purchase）的信号反馈给低层行为（如 click）的表示学习：
 
-$$\mathbf{h}_k^{(l)} = \mathbf{h}_k^{(l-1)} + \sum_{j \in \text{parents}(k)} \sigma\left(\mathbf{W}_{jk} [\mathbf{h}_j^{(l-1)}; \mathbf{h}_k^{(l-1)}]\right) \odot \mathbf{h}_j^{(l-1)}$$
+$$
+\mathbf{h}_k^{(l)} = \mathbf{h}_k^{(l-1)} + \sum_{j \in \text{parents}(k)} \sigma\left(\mathbf{W}_{jk} [\mathbf{h}_j^{(l-1)}; \mathbf{h}_k^{(l-1)}]\right) \odot \mathbf{h}_j^{(l-1)}
+$$
 
 其中 $\mathbf{h}_k^{(l)}$ 是行为 $k$ 在第 $l$ 层的表示，$\text{parents}(k)$ 是行为层级图中 $k$ 的父节点。门控 $\sigma(\mathbf{W}_{jk}[\cdot;\cdot])$ 控制来自高层行为的信息流入量，避免噪声传播。
 
@@ -25,7 +27,9 @@ $$\mathbf{h}_k^{(l)} = \mathbf{h}_k^{(l-1)} + \sum_{j \in \text{parents}(k)} \si
 
 **Contrastive Preference Alignment（对比偏好对齐）**：不同行为的表示空间可能不一致，BiGEL 通过对比学习将同一用户在不同行为下的表示拉近：
 
-$$\mathcal{L}_{\text{align}} = -\sum_{u} \sum_{k_1 \neq k_2} \log \frac{\exp(\text{sim}(\mathbf{z}_u^{k_1}, \mathbf{z}_u^{k_2}) / \tau)}{\sum_{v \neq u} \exp(\text{sim}(\mathbf{z}_u^{k_1}, \mathbf{z}_v^{k_2}) / \tau)}$$
+$$
+\mathcal{L}_{\text{align}} = -\sum_{u} \sum_{k_1 \neq k_2} \log \frac{\exp(\text{sim}(\mathbf{z}_u^{k_1}, \mathbf{z}_u^{k_2}) / \tau)}{\sum_{v \neq u} \exp(\text{sim}(\mathbf{z}_u^{k_1}, \mathbf{z}_v^{k_2}) / \tau)}
+$$
 
 其中 $\mathbf{z}_u^{k}$ 是用户 $u$ 在行为 $k$ 下的表示，$\tau$ 为温度参数。正样本对是同一用户的不同行为表示，负样本对是不同用户的表示。
 

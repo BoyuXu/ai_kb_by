@@ -18,7 +18,9 @@ OneTrans 的核心在于 **Unified Tokenization + Heterogeneous Attention**。
 
 **Heterogeneous Attention Mask**：不同类型的 token 之间的注意力关系不同，OneTrans 设计了异构注意力掩码：
 
-$$\text{Attn}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}} + \mathbf{M}_{\text{hetero}}\right)V$$
+$$
+\text{Attn}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}} + \mathbf{M}_{\text{hetero}}\right)V
+$$
 
 其中 $\mathbf{M}_{\text{hetero}} \in \mathbb{R}^{(m+n) \times (m+n)}$ 是异构掩码矩阵，定义了四种注意力模式：
 - Feature-to-Feature：全连接，对应传统的特征交叉
@@ -28,7 +30,9 @@ $$\text{Attn}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d}} + \mathbf{M}_
 
 **Position Encoding 设计**：对于行为序列 token 使用时间感知的相对位置编码，对于特征 token 使用可学习的 field position embedding：
 
-$$\text{PE}(a_i) = \text{RoPE}(\Delta t_i), \quad \text{PE}(f_j) = \mathbf{p}_j^{\text{field}}$$
+$$
+\text{PE}(a_i) = \text{RoPE}(\Delta t_i), \quad \text{PE}(f_j) = \mathbf{p}_j^{\text{field}}
+$$
 
 其中 $\Delta t_i$ 是 action $i$ 距当前时间的间隔，RoPE 是旋转位置编码。这种设计让模型能够感知行为的时序关系同时区分不同 feature field 的语义。
 

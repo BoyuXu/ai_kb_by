@@ -133,7 +133,6 @@ $$
 - **下游应用**：SFT/RLHF 对齐、推理部署、下游微调
 - **相关 synthesis**：LLM对齐方法演进.md, MoE架构设计.md
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：Chinchilla Scaling Law

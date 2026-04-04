@@ -39,9 +39,13 @@
 
 ### 公式1：Boost 函数
 
-$$\text{effective\_bid}_i = \text{bid}_i \times B(q_i)$$
+$$
+\text{effective}}_{\text{{\text{bid}}}_i = \text{bid}}_{\text{i \times B(q}}_{\text{i)
+$$
 
-$$B(q) = \begin{cases} 0 & \text{if } q < \tau \text{（质量门槛过滤）} \\ (q/\tau)^\gamma & \text{if } q \geq \tau \end{cases}$$
+$$
+B(q) = \begin{cases}} 0 & \text{if } q < \tau \text{（质量门槛过滤）} \\ (q/\tau)^\gamma & \text{if } q \geq \tau \end{cases}
+$$
 
 **解释：**
 - $q_i$：广告 $i$ 的质量分
@@ -51,7 +55,9 @@ $$B(q) = \begin{cases} 0 & \text{if } q < \tau \text{（质量门槛过滤）} \
 
 ### 公式2：最优 Boost 函数（理论结果）
 
-$$B^*(q) \propto q \cdot \frac{1-F_q(q)}{f_q(q)}$$
+$$
+B^*(q) \propto q \cdot \frac{1-F_q(q)}{f_q(q)}
+$$
 
 **解释：**
 - $F_q, f_q$：质量分的 CDF 和 PDF
@@ -59,7 +65,9 @@ $$B^*(q) \propto q \cdot \frac{1-F_q(q)}{f_q(q)}$$
 
 ### 公式3：社会福利最大化
 
-$$\max_{B(\cdot)} \mathbb{E}\left[\sum_i v_i \cdot \mathbb{1}[\text{win}_i] \cdot q_i\right] \quad \text{s.t.} \quad \mathbb{E}[q_{\text{winner}}] \geq q_{\min}$$
+$$
+\max_{B(\cdot)} \mathbb{E}\left[\sum_i v_i \cdot \mathbb{1}[\text{win}}_{\text{i] \cdot q}}_{\text{i\right] \quad \text{s.t.}} \quad \mathbb{E}[q_{\text{winner}}] \geq q_{\min}
+$$
 
 **解释：** 最大化价值加权的社会福利，同时保证赢家平均质量不低于发布商要求。
 

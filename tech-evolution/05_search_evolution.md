@@ -43,9 +43,7 @@ timeline
 ### 1. BM25
 
 $$
-
 \text{BM25}(q, d) = \sum\_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d) \cdot (k\_1+1)}{f(t,d) + k\_1 \cdot (1-b+b \cdot \frac{|d|}{avgdl})}
-
 $$
 
 **符号说明**：$f(t,d)$ 词 $t$ 在文档 $d$ 中的词频，$|d|$ 文档长度，$avgdl$ 平均文档长度，$k\_1$（通常 1.2-2.0）和 $b$（通常 0.75）为超参。
@@ -55,9 +53,7 @@ $$
 ### 2. NDCG（Normalized Discounted Cumulative Gain）
 
 $$
-
 \text{NDCG}@K = \frac{\text{DCG}@K}{\text{IDCG}@K}, \quad \text{DCG}@K = \sum\_{i=1}^K \frac{2^{rel\_i} - 1}{\log\_2(i+1)}
-
 $$
 
 **直觉**：排在前面的相关文档贡献更大（对数衰减位置权重），用理想排序归一化后得到 [0,1] 的评分。
@@ -1356,17 +1352,23 @@ LambdaMART 的解决方案：
 
 BM25：
 
-$$\text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)(k_1+1)}{f(t,d)+k_1(1-b+b \cdot |d|/\text{avgdl})}$$
+$$
+\text{BM25}(q,d) = \sum_{t \in q} \text{IDF}(t) \cdot \frac{f(t,d)(k_1+1)}{f(t,d)+k_1(1-b+b \cdot |d|/\text{avgdl})}
+$$
 
 $k_1 \in [1.2, 2.0]$，$b=0.75$（标准参数）。
 
 RRF 混合融合：
 
-$$\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_r(d)}, \quad k=60$$
+$$
+\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}}_{\text{r(d)}}, \quad k=60
+$$
 
 余弦相似度检索：
 
-$$s(q,d) = \frac{e_q \cdot e_d}{||e_q|| \cdot ||e_d||}$$
+$$
+s(q,d) = \frac{e_q \cdot e_d}{||e_q|| \cdot ||e_d||}
+$$
 
 | 年代 | 技术 | Recall@100 | 延迟 |
 |------|------|-----------|------|

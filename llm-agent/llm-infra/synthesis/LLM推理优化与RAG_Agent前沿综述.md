@@ -236,13 +236,12 @@ A: (1) 工具调用并行化（无依赖工具同时执行）；(2) 预计算 Pr
 
 8. Anonymous. "Agent Framework with Tool-Use and Reasoning for Recommendation." arXiv:2603.xxxx (2026).
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：Prefill vs Decode 阶段计算量对比
 
 $$
-\text{FLOPs}_{\text{prefill}} = 2 \times N \times d_{\text{model}}^2 \times L, \quad \text{FLOPs}_{\text{decode}} = 2 \times d_{\text{model}}^2 \times L
+\text{FLOPs}}_{\text{{\text{prefill}}} = 2 \times N \times d_{\text{model}}^2 \times L, \quad \text{FLOPs}}_{\text{{\text{decode}}} = 2 \times d_{\text{model}}^2 \times L
 $$
 
 - $N$：prompt 长度
@@ -254,7 +253,7 @@ $$
 ### 公式 2：Agent 工具调用的 token 效率
 
 $$
-\text{Efficiency} = \frac{\text{task\_completion\_rate}}{\text{total\_tokens\_consumed}}
+\text{Efficiency} = \frac{\text{task}}_{\text{{\text{completion}}}_{\text{rate}}}{\text{total}}_{\text{{\text{tokens}}}_{\text{consumed}}}
 $$
 
 **直观理解**：Agent 每次调用工具都要消耗 token（生成调用指令 + 解析返回结果），如果 Agent 总是"试错"式调用，token 消耗爆炸。高效的 Agent 应该"想清楚再动手"——用 CoT 规划减少无效调用，用工具描述优化减少误调用。

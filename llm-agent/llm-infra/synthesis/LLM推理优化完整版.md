@@ -61,9 +61,7 @@ graph TB
 ### 1. Self-Attention
 
 $$
-
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-
 $$
 
 - Transformer 核心计算
@@ -71,9 +69,7 @@ $$
 ### 2. KV Cache
 
 $$
-
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
-
 $$
 
 - KV Cache 内存占用公式
@@ -81,9 +77,7 @@ $$
 ### 3. LoRA
 
 $$
-
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
-
 $$
 
 - 低秩适配，r << d 大幅减少可训练参数
@@ -189,17 +183,23 @@ $$
 
 设草稿模型 $M_q$，目标模型 $M_p$，草稿长度 $\gamma$，token 接受率：
 
-$$\alpha = \mathbb{E}\left[\min\left(1, \frac{p(x)}{q(x)}\right)\right]$$
+$$
+\alpha = \mathbb{E}\left[\min\left(1, \frac{p(x)}{q(x)}\right)\right]
+$$
 
 期望加速比：
 
-$$\text{Speedup} \approx \frac{\gamma+1}{1 + (1-\alpha)/\alpha \cdot c}$$
+$$
+\text{Speedup} \approx \frac{\gamma+1}{1 + (1-\alpha)/\alpha \cdot c}
+$$
 
 其中 $c = t_{large}/t_{small}$。当 $\alpha \to 1$ 时加速比趋近 $\gamma+1$（通常 3-4×）。
 
 拒绝后重采样，保证输出分布与大模型完全一致（无损加速）：
 
-$$p'(x) = \text{norm}(\max(0, p(x) - q(x)))$$
+$$
+p'(x) = \text{norm}(\max(0, p(x) - q(x)))
+$$
 
 ## Continuous Batching 吞吐分析
 
@@ -207,6 +207,8 @@ $$p'(x) = \text{norm}(\max(0, p(x) - q(x)))$$
 
 Continuous Batching 每个解码步骤可插入新请求，吞吐量：
 
-$$\text{Throughput} \approx \frac{N_{\text{queue}}}{\bar{L}} \times \text{GPU\_FLOPS}$$
+$$
+\text{Throughput} \approx \frac{N_{\text{queue}}}{\bar{L}} \times \text{GPU}}_{\text{{\text{FLOPS}}}
+$$
 
 GPU 利用率提升至 85-95%，是 vLLM 相比朴素部署 5-10× 吞吐的核心来源。

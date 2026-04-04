@@ -172,13 +172,12 @@ DeepSeek-R1（推理 LLM）→ Rank-R1（推理 Reranker）
 - **相关 synthesis**：检索三角形深析.md, LearningToRank搜索排序三大范式.md
 - **跨域连接**：[强化学习跨域统一视角](../../../cross-domain/synthesis/强化学习跨域统一视角_LLM推理到广告出价.md)
 
-
 ## 📐 核心公式直观理解
 
 ### MonoBERT（Pointwise Reranker）
 
 $$
-P(\text{relevant} | q, d) = \sigma(W \cdot \text{BERT}_{\text{CLS}}([q; d]) + b)
+P(\text{relevant} | q, d) = \sigma(W \cdot \text{BERT}}_{\text{{\text{CLS}}}([q; d]) + b)
 $$
 
 **直观理解**：把 (query, document) 对输入 BERT，用 CLS token 的输出做二分类（相关/不相关）。Pointwise 方法简单直接但忽略了文档间的比较关系——给两篇文档打了 0.8 和 0.7 分，但它们之间的排序关系可能和真实不一致。
@@ -186,7 +185,7 @@ $$
 ### DuoBERT（Pairwise Reranker）
 
 $$
-P(d_i \succ d_j | q) = \sigma(W \cdot \text{BERT}_{\text{CLS}}([q; d_i; d_j]) + b)
+P(d_i \succ d_j | q) = \sigma(W \cdot \text{BERT}}_{\text{{\text{CLS}}}([q; d_i; d_j]) + b)
 $$
 
 **直观理解**：两两比较"哪个更好"，比绝对打分更稳定——人类也更擅长说"A 比 B 好"而非给 A 打多少分。代价是 $O(n^2)$ 次比较，工业中用 bubble sort 策略（只比较相邻 pair）降低到 $O(n \log n)$。

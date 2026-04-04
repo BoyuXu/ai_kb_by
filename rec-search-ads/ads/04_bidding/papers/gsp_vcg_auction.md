@@ -35,28 +35,36 @@
 
 ### 公式1：GSP 排序与支付
 
-$$\text{RankScore}_i = b_i \times \text{QS}_i$$
+$$
+\text{RankScore}}_{\text{i = b}}_{\text{i \times \text{QS}}_i
+$$
 
-$$\text{Payment}_i = \frac{\text{RankScore}_{i+1}}{\text{QS}_i} + \epsilon$$
+$$
+\text{Payment}}_{\text{i = \frac{\text{RankScore}}_{i+1}}{\text{QS}}_{\text{i}} + \epsilon
+$$
 
 **解释：**
 - $b_i$：广告主 $i$ 的出价
-- $\text{QS}_i$：质量分（pCTR × 相关性等）
+- $\text{QS}}_{\text{i$：质量分（pCTR × 相关性等）
 - 排序按 RankScore 降序
 - 第 $i$ 名支付刚好赢过第 $i+1$ 名的最低出价
 
 ### 公式2：VCG 支付
 
-$$p_i = \sum_{j \neq i} v_j \cdot \text{CTR}_{j}^{-i} - \sum_{j \neq i} v_j \cdot \text{CTR}_{j}^{+i}$$
+$$
+p}}_{\text{i = \sum}}_{\text{{j \neq i}} v_j \cdot \text{CTR}}_{\text{{j}}^{-i} - \sum_{j \neq i} v_j \cdot \text{CTR}}_{\text{{j}}^{+i}
+$$
 
 **解释：**
-- $\text{CTR}_j^{-i}$：没有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
-- $\text{CTR}_j^{+i}$：有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
+- $\text{CTR}}_{\text{j^{-i}}$：没有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
+- $\text{CTR}}_{\text{j^{+i}}$：有广告主 $i$ 时，$j$ 获得的位置对应的 CTR
 - VCG 支付 = 其他人因为你的存在而损失的总价值
 
 ### 公式3：eCPM 统一排序
 
-$$\text{eCPM} = \text{bid} \times \text{pCTR} \times \text{pCVR} \times 1000$$
+$$
+\text{eCPM} = \text{bid} \times \text{pCTR} \times \text{pCVR} \times 1000
+$$
 
 **解释：** 不同计费模式（CPM/CPC/CPA）的广告通过 eCPM 统一比较。
 

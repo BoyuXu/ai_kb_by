@@ -51,7 +51,6 @@ A: Bonferroni校正（α/n）、FDR控制（Benjamini-Hochberg方法）、预注
 - 负采样：全量负样本或按比例降采样 + 权重修正
 - 优化器：Adam / AdaGrad with learning rate warmup
 
-
 ## 与相关工作对比
 
 | 维度 | 本文方法 | 传统方法 | 优势 |
@@ -60,7 +59,6 @@ A: Bonferroni校正（α/n）、FDR控制（Benjamini-Hochberg方法）、预注
 | 多任务学习 | 联合优化 | 独立模型 | 共享知识，缓解数据稀疏 |
 | 在线适应 | 增量更新 | 全量重训 | 更快响应分布漂移 |
 | 样本效率 | 全空间/去偏 | 有偏子集 | 更准确的概率估计 |
-
 
 ## 面试深度追问
 
@@ -75,7 +73,6 @@ A: Bonferroni校正（α/n）、FDR控制（Benjamini-Hochberg方法）、预注
 
 - **Q: 训练样本的时效性如何保证？**
   A: 1) 实时特征流（Flink）+ 小时级增量训练；2) 样本时间窗口控制（通常7~14天）；3) 特征 serving 与训练使用相同 pipeline 避免 train-serve skew。
-
 
 ## 工业界应用案例
 

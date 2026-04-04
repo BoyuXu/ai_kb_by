@@ -269,7 +269,6 @@ LLM-Infra: compute-optimal 资源分配
 ### llm-infra
 > - [LLM推理加速与高效训练技术全景](../../../llm-agent/llm-infra/synthesis/LLM推理加速与高效训练技术全景.md) — infra 今日全景综述
 
-
 ## 📐 核心公式直观理解
 
 ### RLHF 在推荐中的应用

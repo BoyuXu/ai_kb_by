@@ -56,7 +56,7 @@ graph TB
 **Multi-Head Attention（标准 MHA）：**
 
 $$
-\text{KV}_{\text{MHA}} = 2 \times L \times H \times d_k \times N
+\text{KV}}_{\text{{\text{MHA}}} = 2 \times L \times H \times d_k \times N
 $$
 
 $H$ 个头各独立存储 K、V（系数 2），总 KV 内存正比于头数 $H$。
@@ -66,13 +66,13 @@ $H$ 个头各独立存储 K、V（系数 2），总 KV 内存正比于头数 $H$
 将 $H$ 个 Query 头分为 $G$ 组（$G < H$），每组共享一对 KV：
 
 $$
-\text{KV}_{\text{GQA}} = 2 \times L \times G \times d_k \times N = \frac{G}{H} \times \text{KV}_{\text{MHA}}
+\text{KV}}_{\text{{\text{GQA}}} = 2 \times L \times G \times d_k \times N = \frac{G}{H} \times \text{KV}}_{\text{{\text{MHA}}}
 $$
 
 **Multi-Query Attention（MQA，$G=1$）：**
 
 $$
-\text{KV}_{\text{MQA}} = 2 \times L \times 1 \times d_k \times N = \frac{1}{H} \times \text{KV}_{\text{MHA}}
+\text{KV}}_{\text{{\text{MQA}}} = 2 \times L \times 1 \times d_k \times N = \frac{1}{H} \times \text{KV}}_{\text{{\text{MHA}}}
 $$
 
 **推导步骤：**
@@ -82,7 +82,11 @@ $$
 2. **GQA 的共享策略**：$H$ 个 Q 头分为 $G$ 组，同组的 Q 头复用同一对 KV，仅需 $G$ 组缓存，节省 $H/G$ 倍。
 
 3. **示例（LLaMA-3-8B，$L=32, H=32, G=8, d_k=128, N=8192$，BF16）：**
-   $$\text{KV}_{\text{GQA}} = 2 \times 32 \times 8 \times 128 \times 8192 \times 2\text{ B} \approx 1.07\text{ GB}$$
+
+$$
+\text{KV}}_{\text{{\text{GQA}}} = 2 \times 32 \times 8 \times 128 \times 8192 \times 2\text{ B} \approx 1.07\text{ GB}
+$$
+
    MHA 下约需 4.3 GB，GQA（G=8）节省 4×，精度损失 <0.5%。
 
 4. **质量-效率权衡**：$G=1$（MQA）节省最多但精度损失 ~2%；$G=H$（MHA）质量最好；$G \in (1, H)$（GQA）是工业最优解，LLaMA-3/Mistral/Gemma 均采用。
@@ -104,7 +108,7 @@ $$
 ### 📐 2. KV Cache 内存精确计算
 
 $$
-\text{KV\_Mem} = 2 \times L \times H_{\text{KV}} \times d_k \times N \times s
+\text{KV}}_{\text{{\text{Mem}}} = 2 \times L \times H_{\text{KV}} \times d_k \times N \times s
 $$
 
 **推导步骤：**
@@ -113,7 +117,11 @@ $$
 3. 每个 KV 头维度为 $d_k$，序列 $N$ 个 token，每元素 $s$ 字节（BF16→2, FP8→1）
 
 **示例**：LLaMA-3-70B（$L=80, H_{\text{KV}}=8, d_k=128, N=32768, s=2$）：
-$$\text{KV\_Mem} = 2 \times 80 \times 8 \times 128 \times 32768 \times 2 \approx 107\text{ GB}$$
+
+$$
+\text{KV}}_{\text{{\text{Mem}}} = 2 \times 80 \times 8 \times 128 \times 32768 \times 2 \approx 107\text{ GB}
+$$
+
 这是单 batch 一个请求占用的 KV Cache，超出单张 H100（80GB）的容量——这就是为何长上下文需要 KV 量化或驱逐。
 
 ---

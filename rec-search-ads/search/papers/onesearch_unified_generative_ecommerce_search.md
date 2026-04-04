@@ -16,7 +16,9 @@ OneSearch 提出了一个激进的解决方案：用 **单一的生成式模型*
 
 OneSearch 将搜索问题重新定义为序列生成问题：给定用户 query $q$ 和用户画像 $u$，模型直接生成一个有序的商品 ID 序列：
 
-$$P(y_1, y_2, \ldots, y_n | q, u) = \prod_{i=1}^{n} P(y_i | y_{<i}, q, u)$$
+$$
+P(y_1, y_2, \ldots, y_n | q, u) = \prod_{i=1}^{n} P(y_i | y_{<i}, q, u)
+$$
 
 其中 $y_i$ 是排序后的第 $i$ 个商品标识符 (Product Identifier)。模型通过 autoregressive generation 直接输出排好序的商品列表，天然融合了 retrieval 和 ranking。
 
@@ -32,7 +34,9 @@ $$P(y_1, y_2, \ldots, y_n | q, u) = \prod_{i=1}^{n} P(y_i | y_{<i}, q, u)$$
 
 OneSearch 的训练目标融合了多个信号：
 
-$$\mathcal{L} = \mathcal{L}_{\text{gen}} + \alpha \cdot \mathcal{L}_{\text{rank}} + \beta \cdot \mathcal{L}_{\text{rel}}$$
+$$
+\mathcal{L} = \mathcal{L}_{\text{gen}} + \alpha \cdot \mathcal{L}_{\text{rank}} + \beta \cdot \mathcal{L}_{\text{rel}}
+$$
 
 其中：
 - $\mathcal{L}_{\text{gen}}$: 标准的 autoregressive generation loss，学习生成正确的 SPI 序列。

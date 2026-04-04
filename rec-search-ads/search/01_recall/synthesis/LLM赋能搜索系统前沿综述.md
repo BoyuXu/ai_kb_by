@@ -183,8 +183,6 @@ $$
 - [clip](../../papers/clip.md)
 - [GPT-4](../../papers/gpt_4.md)
 
-
-
 ## 📐 核心公式直观理解
 
 ### Query2Doc

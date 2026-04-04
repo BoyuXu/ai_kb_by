@@ -1134,7 +1134,9 @@ Novelty = 推荐物品的平均 -log(popularity)
 
 **核心改进**：在编码 query 前先生成"内部推理链"，拼接后再编码。
 
-$$e_q = \text{Encoder}(\text{Think}(q) \oplus q)$$
+$$
+e_q = \text{Encoder}(\text{Think}(q) \oplus q)
+$$
 
 **与传统 Query 扩展的区别**：
 - 传统：先改 query 文字，再编码 → 改变了 query 表面形式

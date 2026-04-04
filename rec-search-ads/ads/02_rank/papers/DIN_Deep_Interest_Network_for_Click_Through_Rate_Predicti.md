@@ -48,7 +48,9 @@
 
 ### 公式1：Attention Score（局部激活单元）
 
-$$a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)$$
+$$
+a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)
+$$
 
 **解释：**
 - $e_i$：第 $i$ 个历史行为的 embedding 向量
@@ -61,7 +63,9 @@ $$a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)$$
 
 ### 公式2：用户兴趣表示
 
-$$\mathbf{v}_U = \sum_{i=1}^{N} a_i \cdot e_i = \sum_{i=1}^{N} f(e_i, e_a) \cdot e_i$$
+$$
+\mathbf{v}_U = \sum_{i=1}^{N} a_i \cdot e_i = \sum_{i=1}^{N} f(e_i, e_a) \cdot e_i
+$$
 
 **解释：**
 - $N$：用户历史行为序列长度
@@ -70,7 +74,9 @@ $$\mathbf{v}_U = \sum_{i=1}^{N} a_i \cdot e_i = \sum_{i=1}^{N} f(e_i, e_a) \cdot
 
 ### 公式3：Dice 激活函数
 
-$$\text{Dice}(x) = p(x) \cdot x + (1 - p(x)) \cdot \alpha x, \quad p(x) = \frac{1}{1 + e^{-\frac{x - E[x]}{\sqrt{Var[x] + \epsilon}}}}$$
+$$
+\text{Dice}(x) = p(x) \cdot x + (1 - p(x)) \cdot \alpha x, \quad p(x) = \frac{1}{1 + e^{-\frac{x - E[x]}{\sqrt{Var[x] + \epsilon}}}}
+$$
 
 **解释：**
 - $E[x], Var[x]$：当前 mini-batch 的均值和方差
@@ -79,7 +85,9 @@ $$\text{Dice}(x) = p(x) \cdot x + (1 - p(x)) \cdot \alpha x, \quad p(x) = \frac{
 
 ### 公式4：Mini-Batch Aware Regularization
 
-$$L_{reg} = \sum_{(x,y) \in B} \sum_{j=1}^{K} \frac{\|w_j\|^2}{n_j}$$
+$$
+L_{reg} = \sum_{(x,y) \in B} \sum_{j=1}^{K} \frac{\|w_j\|^2}{n_j}
+$$
 
 **解释：**
 - $B$：当前 mini-batch

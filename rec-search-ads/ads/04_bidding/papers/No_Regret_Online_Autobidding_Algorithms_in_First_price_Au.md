@@ -39,7 +39,9 @@
 
 ### 公式1：一价拍卖最优出价（Bid Shading）
 
-$$\text{bid}^* = v - \frac{F(v)}{f(v)}$$
+$$
+\text{bid}^* = v - \frac{F(v)}{f(v)}
+$$
 
 **解释：**
 - $v$：广告主对该展示的真实估值
@@ -50,9 +52,13 @@ $$\text{bid}^* = v - \frac{F(v)}{f(v)}$$
 
 ### 公式2：在线凸优化框架
 
-$$\min_{\lambda, \mu \geq 0} \sum_{t=1}^{T} \ell_t(\lambda, \mu)$$
+$$
+\min_{\lambda, \mu \geq 0} \sum_{t=1}^{T} \ell_t(\lambda, \mu)
+$$
 
-$$\ell_t(\lambda, \mu) = -(v_t - \text{payment}_t) \cdot \mathbb{1}[\text{win}_t] + \lambda(\text{CPA}_t - \text{target}) + \mu(\text{cost}_t - B/T)$$
+$$
+\ell_t(\lambda, \mu) = -(v_t - \text{payment}}_{\text{t) \cdot \mathbb{1}}[\text{win}}_{\text{t] + \lambda(\text{CPA}}_t - \text{target}) + \mu(\text{cost}}_{\text{t - B/T)
+$$
 
 **解释：**
 - 对偶问题：通过优化拉格朗日乘子间接优化出价策略
@@ -60,7 +66,9 @@ $$\ell_t(\lambda, \mu) = -(v_t - \text{payment}_t) \cdot \mathbb{1}[\text{win}_t
 
 ### 公式3：Regret Bound
 
-$$\text{Regret}(T) \leq O(\sqrt{T \log T})$$
+$$
+\text{Regret}}(T) \leq O(\sqrt{T \log T})
+$$
 
 **解释：**
 - 平均遗憾 $\text{Regret}(T)/T = O(\sqrt{\log T / T}) \to 0$
@@ -68,7 +76,9 @@ $$\text{Regret}(T) \leq O(\sqrt{T \log T})$$
 
 ### 公式4：自适应步长
 
-$$\eta_t = \frac{C}{\sqrt{\sum_{\tau=1}^{t} \|\nabla \ell_\tau\|^2}}$$
+$$
+\eta_t = \frac{C}{\sqrt{\sum_{\tau=1}^{t} \|\nabla \ell_\tau\|^2}}
+$$
 
 **解释：** AdaGrad 风格步长，梯度大时步长小（稳定），梯度小时步长大（加速收敛）。
 

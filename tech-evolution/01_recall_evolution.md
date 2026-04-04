@@ -44,9 +44,7 @@ timeline
 ### 1. BPR Loss（Bayesian Personalized Ranking）
 
 $$
-
 \mathcal{L}\_{BPR} = -\sum\_{(u,i,j) \in D\_s} \ln \sigma(\hat{r}\_{ui} - \hat{r}\_{uj}) + \lambda \|\Theta\|^2
-
 $$
 
 **符号说明**：
@@ -60,15 +58,11 @@ $$
 ### 2. DSSM 双塔 Loss
 
 $$
-
 P(d|q) = \frac{\exp(\cos(\mathbf{q}, \mathbf{d})/ \tau)}{\sum\_{d' \in D} \exp(\cos(\mathbf{q}, \mathbf{d}')/ \tau)}
-
 $$
 
 $$
-
 \mathcal{L} = -\sum\_{(q,d^+)} \log P(d^+|q)
-
 $$
 
 **符号说明**：
@@ -81,15 +75,11 @@ $$
 ### 3. LightGCN 聚合
 
 $$
-
 \mathbf{e}\_u^{(k+1)} = \sum\_{i \in \mathcal{N}\_u} \frac{1}{\sqrt{|\mathcal{N}\_u||\mathcal{N}\_i|}} \mathbf{e}\_i^{(k)}
-
 $$
 
 $$
-
 \mathbf{e}\_u = \sum\_{k=0}^{K} \alpha\_k \mathbf{e}\_u^{(k)}
-
 $$
 
 **直觉**：去掉 GCN 的特征变换和非线性，只保留邻域加权平均，最终 Embedding 是各层的加权和。简单但实测效果不亚于复杂 GCN。
@@ -331,24 +321,29 @@ $$
 > ```
 > 优化手段：User Embedding预计算（定期刷新）、HNSW索引、量化压缩（PQ）、分级缓存
 
-
 ---
 
 ## 召回量化指标与演进
 
 Recall@K：
 
-$$\text{Recall@K} = \frac{|\text{Top-K} \cap \text{相关集}|}{|\text{相关集}|}$$
+$$
+\text{Recall@K} = \frac{|\text{Top-K} \cap \text{相关集}|}{|\text{相关集}|}
+$$
 
 ANN 近似误差（HNSW）：
 
-$$\epsilon = 1 - \frac{|\hat{N}(q,k) \cap N^*(q,k)|}{k}$$
+$$
+\epsilon = 1 - \frac{|\hat{N}(q,k) \cap N^*(q,k)|}{k}
+$$
 
 工业目标 $\epsilon < 5\%$，通过调 ef_search 平衡精度与速度。
 
 两塔模型相似度：
 
-$$s(u,i) = \frac{e_u^\top e_i}{||e_u|| \cdot ||e_i||}$$
+$$
+s(u,i) = \frac{e_u^\top e_i}{||e_u|| \cdot ||e_i||}
+$$
 
 | 年代 | 技术 | Recall@100 | QPS | 局限 |
 |------|------|-----------|-----|------|

@@ -34,10 +34,17 @@ $$
 2. **任务专属门控**：每个任务 $k$ 有独立的门控矩阵 $W^k_g$，通过 softmax 输出对 $n$ 个 Expert 的软权重分配 $\mathbf{g}^k \in \Delta^n$（概率单纯形）
 
 3. **任务输出层**：混合表示 $\mathbf{h}^k(\mathbf{x})$ 送入任务 $k$ 的 Tower 网络得到预测：
-   $$\hat{y}^k = \text{Tower}_k(\mathbf{h}^k(\mathbf{x}))$$
+
+$$
+\hat{y}^k = \text{Tower}}_{\text{k(\mathbf{h}}^k(\mathbf{x}))
+$$
 
 4. **总损失**：
-   $$\mathcal{L}_{\text{MTL}} = \sum_{k=1}^K w_k \mathcal{L}_k(\hat{y}^k, y^k)$$
+
+$$
+\mathcal{L}_{\text{MTL}} = \sum_{k=1}^K w_k \mathcal{L}_k(\hat{y}^k, y^k)
+$$
+
    任务权重 $w_k$ 可以用 GradNorm/Uncertainty Weighting 动态调整
 
 5. **MMoE vs Shared-Bottom 的区别**：Shared-Bottom 对所有任务使用同一个底层表示 $f(\mathbf{x})$；MMoE 每个任务自适应地加权融合 $n$ 个 Expert，当任务冲突时（如点击和购买的用户偏好不同），不同任务的 $\mathbf{g}^k$ 会专门化到不同的 Expert 子集。

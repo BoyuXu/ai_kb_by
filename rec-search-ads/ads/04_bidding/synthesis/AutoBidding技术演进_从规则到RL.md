@@ -39,7 +39,7 @@ graph TB
 
 ### 📐 1. 最优出价推导（二阶竞价下的 KKT 条件）
 
-**问题设定**：广告主有 $n$ 次展示机会，每次出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增），每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$，赢得时支付对手最高价 $m_i$（二价拍卖）。
+**问题设定**：广告主有 $n$ 次展示机会，每次出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增），每次展示的转化价值 $v_i = \text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}$，赢得时支付对手最高价 $m_i$（二价拍卖）。
 
 优化目标（最大化转化数，满足 ROI 约束）：
 
@@ -66,7 +66,7 @@ $$
 由于 $w_i'(b_i) > 0$（赢得概率单调递增），得：
 
 $$
-\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}}{\lambda}}
+\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}}{\lambda}}
 $$
 
 **符号说明：**

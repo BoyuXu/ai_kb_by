@@ -74,7 +74,7 @@ $$
 $$
 
 **推导步骤：**
-1. $E_q = \text{BERT}_Q([CLS], q)$，$E_d = \text{BERT}_D([CLS], d)$，两个独立编码器
+1. $E_q = \text{BERT}}_{\text{Q([CLS], q)$，$E}}_{\text{d = \text{BERT}}_D([CLS], d)$，两个独立编码器
 2. In-batch Negative：batch 内其他 query 的正样本充当负样本，无需额外采样
 3. 温度 $\tau$ 越小，分布越尖锐，模型区分正负样本的"要求"越高
 
@@ -90,7 +90,7 @@ $$
 
 **推导步骤：**
 1. **Token 级编码**：$\mathbf{E}_q \in \mathbb{R}^{|q| \times D}$，$\mathbf{E}_d \in \mathbb{R}^{|d| \times D}$，维度压缩到 $D=128$
-2. **MaxSim 操作**：对每个 Query token $i$，取其与所有 Doc token 中最高的相似度，$\text{MaxSim}_i = \max_j E_{q_i}^\top E_{d_j}$
+2. **MaxSim 操作**：对每个 Query token $i$，取其与所有 Doc token 中最高的相似度，$\text{MaxSim}}_{\text{i = \max}}_{\text{j E}}_{\text{{q}}_{\text{i}}^\top E_{d_j}$
 3. **求和聚合**：$|q|$ 个 MaxSim 之和为最终分数。比 Bi-encoder 精细（保留 token 对齐），比 Cross-encoder 快（Doc 向量可离线预计算）
 
 **符号说明：**

@@ -25,7 +25,9 @@ Omni-RAG 提出了一个多层次的查询理解流水线：
 
 对于原始查询 $q$ 和 LLM 改写后的查询集合 $\{q_1', q_2', \ldots, q_k'\}$，最终的文档评分通过加权融合计算：
 
-$$\text{score}(d) = \alpha \cdot s(q, d) + (1 - \alpha) \cdot \max_{i \in [k]} s(q_i', d)$$
+$$
+\text{score}(d) = \alpha \cdot s(q, d) + (1 - \alpha) \cdot \max_{i \in [k]} s(q_i', d)
+$$
 
 其中 $s(\cdot, \cdot)$ 为检索模型的相似度函数，$\alpha$ 为原始查询与改写查询的融合权重。实验表明 $\alpha = 0.3$ 时效果最优，说明 LLM 改写的查询质量通常优于原始查询。
 
@@ -40,7 +42,9 @@ $$\text{score}(d) = \alpha \cdot s(q, d) + (1 - \alpha) \cdot \max_{i \in [k]} s
 
 Omni-RAG 引入了一个 retrieval-aware generation 目标，将检索质量信号反馈到查询理解模块：
 
-$$\mathcal{L}_{\text{joint}} = \mathcal{L}_{\text{gen}}(y | q, D_{\text{ret}}) + \lambda \cdot \mathcal{L}_{\text{ret}}(D_{\text{ret}} | q')$$
+$$
+\mathcal{L}_{\text{joint}} = \mathcal{L}_{\text{gen}}(y | q, D_{\text{ret}}) + \lambda \cdot \mathcal{L}_{\text{ret}}(D_{\text{ret}} | q')
+$$
 
 其中 $\mathcal{L}_{\text{gen}}$ 是生成损失，$\mathcal{L}_{\text{ret}}$ 是检索损失，$\lambda$ 平衡两者的贡献。
 

@@ -93,17 +93,31 @@ $$
 **推导步骤：**
 
 1. **建立拉格朗日函数**：引入拉格朗日乘子 $\lambda^*$（影子价格），表示预算约束的边际成本：
-   $$\mathcal{L} = \sum_{a} C_a \cdot r_a(\text{bid}(a)) - \lambda^* \left(\sum_a \text{bid}(a) \cdot r_a - B\right)$$
+
+$$
+\mathcal{L} = \sum_{a} C_a \cdot r_a(\text{bid}(a)) - \lambda^* \left(\sum_a \text{bid}(a) \cdot r_a - B\right)
+$$
 
 2. **对 $\text{bid}(a)$ 求偏导并令其为0**（一阶最优性条件）：
-   $$\frac{\partial \mathcal{L}}{\partial \text{bid}(a)} = C_a \cdot \frac{\partial r_a}{\partial \text{bid}} - \lambda^* r_a - \lambda^* \text{bid}(a) \frac{\partial r_a}{\partial \text{bid}} = 0$$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \text{bid}(a)} = C_a \cdot \frac{\partial r_a}{\partial \text{bid}} - \lambda^* r_a - \lambda^* \text{bid}(a) \frac{\partial r_a}{\partial \text{bid}} = 0
+$$
 
 3. **简化得到最优出价形式**：
-   $$\text{bid}^*(a) = \lambda^* \cdot C_a \cdot \text{pCTR}(a)$$
+
+$$
+\text{bid}^*(a) = \lambda^* \cdot C_a \cdot \text{pCTR}(a)
+$$
+
    其中 $\text{pCTR}(a)$ 是预估点击率，$C_a$ 是单次点击的预期转化价值。
 
 4. **确定 $\lambda^*$**：通过二分搜索找到使预算约束紧（$\sum_a \text{bid}^*(a) \cdot r_a = B$）的 $\lambda^*$ 值。BiCB 的创新：结合流量预测 $\hat{r}_a(t)$ 实现**时间自适应出价**：
-   $$\text{bid}(a, t) = \lambda^*(t) \cdot C_a \cdot \text{pCTR}(a) \cdot \frac{\hat{r}_a(t)}{\hat{r}_a(\text{day})}$$
+
+$$
+\text{bid}(a, t) = \lambda^*(t) \cdot C_a \cdot \text{pCTR}(a) \cdot \frac{\hat{r}_a(t)}{\hat{r}_a(\text{day})}
+$$
+
    即根据预测的分钟级流量，调整出价以平衡全天预算。
 
 **符号说明：**
@@ -168,30 +182,54 @@ $$
 **推导步骤：**
 
 1. **问题建模**：每个广告 $a$ 有未知的真实 CTR $\mu_a$，每次展示时观测到 Bernoulli 奖励（点击=1，无点击=0）
-   $$r_a(t) \sim \text{Bernoulli}(\mu_a)$$
+
+$$
+r_a(t) \sim \text{Bernoulli}(\mu_a)
+$$
 
 2. **经验估计与置信区间**：基于已有的 $n_a$ 次样本，估计平均 CTR：
-   $$\hat{\mu}_a = \frac{1}{n_a}\sum_{i=1}^{n_a} r_{a,i}$$
+
+$$
+\hat{\mu}_a = \frac{1}{n_a}\sum_{i=1}^{n_a} r_{a,i}
+$$
    
    由 Hoeffding 不等式，真实 $\mu_a$ 以高概率落在置信区间内：
-   $$\mathbb{P}(\mu_a \leq \hat{\mu}_a + \sqrt{\frac{\log(1/\delta)}{2n_a}}) \geq 1 - \delta$$
+
+$$
+\mathbb{P}(\mu_a \leq \hat{\mu}_a + \sqrt{\frac{\log(1/\delta)}{2n_a}}) \geq 1 - \delta
+$$
 
 3. **UCB 上界**：选择最乐观的可能估计（置信上界）：
-   $$\text{UCB}_a(t) = \hat{\mu}_a + \sqrt{\frac{2\log t}{n_a}}$$
+
+$$
+\text{UCB}}_{\text{a(t) = \hat{\mu}}_a + \sqrt{\frac{2\log t}{n_a}}
+$$
    
    **关键洞察**：$\sqrt{\frac{\log t}{n_a}}$ 项在样本少（$n_a$ 小）时很大，鼓励探索新臂。
 
 4. **贪心选择与遗憾界**：每步选择 UCB 最高的臂：
-   $$a_t^* = \arg\max_a \text{UCB}_a(t)$$
+
+$$
+a_t^* = \arg\max_a \text{UCB}}_{\text{a(t)
+$$
    
    理论上界（Lai-Robbins）：
-   $$\mathbb{E}[\text{Regret}(T)] = O\left(\log T \sum_{a: \mu_a < \mu^*} \frac{1}{\text{KL}(\mu_a \| \mu^*)}\right)$$
+
+$$
+\mathbb{E}}[\text{Regret}(T)] = O\left(\log T \sum_{a: \mu_a < \mu^*} \frac{1}{\text{KL}(\mu_a \| \mu^*)}\right)
+$$
 
 5. **在 CTR 预估中的应用（MAB-ColdStart）**：对新广告，直接用 UCB 调整 CTR：
-   $$\text{pCTR}_{\text{UCB}}(a) = \min\left(\hat{\text{pCTR}}(a) + \sqrt{\frac{2\log t}{n_a}}, 1.0\right)$$
+
+$$
+\text{pCTR}}_{\text{{\text{UCB}}}(a) = \min\left(\hat{\text{pCTR}}(a) + \sqrt{\frac{2\log t}{n_a}}, 1.0\right)
+$$
    
    竞价评分变为：
-   $$\text{eCPM}_{\text{UCB}}(a) = \text{bid}(a) \times \text{pCTR}_{\text{UCB}}(a)$$
+
+$$
+\text{eCPM}}_{\text{{\text{UCB}}}(a) = \text{bid}(a) \times \text{pCTR}}_{\text{{\text{UCB}}}(a)
+$$
 
 **符号说明：**
 
@@ -200,9 +238,9 @@ $$
 | $\mu_a$ | 广告 $a$ 的真实点击率（未知） |
 | $\hat{\mu}_a$ | 基于 $n_a$ 个样本的经验估计 CTR |
 | $n_a$ | 广告 $a$ 已获得的展示次数 |
-| $\text{UCB}_a(t)$ | 第 $t$ 步的置信上界（乐观估计） |
+| $\text{UCB}}_{\text{a(t)$ | 第 $t$ 步的置信上界（乐观估计） |
 | $t$ | 当前时间步（总展示次数） |
-| $\text{KL}(\cdot \| \cdot)$ | Kullback-Leibler 散度，衡量两分布距离 |
+| $\text{KL}}(\cdot \| \cdot)$ | Kullback-Leibler 散度，衡量两分布距离 |
 
 **直观理解：** UCB 是「知识的价格」——新广告因为不确定性大（置信区间宽），被给予更高的"乐观评分"，从而获得更多探索机会。这种「不确定性驱动的探索」比固定探索率（如 $\epsilon$-greedy 的固定 $\epsilon$）更聪明：随着 $t$ 增大、$n_a$ 增大，置信区间收窄，探索逐渐转向利用。
 
@@ -247,17 +285,17 @@ $$
 **因果图建模**（DAG）：
 
 $$
-B_i \rightarrow \text{Win}_i \rightarrow \text{Click}_i \rightarrow \text{Conversion}_i
+B_i \rightarrow \text{Win}}_{\text{i \rightarrow \text{Click}}_i \rightarrow \text{Conversion}}_{\text{i
 $$
 
-出价 $B_i$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。
+出价 $B}}_{\text{i$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。
 
 **IPW（逆倾向加权）去偏**：
 
-历史数据下的行为策略为 $\pi_b(b_i|x_i)$，目标策略为 $\pi_e$，用重要性权重校正分布偏移：
+历史数据下的行为策略为 $\pi}}_{\text{b(b}}_{\text{i|x}}_{\text{i)$，目标策略为 $\pi}}_{\text{e$，用重要性权重校正分布偏移：
 
 $$
-\hat{V}^{IPW}(\pi_e) = \frac{1}{n}\sum_{i=1}^n \frac{\pi_e(b_i|x_i)}{\pi_b(b_i|x_i)} r_i
+\hat{V}}^{IPW}(\pi_e) = \frac{1}{n}\sum_{i=1}^n \frac{\pi_e(b_i|x_i)}{\pi_b(b_i|x_i)} r_i
 $$
 
 **Double-Robust 估计**（同时利用模型预测和 IPW，任一正确即无偏）：

@@ -50,7 +50,9 @@
 
 ### 公式1：Attention Score（局部激活单元）
 
-$$a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)$$
+$$
+a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)
+$$
 
 **解释：**
 - $e_i$：第 $i$ 个历史行为的 embedding
@@ -63,7 +65,9 @@ $$a_i = f(e_i, e_a) = \sigma(W \cdot [e_i; e_a; e_i - e_a; e_i \odot e_a] + b)$$
 
 ### 公式2：用户兴趣表示
 
-$$v_u = \sum_{i=1}^{N} a_i \cdot e_i$$
+$$
+v_u = \sum_{i=1}^{N} a_i \cdot e_i
+$$
 
 **解释：**
 - $N$：历史行为序列长度
@@ -72,9 +76,13 @@ $$v_u = \sum_{i=1}^{N} a_i \cdot e_i$$
 
 ### 公式3：Dice 激活函数
 
-$$\text{Dice}(x) = p(x) \cdot x + (1-p(x)) \cdot \alpha x$$
+$$
+\text{Dice}(x) = p(x) \cdot x + (1-p(x)) \cdot \alpha x
+$$
 
-$$p(x) = \frac{1}{1 + e^{-\frac{x-E[x]}{\sqrt{Var[x]+\epsilon}}}}$$
+$$
+p(x) = \frac{1}{1 + e^{-\frac{x-E[x]}{\sqrt{Var[x]+\epsilon}}}}
+$$
 
 **解释：**
 - 相比 PReLU 的固定拐点 $x=0$，Dice 拐点自适应于数据分布均值 $E[x]$
@@ -82,7 +90,9 @@ $$p(x) = \frac{1}{1 + e^{-\frac{x-E[x]}{\sqrt{Var[x]+\epsilon}}}}$$
 
 ### 公式4：Mini-batch Aware Regularization
 
-$$L_{reg} = \sum_{(x,y) \in B} \sum_{j=1}^{K} \frac{\|w_j\|^2}{n_j}$$
+$$
+L_{reg} = \sum_{(x,y) \in B} \sum_{j=1}^{K} \frac{\|w_j\|^2}{n_j}
+$$
 
 **解释：**
 - $n_j$：特征 $j$ 在 batch 中出现的次数

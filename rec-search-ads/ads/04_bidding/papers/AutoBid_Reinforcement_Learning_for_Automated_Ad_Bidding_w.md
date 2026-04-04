@@ -54,38 +54,52 @@
 
 ### 公式1：约束 MDP（CMDP）建模
 
-$$\max_\pi \mathbb{E}\left[\sum_{t=1}^{T} r_t \cdot \mathbb{1}[\text{win}_t]\right]$$
-$$\text{s.t.} \quad \sum_{t=1}^{T} c_t \cdot \mathbb{1}[\text{win}_t] \leq B \quad \text{（预算约束）}$$
-$$\frac{\sum_t c_t \cdot \mathbb{1}[\text{win}_t]}{\sum_t v_t \cdot \mathbb{1}[\text{win}_t]} \leq \text{Target\_CPA} \quad \text{（CPA约束）}$$
+$$
+\max_\pi \mathbb{E}\left[\sum_{t=1}^{T} r_t \cdot \mathbb{1}[\text{win}}_{\text{t]\right]
+$$
+
+$$
+\text{s.t.}} \quad \sum_{t=1}^{T} c_t \cdot \mathbb{1}[\text{win}}_{\text{t] \leq B \quad \text{（预算约束）}}
+$$
+
+$$
+\frac{\sum_t c_t \cdot \mathbb{1}[\text{win}}_{\text{t]}}{\sum_t v_t \cdot \mathbb{1}[\text{win}}_{\text{t]}} \leq \text{Target}}_{\text{{\text{CPA}}} \quad \text{（CPA约束）}
+$$
 
 **解释：**
 - $r_t$：第 $t$ 次竞拍赢得时的价值（转化价值）
 - $c_t$：第 $t$ 次竞拍赢得时的花费（= 出价或清算价）
 - $B$：日预算上限
-- $\mathbb{1}[\text{win}_t]$：是否赢得第 $t$ 次拍卖
+- $\mathbb{1}[\text{win}}_{\text{t]$：是否赢得第 $t$ 次拍卖
 
 ### 公式2：Lagrangian Relaxation
 
-$$\mathcal{L}(\pi, \lambda, \mu) = \mathbb{E}_\pi\left[\sum_t r_t\right] - \lambda \left(\text{CPA}(\pi) - \text{Target\_CPA}\right) - \mu \left(\text{Cost}(\pi) - B\right)$$
+$$
+\mathcal{L}}(\pi, \lambda, \mu) = \mathbb{E}_\pi\left[\sum_t r_t\right] - \lambda \left(\text{CPA}(\pi) - \text{Target}}_{\text{{\text{CPA}}}\right) - \mu \left(\text{Cost}(\pi) - B\right)
+$$
 
 **解释：**
 - $\lambda$：CPA 约束的拉格朗日乘子
 - $\mu$：预算约束的拉格朗日乘子
 - 内层问题：固定 $\lambda, \mu$，用 PPO 训练策略 $\pi$ 最大化 $\mathcal{L}$
-- 外层问题：更新乘子 $\lambda \leftarrow \lambda + \eta_\lambda (\text{CPA} - \text{Target\_CPA})$
+- 外层问题：更新乘子 $\lambda \leftarrow \lambda + \eta_\lambda (\text{CPA} - \text{Target}}_{\text{{\text{CPA}}})$
 
 ### 公式3：出价计算
 
-$$\text{bid}_t = k_t \times p\text{CVR}_t \times \text{value}_t$$
+$$
+\text{bid}}_{\text{t = k}}_{\text{t \times p\text{CVR}}_t \times \text{value}}_{\text{t
+$$
 
 **解释：**
-- $k_t$：策略网络输出的出价调整系数（通常 $k \in [0.5, 2.0]$）
-- $p\text{CVR}_t$：CVR 预估模型输出的转化概率
-- $\text{value}_t$：转化价值（可以是固定值或预估值）
+- $k}}_{\text{t$：策略网络输出的出价调整系数（通常 $k \in [0.5, 2.0]$）
+- $p\text{CVR}}_t$：CVR 预估模型输出的转化概率
+- $\text{value}}_{\text{t$：转化价值（可以是固定值或预估值）
 
 ### 公式4：预算消耗率状态编码
 
-$$s_{\text{budget}} = \frac{\text{Budget\_spent}_t}{\text{Budget\_total}} \Big/ \frac{t}{T}$$
+$$
+s}}_{\text{{\text{budget}}} = \frac{\text{Budget}}_{\text{{\text{spent}}}_t}{\text{Budget}}_{\text{{\text{total}}}} \Big/ \frac{t}{T}
+$$
 
 **解释：**
 - 当 $s_{\text{budget}} > 1$：花费速度超前（应降低出价）

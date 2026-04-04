@@ -16,7 +16,9 @@
 
 IDProxy使用多模态LLM（如基于LLaVA或Qwen-VL的变体）作为backbone，输入物品的图片和文本信息，输出一个与ID embedding维度一致的proxy embedding向量。对齐训练目标采用MSE + Cosine similarity联合损失：
 
-$$\mathcal{L}_{align} = \alpha \cdot \|e_{proxy} - e_{ID}\|_2^2 + (1-\alpha) \cdot \left(1 - \frac{e_{proxy} \cdot e_{ID}}{\|e_{proxy}\| \cdot \|e_{ID}\|}\right)$$
+$$
+\mathcal{L}_{align} = \alpha \cdot \|e_{proxy} - e_{ID}\|_2^2 + (1-\alpha) \cdot \left(1 - \frac{e_{proxy} \cdot e_{ID}}{\|e_{proxy}\| \cdot \|e_{ID}\|}\right)
+$$
 
 其中 $e_{proxy}$ 是LLM生成的proxy embedding，$e_{ID}$ 是经过充分训练的物品ID embedding（来自warm items），$\alpha$ 是平衡系数。
 
@@ -24,7 +26,9 @@ $$\mathcal{L}_{align} = \alpha \cdot \|e_{proxy} - e_{ID}\|_2^2 + (1-\alpha) \cd
 
 为了确保proxy embedding在下游CTR任务中有效，IDProxy采用端到端训练策略。在对齐损失之外，加入CTR预估任务的监督信号：
 
-$$\mathcal{L}_{total} = \mathcal{L}_{align} + \beta \cdot \mathcal{L}_{CTR}(f(e_{proxy}, \mathbf{x}), y)$$
+$$
+\mathcal{L}_{total} = \mathcal{L}_{align} + \beta \cdot \mathcal{L}_{CTR}(f(e_{proxy}, \mathbf{x}), y)
+$$
 
 其中 $f$ 是下游CTR模型，$\mathbf{x}$ 是其他特征，$y$ 是点击标签。通过联合优化，proxy embedding不仅语义上接近真实ID embedding，在下游任务中也能直接替代使用。
 

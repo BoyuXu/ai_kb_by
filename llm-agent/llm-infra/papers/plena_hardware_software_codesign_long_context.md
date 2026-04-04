@@ -16,13 +16,17 @@ PLENA 的核心贡献包括三个协同设计模块：
 
 **1. Predictive KV Cache Scheduling（预测性 KV Cache 调度）。** 利用 Agent 执行的可预测性（工具调用序列通常遵循 DAG 模式），提前预取即将需要的 KV Cache 分片。调度决策基于一个轻量级的访问模式预测模型：
 
-$$P(\text{access}_{t+1} = k \mid \mathcal{H}_t) = \text{softmax}\left(\frac{W_q h_t \cdot W_k e_k}{\sqrt{d}}\right)$$
+$$
+P(\text{access}}_{\text{{t+1}} = k \mid \mathcal{H}_t) = \text{softmax}\left(\frac{W_q h_t \cdot W_k e_k}{\sqrt{d}}\right)
+$$
 
 其中 $\mathcal{H}_t$ 为到时刻 $t$ 的 Agent 执行历史，$h_t$ 为历史编码向量，$e_k$ 为第 $k$ 个 KV Cache 分片的嵌入。
 
 **2. Layered KV Cache Architecture（分层 KV Cache 架构）。** 将 KV Cache 分为三层存储层级：HBM（热数据）、DRAM（温数据）、SSD（冷数据），根据 Attention Score 的时间衰减特性进行动态分层。Attention Score 的衰减可建模为：
 
-$$\text{Score}(q, k_i) \propto \exp\left(-\lambda \cdot (t - t_i)\right) \cdot \text{softmax}\left(\frac{q \cdot k_i^T}{\sqrt{d_k}}\right)$$
+$$
+\text{Score}(q, k_i) \propto \exp\left(-\lambda \cdot (t - t_i)\right) \cdot \text{softmax}\left(\frac{q \cdot k_i^T}{\sqrt{d_k}}\right)
+$$
 
 其中 $\lambda$ 为时间衰减系数，$t_i$ 为 token $i$ 的生成时间。高衰减分数的 KV 对驻留 HBM，低衰减分数的逐步淘汰到 DRAM 和 SSD。
 

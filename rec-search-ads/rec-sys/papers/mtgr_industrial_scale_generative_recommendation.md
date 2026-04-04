@@ -16,13 +16,17 @@ MTGR 的核心创新是 **Hybrid Architecture**，将 DLRM 的特征交叉模块
 
 **Feature-Augmented Token Representation**：不同于 HSTU 只用 action 信息构造 token，MTGR 将丰富的 side features 注入到每个行为 token 中：
 
-$$\mathbf{t}_i = \text{FFN}\left(\left[\mathbf{e}_{\text{item}}^{(i)}; \mathbf{e}_{\text{action}}^{(i)}; \mathbf{e}_{\text{context}}^{(i)}; \mathbf{e}_{\text{side}}^{(i)}\right]\right)$$
+$$
+\mathbf{t}_i = \text{FFN}\left(\left[\mathbf{e}_{\text{item}}^{(i)}; \mathbf{e}_{\text{action}}^{(i)}; \mathbf{e}_{\text{context}}^{(i)}; \mathbf{e}_{\text{side}}^{(i)}\right]\right)
+$$
 
 其中 $[\cdot;\cdot]$ 表示拼接操作，$\mathbf{e}_{\text{side}}^{(i)}$ 包含了物品类别、商家评分、价格区间等业务特征。
 
 **Dual-Stream Fusion**：MTGR 采用双流架构，一路是 HSTU 风格的序列建模流，另一路是 DLRM 风格的特征交叉流，最终通过 gating mechanism 融合：
 
-$$\mathbf{h}_{\text{final}} = \sigma(\mathbf{W}_g [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{feat}}]) \odot \mathbf{h}_{\text{seq}} + (1 - \sigma(\mathbf{W}_g [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{feat}}])) \odot \mathbf{h}_{\text{feat}}$$
+$$
+\mathbf{h}_{\text{final}} = \sigma(\mathbf{W}_g [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{feat}}]) \odot \mathbf{h}_{\text{seq}} + (1 - \sigma(\mathbf{W}_g [\mathbf{h}_{\text{seq}}; \mathbf{h}_{\text{feat}}])) \odot \mathbf{h}_{\text{feat}}
+$$
 
 其中 $\mathbf{h}_{\text{seq}}$ 为序列流输出，$\mathbf{h}_{\text{feat}}$ 为特征交叉流输出，$\sigma$ 为 sigmoid 函数。Gate 自适应地决定每个用户请求更依赖序列信息还是特征信息。
 

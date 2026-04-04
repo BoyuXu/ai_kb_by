@@ -49,9 +49,13 @@
 
 ### 公式1：扩散前向过程
 
-$$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)$$
+$$
+q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t I)
+$$
 
-$$q(x_T | x_0) = \mathcal{N}(x_T; \sqrt{\bar{\alpha}_T} x_0, (1-\bar{\alpha}_T) I)$$
+$$
+q(x_T | x_0) = \mathcal{N}(x_T; \sqrt{\bar{\alpha}_T} x_0, (1-\bar{\alpha}_T) I)
+$$
 
 **解释：**
 - $x_0$：原始出价序列
@@ -61,7 +65,9 @@ $$q(x_T | x_0) = \mathcal{N}(x_T; \sqrt{\bar{\alpha}_T} x_0, (1-\bar{\alpha}_T) 
 
 ### 公式2：Completer 去噪（条件生成）
 
-$$p_\theta(x_{t-1} | x_t, x_{\text{prefix}}) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t, x_{\text{prefix}}), \sigma_t^2 I)$$
+$$
+p_\theta(x_{t-1} | x_t, x_{\text{prefix}}) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t, x_{\text{prefix}}), \sigma_t^2 I)
+$$
 
 **解释：**
 - $x_{\text{prefix}}$：已执行的出价前缀（固定条件）
@@ -70,7 +76,9 @@ $$p_\theta(x_{t-1} | x_t, x_{\text{prefix}}) = \mathcal{N}(x_{t-1}; \mu_\theta(x
 
 ### 公式3：Aligner（Classifier Guidance）
 
-$$\hat{\mu}_\theta = \mu_\theta + s \cdot \sigma_t^2 \cdot \nabla_{x_t} R(x_t)$$
+$$
+\hat{\mu}_\theta = \mu_\theta + s \cdot \sigma_t^2 \cdot \nabla_{x_t} R(x_t)
+$$
 
 **解释：**
 - $R(x_t)$：奖励模型（预估该出价序列的 GMV/ROI）
@@ -79,7 +87,9 @@ $$\hat{\mu}_\theta = \mu_\theta + s \cdot \sigma_t^2 \cdot \nabla_{x_t} R(x_t)$$
 
 ### 公式4：DDIM 加速采样
 
-$$x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} \cdot \hat{x}_0 + \sqrt{1-\bar{\alpha}_{t-1}} \cdot \epsilon_\theta(x_t, t)$$
+$$
+x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} \cdot \hat{x}_0 + \sqrt{1-\bar{\alpha}_{t-1}} \cdot \epsilon_\theta(x_t, t)
+$$
 
 **解释：**
 - DDIM 将随机扩散过程改为确定性过程

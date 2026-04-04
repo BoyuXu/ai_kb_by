@@ -229,13 +229,12 @@ $\Delta$：量化步长，分组量化使 $\Delta$ 更小。
 > - [KV_Cache_optimization_strategies_scalable_efficient_LLM_inference](../papers/KV_Cache_optimization_strategies_scalable_efficient_LLM_inference.md) — KV Cache 优化策略全景综述
 > - [FlashAttention3_fast_accurate_attention_H100_GPUs](../papers/FlashAttention3_fast_accurate_attention_H100_GPUs.md) — H100 Hopper 架构专属 FlashAttention-3 优化
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：混合精度训练的 loss scaling
 
 $$
-\text{scaled\_loss} = \text{loss} \times S, \quad \text{grad}_{\text{fp32}} = \frac{\text{grad}_{\text{fp16}}}{S}
+\text{scaled}}_{\text{{\text{loss}}} = \text{loss} \times S, \quad \text{grad}}_{\text{{\text{fp32}}} = \frac{\text{grad}}_{\text{{\text{fp16}}}}{S}
 $$
 
 - $S$：loss scaling factor（通常 $2^{16}$ 起步，动态调整）
@@ -245,11 +244,11 @@ $$
 ### 公式 2：GQA（Grouped Query Attention）KV Cache 节省
 
 $$
-M_{\text{GQA}} = M_{\text{MHA}} \times \frac{n_{\text{kv\_heads}}}{n_{\text{q\_heads}}}
+M_{\text{GQA}} = M_{\text{MHA}} \times \frac{n_{\text{kv}}_{\text{{\text{heads}}}}}{n_{\text{q}}_{\text{{\text{heads}}}}}
 $$
 
-- $n_{\text{q\_heads}}$：query 头数量
-- $n_{\text{kv\_heads}}$：KV 头数量（GQA 中远少于 query 头）
+- $n_{\text{q}}_{\text{{\text{heads}}}}$：query 头数量
+- $n_{\text{kv}}_{\text{{\text{heads}}}}$：KV 头数量（GQA 中远少于 query 头）
 
 **直观理解**：MHA 给每个 query head 配一个独立的 KV head（1:1），GQA 让多个 query head 共享一个 KV head（N:1）。LLaMA-2 70B 用 8 个 KV head 服务 64 个 query head，KV Cache 直接缩小 8 倍——这是超长上下文推理的关键。
 

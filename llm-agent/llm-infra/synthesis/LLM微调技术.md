@@ -77,9 +77,7 @@ graph LR
 ### 1. Self-Attention
 
 $$
-
 \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-
 $$
 
 - Transformer 核心计算
@@ -87,9 +85,7 @@ $$
 ### 2. KV Cache
 
 $$
-
 \text{Memory} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times seq\_len \times dtype\_size
-
 $$
 
 - KV Cache 内存占用公式
@@ -97,9 +93,7 @@ $$
 ### 3. LoRA
 
 $$
-
 W' = W + \Delta W = W + BA, \quad B \in \mathbb{R}^{d \times r}, A \in \mathbb{R}^{r \times d}
-
 $$
 
 - 低秩适配，r << d 大幅减少可训练参数
@@ -169,19 +163,25 @@ $$
 
 参数更新分解：
 
-$$W = W_0 + \Delta W = W_0 + BA$$
+$$
+W = W_0 + \Delta W = W_0 + BA
+$$
 
 其中 $W_0 \in \mathbb{R}^{d \times k}$ 冻结，$B \in \mathbb{R}^{d \times r}$，$A \in \mathbb{R}^{r \times k}$，$r \ll \min(d,k)$。
 
 前向传播：
 
-$$h = W_0 x + \frac{\alpha}{r} B A x$$
+$$
+h = W_0 x + \frac{\alpha}{r} B A x
+$$
 
 参数量对比（$d=k=4096, r=8$）：全参数 $d \times k = 16.8\text{M}$，LoRA $(d+k) \times r = 65\text{K}$，节省 99.6%。
 
 QLoRA 额外节省：$W_0$ 用 NF4（4-bit 量化），推理时反量化：
 
-$$\hat{W_0} = \text{dequant}(W_0^{\text{NF4}})$$
+$$
+\hat{W_0} = \text{dequant}(W_0^{\text{NF4}})
+$$
 
 峰值显存对比（7B 模型）：全参数微调 ~80GB，LoRA ~16GB，QLoRA ~6GB。
 
@@ -189,11 +189,15 @@ $$\hat{W_0} = \text{dequant}(W_0^{\text{NF4}})$$
 
 PPO 目标：
 
-$$\mathcal{L}_{PPO} = \mathbb{E}\left[r_\phi(x,y) - \beta \log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\right]$$
+$$
+\mathcal{L}_{PPO} = \mathbb{E}\left[r_\phi(x,y) - \beta \log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\right]
+$$
 
 DPO 直接偏好优化：
 
-$$\mathcal{L}_{DPO} = -\mathbb{E}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]$$
+$$
+\mathcal{L}_{DPO} = -\mathbb{E}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]
+$$
 
 DPO 消去奖励模型，从 RLHF 最优解推导而来，用策略概率比值直接表示偏好差异。
 

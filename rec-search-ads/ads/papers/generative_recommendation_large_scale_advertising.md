@@ -16,7 +16,9 @@
 
 提出动态语义Token化(Dynamic Semantic Tokenization)方案，将广告映射到可自回归生成的token序列。使用Product Quantization(PQ)的变体对广告embedding进行分层编码：
 
-$$\text{TokenSeq}(a) = (c_1(a), c_2(a), ..., c_D(a))$$
+$$
+\text{TokenSeq}(a) = (c_1(a), c_2(a), ..., c_D(a))
+$$
 
 其中 $c_d(a)$ 是第 $d$ 层子空间的码本索引。与静态RQ不同，动态方案支持在线增量更新码本，新广告通过最近邻查找获得token序列，无需重训练码本。
 
@@ -24,11 +26,15 @@ $$\text{TokenSeq}(a) = (c_1(a), c_2(a), ..., c_D(a))$$
 
 广告生成需同时考虑相关性、点击率和商业价值。通过多目标条件生成(Multi-Objective Conditional Generation)实现：
 
-$$P(\mathbf{a}|u, \mathbf{o}) = \prod_{l=1}^{L} P(a_l | a_{<l}, u, \mathbf{o}; \theta)$$
+$$
+P(\mathbf{a}|u, \mathbf{o}) = \prod_{l=1}^{L} P(a_l | a_{<l}, u, \mathbf{o}; \theta)
+$$
 
 其中 $\mathbf{o} = (o_1, o_2, ..., o_K)$ 是目标条件向量，$o_k \in \{0, 1\}$ 表示是否要求第 $k$ 个目标为正(如 $o_1$ 表示点击，$o_2$ 表示转化)。训练时根据历史标签设置条件，推理时设定所有目标为正以生成多目标均优的广告。eCPM可通过加权融合不同条件下的生成概率实现：
 
-$$\text{eCPM}(a) = \text{bid}(a) \cdot P(a|u, o_{click}=1) \cdot P(o_{convert}=1|a, u)$$
+$$
+\text{eCPM}(a) = \text{bid}(a) \cdot P(a|u, o_{click}=1) \cdot P(o_{convert}=1|a, u)
+$$
 
 ### 关键创新
 

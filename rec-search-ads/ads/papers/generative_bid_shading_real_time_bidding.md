@@ -16,7 +16,9 @@
 
 模型将出价折扣因子(shading factor)离散化为token序列，利用Transformer-based自回归模型逐token生成。给定竞价上下文 $x$（包括广告特征、用户特征、竞价环境特征），模型生成shading factor $s$ 的条件概率为：
 
-$$P(s|x) = \prod_{t=1}^{T} P(s_t | s_{<t}, x; \theta)$$
+$$
+P(s|x) = \prod_{t=1}^{T} P(s_t | s_{<t}, x; \theta)
+$$
 
 其中 $s_t$ 是离散化后的第 $t$ 个token，$T$ 是序列长度，$\theta$ 是模型参数。
 
@@ -24,7 +26,9 @@ $$P(s|x) = \prod_{t=1}^{T} P(s_t | s_{<t}, x; \theta)$$
 
 在监督学习(SFT)预训练之后，采用GRPO进行强化学习微调。对于每个竞价请求 $x$，采样一组候选出价 $\{s^{(1)}, s^{(2)}, ..., s^{(G)}\}$，根据奖励函数计算组内相对优势：
 
-$$A^{(i)} = \frac{r(s^{(i)}, x) - \text{mean}(\{r(s^{(j)}, x)\}_{j=1}^{G})}{\text{std}(\{r(s^{(j)}, x)\}_{j=1}^{G})}$$
+$$
+A^{(i)} = \frac{r(s^{(i)}, x) - \text{mean}(\{r(s^{(j)}, x)\}_{j=1}^{G})}{\text{std}(\{r(s^{(j)}, x)\}_{j=1}^{G})}
+$$
 
 奖励函数 $r(s, x)$ 综合考虑了竞价胜出概率、ROI约束和预算消耗平滑性。GRPO相比PPO避免了critic网络的训练，降低了训练不稳定性。
 

@@ -114,15 +114,27 @@ $$
 **推导步骤：**
 
 1. **奖励模型训练（RM）**：用人类标注的偏好对比数据 $(y_w, y_l, x)$ 训练奖励模型 $r_{\phi}(y|x)$：
-   $$\mathcal{L}_{\text{RM}} = -\mathbb{E}\left[\log\sigma(r_\phi(y_w|x) - r_\phi(y_l|x))\right]$$
+
+$$
+\mathcal{L}_{\text{RM}} = -\mathbb{E}\left[\log\sigma(r_\phi(y_w|x) - r_\phi(y_l|x))\right]
+$$
+
    其中 $\sigma$ 是 logistic 函数，$y_w$ 是被人类评为更好的回答。
 
 2. **Advantage 估计（关键差异）**：PPO 用 Critic 网络 $V(x)$ 估计价值：
-   $$\hat{A}_{\text{RM}} = r_\phi(y|x) - V(x)$$
+
+$$
+\hat{A}_{\text{RM}} = r_\phi(y|x) - V(x)
+$$
+
    这引入了额外的价值网络，内存占用翻倍。
 
 3. **PPO 更新**：对每个样本应用 PPO 的 surrogate loss：
-   $$\mathcal{L}_{\text{RLHF}} = \min\left(r_t \hat{A},\ \text{clip}(r_t, 1-\epsilon, 1+\epsilon)\hat{A}\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]$$
+
+$$
+\mathcal{L}_{\text{RLHF}} = \min\left(r_t \hat{A},\ \text{clip}(r_t, 1-\epsilon, 1+\epsilon)\hat{A}\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]
+$$
+
    其中 $r_t = \frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}$ 是重要性权重（importance ratio）。
 
 4. **奖励黑箱的风险**：奖励模型可能被策略欺骗（reward hacking），生成表面高分但无用的回答。
@@ -155,18 +167,33 @@ $$
 **推导步骤：**
 
 1. **客观奖励来源**：对同一个问题 $x$ 采样 $G$ 个回答 $\{y_1, \ldots, y_G\}$，用规则打分（e.g. 数学题答对 = 1，答错 = 0）：
-   $$r_i = \begin{cases} 1 & \text{if } y_i \text{ 正确} \\ 0.5 & \text{if } y_i \text{ 部分正确} \\ 0 & \text{if } y_i \text{ 错误} \end{cases}$$
+
+$$
+r_i = \begin{cases} 1 & \text{if } y_i \text{ 正确} \\ 0.5 & \text{if } y_i \text{ 部分正确} \\ 0 & \text{if } y_i \text{ 错误} \end{cases}
+$$
+
    关键：这些奖励**不可被欺骗**，由外部程序验证（数学答案、代码编译、单元测试等）。
 
 2. **组内相对优势**（GRPO 的核心创新）：计算同 prompt 内的 advantage 归一化：
-   $$\hat{A}_i = \frac{r_i - \mu_r}{\sigma_r}, \quad \mu_r = \frac{1}{G}\sum_{j=1}^{G} r_j, \quad \sigma_r = \sqrt{\frac{1}{G}\sum_{j=1}^{G}(r_j - \mu_r)^2}$$
+
+$$
+\hat{A}_i = \frac{r_i - \mu_r}{\sigma_r}, \quad \mu_r = \frac{1}{G}\sum_{j=1}^{G} r_j, \quad \sigma_r = \sqrt{\frac{1}{G}\sum_{j=1}^{G}(r_j - \mu_r)^2}
+$$
+
    **关键洞察**：不需要额外的 Critic 网络或价值函数，组内平均和方差就是 baseline。
 
 3. **重要性权重（全序列粒度）**：计算整个回答的概率比：
-   $$r_i(\theta) = \frac{\pi_\theta(y_i|x)}{\pi_{\text{ref}}(y_i|x)} = \prod_{t=1}^{|y_i|}\frac{\pi_\theta(y_{i,t}|x, y_{i,<t})}{\pi_{\text{ref}}(y_{i,t}|x, y_{i,<t})}$$
+
+$$
+r_i(\theta) = \frac{\pi_\theta(y_i|x)}{\pi_{\text{ref}}(y_i|x)} = \prod_{t=1}^{|y_i|}\frac{\pi_\theta(y_{i,t}|x, y_{i,<t})}{\pi_{\text{ref}}(y_{i,t}|x, y_{i,<t})}
+$$
 
 4. **KL 约束防止漂移**：
-   $$\mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}] = \mathbb{E}_{y \sim \pi_\theta}\left[\log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\right]$$
+
+$$
+\mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}] = \mathbb{E}_{y \sim \pi_\theta}\left[\log\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\right]
+$$
+
    确保策略不能为了追求高奖励而彻底改变原有的语言分布。
 
 **符号说明：**

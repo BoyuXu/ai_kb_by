@@ -93,8 +93,6 @@ $$
 - [BERT](../../papers/bert.md)
 - [CLIP](../../papers/clip.md)
 
-
-
 ## 📐 核心公式直观理解
 
 ### Word2Vec (Skip-gram) 目标

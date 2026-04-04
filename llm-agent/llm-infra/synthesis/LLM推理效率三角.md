@@ -211,7 +211,6 @@ LLM 推理效率提升路线图：
 ### Q10: LLM 推理的三大瓶颈？
 **30秒答案**：①Prefill 阶段：计算密集（大量矩阵乘）；②Decode 阶段：内存密集（KV Cache 读写）；③通信：多卡推理时的 AllReduce。优化方向：FlashAttention（①）、PagedAttention（②）、TP/PP 并行（③）。
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：推理效率三角约束
@@ -225,7 +224,7 @@ $$
 ### 公式 2：Arithmetic Intensity 与硬件瓶颈判断
 
 $$
-I = \frac{\text{FLOPs}}{\text{Bytes\_accessed}} \quad \Rightarrow \quad \begin{cases} I > I_{\text{roofline}}: & \text{compute-bound} \\ I < I_{\text{roofline}}: & \text{memory-bound} \end{cases}
+I = \frac{\text{FLOPs}}{\text{Bytes}}_{\text{{\text{accessed}}}} \quad \Rightarrow \quad \begin{cases} I > I_{\text{roofline}}: & \text{compute-bound} \\ I < I_{\text{roofline}}: & \text{memory-bound} \end{cases}
 $$
 
 - $I_{\text{roofline}} = \frac{\text{Peak FLOPS}}{\text{Peak BW}}$：硬件的计算/带宽比
@@ -235,12 +234,10 @@ $$
 ### 公式 3：Token/s 和 TTFT 的关系
 
 $$
-\text{TTFT} = \frac{N_{\text{prompt}} \times \text{FLOPs\_per\_token}}{\text{GPU\_FLOPS}} + T_{\text{overhead}}
+\text{TTFT} = \frac{N_{\text{prompt}} \times \text{FLOPs}}_{\text{{\text{per}}}_{\text{token}}}{\text{GPU}}_{\text{{\text{FLOPS}}}} + T_{\text{overhead}}
 $$
 
 **直观理解**：TTFT 主要由 prefill 阶段决定——prompt 越长首 token 越慢。这就是为什么 RAG 系统（prompt 动辄上万 token）特别关注 TTFT 优化：FlashAttention 减少 IO、Chunked Prefill 平滑计算、Prefix Caching 避免重复计算。
-
-
 
 ---
 ## 真实系统中的延迟数字

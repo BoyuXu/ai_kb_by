@@ -18,13 +18,17 @@
 
 2. **Pointwise Aggregated Attention**：无 softmax 的高效注意力实现：
 
-$$\mathbf{O} = \text{silu}(Q) \cdot \text{silu}(K)^T \cdot V \cdot M_{\text{causal}}$$
+$$
+\mathbf{O} = \text{silu}(Q) \cdot \text{silu}(K)^T \cdot V \cdot M_{\text{causal}}
+$$
 
 其中 $\text{silu}(x) = x \cdot \sigma(x)$ 作为激活函数替代 softmax，$M_{\text{causal}}$ 为下三角因果掩码。这种实现在 GPU 上可以利用矩阵乘法的硬件加速。
 
 **M-FALCON 扩展**：在 HSTU 基础上增加了多特征注意力机制：
 
-$$\mathbf{h}_i = \text{HSTU}(\mathbf{s}_i) + \alpha \cdot \text{MultiFeatureAttn}(\mathbf{s}_i, \mathbf{F}_i)$$
+$$
+\mathbf{h}_i = \text{HSTU}(\mathbf{s}_i) + \alpha \cdot \text{MultiFeatureAttn}(\mathbf{s}_i, \mathbf{F}_i)
+$$
 
 其中 $\mathbf{F}_i = \{f_1^{(i)}, f_2^{(i)}, ..., f_K^{(i)}\}$ 是与第 $i$ 个 action 关联的多维特征集合，$\alpha$ 是可学习的融合系数。MultiFeatureAttn 通过 cross-attention 将丰富特征信息注入到序列表示中。
 

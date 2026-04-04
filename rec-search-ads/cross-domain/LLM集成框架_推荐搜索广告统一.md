@@ -67,7 +67,7 @@ $$
 多头注意力将多个注意力头拼接后线性投影：
 
 $$
-\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1,...,\text{head}_h)W^O
+\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}}_{\text{1,...,\text{head}}_h)W^O
 $$
 
 在搜广推场景中，推荐侧特征与 LLM 语义空间的融合通过 Cross-Attention 实现：
@@ -245,7 +245,7 @@ $T \to 0$ 趋向贪心解码，$T \to \infty$ 趋向均匀采样。
 **Prompt 构造模板**：
 
 $$
-\text{input} = [\text{instruction}; \text{user\_history}; \text{candidate\_items}]
+\text{input} = [\text{instruction}; \text{user}}_{\text{{\text{history}}}; \text{candidate}}_{\text{{\text{items}}}]
 $$
 
 将用户行为序列和候选物品编码为自然语言，输入 LLM 进行推理。

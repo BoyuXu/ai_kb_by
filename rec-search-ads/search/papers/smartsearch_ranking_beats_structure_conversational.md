@@ -16,7 +16,9 @@ SmartSearch 论文的核心发现是反直觉的：**在大多数场景下，基
 
 给定对话历史 $H = \{(u_1, a_1), (u_2, a_2), \ldots, (u_T, a_T)\}$（$u_t$ 为用户消息，$a_t$ 为 agent 回复），以及新的查询 $q$，目标是从 $H$ 中检索最相关的 passages 集合 $P^* \subset H$：
 
-$$P^* = \arg\max_{P \subset H, |P| \leq k} \sum_{p \in P} \text{rel}(q, p)$$
+$$
+P^* = \arg\max_{P \subset H, |P| \leq k} \sum_{p \in P} \text{rel}(q, p)
+$$
 
 其中 $\text{rel}(q, p)$ 为 query-passage 的相关性评分。
 
@@ -37,7 +39,9 @@ SmartSearch 提出的排序方法包含以下优化：
 
 最终的排序分数为：
 
-$$\text{score}(q, p_t) = w_1 \cdot s_{\text{dense}}(q, p_t) + w_2 \cdot s_{\text{sparse}}(q, p_t) + w_3 \cdot \exp(-\beta (T - t))$$
+$$
+\text{score}(q, p_t) = w_1 \cdot s_{\text{dense}}(q, p_t) + w_2 \cdot s_{\text{sparse}}(q, p_t) + w_3 \cdot \exp(-\beta (T - t))
+$$
 
 其中 $s_{\text{dense}}$ 和 $s_{\text{sparse}}$ 分别为稠密和稀疏检索分数，$\exp(-\beta(T-t))$ 为时间衰减项，$T$ 为当前时间步，$t$ 为 passage 所在的对话轮次。
 

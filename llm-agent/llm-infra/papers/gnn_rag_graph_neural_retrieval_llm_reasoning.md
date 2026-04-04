@@ -16,7 +16,9 @@ GNN-RAG 的核心流程分为三个阶段：
 
 **阶段一：GNN 推理与候选路径提取。** 使用 GNN（如 ReaRev）在知识图谱上进行推理，为每个候选答案实体计算得分。对于得分排名前 $K$ 的候选实体，提取从问题实体到候选答案实体的最短路径作为推理证据。GNN 的消息传递机制为：
 
-$$h_v^{(l+1)} = \text{AGG}\left(\left\{ \text{MSG}\left(h_v^{(l)}, h_u^{(l)}, e_{uv}\right) : u \in \mathcal{N}(v) \right\}\right)$$
+$$
+h_v^{(l+1)} = \text{AGG}\left(\left\{ \text{MSG}\left(h_v^{(l)}, h_u^{(l)}, e_{uv}\right) : u \in \mathcal{N}(v) \right\}\right)
+$$
 
 其中 $h_v^{(l)}$ 为节点 $v$ 在第 $l$ 层的表示，$e_{uv}$ 为边的关系嵌入，$\mathcal{N}(v)$ 为节点 $v$ 的邻居集合。
 
@@ -24,7 +26,9 @@ $$h_v^{(l+1)} = \text{AGG}\left(\left\{ \text{MSG}\left(h_v^{(l)}, h_u^{(l)}, e_
 
 **阶段三：Retrieval Augmentation (RA) 融合。** 创新性地提出将 GNN-based 检索路径与标准的稠密向量检索路径进行并集融合，提升召回率：
 
-$$\mathcal{P}_{\text{final}} = \mathcal{P}_{\text{GNN}} \cup \mathcal{P}_{\text{dense}}$$
+$$
+\mathcal{P}_{\text{final}} = \mathcal{P}_{\text{GNN}} \cup \mathcal{P}_{\text{dense}}
+$$
 
 其中 $\mathcal{P}_{\text{GNN}}$ 为 GNN 提取的路径集合，$\mathcal{P}_{\text{dense}}$ 为稠密检索器返回的路径。这种融合策略简单但非常有效，因为两种检索方式具有互补性。
 

@@ -592,7 +592,6 @@ graph LR
 
 *最后更新：2026-03-31 | 文件路径：rec-search-ads/ads/02_rank/synthesis/LTV预测技术演进与工业实践.md*
 
-
 ## 📐 核心公式直观理解
 
 ### ZILN（Zero-Inflated LogNormal）模型
@@ -609,7 +608,7 @@ $$
 ### 客户生命周期价值
 
 $$
-\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue}_t - \text{Cost}_t}{(1+r)^t}
+\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue}}_{\text{t - \text{Cost}}_t}{(1+r)^t}
 $$
 
 - $r$：折现率

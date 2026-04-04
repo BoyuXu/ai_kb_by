@@ -16,13 +16,17 @@ HSTU 的核心架构基于 Transformer，但针对推荐场景做了关键改造
 
 **Pointwise Aggregated Attention**：HSTU 采用了一种无 softmax 的注意力机制来提升计算效率：
 
-$$\text{Attn}(Q, K, V) = \text{normalize}\left(\text{ReLU}(QK^T) \odot M\right) V$$
+$$
+\text{Attn}(Q, K, V) = \text{normalize}\left(\text{ReLU}(QK^T) \odot M\right) V
+$$
 
 其中 $M$ 是因果掩码矩阵，$\odot$ 表示逐元素乘法。去掉 softmax 使得注意力计算可以利用更高效的核函数实现，在长序列（数千个 action）场景下显著降低延迟。
 
 **Scaling Law 验证**：论文发现推荐模型的性能随参数量和数据量的增长遵循幂律关系：
 
-$$L(N, D) = \alpha N^{-\beta} + \gamma D^{-\delta} + \epsilon$$
+$$
+L(N, D) = \alpha N^{-\beta} + \gamma D^{-\delta} + \epsilon
+$$
 
 其中 $N$ 为模型参数量，$D$ 为训练数据量，$\alpha, \beta, \gamma, \delta, \epsilon$ 为拟合常数。这一发现意味着推荐模型可以像 LLM 一样通过持续扩大规模来提升效果。
 

@@ -57,11 +57,15 @@ CVR（转化率）预估面临两个核心问题：
 
 ### 公式1：概率分解（核心思想）
 
-$$p(y=1, z=1 | x) = p(y=1 | x) \times p(z=1 | y=1, x)$$
+$$
+p(y=1, z=1 | x) = p(y=1 | x) \times p(z=1 | y=1, x)
+$$
 
 即：
 
-$$\text{pCTCVR}(x) = \text{pCTR}(x) \times \text{pCVR}(x)$$
+$$
+\text{pCTCVR}(x) = \text{pCTR}(x) \times \text{pCVR}(x)
+$$
 
 **解释：**
 - $x$：展示样本的特征
@@ -73,11 +77,17 @@ $$\text{pCTCVR}(x) = \text{pCTR}(x) \times \text{pCVR}(x)$$
 
 ### 公式2：损失函数
 
-$$\mathcal{L} = \mathcal{L}_{CTR} + \mathcal{L}_{CTCVR}$$
+$$
+\mathcal{L} = \mathcal{L}_{CTR} + \mathcal{L}_{CTCVR}
+$$
 
-$$\mathcal{L}_{CTR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\text{pCTR}_i) + (1-y_i) \log(1-\text{pCTR}_i)]$$
+$$
+\mathcal{L}_{CTR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\text{pCTR}}_{\text{i) + (1-y}}_{\text{i) \log(1-\text{pCTR}}_i)]
+$$
 
-$$\mathcal{L}_{CTCVR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i z_i \log(\text{pCTCVR}_i) + (1-y_i z_i) \log(1-\text{pCTCVR}_i)]$$
+$$
+\mathcal{L}_{CTCVR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i z_i \log(\text{pCTCVR}}_{\text{i) + (1-y}}_{\text{i z}}_{\text{i) \log(1-\text{pCTCVR}}_i)]
+$$
 
 **解释：**
 - $N$：全展示空间样本数
@@ -86,7 +96,9 @@ $$\mathcal{L}_{CTCVR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i z_i \log(\text{pCTCVR}_
 
 ### 公式3：共享 Embedding 的知识迁移
 
-$$e_i^{CTR} = e_i^{CVR} = \text{Embedding}(x_i)$$
+$$
+e_i^{CTR} = e_i^{CVR} = \text{Embedding}(x_i)
+$$
 
 **解释：**
 - CTR 塔和 CVR 塔共享底层 Embedding

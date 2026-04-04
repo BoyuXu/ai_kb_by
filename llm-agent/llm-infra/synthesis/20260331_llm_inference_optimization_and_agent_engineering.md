@@ -137,7 +137,6 @@ A: 限制Agent的行为空间（防止无限循环）、支持断点恢复（出
 4. A Framework for Formalizing LLM Agent Security (arXiv:2603.19469)
 5. Google Agent Development Kit (github.com/google/adk-docs)
 
-
 ## 📐 核心公式直观理解
 
 ### 公式 1：KV Cache 显存占用
@@ -170,7 +169,7 @@ $$
 ### 公式 3：量化误差与精度权衡
 
 $$
-\text{MSE}_{\text{quant}} = \mathbb{E}\left[(W - Q(W))^2\right] \approx \frac{\Delta^2}{12}
+\text{MSE}}_{\text{{\text{quant}}} = \mathbb{E}\left[(W - Q(W))^2\right] \approx \frac{\Delta^2}{12}
 $$
 
 - $W$：原始权重

@@ -55,19 +55,25 @@
 
 ### 公式1：价值获取率（Value Acquisition Rate, VAR）
 
-$$\text{VAR} = \frac{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}_t]}{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}_t^*]}$$
+$$
+\text{VAR} = \frac{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}}_{\text{t]}}{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}}_{\text{t^*]}}
+$$
 
 **解释：**
 - $v_t$：第 $t$ 次拍卖中赢得广告位的价值
-- $\mathbb{1}[\text{win}_t]$：算法赢得的指示函数
-- $\mathbb{1}[\text{win}_t^*]$：离线最优策略赢得的指示函数
+- $\mathbb{1}[\text{win}}_{\text{t]$：算法赢得的指示函数
+- $\mathbb{1}}[\text{win}}_{\text{t^*]$：离线最优策略赢得的指示函数
 - VAR ∈ [0, 1]，越接近 1 表示算法越接近最优
 
 ### 公式2：约束违反率（Constraint Violation Rate）
 
-$$\text{CVR}_{budget} = \max\left(0, \frac{\sum_t c_t - B}{B}\right)$$
+$$
+\text{CVR}}_{budget} = \max\left(0, \frac{\sum_t c_t - B}{B}\right)
+$$
 
-$$\text{CVR}_{CPA} = \max\left(0, \frac{\text{CPA}_{actual} - \text{CPA}_{target}}{\text{CPA}_{target}}\right)$$
+$$
+\text{CVR}}_{\text{{CPA}} = \max\left(0, \frac{\text{CPA}}_{\text{{actual}} - \text{CPA}}_{\text{{target}}}{\text{CPA}}_{\text{{target}}}\right)
+$$
 
 **解释：**
 - 衡量算法超出预算/CPA 约束的程度
@@ -75,9 +81,13 @@ $$\text{CVR}_{CPA} = \max\left(0, \frac{\text{CPA}_{actual} - \text{CPA}_{target
 
 ### 公式3：社会福利（Social Welfare）与纳什均衡
 
-$$\text{SW} = \sum_{i=1}^{N} U_i(\sigma_i^*, \sigma_{-i}^*)$$
+$$
+\text{SW} = \sum_{i=1}^{N} U_i(\sigma_i^*, \sigma_{-i}^*)
+$$
 
-$$\sigma_i^* = \arg\max_{\sigma_i} U_i(\sigma_i, \sigma_{-i}^*), \quad \forall i$$
+$$
+\sigma_i^* = \arg\max_{\sigma_i} U_i(\sigma_i, \sigma_{-i}^*), \quad \forall i
+$$
 
 **解释：**
 - $U_i$：广告主 $i$ 的效用函数

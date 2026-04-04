@@ -191,7 +191,6 @@ LR + 手工特征（2010-2014）→ FM/FFM（2014-2016）→ Wide&Deep/DeepFM（
 - **下游应用**：出价策略、eCPM 计算、ROI 优化
 - **相关 synthesis**：广告出价体系全景.md, 推荐系统排序范式演进.md
 
-
 ---
 ## CTR 校准：工程实践中的真实数字
 
@@ -224,6 +223,8 @@ LR + 手工特征（2010-2014）→ FM/FFM（2014-2016）→ Wide&Deep/DeepFM（
 
 IPES（Inverse Propensity for Examination Score）纠正：
 
-$$w_i = \frac{1}{P(\text{examined} | \text{position}_i)} = \frac{1}{\text{exam\_prob}(\text{pos}_i)}$$
+$$
+w_i = \frac{1}{P(\text{examined} | \text{position}}_{\text{i)}} = \frac{1}{\text{exam}}_{\text{{\text{prob}}}(\text{pos}}_{\text{i)}}
+$$
 
 exam_prob 通过随机化实验估计（随机打乱排名，观测哪些位置有更多点击）。

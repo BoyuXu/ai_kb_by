@@ -68,7 +68,7 @@ $$
 ### 4. KV Cache 内存占用
 
 $$
-\text{Memory}_{KV} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times L \times s
+\text{Memory}}_{\text{{KV}} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times L \times s
 $$
 
 其中 $L$ 为序列长度，$s$ 为数据类型字节数（FP16=2, INT8=1）。

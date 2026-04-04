@@ -277,7 +277,7 @@ $$
 ### 6.2 Qini Coefficient
 
 $$
-Q = \text{AUUC}_{\text{model}} - \text{AUUC}_{\text{random}}
+Q = \text{AUUC}}_{\text{{\text{model}}} - \text{AUUC}}_{\text{{\text{random}}}
 $$
 
 **直观理解**：Qini 系数衡量模型相对于随机投放的提升。随机投放的 uplift curve 是一条直线（因为按随机顺序触达用户，累积增量效果线性增长）。
@@ -340,7 +340,7 @@ $$
 **答**：ESMM 通过在"曝光→点击→转化"整体空间上建模来解决 CVR 的样本选择偏差。DESCN 类似地在"实验+对照"整体空间上建模，避免只用实验组数据导致的选择偏差。核心思想一致：**不要在有偏的子集上训练，而要在整体空间上训练**。
 
 ### Q10: Uplift 模型在广告出价中怎么用？
-**答**：将 $\hat{\tau}$ 融入出价公式：$\text{bid} = \hat{\tau}_{\text{cvr}} \times \text{CPA}_{\text{target}}$。只对高 uplift 用户出高价，低 uplift 用户降价或不竞标。这比传统的 $\text{bid} = \hat{p}_{\text{cvr}} \times \text{CPA}$ 更经济——避免为"本来就会转化"的用户花钱。
+**答**：将 $\hat{\tau}$ 融入出价公式：$\text{bid} = \hat{\tau}_{\text{cvr}} \times \text{CPA}}_{\text{{\text{target}}}$。只对高 uplift 用户出高价，低 uplift 用户降价或不竞标。这比传统的 $\text{bid} = \hat{p}_{\text{cvr}} \times \text{CPA}$ 更经济——避免为"本来就会转化"的用户花钱。
 
 ### Q11: 线上 A/B 测试如何验证 uplift 模型？
 **答**：(1) 设置随机对照实验（RCT），按 uplift 模型打分分层，检验高分层的增量效果是否显著高于低分层；(2) 比较"全量投放" vs "按 uplift 排序投放 top-K"的 ROI；(3) 用 Qini coefficient 量化模型带来的投放效率提升。

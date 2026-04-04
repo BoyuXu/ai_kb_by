@@ -20,13 +20,17 @@
 
 工作流调度的核心目标函数可表示为：
 
-$$\min_{s \in \mathcal{S}} \sum_{i=1}^{N} \left( \alpha \cdot C_{\text{latency}}(s_i) + \beta \cdot C_{\text{cost}}(s_i) + \gamma \cdot C_{\text{error}}(s_i) \right)$$
+$$
+\min_{s \in \mathcal{S}} \sum_{i=1}^{N} \left( \alpha \cdot C_{\text{latency}}(s_i) + \beta \cdot C_{\text{cost}}(s_i) + \gamma \cdot C_{\text{error}}(s_i) \right)
+$$
 
 其中 $C_{\text{latency}}$、$C_{\text{cost}}$、$C_{\text{error}}$ 分别表示延迟成本、调用成本和错误成本，$\alpha, \beta, \gamma$ 为可调权重。
 
 对于 Agent 间的消息传递可靠性，系统采用了带超时的指数退避重试策略，重试间隔为：
 
-$$t_{\text{retry}}(k) = \min\left(t_{\text{base}} \cdot 2^k + \epsilon, \; t_{\text{max}}\right), \quad \epsilon \sim \text{Uniform}(0, t_{\text{jitter}})$$
+$$
+t_{\text{retry}}(k) = \min\left(t_{\text{base}} \cdot 2^k + \epsilon, \; t_{\text{max}}\right), \quad \epsilon \sim \text{Uniform}(0, t_{\text{jitter}})
+$$
 
 其中 $k$ 为重试次数，$\epsilon$ 为随机抖动以避免惊群效应。
 

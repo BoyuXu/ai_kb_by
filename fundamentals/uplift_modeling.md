@@ -465,7 +465,6 @@ print(f"Uplift scores: {uplift.round(3)}")
 2. 在非随机数据上直接训练 T-Learner——选择偏差导致 CATE 有偏，需要 IPW 或倾向得分匹配
 3. 忘记 Uplift 模型无法在个体层面验证——只能在群体（分桶）层面通过 Qini 曲线评估排序质量
 
-
 ---
 ## Uplift Modeling 的工业落地案例
 
@@ -505,6 +504,8 @@ print(f"Uplift scores: {uplift.round(3)}")
 
 Qini Curve：按预测 uplift 从高到低排序用户，计算"如果只对 Top K% 用户处理，能获得多少增量转化"。
 
-$$\text{Qini Coefficient} = \frac{\text{曲线面积} - \text{随机策略面积}}{\text{理想策略面积} - \text{随机策略面积}}$$
+$$
+\text{Qini Coefficient} = \frac{\text{曲线面积} - \text{随机策略面积}}{\text{理想策略面积} - \text{随机策略面积}}
+$$
 
 Qini > 0.2 通常认为有显著效果。

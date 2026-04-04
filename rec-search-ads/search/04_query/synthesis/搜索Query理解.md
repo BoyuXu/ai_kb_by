@@ -101,13 +101,12 @@ $$
 - **下游应用**：搜索召回质量、RAG 系统、对话式搜索
 - **相关 synthesis**：检索三角形深析.md, 混合检索融合_多路召回实践.md
 
-
 ## 📐 核心公式直观理解
 
 ### Intent Classification
 
 $$
-P(\text{intent} | q) = \text{softmax}(W \cdot \text{BERT}_{\text{CLS}}(q) + b)
+P(\text{intent} | q) = \text{softmax}(W \cdot \text{BERT}}_{\text{{\text{CLS}}}(q) + b)
 $$
 
 **直观理解**：搜索意图分为导航型（"淘宝官网"）、信息型（"什么是量子计算"）、交易型（"买 iPhone 16"）。意图决定了后续检索策略——导航型直接返回 URL，信息型返回知识卡片，交易型返回商品列表。
@@ -127,8 +126,6 @@ P(q | q_{1:k}) = \prod_{t=k+1}^{T} P(q_t | q_{1:t-1})
 $$
 
 **直观理解**：用户输入"推荐系"后，模型预测最可能的完整 query（"推荐系统"、"推荐系统论文"）。本质是条件语言模型——但不是通用 LM，而是在历史 query 日志上训练的，偏向高频 query。
-
-
 
 ---
 ## Query 理解的工程决策：各方法的适用边界

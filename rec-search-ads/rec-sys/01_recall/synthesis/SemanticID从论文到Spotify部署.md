@@ -164,8 +164,6 @@ $$
 - [ViT](../../papers/vit.md)
 - [CLIP](../../papers/clip.md)
 
-
-
 ## 📐 核心公式直观理解
 
 ### RQ-VAE 语义量化
@@ -183,7 +181,7 @@ $$
 ### 生成式检索
 
 $$
-P(\text{item} | \text{user}) = \prod_{k=1}^{K} P(c_k | c_{<k}, \text{user\_context})
+P(\text{item} | \text{user}) = \prod_{k=1}^{K} P(c_k | c_{<k}, \text{user}}_{\text{{\text{context}}})
 $$
 
 **直观理解**：把"召回物品"转化为"生成 ID 序列"——就像 GPT 生成文本一样，推荐系统逐步生成物品的语义 ID。第一步生成粗粒度 ID（决定品类），后续步骤精细化。beam search 天然支持多样性。

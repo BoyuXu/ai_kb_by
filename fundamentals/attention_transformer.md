@@ -446,11 +446,12 @@ print(f"Output shape: {out.shape}")  # (1, 2, 4, 8)
 2. 混淆 Self-Attention 和 Cross-Attention——前者 QKV 同源，后者 Q 来自 decoder、KV 来自 encoder
 3. 认为多头的参数量是单头的 h 倍——实际上 d_k=d_model/h，总参数量不变
 
-
 ---
 ### Attention 公式的直觉解释
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+$$
 
 **每个符号是什么**：
 - $Q$（Query）：我想找什么 → 当前 token 在问"谁和我相关"

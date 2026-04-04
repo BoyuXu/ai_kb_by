@@ -46,7 +46,9 @@
 
 ### 公式1：MMoE 专家融合
 
-$$f^k(x) = \sum_{i=1}^{K} g_i^k(x) \cdot E_i(x)$$
+$$
+f^k(x) = \sum_{i=1}^{K} g_i^k(x) \cdot E_i(x)
+$$
 
 **解释：**
 - $E_i(x)$：第 $i$ 个专家网络的输出（MLP）
@@ -55,7 +57,9 @@ $$f^k(x) = \sum_{i=1}^{K} g_i^k(x) \cdot E_i(x)$$
 
 ### 公式2：任务 Tower 输出
 
-$$\hat{y}^k = \sigma(W^k_T \cdot f^k(x) + b^k_T)$$
+$$
+\hat{y}^k = \sigma(W^k_T \cdot f^k(x) + b^k_T)
+$$
 
 **解释：**
 - 每个任务有独立的 Tower 网络（MLP）
@@ -64,7 +68,9 @@ $$\hat{y}^k = \sigma(W^k_T \cdot f^k(x) + b^k_T)$$
 
 ### 公式3：多任务联合损失
 
-$$\mathcal{L} = \sum_{k=1}^{T} w_k \cdot \mathcal{L}_k(\hat{y}^k, y^k)$$
+$$
+\mathcal{L} = \sum_{k=1}^{T} w_k \cdot \mathcal{L}_k(\hat{y}^k, y^k)
+$$
 
 **解释：**
 - $w_k$：任务 $k$ 的权重（可固定或可学习）
@@ -73,9 +79,13 @@ $$\mathcal{L} = \sum_{k=1}^{T} w_k \cdot \mathcal{L}_k(\hat{y}^k, y^k)$$
 
 ### 公式4：PLE 改进（Progressive Layered Extraction）
 
-$$f_l^k = \text{Gate}_l^k([E_l^{shared}(x); E_l^{k}(x)])$$
+$$
+f_l^k = \text{Gate}}_{\text{l^k([E}}_{\text{l^{shared}}(x); E_l^{k}(x)])
+$$
 
-$$f_l^{shared} = \text{Gate}_l^{shared}([E_l^{shared}(x); E_l^{1}(x); \ldots; E_l^{T}(x)])$$
+$$
+f_l^{shared} = \text{Gate}}_{\text{l^{shared}}([E_l^{shared}(x); E_l^{1}(x); \ldots; E_l^{T}(x)])
+$$
 
 **解释：**
 - $E_l^{shared}$：第 $l$ 层的共享专家
@@ -85,9 +95,13 @@ $$f_l^{shared} = \text{Gate}_l^{shared}([E_l^{shared}(x); E_l^{1}(x); \ldots; E_
 
 ### 公式5：Load Balancing Loss（防止专家坍缩）
 
-$$\mathcal{L}_{balance} = K \cdot \sum_{i=1}^{K} f_i \cdot P_i$$
+$$
+\mathcal{L}_{balance} = K \cdot \sum_{i=1}^{K} f_i \cdot P_i
+$$
 
-$$f_i = \frac{1}{N}\sum_{x} \mathbb{1}[\arg\max g(x) = i], \quad P_i = \frac{1}{N}\sum_{x} g_i(x)$$
+$$
+f_i = \frac{1}{N}\sum_{x} \mathbb{1}[\arg\max g(x) = i], \quad P_i = \frac{1}{N}\sum_{x} g_i(x)
+$$
 
 **解释：**
 - $f_i$：专家 $i$ 被选为 top-1 的频率

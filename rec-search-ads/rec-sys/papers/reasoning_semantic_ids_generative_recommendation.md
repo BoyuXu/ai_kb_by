@@ -14,13 +14,17 @@
 
 **Semantic ID 构建**：首先通过 RQ-VAE（Residual Quantized VAE）将物品的内容特征编码为多层离散 token：
 
-$$\text{SemanticID}(\text{item}) = (c_1, c_2, ..., c_L), \quad c_l = \arg\min_{j \in [K]} \|\mathbf{r}_{l-1} - \mathbf{e}_j^{(l)}\|^2$$
+$$
+\text{SemanticID}(\text{item}) = (c_1, c_2, ..., c_L), \quad c_l = \arg\min_{j \in [K]} \|\mathbf{r}_{l-1} - \mathbf{e}_j^{(l)}\|^2
+$$
 
 其中 $\mathbf{r}_0$ 是物品的原始 embedding，$\mathbf{r}_l = \mathbf{r}_{l-1} - \mathbf{e}_{c_l}^{(l)}$ 是第 $l$ 层的残差，$K$ 是每层 codebook 的大小。这样每个物品被表示为 $L$ 层的 token 序列，从粗到细描述物品语义。
 
 **Reasoning-Enhanced Generation**：在生成 Semantic ID 的每一层时，模型不是直接预测 token，而是先生成一段隐式推理（reasoning tokens），再基于推理结果预测该层的 Semantic ID token：
 
-$$P(c_l | c_{<l}, \mathbf{h}_{\text{user}}) = \sum_{\mathbf{z}_l} P(c_l | \mathbf{z}_l, c_{<l}, \mathbf{h}_{\text{user}}) \cdot P(\mathbf{z}_l | c_{<l}, \mathbf{h}_{\text{user}})$$
+$$
+P(c_l | c_{<l}, \mathbf{h}_{\text{user}}) = \sum_{\mathbf{z}_l} P(c_l | \mathbf{z}_l, c_{<l}, \mathbf{h}_{\text{user}}) \cdot P(\mathbf{z}_l | c_{<l}, \mathbf{h}_{\text{user}})
+$$
 
 其中 $\mathbf{z}_l$ 是第 $l$ 层的推理隐变量（reasoning latent），模型先生成 $\mathbf{z}_l$（相当于"思考"这一层应该选什么类别），再基于 $\mathbf{z}_l$ 生成 $c_l$。
 

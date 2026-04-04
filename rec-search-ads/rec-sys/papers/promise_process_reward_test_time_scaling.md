@@ -14,13 +14,17 @@ PROMISE（Process Reward Models for Inference-time Scaling in Recommendations）
 
 **Process Reward Model (PRM)**：与传统的 outcome reward model（只评估最终推荐列表的质量）不同，PRM 评估生成过程中每一步的质量。对于生成式推荐中的第 $t$ 步推荐（从序列中生成第 $t$ 个 item），PRM 给出一个过程奖励：
 
-$$r_t = \text{PRM}(s_{<t}, a_t, c) = \sigma\left(\mathbf{w}^T \text{TransformerBlock}\left([\mathbf{h}_{s_{<t}}; \mathbf{e}_{a_t}; \mathbf{e}_c]\right)\right)$$
+$$
+r_t = \text{PRM}(s_{<t}, a_t, c) = \sigma\left(\mathbf{w}^T \text{TransformerBlock}\left([\mathbf{h}_{s_{<t}}; \mathbf{e}_{a_t}; \mathbf{e}_c]\right)\right)
+$$
 
 其中 $s_{<t}$ 是已生成的部分序列，$a_t$ 是第 $t$ 步的候选 item，$c$ 是用户上下文，$\sigma$ 是 sigmoid。PRM 的训练数据来自用户的实际反馈——如果用户对某个位置的推荐产生了正向行为（点击、购买），该步骤获得正奖励。
 
 **Test-Time Scaling via Best-of-N**：在推理时，生成式推荐模型独立生成 $N$ 个候选推荐列表，PRM 对每个列表的各步骤奖励求和，选择总奖励最高的列表作为最终输出：
 
-$$\hat{y} = \arg\max_{y^{(i)}, i \in [N]} \sum_{t=1}^{T} r_t^{(i)}, \quad r_t^{(i)} = \text{PRM}(y_{<t}^{(i)}, y_t^{(i)}, c)$$
+$$
+\hat{y} = \arg\max_{y^{(i)}, i \in [N]} \sum_{t=1}^{T} r_t^{(i)}, \quad r_t^{(i)} = \text{PRM}(y_{<t}^{(i)}, y_t^{(i)}, c)
+$$
 
 当 $N$ 增大时（即投入更多 test-time compute），推荐质量持续提升，呈现 log-linear 的 scaling 关系。
 

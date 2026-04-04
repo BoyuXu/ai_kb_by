@@ -101,7 +101,7 @@ LLM → Embedding 生成  →  Feature Store → 查表(1ms) → 融合 MLP(1ms)
 **对齐损失**（将 LLM Embedding 对齐到 ID Embedding 空间）：
 
 $$
-L_{\text{align}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
+L}_{\text{{\text{align}}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
 $$
 
 #### ELEC：LLM 离线特征工厂（2025 工业最实用方案）
@@ -220,7 +220,7 @@ $$
 **核心范式**：跨广告主大规模预训练，单一模型服务所有广告主：
 
 $$
-P(\text{bid}_t | \text{bid}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
+P(\text{bid}}_{\text{t | \text{bid}}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
 $$
 
 Diffusion 在连续出价空间建模（多峰分布）：

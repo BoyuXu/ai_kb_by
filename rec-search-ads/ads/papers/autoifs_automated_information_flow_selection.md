@@ -16,7 +16,9 @@ AutoIFS提出了一种类NAS(Neural Architecture Search)的方法，自动化地
 
 定义搜索空间为有向图 $G = (V, E)$，其中节点 $V$ 包含各场景各任务的网络模块(如场景1-CTR模块、场景2-CVR模块等)，边 $E$ 表示模块间的信息传递。每条候选边 $e_{ij}$ 关联一个连续的架构参数 $\alpha_{ij}$，表示信息从模块 $i$ 传递到模块 $j$ 的强度：
 
-$$h_j = \sum_{i \in \mathcal{N}(j)} \frac{\exp(\alpha_{ij})}{\sum_{i' \in \mathcal{N}(j)} \exp(\alpha_{i'j})} \cdot f_{ij}(h_i)$$
+$$
+h_j = \sum_{i \in \mathcal{N}(j)} \frac{\exp(\alpha_{ij})}{\sum_{i' \in \mathcal{N}(j)} \exp(\alpha_{i'j})} \cdot f_{ij}(h_i)
+$$
 
 其中 $\mathcal{N}(j)$ 是模块 $j$ 的候选输入集合，$f_{ij}$ 是边上的变换函数(如线性映射或identity)。
 
@@ -24,7 +26,9 @@ $$h_j = \sum_{i \in \mathcal{N}(j)} \frac{\exp(\alpha_{ij})}{\sum_{i' \in \mathc
 
 AutoIFS采用DARTS风格的双层优化(bi-level optimization)。外层优化架构参数 $\boldsymbol{\alpha}$，内层优化模型参数 $\boldsymbol{w}$：
 
-$$\min_{\boldsymbol{\alpha}} \mathcal{L}_{val}(\boldsymbol{w}^*(\boldsymbol{\alpha}), \boldsymbol{\alpha}) \quad \text{s.t.} \quad \boldsymbol{w}^*(\boldsymbol{\alpha}) = \arg\min_{\boldsymbol{w}} \mathcal{L}_{train}(\boldsymbol{w}, \boldsymbol{\alpha})$$
+$$
+\min_{\boldsymbol{\alpha}} \mathcal{L}_{val}(\boldsymbol{w}^*(\boldsymbol{\alpha}), \boldsymbol{\alpha}) \quad \text{s.t.} \quad \boldsymbol{w}^*(\boldsymbol{\alpha}) = \arg\min_{\boldsymbol{w}} \mathcal{L}_{train}(\boldsymbol{w}, \boldsymbol{\alpha})
+$$
 
 通过一阶近似(first-order approximation)将双层优化转化为交替梯度下降，每步同时更新 $\boldsymbol{w}$ 和 $\boldsymbol{\alpha}$，避免完整内层优化的高昂成本。
 
