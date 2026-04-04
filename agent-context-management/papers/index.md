@@ -203,6 +203,30 @@
 
 ---
 
+### Reasoning Shift: How Context Silently Shortens LLM Reasoning
+- **arXiv：** 2504.0xxxx | **提交：** 2026-04-01
+- **核心贡献：**
+  - 发现"Reasoning Shift"现象：不相关/过多 context 会让推理模型缩短 CoT，提前结束推理
+  - 三场景验证：长无关 context / 多轮对话历史 / 作为复杂任务子任务
+  - 噪声 context 比 no context 更差 —— 比"Lost in the Middle"更深层的问题
+- **关键技术：** 系统性评估多个推理模型（o3-mini 等）
+- **面试价值：** ★★★★★ — 解释"为何 RAG 有时让 LLM 变笨"的核心原理
+- **待读状态：** 🔲 未读
+
+---
+
+### SkillReducer: Optimizing LLM Agent Skills for Token Efficiency
+- **arXiv：** 2503.xxxx | **提交：** 2026-03-31
+- **核心贡献：**
+  - Agent skill 描述是巨大 token 浪费；SkillReducer 识别任务相关 skill 子集并精简描述
+  - ~40% skill-related token 减少，性能基本无损
+  - 为推理 token 腾出更多 context 空间 → 实际效果提升
+- **关键技术：** Task-Skill Relevance Matching + Instruction Compression
+- **面试价值：** ★★★★ — Agent token 预算管理的工程实践
+- **待读状态：** 🔲 未读
+
+---
+
 ### MemMA: Coordinating the Memory Cycle through Multi-Agent Reasoning and In-Situ Self-Evolution
 - **提交时间：** 2026-03-19（HF Daily 2026-03-27）
 - **作者：** Minhua Lin, Zhiwei Zhang, Hanqing Lu, Hui Liu, Xianfeng Tang, Qi He, Xiang Zhang, Suhang Wang
