@@ -144,6 +144,60 @@ $$
 
 ---
 
+## 新增：MoBA — 混合块注意力（Moonshot, 2025）
+
+> 论文：MoBA: Mixture of Block Attention for Long-Context LLMs (arxiv 2502.13189)
+
+**问题定义**：传统 Full Attention 的 O(n^2) 复杂度在百万 token 上下文中不可承受；现有稀疏注意力（Longformer/BigBird）依赖人为设计的固定模式（局部窗口+全局 token），限制了模型自主学习注意力分布的能力。
+
+**核心方法**：将 MoE 的思想迁移到注意力机制——把上下文切分为固定大小的 KV Block，每个 Query token 通过一个 Gating Router 动态选择 Top-K 个最相关的 KV Block 进行注意力计算，其余 Block 跳过。
+
+**关键创新**：
+1. **Block-level 路由**：不是 token-level 稀疏，而是 Block-level 选择，计算粒度更粗、调度更高效，可直接复用 FlashAttention kernel
+2. **"Less Structure" 原则**：不预设局部/全局模式，让模型自己学习哪些 Block 重要
+3. **Full ↔ Sparse 无缝切换**：Top-K = 全部 Block 时退化为 Full Attention，训练/推理可灵活调节稀疏度
+4. **已部署 Kimi**：Moonshot 已将 MoBA 用于 Kimi 的长上下文请求处理
+
+**实验亮点**：
+- 在百万 token 上下文中，MoBA 与 Full Attention 性能持平，计算量显著降低
+- 在各种 Long-Context Benchmark 上保持低 LM Loss
+- 可与 FlashAttention 组合使用，进一步提升硬件利用率
+
+**面试考点**：MoBA vs Longformer/BigBird 的区别？答：Longformer 用固定的局部窗口+全局 token 模式（人为设计），MoBA 用 MoE-style Router 让模型动态选择注意力范围（数据驱动），更灵活且可无缝退化为 Full Attention。
+
+---
+
+## 新增：XQuant — KV Cache 重物化突破内存墙（UC Berkeley, 2025）
+
+> 论文：XQuant: Breaking the Memory Wall for LLM Inference with KV Cache Rematerialization (arxiv 2508.10395)
+
+**问题定义**：传统 KV Cache 量化压缩 K 和 V 两个张量，但 K/V 的激活值分布不规则（尤其 Key 受 RoPE 扭曲），极低比特量化精度损失大。
+
+**核心方法**：不缓存 K 和 V，而是缓存它们的共同输入 X（层输入激活），推理时从量化的 X 实时重算 K = XW_K, V = XW_V（Rematerialization）。
+
+**关键创新**：
+1. **存 X 比存 KV 省一半**：KV 需要存两个张量，X 只存一个，即使同精度也直接 2x 内存节省
+2. **X 更适合极低比特量化**：X 的分布比 K/V 更平滑（没有 RoPE 扭曲），量化误差更小
+3. **XQuant-CL 跨层相似度利用**：相邻层的 X 高度相似，只存差异（delta），进一步压缩至 10-12.5x
+4. **GQA 模型适配**：对 GQA 模型用 SVD 分解权重矩阵，允许 X 在低维潜空间存储
+
+**实验亮点**：
+- 7.7x 内存节省，PPL 损失 <0.1（vs FP16 baseline）
+- XQuant-CL：10x 内存节省，PPL 损失仅 0.01；12.5x 时 PPL 损失 0.1
+- 推理是 memory-bandwidth bound，重算 KV 的额外计算开销被内存带宽节省抵消
+
+**核心公式**：
+$$
+\text{传统 KV Cache: Mem} = 2 \times L \times H_{KV} \times d \times N \times s
+$$
+$$
+\text{XQuant: Mem} = L \times d_{model} \times N \times s_{low} \quad (s_{low} \ll s)
+$$
+
+**面试考点**：为什么缓存 X 比缓存 KV 更好？答：(1) 一个张量 vs 两个张量，直接 2x 节省；(2) X 没有 RoPE 扭曲，分布更均匀，量化友好；(3) 跨层 X 高度相似可进一步 delta 压缩。代价是推理时重算 KV 的额外 FLOPs，但 LLM 解码是 memory-bound，这些 FLOPs 几乎免费。
+
+---
+
 ## 核心机制：KV Cache 的三条压缩路线
 
 ### 路线 A：量化压缩（最安全）
@@ -239,8 +293,12 @@ H2O / StreamingLLM (2023) → token 驱逐，无限上下文
 SGLang / RadixAttention (2024) → KV 跨请求共享
     ↓
 KV INT4 + 稀疏化组合 (2024-2025) → 压缩 80% 显存
+    ↓
+MoBA 块级稀疏注意力 (2025) → MoE-style Router 选择 KV Block，已部署 Kimi
+    ↓
+XQuant KV 重物化 (2025) → 不存 KV 存 X，重算代替缓存，10-12.5x 压缩
     ↓（预测）
-学习型 KV 驱逐策略 → 根据任务类型动态调整保留策略
+学习型 KV 驱逐策略 + 重物化-稀疏注意力组合 → 动态调整保留/重算策略
 ```
 
 ---

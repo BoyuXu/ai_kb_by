@@ -1,0 +1,215 @@
+{
+  "main": {
+    "id": "2b778614b58bb994",
+    "type": "split",
+    "children": [
+      {
+        "id": "57c579777e8edbc3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "65d2bbab8e5f0842",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "生成式推荐系统技术全景_2026"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4d5f707ebd720a62",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3f41954edbb9dc2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b16c4e2c1d7ee581",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "d3e96f058aae8545",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "fafce3b3b6a9ac29",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1c0af043ee80a732",
+    "type": "split",
+    "children": [
+      {
+        "id": "bf70f8ea4e0e0d34",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "047014c2b6e51f1a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "生成式推荐系统技术全景_2026 的反向链接列表"
+            }
+          },
+          {
+            "id": "e84c56644e07e596",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "生成式推荐系统技术全景_2026 的出链列表"
+            }
+          },
+          {
+            "id": "805da6d9f586e890",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "dcb0fc223d30610c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "06cbeb7f078eb2ee",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "生成式推荐系统技术全景_2026 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "b16c4e2c1d7ee581",
+  "lastOpenFiles": [
+    "llm-agent/llm-infra/synthesis/20260411_inference_optimization_and_alignment.md",
+    "rec-search-ads/rec-sys/synthesis/序列推荐高效注意力与状态空间模型_20260411.md",
+    "rec-search-ads/ads/synthesis/20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md",
+    "rec-search-ads/rec-sys/synthesis/20260411_industrial_recsys_fullstack.md",
+    "llm-agent/llm-infra/synthesis/测试时计算扩展与推理时对齐.md",
+    "rec-search-ads/rec-sys/synthesis/20260411_sequential_and_generative_rec.md",
+    "rec-search-ads/search/synthesis/20260411_dense_retrieval_and_reranking_advances.md",
+    "rec-search-ads/search/papers/LREM_next_gen_dense_retrieval.md",
+    "rec-search-ads/ads/synthesis/20260411_llm_native_recsys_and_industrial_infra.md",
+    "rec-search-ads/search/papers/evidence_units_ontology_parser_independent_retrieval.md",
+    "rec-search-ads/search/papers/ReasonEmbed_reasoning_intensive_embedding.md",
+    "rec-search-ads/search/papers/REIC_rag_enhanced_intent_classification.md",
+    "rec-search-ads/search/papers/zELO_elo_inspired_reranker_embedding_training.md",
+    "rec-search-ads/rec-sys/01_recall/synthesis/Semantic_ID演进知识图谱.md",
+    "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md",
+    "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis",
+    "~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall",
+    "~/Documents/ai-kb/rec-search-ads/rec-sys",
+    "~/Documents/ai-kb/rec-search-ads",
+    "~/Documents/ai-kb",
+    "~/Documents",
+    "~",
+    "index.md",
+    "rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md",
+    "rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进.md",
+    "concepts/attention_in_recsys.md"
+  ]
+}

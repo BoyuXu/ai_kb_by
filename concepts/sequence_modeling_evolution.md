@@ -129,6 +129,38 @@ Mamba 让 $B, C, \Delta$（步长）**依赖于输入**：
 
 **但**：截至 2026，Mamba 在推荐中的工业应用还不多，Transformer + 剪枝（SIM/ETA）仍是主流。
 
+### 2026 新进展：Mamba for SeqRec
+
+| 模型 | 核心创新 | 发表 |
+|------|---------|------|
+| **SIGMA** (AAAI'25) | PF-Mamba 双向化 + DS Gate 自适应方向权重 + FE-GRU 短期补充 | AAAI 2025 |
+| **M2Rec** | 多尺度 Mamba + FFT 频域建模 + LLM 语义嵌入 + 自适应门控 | arXiv 2505 |
+
+SIGMA 的关键洞察：单向 Mamba 不适合推荐（需要双向上下文），PF-Mamba 通过"部分翻转"SSM 扫描方向（而非翻转输入）构建双向架构，避免信息泄漏。M2Rec 则首次将频域分析（FFT）和 LLM 语义融入 Mamba 框架，HR@10 比 Mamba4Rec 提升 3.2%。
+
+📄 详见 [[20260411_sequential_and_generative_rec]]
+
+---
+
+## 4.5 Linear Attention for SeqRec（2026 新方向）
+
+标准 Linear Attention 用核函数 $\phi$ 替换 softmax，将复杂度降到 O(n)：
+$$\text{Output}_t = \frac{\phi(Q_t)^T \sum_{s \leq t} \phi(K_s) V_s^T}{\phi(Q_t)^T \sum_{s \leq t} \phi(K_s)}$$
+
+**FuXi-Linear** (2026.02) 的双通道设计解决了 Linear Attention 在推荐中效果不佳的问题：
+- **Temporal Retention Channel**：独立的时间衰减矩阵，避免时间-语义信号串扰
+- **Linear Positional Channel**：可学习核函数编码位置信息
+
+结果：prefill 加速 10×，decode 加速 21×，首次在千级 token 序列上验证推荐领域的 power-law scaling。
+
+**BlossomRec** (2025.12) 的双稀疏 Attention：
+- 长期兴趣：全局 Block-level 稀疏采样
+- 短期兴趣：局部窗口密集注意力
+- 门控融合：$\text{Out} = \sigma(g) \cdot \text{LongAttn} + (1-\sigma(g)) \cdot \text{ShortAttn}$
+- 即插即用，可嵌入任何 Transformer-based 序列模型
+
+📄 详见 [[20260411_sequential_and_generative_rec]]
+
 ---
 
 ## 5. 各场景序列建模对比
@@ -167,5 +199,7 @@ Transformer (2017-now) ── 全局注意力，O(N²)
 
 1. **GRU 和 LSTM 的区别？推荐为什么更常用 GRU？** → GRU 2 个门 vs LSTM 3 个门，GRU 参数少推理快，推荐场景序列较短，GRU 够用。
 2. **Transformer 在推荐中和 NLP 中用法有什么区别？** → 推荐通常用 causal mask 做 next-item，序列较短（<200），embedding 是 ID 不是 word；NLP 序列长，token 是词。
-3. **为什么推荐的长序列方案是 SIM 而不是 Linear Attention？** → 推荐场景下相关行为是稀疏的（万级行为中只有几十个相关），先检索再精算更高效；Linear Attention 适合全局信息的场景。
-4. **Mamba 能替代 Transformer 吗？** → 某些场景可以（长序列推理效率高），但 Transformer 在需要精确远距离依赖的任务上仍有优势。混合架构（Transformer + Mamba）可能是方向。
+3. **为什么推荐的长序列方案是 SIM 而不是 Linear Attention？** → 推荐场景下相关行为是稀疏的（万级行为中只有几十个相关），先检索再精算更高效；Linear Attention 适合全局信息的场景。但 FuXi-Linear 的双通道设计正在改变这一结论。
+4. **Mamba 能替代 Transformer 吗？** → 某些场景可以（长序列推理效率高），但 Transformer 在需要精确远距离依赖的任务上仍有优势。混合架构（Transformer + Mamba）可能是方向。SIGMA 和 M2Rec 展示了 Mamba 在 SeqRec 上的竞争力。
+5. **FuXi-Linear 的双通道为什么比单纯 Linear Attention 好？** → 避免时间信息和语义信息在同一通道中串扰。类比：音频处理中分离和弦和节奏的思路。
+6. **BlossomRec 的双稀疏比均匀稀疏好在哪？** → 用户兴趣有结构：长期稀疏稳定（全局采样）+ 短期密集多变（局部窗口）。一刀切会丢失这种结构。

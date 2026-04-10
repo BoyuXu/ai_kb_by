@@ -60,8 +60,17 @@ $$P(\text{next item}) = P(c_1) \cdot P(c_2|c_1) \cdot P(c_3|c_1, c_2) \cdot P(c_
 | 方法 | 改进点 | 效果 |
 |------|--------|------|
 | UniGRec | 连续向量替代离散 code → 碰撞率 0 | Recall+5.8% |
-| Spotify | 工业级 Semantic ID 在音乐推荐落地 | 真实上线 |
+| Spotify GLIDE | 播客召回：SID + 指令跟随 + 长期偏好软提示 | 新发现+14.3% |
+| **NEO** (Spotify) | 统一搜索+推荐+推理：SID + Constrained Decoding + 3阶段训练 | HR@10 +36-58% |
 | LETTER | 多任务学习 Semantic ID | 多场景复用 |
+
+**2026 标记方法综述**（中文生成式推荐综述）总结四类标记法：
+1. 特征/语义描述（P5, GPT4Rec）→ 直观但冗长
+2. 向量量化 VQ（VQ-VAE）→ 压缩高效但码本崩塌
+3. 残差量化 RQ（TIGER, NEO）→ 精度高、层次清晰
+4. LLM 标记（MQ-Tokenizer）→ 融合协同+语义但计算贵
+
+📄 详见 [[20260411_sequential_and_generative_rec]]
 
 📄 详见 [rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md](../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | [Embedding全景](embedding_everywhere.md) §4
 
@@ -81,6 +90,21 @@ $$P(\text{next item}) = P(c_1) \cdot P(c_2|c_1) \cdot P(c_3|c_1, c_2) \cdot P(c_
 | 行为序列直接当 token | 不做额外特征工程 |
 
 **意义**：证明推荐系统不只是"特征工程+小模型"，大模型路线也可行。
+
+### SORT（Alibaba 2026）— 工业 Transformer 精排
+
+SORT 系统优化 Transformer 用于工业精排：Request-Centric 样本组织 + Local Attention + Query Pruning + Generative Pre-training。
+- 先 next-item prediction 预训练解决 label sparsity → 再判别式微调
+- 特殊 token + QKNorm + Attention Gate + MoE 稳定训练
+
+### OneRec-V2（快手 2025-2026）— 8B 生成式推荐
+
+从 Enc-Dec 架构（V1）升级到 **Lazy Decoder-Only**：
+- 去掉 Encoder，按需编码上下文 → 算力降 94%，成功 scale 到 8B
+- Duration-Aware Reward Shaping + Adaptive Ratio Clipping 解决 RLHF 中的 reward hacking
+- 快手 AB：App Stay Time +0.467% / +0.741%
+
+📄 详见 [[20260411_sequential_and_generative_rec]]
 
 ### MTGR（美团 2024）
 

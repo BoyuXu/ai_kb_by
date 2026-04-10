@@ -55,6 +55,8 @@
 | 生成式推荐统一 | [synthesis/生成式推荐范式统一_20260403.md](rec-search-ads/rec-sys/synthesis/生成式推荐范式统一_20260403.md) | 高阶 | 判别式→生成式范式转变全景 |
 | LLM for RecSys | [synthesis/2026-04-09_llm_for_recsys_landscape.md](rec-search-ads/rec-sys/synthesis/2026-04-09_llm_for_recsys_landscape.md) | 高阶 | LLM×推荐的技术全景 |
 | 推荐基础设施 | [synthesis/recsys-infrastructure-landscape-2025-2026.md](rec-search-ads/rec-sys/synthesis/recsys-infrastructure-landscape-2025-2026.md) | 高阶 | 推荐系统基础设施演进 |
+| 序列+生成式前沿 | [synthesis/20260411_sequential_and_generative_rec.md](rec-search-ads/rec-sys/synthesis/20260411_sequential_and_generative_rec.md) | 高阶 | Linear Attn/Mamba SeqRec + SORT/OneRec-V2/GLIDE/NEO |
+| 全链路实战 | [synthesis/20260411_industrial_recsys_fullstack.md](rec-search-ads/rec-sys/synthesis/20260411_industrial_recsys_fullstack.md) | 进阶 | 召回→粗排→精排→重排工业全链路 |
 
 ---
 
