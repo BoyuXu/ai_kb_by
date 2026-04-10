@@ -165,6 +165,31 @@ LLM 本身就是最强的 Embedding 提取器：
 
 ---
 
+## 6. Reasoning Embedding：推理增强的表示（2025-2026 前沿）
+
+传统 LLM Embedding 仍是"直接编码"——把文本直接映射为向量。当 query 和目标文档之间存在语义鸿沟（需要推理才能关联）时，direct embedding 力不从心。
+
+**两种推理增强路径**：
+
+| 方法 | 推理引入时机 | 核心思路 | 代表 |
+|------|------------|---------|------|
+| LREM | Inference-time | 先生成 CoT 推理链，再基于推理结果编码 embedding | 阿里电商搜索 |
+| ReasonEmbed | Training-time | ReMixer 合成推理密集数据 + Redapter 自适应权重 | BRIGHT nDCG@10=38.1 |
+
+**LREM 两阶段训练**：
+1. SFT + InfoNCE：在 Query-CoT-Item 三元组上联合训练推理能力和编码能力
+2. RL 精调：强化学习优化推理轨迹质量
+
+**ReasonEmbed 的关键创新**：
+- ReMixer 三阶段数据合成：条件化 query 生成 → 排除源文档的候选挖掘 → 推理增强标注（解决合成数据 triviality 问题）
+- Redapter：推理越难的样本训练权重越高
+
+**与前代的关系**：Reasoning Embedding 是 LLM Embedding 的自然进化——不仅用 LLM 做编码器，还让 LLM 的推理能力服务于表示学习。
+
+📄 详见 [[20260411_dense_retrieval_and_reranking_advances.md|search/synthesis/20260411_dense_retrieval_and_reranking_advances.md]]
+
+---
+
 ## 演进总结
 
 ```
@@ -181,6 +206,7 @@ ID Embedding (稠密，学习得到)
     │   └─ Prefix Ngram ────── 层次聚类+前缀共享 (排序+稳定性)
     │
     └─ LLM Embedding ──────── BERT/LLM backbone (最强表示力)
+        └─ Reasoning Embedding ── CoT推理+编码 (LREM/ReasonEmbed)
 ```
 
 ## 面试高频问题
@@ -190,3 +216,4 @@ ID Embedding (稠密，学习得到)
 3. **冷启动时 ID Embedding 怎么办？** → 默认值→内容映射→Meta-Learning→Semantic ID，按复杂度递进选择。
 4. **为什么推荐系统的 Embedding 维度通常比 NLP 小？** → 推荐的 token 是 ID（语义简单），NLP 的 token 是词（语义复杂）；推荐需要实时推理，维度太大 ANN 检索变慢。
 5. **Random Hashing vs Semantic ID Prefix Ngram？** → Random Hash 让不相关 ID 碰撞，污染 embedding；Prefix Ngram 让语义相似 ID 碰撞，碰撞变成信息共享。Meta 生产验证：长尾 AUC 显著提升，预测稳定性改善。
+6. **Reasoning Embedding 和普通 LLM Embedding 的区别？** → 普通 LLM Embedding 直接编码文本，捕捉统计共现模式；Reasoning Embedding 先推理再编码（LREM）或用推理密集数据训练（ReasonEmbed），能跨越 query-doc 语义鸿沟。LREM 已部署于淘宝电商搜索。

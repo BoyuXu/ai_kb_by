@@ -110,6 +110,7 @@
 | 生成式检索 | [search/synthesis/2026-04-09_generative_retrieval_evolution.md](rec-search-ads/search/synthesis/2026-04-09_generative_retrieval_evolution.md) | 高阶 |
 | RAG系统演进 | [search/synthesis/2026-04-09_rag_systems_evolution.md](rec-search-ads/search/synthesis/2026-04-09_rag_systems_evolution.md) | 高阶 |
 | 端到端生成式搜索 | [search/synthesis/端到端生成式搜索前沿_20260403.md](rec-search-ads/search/synthesis/端到端生成式搜索前沿_20260403.md) | 高阶 |
+| 稠密检索与重排序前沿 | [search/synthesis/20260411_dense_retrieval_and_reranking_advances.md](rec-search-ads/search/synthesis/20260411_dense_retrieval_and_reranking_advances.md) | 高阶 |
 
 ---
 
