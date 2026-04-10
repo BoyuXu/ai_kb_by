@@ -254,6 +254,12 @@ Level 1: 系统优化
     │   📄 llm-infra/synthesis/LLM_quantization_evolution_20260408.md
     │   验证：对比 INT8/INT4/NF4 精度-速度 trade-off
     │
+    ├─ [L5.5] 知识蒸馏 10 大模式 ──────── 4h ⭐ 必学
+    │   前置：[L5] + 推荐排序基础
+    │   📄 llm-infra/synthesis/知识蒸馏技术整体总结.md
+    │   覆盖：经典KD/自蒸馏/多教师/在线蒸馏/渐进式/黑盒/推理链/投机解码/蒸馏+对齐/无数据
+    │   验证：解释 on-policy vs off-policy 蒸馏信息密度差异，画出 Qwen3 两阶段蒸馏
+    │
     ├─ [L6] MoE 架构 ─────────────────── 3h
     │   前置：[L1] + 推荐 [7] MMoE
     │   📄 llm-infra/synthesis/MoE架构设计与推理优化.md

@@ -8,13 +8,13 @@
 ## 一、推荐系统 `rec-search-ads/rec-sys/`
 
 ### 召回 `01_recall/` ⭐入门→进阶
-| 主题 | 文件 | 难度 | 一句话 |
-|------|------|------|--------|
-| 召回范式演进 | [synthesis/推荐系统召回范式演进.md](rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进.md) | 入门 | 双塔→图→序列→生成式，四代召回 |
-| 工业最佳实践 | [synthesis/召回系统工业界最佳实践.md](rec-search-ads/rec-sys/01_recall/synthesis/召回系统工业界最佳实践.md) | 进阶 | 负样本、多路融合、ANN索引实战 |
-| Semantic ID | [synthesis/SemanticID从论文到Spotify部署.md](rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | 高阶 | RQ-VAE离散化→自回归生成召回 + Meta Prefix Ngram 排序稳定性 |
-| Semantic ID 知识图谱 | [synthesis/Semantic_ID演进知识图谱.md](rec-search-ads/rec-sys/01_recall/synthesis/Semantic_ID演进知识图谱.md) | 高阶 | ID体系从Hash到语义的完整演进 |
-| 生成式推荐全景 | [synthesis/生成式推荐系统技术全景_2026.md](rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md) | 高阶 | TIGER/HSTU/UniGRec/Mender统一视角 |
+| 主题               | 文件                                                                                                            | 难度  | 一句话                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- | --- | ------------------------------------------- |
+| 召回范式演进           | [synthesis/推荐系统召回范式演进.md](rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进.md)                           | 入门  | 双塔→图→序列→生成式，四代召回                            |
+| 工业最佳实践           | [synthesis/召回系统工业界最佳实践.md](rec-search-ads/rec-sys/01_recall/synthesis/召回系统工业界最佳实践.md)                         | 进阶  | 负样本、多路融合、ANN索引实战                            |
+| Semantic ID      | [synthesis/SemanticID从论文到Spotify部署.md](rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | 高阶  | RQ-VAE离散化→自回归生成召回 + Meta Prefix Ngram 排序稳定性 |
+| Semantic ID 知识图谱 | [synthesis/Semantic_ID演进知识图谱.md](rec-search-ads/rec-sys/01_recall/synthesis/Semantic_ID演进知识图谱.md)             | 高阶  | ID体系从Hash到语义的完整演进                           |
+| 生成式推荐全景          | [synthesis/生成式推荐系统技术全景_2026.md](rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md)               | 高阶  | TIGER/HSTU/UniGRec/Mender统一视角               |
 
 ### 排序 `02_rank/` ⭐入门→高阶
 | 主题 | 文件 | 难度 | 一句话 |
@@ -127,7 +127,7 @@
 | GRPO算法 | [synthesis/GRPO大模型推理RL算法.md](llm-agent/llm-infra/synthesis/GRPO大模型推理RL算法.md) | 高阶 | 组内归一化替代Critic |
 | 量化技术 | [synthesis/LLM_quantization_evolution_20260408.md](llm-agent/llm-infra/synthesis/LLM_quantization_evolution_20260408.md) | 进阶 | PTQ/QAT/NF4量化 |
 | Agent框架 | [synthesis/agent-frameworks-landscape-2025-2026.md](llm-agent/llm-infra/synthesis/agent-frameworks-landscape-2025-2026.md) | 进阶 | 多Agent框架对比 |
-| 知识蒸馏 | [synthesis/知识蒸馏技术整体总结.md](llm-agent/llm-infra/synthesis/知识蒸馏技术整体总结.md) | 进阶 | 大模型→小模型蒸馏 |
+| 知识蒸馏10大模式 | [synthesis/知识蒸馏技术整体总结.md](llm-agent/llm-infra/synthesis/知识蒸馏技术整体总结.md) | 进阶 | 10大蒸馏模式×搜广推全景×面试考点 |
 | Serving实践 | [synthesis/LLMServing系统实践.md](llm-agent/llm-infra/synthesis/LLMServing系统实践.md) | 进阶 | vLLM/TGI部署实战 |
 
 ---

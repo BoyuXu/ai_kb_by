@@ -347,7 +347,7 @@
 3. **因果广告效果评估**（来源：`Uplift建模技术演进与工业实践.md`）：ECAD跨域倾向分 + Uplift建模，解决多触点归因和SSB偏差
 
 ### LLM推理与部署
-1. **DeepSeek-R1蒸馏路径**（来源：`知识蒸馏技术整体总结.md`）：拒绝采样+CoT SFT蒸馏，R1-Distill-7B超越GPT-4o（AIME）
+1. **知识蒸馏10大模式**（来源：`知识蒸馏技术整体总结.md`）：经典KD/自蒸馏/多教师/在线蒸馏/渐进式/黑盒/推理链/投机解码/蒸馏+对齐/无数据蒸馏。On-policy蒸馏传递O(N) bits/episode vs RL的O(1)，Qwen3实测1/10 GPU cost达RL等效。黑盒蒸馏GAD让Qwen2.5-14B匹配GPT系列。AlignDistil证明RLHF≡token级蒸馏
 2. **Prefill-Decode物理分离**（来源：`LLM推理优化完整版.md`）：两阶段资源需求差异极大，拆成独立集群，GPU利用率+30%
 3. **MoE架构主流化**（来源：`MoE架构设计与推理优化.md`）：Qwen3-235B-A22B（128专家/8激活），参数量大但计算量可控，成本效益最优
 
