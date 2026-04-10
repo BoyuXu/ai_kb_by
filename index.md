@@ -81,6 +81,13 @@
 | RTB架构全景 | [synthesis/广告系统RTB架构全景.md](rec-search-ads/ads/04_bidding/synthesis/广告系统RTB架构全景.md) | 入门 | 实时竞价系统架构 |
 | 预算Pacing | [synthesis/广告预算Pacing算法全景.md](rec-search-ads/ads/04_bidding/synthesis/广告预算Pacing算法全景.md) | 进阶 | PID控制→预测型→双层优化 |
 
+### 顶层综合 `synthesis/` 高阶
+| 主题 | 文件 | 难度 | 一句话 |
+|------|------|------|--------|
+| 生成式广告革命 | [synthesis/工业广告系统生成式革命_20260403.md](rec-search-ads/ads/synthesis/工业广告系统生成式革命_20260403.md) | 高阶 | 竞价/全链路/基础模型/冷启动生成式重构 |
+| LLM时代广告演进 | [synthesis/LLM时代广告系统技术演进.md](rec-search-ads/ads/synthesis/LLM时代广告系统技术演进.md) | 高阶 | CTR/出价/创意/拍卖全链路LLM融合 |
+| LLM推理+生成召回+基础设施 | [synthesis/20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md](rec-search-ads/ads/synthesis/20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md) | 高阶 | R2ec/ThinkRec/OneRanker/QuaSID/DeepRec/HugeCTR |
+
 ### 重排/混排 `03_rerank/` 进阶 | 创意 `05_creative/` 高阶 | Uplift `uplift/` 高阶
 | 主题 | 文件 | 难度 |
 |------|------|------|

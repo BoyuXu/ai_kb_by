@@ -43,12 +43,42 @@
 
 **Merlin的端到端加速**：GPU上直接完成ETL→特征工程→模型训练→批量推理，避免了Python序列化、CPU-GPU数据搬运等开销，比传统CPU+GPU流程快3-5倍。
 
+## DeepRec 深度解析 (2026-04-11 补充)
+
+> 来源: GitHub DeepRec-AI/DeepRec | LF AI & Data Foundation | 阿里PAI团队
+
+**核心定位**: 基于 TensorFlow 的高性能推荐专用框架，2016年起支撑淘宝搜索/推荐/广告核心业务。
+
+**关键技术优势**:
+- **超大规模训练**: 支持万亿样本、十万亿参数的推荐模型
+- **Embedding Variable (EV)**: 动态维度、多级存储（GPU→CPU→SSD），比 TF 原生 Embedding 内存效率高 3-5x
+- **在线深度学习**: 分钟级增量模型更新，支持 10TB+ 模型的 serving
+- **Session Group**: 多 session 并行执行优化 GPU 利用率
+
+**vs HugeCTR 选型**:
+- DeepRec: TF 生态 + 在线学习 + 全链路优化 → 阿里系/TF 用户首选
+- HugeCTR: CUDA 原生 + 极致训练速度 + Merlin 全栈 → GPU 密集型离线训练首选
+
+## Kamae: Training-Serving 一致性 (2026-04-11 补充)
+
+> 来源: arxiv 2507.06021 | RecSys 2025 (Expedia)
+
+**解决问题**: 特征预处理在 Spark（训练）和 Keras（推理）之间不一致导致 Training-Serving Skew。
+
+**技术方案**: 在 Keras 内统一实现所有预处理逻辑，pipeline 导出为 Keras 模型 bundle，训练和推理共用。
+
+**工业价值**: Expedia Learning-to-Rank 场景，消除序列特征（酒店列表、房间列表）处理不一致问题。
+
 ## 面试核心考点
 
 **分布式训练**：对比数据并行与模型并行的通信成本，embedding分片的三种策略选择依据，异步梯度下降的收敛性权衡。
 
-**Embedding优化**：特征交叉的稀疏性如何指导embedding维度设计，大规模embedding表的显存管理方案，embedding初始化与正则化对收敛的影响。
+**Embedding优化**：特征交叉的稀疏性如何指导embedding维度设计，大规模embedding表的显存管理方案，embedding初始化与正则化对收敛的影响。DeepRec 的 EV 如何实现动态维度和多级存储。
 
 **搜索-推荐融合**：向量检索的精度-召回权衡，候选生成与排序的协同优化（exposure bias问题），实时特征如何在推理中集成。
 
 **CTR标准化评测**：FuxiCTR的数据处理规范为什么重要，不同数据集上的模型可比性如何保证，离线指标与在线A/B测试的gap原因。
+
+**Training-Serving Skew**: Kamae 的 Pipeline-as-Model 设计如何消除特征处理不一致？为什么这是工业推荐系统的常见陷阱？
+
+**关联综述**: [[20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md]]
