@@ -42,12 +42,13 @@ Level 1: 序列建模（推荐的核心差异化）
     │   📄 rec-sys/02_rank/synthesis/用户行为序列建模.md
     │   验证：画出 AUGRU 结构，解释辅助损失的作用
     │
-    ├─ [6] SIM → ETA: 长序列 ─────────── 4h
+    ├─ [6] SIM → ETA → SparseCTR: 长序列 ── 4h
     │   前置：[5]
-    │   核心：SIM (Pi 2020), ETA (Chen 2021)
+    │   核心：SIM (Pi 2020), ETA (Chen 2021), SparseCTR (WWW 2026)
     │   📄 rec-sys/long-sequence/synthesis/长序列用户行为建模技术演进.md
     │   📄 concepts/sequence_modeling_evolution.md
-    │   验证：解释 SIM 两阶段（GSU→ESU），为什么能处理万级序列
+    │   📄 concepts/attention_in_recsys.md §4-B
+    │   验证：解释 SIM 两阶段 vs SparseCTR 三分支稀疏注意力的区别
     │
 Level 2: 多任务 & 全链路
     │
@@ -81,10 +82,11 @@ Level 3: 前沿（面试加分项）
     │
     ├─ [11] 生成式推荐 ─────────────────── 4h
     │   前置：[8] + Transformer 基础
-    │   核心：TIGER, HSTU, UniGRec
+    │   核心：TIGER, HSTU, UniGRec, Mender (TMLR 2025)
     │   📄 concepts/generative_recsys.md
     │   📄 rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md
     │   验证：解释 Semantic ID 的 RQ-VAE，对比判别式 vs 生成式
+    │   进阶：Mender 的 Preference Discerning 如何解决回音室问题
     │
     ├─ [12] Scaling Law & LLM×推荐 ────── 3h
     │   前置：[11] + LLM 基础

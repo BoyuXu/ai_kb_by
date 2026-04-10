@@ -158,6 +158,75 @@ $$
 
 ### Q10: 推荐系统的公平性问题？
 **30秒答案**：①供给侧公平（小创作者也有曝光机会）；②需求侧公平（不同用户群体获得同等服务质量）；③内容公平（避免信息茧房）。方法：公平约束重排、多样性保障、定期公平性审计。
+## Meta Ads: Semantic ID Prefix Ngram（2025，工业部署）
+
+> 📄 论文：Enhancing Embedding Representation Stability in Recommendation Systems with Semantic ID (arXiv:2504.02137)
+> 📌 概念页：[[embedding_everywhere|Embedding全景]] | [[generative_recsys|生成式推荐]]
+
+### 问题：Random Hashing 的三大痛点
+
+工业推荐系统用 **Random Hash** 处理高基数 ID 空间（数十亿广告/物品）。但存在严重问题：
+
+| 问题 | 原因 | 后果 |
+|------|------|------|
+| 数据污染 | 不相关 ID 碰撞到同一 bucket | embedding 被无关信号稀释 |
+| 表示不稳定 | 新 ID 诞生/旧 ID 退役 | 预测结果波动，AB 测试噪声大 |
+| 长尾建模差 | 低频 ID 数据少 + 碰撞干扰 | 长尾广告效果差 |
+
+### Semantic ID Prefix Ngram：语义碰撞替代随机碰撞
+
+**核心思想**：用**层次化内容聚类**替代随机哈希，让语义相似的 ID 共享 embedding（有意义的碰撞），而不是随机碰撞。
+
+**Step 1：构建 Semantic ID**
+用物品的内容 embedding（标题/图片/属性）做层次化聚类，生成多层语义编码：
+
+$$
+\text{SemanticID}(item) = [c_1, c_2, ..., c_L] \quad \text{where } c_l \text{ = 第 } l \text{ 层聚类 ID}
+$$
+
+**Step 2：Prefix Ngram 参数化**
+对 Semantic ID 的**前缀子序列**建立 embedding lookup：
+
+$$
+\mathbf{e}_{item} = \text{Aggregate}\left(\mathbf{E}[c_1], \mathbf{E}[c_1, c_2], ..., \mathbf{E}[c_1, ..., c_L]\right)
+$$
+
+- 每个前缀 ngram 对应一个 embedding
+- 粗粒度前缀（如 $[c_1]$）被同类别物品共享 → 参数高效
+- 细粒度全长 ID 提供区分度
+- 聚合方式：sum / concat / attention
+
+**直觉**：就像人的名字——"张"（姓 = 粗粒度，大量人共享）+ "三"（名 = 细粒度，少数人共享）。语义相近的物品共享"姓"，各有不同的"名"。
+
+### 关键优势
+
+| 优势 | 机制 | 效果 |
+|------|------|------|
+| 表示稳定性 | 新 ID 与语义相近的旧 ID 共享前缀 embedding | 预测波动 ↓ |
+| 长尾改善 | 低频 ID 通过前缀共享获得更好的初始化 | 长尾 AUC ↑ |
+| 过拟合减少 | 参数通过前缀共享实现正则化 | 泛化 ↑ |
+| Attention 协同 | 共享语义前缀让 attention 更容易发现同类行为 | 整体指标 ↑ |
+
+### Meta Ads Ranking 上线效果
+
+- 在 Meta 广告排序系统中**生产环境部署**
+- 显著提升预测稳定性和排序效果
+- 特别在 **attention-based 模型**（用户历史建模）中效果突出——因为语义前缀让同类商品的 attention 模式更一致
+
+### 和 TIGER 的关系
+
+| 维度 | TIGER Semantic ID | Prefix Ngram Semantic ID |
+|------|-------------------|--------------------------|
+| 目标 | 生成式召回 | 排序模型 embedding 稳定性 |
+| 编码方式 | RQ-VAE 残差量化 | 层次化聚类 |
+| 用法 | 自回归生成 ID | Prefix ngram embedding lookup |
+| 解决问题 | 冷启动 + 生成式检索 | 表示不稳定 + 长尾 + 数据污染 |
+| 落地场景 | Google/Spotify 召回 | Meta Ads 排序 |
+
+**共同底层逻辑**：用语义结构替代随机 ID，让"相似的东西有相似的编码"。
+
+---
+
 ## 参考文献
 
 - [BERT](../../papers/bert.md)

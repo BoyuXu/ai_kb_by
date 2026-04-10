@@ -1,6 +1,6 @@
 # AI 核心技术速查手册
 
-> 提炼自 ai-kb 全库 synthesis + fundamentals | 更新：2026-04-04  
+> 提炼自 ai-kb 全库 synthesis + fundamentals | 更新：2026-04-10
 > 覆盖：rec-sys / ads / search / llm-infra / fundamentals（5域，25个子方向）
 
 ---
@@ -48,6 +48,7 @@
 | DIEN | GRU+辅助损失 | ~100 | 训练不稳 |
 | SIM | 两阶段：检索再打分 | 10K+ | 检索准确性 |
 | ETA | Hash近似检索 | 10K+ | Hash碰撞 |
+| SparseCTR | 三分支稀疏注意力+个性化分块 | 10K+ | 端到端，Scaling Law |
 | MAMBA/SSM | 线性复杂度序列建模 | 100K+ | 选择性遗忘机制 |
 
 **SIM两阶段**：GSU（快速相似商品检索）→ ESU（精确Attention打分）  
@@ -90,6 +91,8 @@
 | MTGR | 双流：序列流+特征交叉流 | GMV+2.1% | 美团 2024 |
 | PROMISE | PRM过程奖励测试时扩展 | Recall@10+9.1% | - 2025 |
 | UniGRec | Soft ID连续向量，碰撞率0 | Recall+5.8% | - 2024 |
+| Mender | 自然语言偏好条件生成 | SOTA Preference Steering | TMLR 2025 |
+| SID Prefix Ngram | 语义碰撞替代随机碰撞 | 长尾AUC↑，稳定性↑ | Meta 2025 |
 
 ---
 

@@ -77,6 +77,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\rig
 | SIM | 先检索 top-K，再 Attention | $O(K)$ | 10K+ |
 | ETA | SimHash 近似检索 | $O(1)$ lookup | 10K+ |
 | SDIM | 多头 hash 采样 | $O(K)$ | 10K+ |
+| SparseCTR | 个性化分块+三分支稀疏注意力 | $O(N \cdot w)$ | 10K+ |
 
 **直觉**：推荐场景下，万级行为中只有少数跟候选相关 → 不需要全部做 Attention。
 

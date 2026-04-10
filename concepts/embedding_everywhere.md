@@ -90,8 +90,30 @@ $$\mathbf{e}_u^{(l+1)} = \sum_{i \in \mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_
 **后续演进**：
 - **UniGRec**：连续向量替代离散 code，碰撞率 0
 - **Spotify 部署**：工业级 Semantic ID 在音乐推荐中的落地
+- **Prefix Ngram**（Meta 2025）：用于排序模型的 Semantic ID 变体，见下方 §4-B
 
-📄 详见 [rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md](../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | [生成式推荐](generative_recsys.md)
+📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]] | [[generative_recsys|生成式推荐]]
+
+### 4-B. Semantic ID Prefix Ngram：解决 Embedding 不稳定性（Meta 2025）
+
+> 📄 arXiv:2504.02137 | Meta Ads Ranking 生产部署
+
+传统 Random Hash 把不相关 ID 随机碰撞到同一 bucket，导致 embedding 被噪声污染。Meta 的 **Semantic ID Prefix Ngram** 用层次化内容聚类替代随机哈希：
+
+**核心机制**：
+1. 用内容 embedding 层次化聚类，生成语义 ID：$[c_1, c_2, ..., c_L]$
+2. 对每个前缀子序列建 embedding：$\mathbf{E}[c_1], \mathbf{E}[c_1,c_2], ..., \mathbf{E}[c_1,...,c_L]$
+3. 聚合所有前缀 embedding 得到最终表示
+
+**为什么有效**：
+- **语义碰撞 > 随机碰撞**：相似物品共享前缀 embedding，碰撞是有意义的信息共享
+- **长尾友好**：低频 ID 通过共享前缀获得更好的初始化（类似迁移学习）
+- **表示稳定**：新 ID 诞生时，其前缀 embedding 已经被训练好，不是随机向量
+- **Attention 协同**：在 attention-based 序列模型中，同前缀物品的注意力模式更一致
+
+**和 TIGER 的区别**：TIGER 用 RQ-VAE 做生成式召回；Prefix Ngram 用层次聚类做排序模型的 embedding 表示。目标不同，但底层逻辑相同——**用语义结构替代随机 ID**。
+
+📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]]
 
 ---
 
@@ -156,6 +178,7 @@ ID Embedding (稠密，学习得到)
     ├─ Graph Embedding ─────── PinSAGE/LightGCN (结构信号)
     │
     ├─ Semantic ID ─────────── RQ-VAE 层次编码 (语义+生成式)
+    │   └─ Prefix Ngram ────── 层次聚类+前缀共享 (排序+稳定性)
     │
     └─ LLM Embedding ──────── BERT/LLM backbone (最强表示力)
 ```
@@ -166,3 +189,4 @@ ID Embedding (稠密，学习得到)
 2. **Graph Embedding 和 ID Embedding 有什么关系？** → Graph Embedding 可以作为 ID Embedding 的初始化，或者拼接使用，提供高阶协同信号。
 3. **冷启动时 ID Embedding 怎么办？** → 默认值→内容映射→Meta-Learning→Semantic ID，按复杂度递进选择。
 4. **为什么推荐系统的 Embedding 维度通常比 NLP 小？** → 推荐的 token 是 ID（语义简单），NLP 的 token 是词（语义复杂）；推荐需要实时推理，维度太大 ANN 检索变慢。
+5. **Random Hashing vs Semantic ID Prefix Ngram？** → Random Hash 让不相关 ID 碰撞，污染 embedding；Prefix Ngram 让语义相似 ID 碰撞，碰撞变成信息共享。Meta 生产验证：长尾 AUC 显著提升，预测稳定性改善。

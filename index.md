@@ -12,9 +12,9 @@
 |------|------|------|--------|
 | 召回范式演进 | [synthesis/推荐系统召回范式演进.md](rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进.md) | 入门 | 双塔→图→序列→生成式，四代召回 |
 | 工业最佳实践 | [synthesis/召回系统工业界最佳实践.md](rec-search-ads/rec-sys/01_recall/synthesis/召回系统工业界最佳实践.md) | 进阶 | 负样本、多路融合、ANN索引实战 |
-| Semantic ID | [synthesis/SemanticID从论文到Spotify部署.md](rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | 高阶 | RQ-VAE离散化→自回归生成召回 |
+| Semantic ID | [synthesis/SemanticID从论文到Spotify部署.md](rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | 高阶 | RQ-VAE离散化→自回归生成召回 + Meta Prefix Ngram 排序稳定性 |
 | Semantic ID 知识图谱 | [synthesis/Semantic_ID演进知识图谱.md](rec-search-ads/rec-sys/01_recall/synthesis/Semantic_ID演进知识图谱.md) | 高阶 | ID体系从Hash到语义的完整演进 |
-| 生成式推荐全景 | [synthesis/生成式推荐系统技术全景_2026.md](rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md) | 高阶 | TIGER/HSTU/UniGRec统一视角 |
+| 生成式推荐全景 | [synthesis/生成式推荐系统技术全景_2026.md](rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md) | 高阶 | TIGER/HSTU/UniGRec/Mender统一视角 |
 
 ### 排序 `02_rank/` ⭐入门→高阶
 | 主题 | 文件 | 难度 | 一句话 |
@@ -47,7 +47,7 @@
 ### 长序列 `long-sequence/` 高阶
 | 主题 | 文件 | 难度 | 一句话 |
 |------|------|------|--------|
-| 长序列建模演进 | [synthesis/长序列用户行为建模技术演进.md](rec-search-ads/rec-sys/long-sequence/synthesis/长序列用户行为建模技术演进.md) | 高阶 | SIM/ETA/SDIM，万级序列工业方案 |
+| 长序列建模演进 | [synthesis/长序列用户行为建模技术演进.md](rec-search-ads/rec-sys/long-sequence/synthesis/长序列用户行为建模技术演进.md) | 高阶 | SIM/ETA/SDIM/SparseCTR，万级序列工业方案 |
 
 ### 顶层综合 `synthesis/` 高阶
 | 主题 | 文件 | 难度 | 一句话 |
