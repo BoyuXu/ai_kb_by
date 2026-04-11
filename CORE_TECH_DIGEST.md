@@ -94,6 +94,21 @@
 | Mender | 自然语言偏好条件生成 | SOTA Preference Steering | TMLR 2025 |
 | SID Prefix Ngram | 语义碰撞替代随机碰撞 | 长尾AUC↑，稳定性↑ | Meta 2025 |
 
+### 1.7 向量量化方法（Semantic ID 基座）
+
+| 方法 | 核心思想 | 码本学习 | 利用率 | 推荐适用 |
+|------|---------|---------|--------|---------|
+| RQ-VAE | 多层残差量化，端到端 | ✅ 梯度+STE | 低~中 | ⭐⭐⭐⭐⭐（TIGER/快手） |
+| RQ-KMeans | 冻结Encoder+KMeans聚类 | KMeans | 中~高 | ⭐⭐⭐⭐（Spotify） |
+| FSQ | 每维独立round，无码本 | ❌ | ~100% | ⭐⭐⭐（图像生成） |
+| LFQ | 每维sign二值化，Lookup-Free | ❌ | ~100% | ⭐⭐（MaskBit） |
+
+**RQ-VAE 残差**：$r_l = r_{l-1} - e_{c_l}^{(l)}$，逐层修正误差，从粗到细
+**FSQ 量化**：$\hat{z}_i = \text{round}(\frac{L_i-1}{2} \cdot \tanh(z_i))$，无码本
+**选型原则**：需要层次语义→RQ-VAE；码本崩塌→FSQ/LFQ；已有强Encoder→RQ-KMeans
+
+📄 详见 [concepts/vector_quantization_methods.md](concepts/vector_quantization_methods.md)
+
 ---
 
 ## 二、广告系统核心技术

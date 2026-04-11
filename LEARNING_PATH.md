@@ -85,8 +85,9 @@ Level 3: 前沿（面试加分项）
     │   核心：TIGER, HSTU, UniGRec, Mender (TMLR 2025)
     │   📄 concepts/generative_recsys.md
     │   📄 rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md
+    │   📄 concepts/vector_quantization_methods.md
     │   验证：解释 Semantic ID 的 RQ-VAE，对比判别式 vs 生成式
-    │   进阶：Mender 的 Preference Discerning 如何解决回音室问题
+    │   进阶：四种量化方法选型（RQ-VAE/FSQ/LFQ），Mender 的 Preference Discerning
     │
     ├─ [12] Scaling Law & LLM×推荐 ────── 3h
     │   前置：[11] + LLM 基础
@@ -314,3 +315,4 @@ Level 2: 对齐与 Agent
 | MMoE/PLE/ESMM | → [concepts/multi_objective_optimization.md](concepts/multi_objective_optimization.md) |
 | GRU/Transformer/Mamba | → [concepts/sequence_modeling_evolution.md](concepts/sequence_modeling_evolution.md) |
 | TIGER/HSTU/生成式检索 | → [concepts/generative_recsys.md](concepts/generative_recsys.md) |
+| RQ-VAE/FSQ/LFQ/量化 | → [concepts/vector_quantization_methods.md](concepts/vector_quantization_methods.md) |

@@ -4,7 +4,7 @@
 >
 > **为什么要学**：Embedding 是推荐、搜索、广告、LLM 四个领域的共同地基。你遇到的几乎每个模型，第一步都是 Embedding。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [序列建模演进](sequence_modeling_evolution.md) | [生成式推荐](generative_recsys.md)
+**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [序列建模演进](sequence_modeling_evolution.md) | [生成式推荐](generative_recsys.md) | [向量量化方法](vector_quantization_methods.md)
 
 ---
 
@@ -92,7 +92,7 @@ $$\mathbf{e}_u^{(l+1)} = \sum_{i \in \mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_
 - **Spotify 部署**：工业级 Semantic ID 在音乐推荐中的落地
 - **Prefix Ngram**（Meta 2025）：用于排序模型的 Semantic ID 变体，见下方 §4-B
 
-📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]] | [[generative_recsys|生成式推荐]]
+📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化四大方法]]
 
 ### 4-B. Semantic ID Prefix Ngram：解决 Embedding 不稳定性（Meta 2025）
 

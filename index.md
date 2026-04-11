@@ -150,6 +150,7 @@
 | 多目标优化 | [concepts/multi_objective_optimization.md](concepts/multi_objective_optimization.md) | 推荐/广告/搜索 |
 | 序列建模演进 | [concepts/sequence_modeling_evolution.md](concepts/sequence_modeling_evolution.md) | 推荐/搜索/LLM |
 | 生成式推荐 | [concepts/generative_recsys.md](concepts/generative_recsys.md) | 推荐/搜索/广告 |
+| 向量量化方法 | [concepts/vector_quantization_methods.md](concepts/vector_quantization_methods.md) | 推荐/多模态/LLM |
 
 ---
 

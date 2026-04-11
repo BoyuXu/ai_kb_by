@@ -4,7 +4,7 @@
 >
 > **为什么要学**：生成式推荐是 2024-2026 最热的推荐前沿方向，TIGER/HSTU/MTGR 等工作正在被大厂落地。也是面试中区分"了解前沿"和"只会经典模型"的分水岭。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [Embedding全景](embedding_everywhere.md) | [序列建模演进](sequence_modeling_evolution.md) | [多目标优化](multi_objective_optimization.md)
+**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [Embedding全景](embedding_everywhere.md) | [序列建模演进](sequence_modeling_evolution.md) | [多目标优化](multi_objective_optimization.md) | [向量量化方法](vector_quantization_methods.md)
 
 ---
 
@@ -72,7 +72,7 @@ $$P(\text{next item}) = P(c_1) \cdot P(c_2|c_1) \cdot P(c_3|c_1, c_2) \cdot P(c_
 
 📄 详见 [[20260411_sequential_and_generative_rec]]
 
-📄 详见 [rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md](../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | [Embedding全景](embedding_everywhere.md) §4
+📄 详见 [rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md](../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | [Embedding全景](embedding_everywhere.md) §4 | [[vector_quantization_methods|向量量化四大方法]]（RQ-VAE/FSQ/LFQ 详细对比）
 
 ---
 
@@ -232,6 +232,30 @@ $$P(\text{item} | \text{history}, \textbf{preference\_text}) = \prod_l P(c_l | c
 
 ---
 
+## 7-B. SID 质量与碰撞优化（2026 前沿）
+
+### QuaSID: 资质感知语义ID学习（快手电商, arxiv 2603.00632）
+
+SID 学习的碰撞问题被长期忽视：不同物品获得相同/相似的 SID 码字。但碰撞并非一律有害——相似品类共享码字有助泛化（良性碰撞），只有语义冲突的碰撞才需要排斥。
+
+**QuaSID 两步走**：
+1. **CVPM (Conflict-Aware Valid Pair Masking)**: 屏蔽良性碰撞对，只保留真正冲突的碰撞
+2. **HaMR (Hamming-guided Margin Repulsion)**: 对冲突碰撞施加 margin 排斥
+
+在线效果：快手电商 GMV +2.38%，冷启动订单 +6.42%。
+
+### TBGRecall: 电商生成式召回效率突破（阿里, arxiv 2508.11977, CIKM 2025）
+
+打破 item 间自回归依赖：session-level 建模，session token 做 ANN 检索，item 生成独立并行化。展示出明显 scaling law 趋势。
+
+### OneRanker: 生成+排序统一（腾讯, arxiv 2603.02999）
+
+单模型统一生成和排序：Value-aware multi-task decoupling (causal mask 隔离兴趣/价值空间) + Coarse-to-fine target awareness (Fake Item Tokens 隐式感知)。微信视频号广告 GMV +1.34%。
+
+📄 详见 [[20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md]]
+
+---
+
 ## 面试高频问题
 
 1. **生成式召回和传统双塔召回的核心区别？** → 双塔是"编码→检索"（需要 ANN 索引），生成式是"自回归生成 ID"（不需要索引）。生成式还能解决冷启动（新物品可直接编码 Semantic ID）。
@@ -245,3 +269,7 @@ $$P(\text{item} | \text{history}, \textbf{preference\_text}) = \prod_l P(c_l | c
 5. **生成式重排靠谱吗？** → 离线效果好（LLM 理解力强），但在线延迟是硬伤。DEAR 蒸馏方案（7B→1.5B）是当前最实用的折中。
 
 6. **生成式推荐如何应对回音室效应？** → Mender 提出 Preference Discerning：在生成时加入自然语言偏好条件，让模型可以主动响应偏好变化，而不仅仅延续历史行为。关键：这种能力可以泛化到训练时未见过的偏好描述。
+
+7. **SID 碰撞为什么不能一视同仁？** → 相似品类共享码字是有益的（泛化），只有语义冲突的碰撞才有害。QuaSID 的 CVPM 区分良性/有害碰撞，HaMR 只对有害碰撞施加排斥，快手电商 GMV +2.38%。
+
+8. **如何解决生成式召回的自回归延迟？** → 三条路径：(1) TBGRecall session-level 并行化；(2) OneRanker Fake Item Tokens 隐式感知减少解码步数；(3) 分层并行解码（粗粒度并行+细粒度自回归）。
