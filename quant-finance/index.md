@@ -9,13 +9,14 @@
 | **因子投资** | [synthesis/factor_investing.md](synthesis/factor_investing.md) | ⭐⭐ | Alpha/风险因子、因子构建测试、Barra 模型 |
 | **策略开发框架** | [synthesis/strategy_development.md](synthesis/strategy_development.md) | ⭐⭐⭐ | 动量/均值回归/套利、回测框架、过拟合陷阱 |
 | **ML 在量化中的应用** | [synthesis/ml_in_quant.md](synthesis/ml_in_quant.md) | ⭐⭐⭐ | 特征工程、模型选择、时序预测、与搜广推交叉 |
-| 量化基础 | — | ⭐ | 金融市场、交易机制、订单类型、A股/美股差异 |
-| 数学基础 | — | ⭐⭐ | 概率统计、随机过程、时间序列、蒙特卡洛 |
-| 执行与风控 | — | ⭐⭐ | VaR/CVaR/Sharpe/MaxDD、滑点、仓位管理 |
-| 高频与微观结构 | — | ⭐⭐⭐⭐ | LOB、做市策略、tick 数据处理 |
-| DL 量化前沿 | — | ⭐⭐⭐⭐ | Transformer 时序、GNN 选股、生成模型 |
-| 编程技能 | — | ⭐⭐ | Python/SQL/C++、分布式计算 |
-| 面试题库 | [interview/](interview/) | ⭐⭐⭐ | 概率题、估算题、quant brain teasers |
+| **量化基础** | [synthesis/quant_fundamentals.md](synthesis/quant_fundamentals.md) | ⭐ | 金融市场结构、A股交易机制、订单类型、交易费用、A股vs美股 |
+| **数学基础** | [synthesis/math_foundations.md](synthesis/math_foundations.md) | ⭐⭐ | 概率统计、布朗运动/GBM/Itô、ARIMA/GARCH、蒙特卡洛、PCA |
+| **执行与风控** | [synthesis/risk_and_execution.md](synthesis/risk_and_execution.md) | ⭐⭐ | VaR/CVaR/Sharpe/MaxDD、滑点模型、Kelly/风险平价、止损 |
+| **高频与微观结构** | [synthesis/hft_microstructure.md](synthesis/hft_microstructure.md) | ⭐⭐⭐⭐ | LOB结构、做市策略、tick数据处理、A股高频限制 |
+| **DL 量化前沿** | [synthesis/dl_quant_frontier.md](synthesis/dl_quant_frontier.md) | ⭐⭐⭐⭐ | Transformer时序(TFT/PatchTST)、GNN选股、RL组合优化、DL落地难点 |
+| **编程与系统设计** | [synthesis/coding_system_design.md](synthesis/coding_system_design.md) | ⭐⭐ | Python量化栈、向量化vs事件驱动回测、SQL、因子平台架构、C++低延迟 |
+| **Brain Teasers** | [synthesis/brain_teasers_and_puzzles.md](synthesis/brain_teasers_and_puzzles.md) | ⭐⭐⭐ | 20道概率题、10道Fermi估算、5道金融直觉题 |
+| **面试题库** | [interview/](interview/) | ⭐⭐⭐ | 概率面试题、策略设计题、面试准备计划 |
 
 ## 🔗 与搜广推交叉知识
 
