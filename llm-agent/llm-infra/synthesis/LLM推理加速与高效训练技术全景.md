@@ -234,7 +234,7 @@ $\Delta$：量化步长，分组量化使 $\Delta$ 更小。
 ### 公式 1：混合精度训练的 loss scaling
 
 $$
-\text{scaled}}_{\text{{\text{loss}}} = \text{loss} \times S, \quad \text{grad}}_{\text{{\text{fp32}}} = \frac{\text{grad}}_{\text{{\text{fp16}}}}{S}
+\text{scaled}_{loss} = \text{loss} \times S, \quad \text{grad}_{fp32} = \frac{\text{grad}_{fp16}}{S}
 $$
 
 - $S$：loss scaling factor（通常 $2^{16}$ 起步，动态调整）
@@ -244,11 +244,11 @@ $$
 ### 公式 2：GQA（Grouped Query Attention）KV Cache 节省
 
 $$
-M_{\text{GQA}} = M_{\text{MHA}} \times \frac{n_{\text{kv}}_{\text{{\text{heads}}}}}{n_{\text{q}}_{\text{{\text{heads}}}}}
+M_{\text{GQA}} = M_{\text{MHA}} \times \frac{n_{\text{kv}_{heads}}}{n_{\text{q}_{heads}}}
 $$
 
-- $n_{\text{q}}_{\text{{\text{heads}}}}$：query 头数量
-- $n_{\text{kv}}_{\text{{\text{heads}}}}$：KV 头数量（GQA 中远少于 query 头）
+- $n_{\text{q}_{heads}}$：query 头数量
+- $n_{\text{kv}_{heads}}$：KV 头数量（GQA 中远少于 query 头）
 
 **直观理解**：MHA 给每个 query head 配一个独立的 KV head（1:1），GQA 让多个 query head 共享一个 KV head（N:1）。LLaMA-2 70B 用 8 个 KV head 服务 64 个 query head，KV Cache 直接缩小 8 倍——这是超长上下文推理的关键。
 
@@ -260,3 +260,8 @@ $$
 
 **直观理解**：FSDP 把模型参数、梯度、优化器状态都切片分散到多个 GPU 上，每个 GPU 只存 $1/N$ 的份额。需要时再 all-gather 拼回来，用完立刻丢弃。代价是多了通信开销，但使得单 GPU 能"装下"远超其显存容量的模型。
 
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

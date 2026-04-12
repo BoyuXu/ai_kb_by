@@ -288,3 +288,9 @@ print(f"Annual Return: {backtest_result.annual_return:.2%}")
 - Embedding 技术 → [[concepts/embedding_everywhere.md]]
 - 序列建模 → [[concepts/sequence_modeling_evolution.md]]
 - 多目标优化 → [[concepts/multi_objective_optimization.md]]
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

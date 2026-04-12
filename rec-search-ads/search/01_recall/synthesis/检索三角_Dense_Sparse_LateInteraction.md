@@ -47,7 +47,7 @@ graph TB
 ### 1. BM25
 
 $$
-\text{BM25}(q,d) = \sum_{t \in q} \underbrace{\ln\!\left(\frac{N - df_t + 0.5}{df_t + 0.5} + 1\right)}_{\text{IDF}(t)} \cdot \underbrace{\frac{tf_{t,d} \cdot (k_1 + 1)}{tf_{t,d} + k_1\!\left(1 - b + b \cdot \frac{|d|}{avgdl}\right)}}_{\text{TF 饱和项}}
+\text{BM25}(q,d) = \sum_{t \in q} \underbrace{\ln\!\left(\frac{N - df_t + 0.5}{df_t + 0.5} + 1\right)}_{\text{IDF}(t)} \cdot \underbrace{\frac{tf_{t,d} \cdot (k_1 + 1)}{tf_{t,d} + k_1\!\left(1 - b + b \cdot \frac{|d|}{avgdl}\right)}_{TF 饱和项}}
 $$
 
 **推导步骤：**
@@ -74,7 +74,7 @@ $$
 $$
 
 **推导步骤：**
-1. $E_q = \text{BERT}}_{\text{Q([CLS], q)$，$E}}_{\text{d = \text{BERT}}_D([CLS], d)$，两个独立编码器
+1. $E_q = \text{BERT}_Q(\text{[CLS]}, q)$，$E_d = \text{BERT}_D(\text{[CLS]}, d)$，两个独立编码器
 2. In-batch Negative：batch 内其他 query 的正样本充当负样本，无需额外采样
 3. 温度 $\tau$ 越小，分布越尖锐，模型区分正负样本的"要求"越高
 
@@ -90,7 +90,7 @@ $$
 
 **推导步骤：**
 1. **Token 级编码**：$\mathbf{E}_q \in \mathbb{R}^{|q| \times D}$，$\mathbf{E}_d \in \mathbb{R}^{|d| \times D}$，维度压缩到 $D=128$
-2. **MaxSim 操作**：对每个 Query token $i$，取其与所有 Doc token 中最高的相似度，$\text{MaxSim}}_{\text{i = \max}}_{\text{j E}}_{\text{{q}}_{\text{i}}^\top E_{d_j}$
+2. **MaxSim 操作**：对每个 Query token $i$，取其与所有 Doc token 中最高的相似度，$\text{MaxSim_{i = }\max}_{j E_{q}_{\text{i}}^\top E_{d_j}$
 3. **求和聚合**：$|q|$ 个 MaxSim 之和为最终分数。比 Bi-encoder 精细（保留 token 对齐），比 Cross-encoder 快（Doc 向量可离线预计算）
 
 **符号说明：**
@@ -253,3 +253,45 @@ BGE-M3 / GTE (2024) → 统一多路（稀疏+稠密+多向量）单模型
 
 ### Q10: 搜索系统的 freshness（时效性）怎么做？
 **30秒答案**：①时间衰减因子：较新文档加权；②实时索引更新：新文档分钟级可搜；③时效性意图识别：检测「最新」「今天」等时效性 query。电商搜索中 freshness 影响较小，新闻搜索中至关重要。
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **BM25 = 关键词搜索**：像在字典里查单词，精确匹配但不懂同义词（"苹果手机"搜不到"iPhone"）
+- **Dense Retrieval = 意会搜索**：把查询和文档都变成"语义指纹"（向量），指纹相似就相关，能懂同义词但可能误解字面意思
+- **ColBERT Late Interaction = 逐字对比**：Query 每个词和 Document 每个词两两比较取最大相似度，精度接近 Cross-Encoder，速度接近 Bi-Encoder
+- **混合检索 = 双保险**：BM25 抓住精确匹配（不漏"iPhone 15"），Dense 抓住语义相关（"苹果手机"找到"iPhone"），RRF 融合取长补短
+
+### 对比表
+
+| 检索方法 | 核心机制 | 语义理解 | 精确匹配 | 延迟 | 存储 |
+|---------|---------|---------|---------|------|------|
+| BM25 | 词频统计 | 弱 | 强 | 极低 | 低 |
+| DPR/Dense | 双编码器向量 | 强 | 弱 | 低 | 中 |
+| SPLADE | 学习稀疏表示 | 中强 | 中强 | 低 | 中 |
+| ColBERT | Token级晚交互 | 强 | 强 | 中 | 高 |
+| Cross-Encoder | 全交互 | 最强 | 最强 | 高 | 低 |
+| 混合(BM25+Dense) | RRF融合 | 强 | 强 | 低 | 中 |
+
+### 口诀/助记
+
+- **检索三角一句话**："稀疏擅词匹配，稠密擅语义，晚交互两全其美但存储贵"
+- **混合检索金律**："BM25 + Dense + RRF = 最鲁棒方案"
+- **RRF 公式记**："score = Σ 1/(k+rank)，k=60 默认值"
+- **ColBERT 记忆**："Max Sim：每个 Query token 找 Doc 中最相似的，求和得总分"
+
+### 面试一句话
+
+- **Dense vs Sparse**："BM25 精确匹配强但无语义理解，Dense Retrieval 语义理解强但精确匹配弱（搜'iPhone 15'可能漏匹配），混合检索 RRF 融合是工业最佳实践"
+- **ColBERT**："Token 级延迟交互，Query 每个 token 和 Doc 每个 token 计算相似度取 MaxSim，精度接近 Cross-Encoder 但 Doc 向量可预计算，延迟接近 Bi-Encoder"

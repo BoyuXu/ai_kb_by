@@ -22,7 +22,7 @@ $$e_{\text{proxy}} = \sum_{k=1}^{K} \alpha_k \cdot e_{j_k}, \quad \alpha_k \prop
 
 渐进迁移：
 
-$$e(t) = (1-\lambda(t)) \cdot e_{\text{proxy}} + \lambda(t) \cdot e_{\text{id}}, \quad \lambda(t) = 1 - e^{-\mu N_{\text{clicks}}(t)}$$
+$$e(t) = (1-\lambda(t)) \cdot e_{\text{proxy}} + \lambda(t) \cdot e_{\text{id}}, \quad \lambda(t) = 1 - e^{-\mu N_{\text{clicks}(t)}$$
 
 ### 关键发现
 - 语义 ID 初始化贡献约 60% 的冷启动提升
@@ -87,7 +87,7 @@ $$\text{Score}(u, i) = \alpha \cdot P_{\text{CTR}} + \beta \cdot P_{\text{Save}}
 
 生存分析处理延迟标签：
 
-$$P_{\text{Retain}}(t) = \exp\left(-\left(\frac{t}{\lambda}\right)^k\right) \quad \text{Weibull}$$
+$$P_{\text{Retain}(t) = \exp\left(-\left(\frac{t}{\lambda}\right)^k\right) \quad \text{Weibull}$$
 
 ---
 
@@ -150,3 +150,12 @@ $$\theta_{t+1} = \theta_t + \Delta\theta_{\text{forget}}^{\text{GR}} + \Delta\th
 9. Save, Revisit, Retain: User Retention Framework (2025)
 10. LLM Graph Invariant Contrastive Learning OOD (2025)
 11. LLM-based Evolutional Recommendation: Locate-Forget-Update (2025)
+
+---
+
+## 相关概念
+
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

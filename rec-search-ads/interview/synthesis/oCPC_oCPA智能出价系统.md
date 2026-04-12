@@ -172,7 +172,7 @@ ESMM：联合建模
 ### oCPC 出价公式
 
 $$
-\text{bid} = \text{CPA}}_{\text{{\text{target}}} \times \frac{p\text{CVR}}{p\text{CTR}} \times p\text{CTR} = \text{CPA}}_{\text{{\text{target}}} \times p\text{CVR}
+\text{bid} = \text{CPA}_{target} \times \frac{p\text{CVR}}{p\text{CTR}} \times p\text{CTR} = \text{CPA}_{target} \times p\text{CVR}
 $$
 
 **直观理解**：广告主设定"每个转化最多愿意付 X 元"（CPA target），系统根据每次请求的转化概率自动出价——高转化概率的请求出高价（值得抢），低转化概率的请求出低价或不出（不值得）。自动化替代了人工调价。
@@ -183,15 +183,21 @@ $$
 b_t = b_{t-1} + K_p \cdot e_t + K_i \cdot \sum_{s=1}^{t} e_s + K_d \cdot (e_t - e_{t-1})
 $$
 
-- $e_t = \text{CPA}}_{\text{{\text{target}}} - \text{CPA}}_{\text{{\text{actual}}}$：实际 CPA 与目标的偏差
+- $e_t = \text{CPA}_{target} - \text{CPA}_{actual}$：实际 CPA 与目标的偏差
 
 **直观理解**：实际 CPA 高于目标（花多了）→ 降低出价；低于目标（花少了）→ 提高出价。$K_p$ 管当前偏差（立即纠偏），$K_i$ 管累积偏差（消除长期偏移），$K_d$ 管变化趋势（预防过冲）。就像开车——看到偏离车道就打方向盘，PID 三个参数控制"打多狠"。
 
 ### 预算约束下的 Lagrangian 出价
 
 $$
-\text{bid}^*(x) = \text{CPA}}_{\text{{\text{target}}} \times p\text{CVR}(x) \times \frac{1}{1 + \lambda}
+\text{bid}^*(x) = \text{CPA}_{target} \times p\text{CVR}(x) \times \frac{1}{1 + \lambda}
 $$
 
 **直观理解**：$\lambda$ 是预算约束的拉格朗日乘子。预算快花完时 $\lambda$ 增大，出价整体压低（省钱）；预算充裕时 $\lambda \approx 0$，出价 ≈ 不受约束的最优出价。自动化的"花钱节奏控制"。
 
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

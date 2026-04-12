@@ -199,13 +199,13 @@ MMOE:
 **Expert输出：**
 
 $$
-f_i(x) = \text{Expert}}_{\text{i(x), \quad i = 1, 2, ..., N
+f_i(x) = \text{Expert}_i(x), \quad i = 1, 2, ..., N
 $$
 
 **Gating Network（任务k）：**
 
 $$
-g}}_{\text{k(x) = \text{Softmax}}(W_{g_k} \cdot x + b_{g_k})
+g_k(x) = \text{Softmax}(W_{g_k} \cdot x + b_{g_k})
 $$
 
 $$
@@ -221,13 +221,13 @@ $$
 **任务输出：**
 
 $$
-y_k = \text{Tower}}_{\text{k(f}}_{\text{k(x))
+y_k = \text{Tower}_k(f_k(x))
 $$
 
 **多任务损失（不确定性加权/动态加权）：**
 
 $$
-L = \sum}}_{\text{{k=1}}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)
+L = \sum_{k=1}^{K} w_k \cdot L_k + \lambda \sum_{k=1}^{K} \log(\sigma_k)
 $$
 
 ### 5.4 与前代模型对比
@@ -927,11 +927,19 @@ $$
 
 ### Deep & Cross Network
 
+**DCN-V1**（向量参数）：
+
 $$
 \mathbf{x}_{l+1} = \mathbf{x}_0 \mathbf{x}_l^T \mathbf{w}_l + \mathbf{b}_l + \mathbf{x}_l
 $$
 
-**直观理解**：每层交叉都把原始输入 $\mathbf{x}_0$ 和当前层 $\mathbf{x}_l$ 做外积——$L$ 层后能表示 $L+1$ 阶多项式特征交叉，且参数只有 $O(Ld)$（线性增长）。DNN 的隐式交叉 + Cross 的显式交叉互补，是 Google 广告系统的核心架构。
+**DCN-V2**（矩阵参数，更强表达力）：
+
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_0 \odot (W_l \mathbf{x}_l + \mathbf{b}_l) + \mathbf{x}_l, \quad W_l \in \mathbb{R}^{d \times d}
+$$
+
+**直观理解**：每层交叉都把原始输入 $\mathbf{x}_0$ 和当前层 $\mathbf{x}_l$ 做交叉——$L$ 层后能表示 $L+1$ 阶多项式特征交叉，且参数只有 $O(Ld^2)$。V2 用矩阵 $W_l$ 替代向量 $\mathbf{w}_l$，交叉表达力更强。DNN 的隐式交叉 + Cross 的显式交叉互补，是 Google 广告系统的核心架构。
 
 ---
 
@@ -950,7 +958,7 @@ $$
 > LR（手工）→ FM（自动二阶）→ DeepFM（FM+DNN）→ DCN/DCNv2（Cross Network）→ xDeepFM（CIN）→ AutoInt（Multi-head Attention）→ FiBiNET（SENet+Bilinear）→ MaskNet（乘性交互）。
 
 ### Q5: 推荐系统中 Embedding 维度如何选择？
-> 经验公式：$d = 6 \times (\text{vocabulary}}_{\text{{\text{size}}})^{1/4}$。高频特征 16-64 维，低频 4-8 维。总参数量主要由 Embedding 决定（占 99%+），需在表达能力和存储/计算成本间权衡。
+> 经验公式：$d = 6 \times (\text{vocabulary\_size})^{1/4}$。高频特征 16-64 维，低频 4-8 维。总参数量主要由 Embedding 决定（占 99%+），需在表达能力和存储/计算成本间权衡。
 
 ### Q6: 多任务学习中负迁移如何检测和缓解？
 > 检测：对比多任务 vs 单任务 AUC，某任务下降=负迁移。缓解：MMoE（Gate 软选择 Expert）→ PLE（任务特定+共享 Expert 分离）→ STAR（共享+特定参数网络）。
@@ -966,3 +974,53 @@ $$
 
 ### Q10: 工业级推荐系统的 Scaling Law？
 > 推荐系统也遵循 $L \propto N^{-\alpha}$ 的幂律关系（HSTU/Wukong 验证）。但与 LLM 不同：99%+ 参数在 Embedding 层，数据分布随时间漂移更剧烈，需持续在线更新。
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **FM = 翻译官**：每个特征都有一本"个人简历"（Embedding），两个特征的交叉强度就是"简历匹配度"（内积）。不需要每对特征单独记录关系，只需记住每个人的简历
+- **MMOE = 公司部门制**：多个专家（Expert）像不同部门，门控网络（Gate）是老板，每个任务的老板根据当前情况决定"这次让哪些部门出多少力"
+- **PLE = 私人顾问 + 公共智库**：每个任务有自己的私人顾问（私有Expert），同时可以咨询公共智库（共享Expert），私人顾问不会被别的任务抢走
+- **SIM = 图书馆检索**：不可能把图书馆所有书都翻一遍（长序列），先用目录（GSU）找到相关区域，再精读（ESU）
+- **DSSM双塔 = 相亲平台**：男女各自写简历（User/Item Tower），平台用简历匹配度（余弦相似度）推荐，不需要见面（无交叉特征），效率极高
+
+### 对比表
+
+| 模型 | 核心创新 | 适用场景 | 优势 | 劣势 |
+|------|---------|---------|------|------|
+| Wide&Deep | LR+DNN并行 | 通用精排 | 记忆+泛化 | 需手工交叉特征 |
+| DeepFM | FM+DNN端到端 | CTR预估 | 自动二阶交叉 | 无序列建模 |
+| DIN | Target Attention | 有行为序列的精排 | 动态兴趣激活 | 长序列计算量大 |
+| DCN-V2 | 显式高阶Cross | 特征交叉密集场景 | 可控阶数交叉 | 纯特征交叉无序列 |
+| MMOE | 多门控MoE | 多任务学习 | 灵活Expert组合 | 任务差异大时仍冲突 |
+| PLE | 私有+共享Expert | 任务差异大的多任务 | 显式隔离干扰 | 参数量大 |
+| SIM | 两阶段长序列 | 超长行为序列 | 万级序列可处理 | 依赖GSU质量 |
+
+### 口诀/助记
+
+- **CTR模型演进**："宽深交叉注意力，多任务长序列" — Wide&Deep → DeepFM/DCN → DIN/DIEN → MMOE/PLE → SIM/HSTU
+- **特交叉，深记忆，宽泛化** — Wide&Deep 三句话记住
+- **FM一句话**："每个特征一个向量，交叉强度看内积"
+- **MMOE vs PLE**："MMOE 软分离看权重，PLE 硬分离分公私"
+- **SIM两步走**："粗筛找相关，精排算注意力"
+
+### 面试一句话
+
+- **DeepFM**："FM 做精确二阶特征交叉，DNN 做隐式高阶交叉，共享 Embedding 端到端训练，不需要手工特征工程"
+- **DIN**："用 attention 机制让候选商品动态激活用户历史中相关的行为，解决 sum pooling 对所有行为等权重的问题，不做 softmax 因为兴趣是非互斥的"
+- **MMOE**："多个 Expert 网络各学不同特征表示，每个任务通过独立 Gate 自适应选择 Expert 组合，避免 Shared-Bottom 的梯度冲突"
+- **PLE**："在 MMOE 基础上增加任务私有 Expert，其他任务不可见，从根本上隔离任务干扰，逐层渐进提取"
+- **SIM**："两阶段解决长序列：GSU 按类目/向量快速筛选相关子序列，ESU 在小规模上做精细 Attention，复杂度从 O(N) 降到 O(m)"

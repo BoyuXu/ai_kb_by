@@ -179,3 +179,10 @@ $$
 
 **直观理解**：相同 FLOPs 预算下，是让模型更"宽"（$d_{\text{model}}$ 大）还是更"深"（$L$ 大）？Wukong 发现宽且浅的架构在推荐场景更优——因为推荐的特征交叉主要是"宽度问题"（特征维度多），不像 NLP 需要深层推理。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]

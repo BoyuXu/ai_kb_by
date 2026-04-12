@@ -293,3 +293,9 @@ PITA 的独特价值：部署后可按用户偏好动态调整，无需重新训
 3. Aditya Tomar et al. "XQuant: Breaking the Memory Wall for LLM Inference with KV Cache Rematerialization." arXiv:2508.10395, Aug 2025.
 4. Sarat Chandra Bobbili et al. "PITA: Preference-Guided Inference-Time Alignment for LLM Post-Training." arXiv:2507.20067, Jul 2025.
 5. Yuma Ichikawa et al. "OneComp: One-Line Revolution for Generative AI Model Compression." arXiv:2603.28845, Mar 2026.
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

@@ -212,3 +212,9 @@ $$
 
 **直观理解**：一个查询同时需要理解意图（导航/信息/交易）、抽取实体（品牌/型号/地点）、改写为标准形式。多任务学习让底层表示共享三种理解能力的知识，比三个独立模型更高效也更准。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/multi_objective_optimization|多目标优化]]

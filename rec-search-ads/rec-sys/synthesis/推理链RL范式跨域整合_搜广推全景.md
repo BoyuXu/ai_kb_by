@@ -295,3 +295,13 @@ $$
 
 **直观理解**：搜索、推荐、广告三个系统各有各的 embedding 空间。统一 embedding 让用户在搜索中的行为（"搜过跑步鞋"）能直接帮助推荐（推跑步装备）和广告（投运动品牌广告）——跨域信号复用，冷启动效果大幅提升。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]

@@ -48,3 +48,9 @@
 3. **RL vs SFT 训练排序器的区别？**（RL 允许自由探索，SFT 受限于标注）
 4. **蒸馏在搜索中的作用？**（将 LLM 推理能力压缩到部署级模型）
 5. **ColBERT 预训练策略？**（大规模对比预训练 + 对齐微调）
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

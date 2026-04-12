@@ -96,7 +96,7 @@ graph TB
 ### 损失函数
 
 $$
-\mathcal{L} = \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTR}}, f_{\text{CTR}}(x_i)\right)}_{\mathcal{L}_{\text{CTR}}\ (\text{全量曝光空间})} + \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTCVR}},\ f_{\text{CTR}}(x_i) \cdot f_{\text{CVR}}(x_i)\right)}_{\mathcal{L}_{\text{CTCVR}}\ (\text{全量曝光空间，间接约束 CVR})}
+\mathcal{L} = \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTR}}, f_{\text{CTR}(x_i)\right)}_{\mathcal{L}_{\text{CTR}}\ (\text{全量曝光空间})} + \underbrace{\sum_{i=1}^{N} \ell\!\left(y_i^{\text{CTCVR}},\ f_{\text{CTR}(x_i) \cdot f_{\text{CVR}(x_i)\right)}_{\mathcal{L}_{\text{CTCVR}}\ (\text{全量曝光空间，间接约束 CVR})}
 $$
 
 其中 $N$ 是**全量曝光样本数**，不再只用点击样本。
@@ -106,7 +106,7 @@ $$
 1. **传统 CVR 损失的偏差**：
 
 $$
-\mathcal{L}_{\text{naive-CVR}} = \frac{1}{|\mathcal{O}|}\sum_{i \in \mathcal{O}} \ell(y_i^{\text{CVR}}, f_{\text{CVR}}(x_i))
+\mathcal{L}_{\text{naive-CVR}} = \frac{1}{|\mathcal{O}|}\sum_{i \in \mathcal{O}} \ell(y_i^{\text{CVR}}, f_{\text{CVR}(x_i))
 $$
 
 期望：$\mathbb{E}[\mathcal{L}_{\text{naive-CVR}}] \propto \sum_i P(O_i = 1) \cdot \ell_i = \sum_i p_i^{\text{CTR}} \cdot \ell_i \neq \sum_i \ell_i$（有偏，高 CTR 样本被过度惩罚）
@@ -114,7 +114,7 @@ $$
 2. **ESMM 的 CTCVR 损失期望**：
 
 $$
-\mathbb{E}[\mathcal{L}_{\text{CTCVR}}] = \sum_{i=1}^N \mathbb{E}[\ell(y_i^{\text{CTCVR}}, p_i^{\text{CTR}} \cdot f_{\text{CVR}}(x_i))]
+\mathbb{E}[\mathcal{L}_{\text{CTCVR}}] = \sum_{i=1}^N \mathbb{E}[\ell(y_i^{\text{CTCVR}}, p_i^{\text{CTR}} \cdot f_{\text{CVR}(x_i))]
 $$
 
 $y_i^{\text{CTCVR}} = y_i^{\text{CTR}} \cdot y_i^{\text{CVR}}$，其中 $y_i^{\text{CTR}} \in \{0,1\}$ 在**全量曝光空间**都有标签（曝光样本：$y^{\text{CTR}}=1$ 当且仅当用户点击）。
@@ -122,7 +122,7 @@ $y_i^{\text{CTCVR}} = y_i^{\text{CTR}} \cdot y_i^{\text{CVR}}$，其中 $y_i^{\t
 3. **链式约束**：当 $f_{\text{CTR}}$ 收敛后（已用 $\mathcal{L}_{\text{CTR}}$ 约束），$\mathcal{L}_{\text{CTCVR}}$ 等价于对 $f_{\text{CVR}}$ 施加：
 
 $$
-\min_{f_{\text{CVR}}} \sum_{i=1}^N \ell(y_i^{\text{CVR}},\ f_{\text{CVR}}(x_i)) \cdot \underbrace{p_i^{\text{CTR}}}_{\text{曝光-点击权重}}
+\min_{f_{\text{CVR}}} \sum_{i=1}^N \ell(y_i^{\text{CVR}},\ f_{\text{CVR}(x_i)) \cdot \underbrace{p_i^{\text{CTR}}_{曝光-点击权重}}
 $$
 
 即用 CTR 作为隐式权重，赋予不同曝光样本对 CVR 训练的贡献——全曝光空间的样本都参与了 CVR 的训练，只是贡献度由 CTR 加权。
@@ -460,7 +460,7 @@ $$
 ### ESCM² 的 IPW（逆概率加权）去偏
 
 $$
-\hat{\mathcal{L}}_{\text{IPW}} = \frac{1}{N}\sum_{i: O_i=1} \frac{\ell(\hat{y}_i, y_i)}{\hat{e}(x_i)}
+\hat{\mathcal{L}_{IPW}} = \frac{1}{N}\sum_{i: O_i=1} \frac{\ell(\hat{y}_i, y_i)}{\hat{e}(x_i)}
 $$
 
 - $O_i$：样本 $i$ 是否被观测到（点击=1）
@@ -509,3 +509,9 @@ $$
 
 ### Q10: 如何评估 CVR 模型的质量？
 > ① 离线：CVR AUC（全空间）、CTCVR AUC、校准度（predicted vs actual CVR 的一致性）② 在线：GMV/Revenue 变化、广告主 ROI 变化、预算消耗率 ③ 分层评估：按用户活跃度/商品热度分组看效果，避免头部商品主导指标。
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]

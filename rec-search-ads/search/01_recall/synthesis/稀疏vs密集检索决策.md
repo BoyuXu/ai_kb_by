@@ -172,3 +172,8 @@ $$
 
 **直观理解**：搜产品型号/代码/人名 → 用 BM25（精确匹配）；搜"怎么减肥" → 用 Dense（语义理解）；不确定 → 用 Hybrid（两者融合，通常最优）。工业系统默认 Hybrid，因为用户 query 类型多样无法预判。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

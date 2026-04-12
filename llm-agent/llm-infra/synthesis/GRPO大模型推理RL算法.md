@@ -89,7 +89,7 @@ timeline
 **核心目标函数：**
 
 $$
-\mathcal{L}_{\text{GRPO}}(\theta) = \frac{1}{G}\sum_{i=1}^{G} \left[\min\!\left(r_i(\theta)\hat{A}_i,\ \text{clip}(r_i(\theta),\ 1{-}\epsilon,\ 1{+}\epsilon)\hat{A}_i\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
+\mathcal{L}_{\text{GRPO}(\theta) = \frac{1}{G}\sum_{i=1}^{G} \left[\min\!\left(r_i(\theta)\hat{A}_i,\ \text{clip}(r_i(\theta),\ 1{-}\epsilon,\ 1{+}\epsilon)\hat{A}_i\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
 $$
 
 **推导步骤：**
@@ -100,7 +100,7 @@ $$
 \mathcal{L}_{\text{PPO}} = \mathbb{E}_t\!\left[\min\!\left(r_t(\theta)\hat{A}_t,\ \text{clip}(r_t(\theta), 1{-}\epsilon, 1{+}\epsilon)\hat{A}_t\right)\right]
 $$
 
-   其中重要性比率 $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\text{old}}(a_t|s_t)}$，Advantage $\hat{A}_t$ 由 Critic 的时序差分估计。
+   其中重要性比率 $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\text{old}(a_t|s_t)}$，Advantage $\hat{A}_t$ 由 Critic 的时序差分估计。
 
 2. **GRPO 的核心替换——去掉 Critic**：对同一 prompt $q$，采样 $G$ 个回答 $\{o_1,\ldots,o_G\}$，规则给出每个回答的 scalar reward $r_i$。令
 
@@ -113,7 +113,7 @@ $$
 3. **整体回答的概率比**：PPO 是 token 级的 $r_t$；GRPO 在整个回答粒度上做：
 
 $$
-r_i(\theta) = \frac{\pi_\theta(o_i \mid q)}{\pi_{\text{old}}(o_i \mid q)} = \prod_{t=1}^{|o_i|} \frac{\pi_\theta(o_{i,t} \mid q, o_{i,<t})}{\pi_{\text{old}}(o_{i,t} \mid q, o_{i,<t})}
+r_i(\theta) = \frac{\pi_\theta(o_i \mid q)}{\pi_{\text{old}(o_i \mid q)} = \prod_{t=1}^{|o_i|} \frac{\pi_\theta(o_{i,t} \mid q, o_{i,<t})}{\pi_{\text{old}(o_{i,t} \mid q, o_{i,<t})}
 $$
 
 4. **KL 惩罚防止策略漂移**：
@@ -189,3 +189,9 @@ $$
 
 ### Q10: LLM 推理的三大瓶颈？
 **30秒答案**：①Prefill 阶段：计算密集（大量矩阵乘）；②Decode 阶段：内存密集（KV Cache 读写）；③通信：多卡推理时的 AllReduce。优化方向：FlashAttention（①）、PagedAttention（②）、TP/PP 并行（③）。
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

@@ -321,3 +321,33 @@ VQ-VAE (2017) — 基础：单层向量量化
     └─ LFQ (2024) ────── 极简二值化，Lookup-Free
         └─ MaskBit ──── 视觉 Token 化 SOTA
 ```
+
+---
+
+## 相关 Synthesis
+
+- [[rec-search-ads/search/synthesis/2026-04-09_generative_retrieval_evolution|2026-04-09_generative_retrieval_evolution]]
+- [[rec-search-ads/rec-sys/synthesis/2026-04-09_llm_for_recsys_landscape|2026-04-09_llm_for_recsys_landscape]]
+- [[rec-search-ads/ads/synthesis/20260407_CTR_scaling_advances_synthesis|20260407_CTR_scaling_advances_synthesis]]
+- [[rec-search-ads/rec-sys/synthesis/20260407_GenRec_advances_synthesis|20260407_GenRec_advances_synthesis]]
+- [[rec-search-ads/ads/synthesis/20260411_LLM驱动推荐推理_生成式召回_工业基础设施|20260411_LLM驱动推荐推理_生成式召回_工业基础设施]]
+- [[rec-search-ads/ads/synthesis/20260411_llm_native_recsys_and_industrial_infra|20260411_llm_native_recsys_and_industrial_infra]]
+- [[rec-search-ads/rec-sys/synthesis/20260411_sequential_and_generative_rec|20260411_sequential_and_generative_rec]]
+- [[rec-search-ads/rec-sys/02_rank/synthesis/Boyu个人学习档案|Boyu个人学习档案]]
+- [[rec-search-ads/ads/02_rank/synthesis/CTR预估模型工业级实践进展|CTR预估模型工业级实践进展]]
+- [[rec-search-ads/rec-sys/02_rank/synthesis/Embedding学习_推荐系统表示基石|Embedding学习_推荐系统表示基石]]
+- [[rec-search-ads/rec-sys/04_multi-task/synthesis/LLM增强推荐系统前沿综述|LLM增强推荐系统前沿综述]]
+- [[llm-agent/llm-infra/synthesis/LLM推理优化与RAG_Agent前沿综述|LLM推理优化与RAG_Agent前沿综述]]
+- [[rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]]
+- [[rec-search-ads/rec-sys/01_recall/synthesis/Semantic_ID演进知识图谱|Semantic_ID演进知识图谱]]
+- [[rec-search-ads/rec-sys/01_recall/synthesis/召回系统工业界最佳实践|召回系统工业界最佳实践]]
+- [[rec-search-ads/ads/synthesis/工业广告系统生成式革命_20260403|工业广告系统生成式革命_20260403]]
+- [[rec-search-ads/ads/synthesis/广告竞价与CTR预估前沿进展|广告竞价与CTR预估前沿进展]]
+- [[rec-search-ads/rec-sys/synthesis/推理链RL范式跨域整合_搜广推全景|推理链RL范式跨域整合_搜广推全景]]
+- [[rec-search-ads/rec-sys/synthesis/推荐广告生成式范式统一全景|推荐广告生成式范式统一全景]]
+- [[rec-search-ads/rec-sys/01_recall/synthesis/推荐系统召回范式演进|推荐系统召回范式演进]]
+- [[rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026|生成式推荐系统技术全景_2026]]
+- [[rec-search-ads/rec-sys/synthesis/生成式推荐范式统一_20260403|生成式推荐范式统一_20260403]]
+- [[rec-search-ads/rec-sys/03_rerank/synthesis/生成式重排与LLM推理增强|生成式重排与LLM推理增强]]
+- [[llm-agent/llm-infra/synthesis/知识蒸馏技术整体总结|知识蒸馏技术整体总结]]
+- [[rec-search-ads/search/synthesis/端到端生成式搜索前沿_20260403|端到端生成式搜索前沿_20260403]]

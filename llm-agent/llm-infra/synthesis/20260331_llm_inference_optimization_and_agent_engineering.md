@@ -68,7 +68,7 @@ $$
 FastMTP通过并行预测头实现单步多token生成：
 
 $$
-P(t_{i+k} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k))
+P(t_{i+k} | t_{\leq i}) = \text{Head}_k(h_i + \text{PE}(k))
 $$
 
 与Speculative Decoding互补：MTP是同一模型内部的并行化，SD是不同模型间的流水线化。
@@ -94,7 +94,7 @@ $$
 **FastMTP多头预测**：
 
 $$
-P(t_{i+k} | t_{\leq i}) = \text{Head}}_{\text{k(h}}_{\text{i + \text{PE}}(k))
+P(t_{i+k} | t_{\leq i}) = \text{Head}_k(h_i + \text{PE}(k))
 $$
 
 ## Q&A 面试精选
@@ -169,7 +169,7 @@ $$
 ### 公式 3：量化误差与精度权衡
 
 $$
-\text{MSE}}_{\text{{\text{quant}}} = \mathbb{E}\left[(W - Q(W))^2\right] \approx \frac{\Delta^2}{12}
+\text{MSE}_{quant} = \mathbb{E}\left[(W - Q(W))^2\right] \approx \frac{\Delta^2}{12}
 $$
 
 - $W$：原始权重

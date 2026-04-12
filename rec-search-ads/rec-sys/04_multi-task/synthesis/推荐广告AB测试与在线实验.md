@@ -109,3 +109,10 @@ $$
 
 **直观理解**：社交推荐中，给你朋友推了不同内容会影响你（朋友分享了就你也看到了）。传统 A/B 测试假设"每个用户独立"（SUTVA），但社交网络违反这个假设。解决方案：按社区/城市分桶而非按用户分桶。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]

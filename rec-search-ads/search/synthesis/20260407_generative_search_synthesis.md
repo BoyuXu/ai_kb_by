@@ -74,3 +74,11 @@ A：传统是 query-doc 相关性；GenFacet 额外考虑 facet-to-intent 对齐
 A：延迟（LLM 慢）、上下文窗口限制、list-wise vs point-wise 的权衡、评估困难。
 
 **Tags:** #synthesis #search #generative-retrieval #faceted-search #reranking #e-commerce
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/multi_objective_optimization|多目标优化]]

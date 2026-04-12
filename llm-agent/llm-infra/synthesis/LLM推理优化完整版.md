@@ -208,7 +208,14 @@ $$
 Continuous Batching 每个解码步骤可插入新请求，吞吐量：
 
 $$
-\text{Throughput} \approx \frac{N_{\text{queue}}}{\bar{L}} \times \text{GPU}}_{\text{{\text{FLOPS}}}
+\text{Throughput} \approx \frac{N_{\text{queue}}}{\bar{L}} \times \text{GPU}_{FLOPS}
 $$
 
 GPU 利用率提升至 85-95%，是 vLLM 相比朴素部署 5-10× 吞吐的核心来源。
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]

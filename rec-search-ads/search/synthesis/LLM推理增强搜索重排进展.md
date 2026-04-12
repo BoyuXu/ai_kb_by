@@ -115,7 +115,7 @@ $$
 ### 公式5：Rank1 的 Test-Time Compute 扩展
 
 $$
-\text{Score}(q, d) = P_\theta(\text{Relevant} | q, d, \text{CoT}}_{\text{{1:T}})
+\text{Score}(q, d) = P_\theta(\text{Relevant} | q, d, \text{CoT_{1:T}})
 $$
 
 其中 CoT 长度 $T$ 是可控变量：
@@ -300,3 +300,8 @@ $$
 
 **直观理解**：每次给 LLM 看 $m$ 篇文档（如 5 篇），选最好的一篇。比 pairwise 快（$O(n/m)$ 次调用），比 listwise 稳定（context window 压力小）。通过 heap sort 策略可以 $O(n \log n / m)$ 次调用完成排序。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

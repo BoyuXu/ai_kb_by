@@ -106,13 +106,13 @@ $$
 广告主 $i$ 按出价排名，排第 $k$ 位的广告主支付第 $k+1$ 位的出价：
 
 $$
-\text{CPC}}_{\text{k = \text{bid}}_{k+1} \cdot \frac{\text{Quality}}_{\text{{k+1}}}{\text{Quality}}_{\text{k}} + 0.01
+\text{CPC_{k = }\text{bid}}_{k+1} \cdot \frac{\text{Quality_{k+1}}}{\text{Quality}_{\text{k}} + 0.01
 $$
 
 eCPM 排序：
 
 $$
-\text{eCPM}}_{\text{i = \text{pCTR}}_i \times \text{bid}}_{\text{i \times \text{quality}}_i
+\text{eCPM_{i = }\text{pCTR}}_i \times \text{bid_{i }\times \text{quality}}_i
 $$
 
 ### 广告主 ROI 约束下的最优出价
@@ -120,7 +120,14 @@ $$
 广告主期望 ROI ≥ 目标 $r$：
 
 $$
-\text{bid}^* = \frac{\text{pCVR} \times \text{价值}}{r} = \frac{\text{CPA}}_{\text{{\text{target}}} \times \text{pCVR}}{1}
+\text{bid}^* = \frac{\text{pCVR} \times \text{价值}}{r} = \frac{\text{CPA}_{target} \times \text{pCVR}}{1}
 $$
 
 当 pCVR 估计偏高时，出价过高，导致 ROI 不达标。这是 CTR/CVR 校准对广告系统至关重要的原因。
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

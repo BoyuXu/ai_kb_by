@@ -64,3 +64,10 @@ A: OpenOneRec 用 Itemic Tokens 将 item 视为模态，像处理图片一样处
 
 **Q4: Generative Retrieval 的 serving 优化？**
 A: IntRR: RAN single-token prediction 消除 autoregressive 瓶颈。MiniOneRec: constrained beam search 确保生成有效 SID。实践中需 SID → item 的高效映射表。
+
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/vector_quantization_methods|向量量化方法]]

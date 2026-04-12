@@ -249,7 +249,7 @@ $$
 ### LLM 作为特征增强器
 
 $$
-e_{\text{item}}' = \text{Concat}(e_{\text{id}}, \text{LLM}}_{\text{{\text{Emb}}}(\text{title + desc}))
+e_{\text{item}}' = \text{Concat}(e_{\text{id}}, \text{LLM}_{Emb}(\text{title + desc}))
 $$
 
 **直观理解**：传统推荐用 ID embedding 表示物品（冷启动时为零向量）。把 LLM 对标题/描述的 embedding 拼接进来，新物品也有了丰富的语义表示——"一款轻便的越野跑步鞋"对 LLM 是有意义的文本，但对 ID embedding 是空白。
@@ -500,3 +500,13 @@ A：节点>100万/长程依赖/GPU有限→Graph-Mamba；节点<10万/需全局a
 [表征增强] RLMRec（LLM×CF对齐） | Graph-Mamba（长程图依赖）
 ```
 
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

@@ -76,3 +76,9 @@ A: 四维度：Performance (F1/EM), Factuality (faithfulness), Safety (robustnes
 
 **Q4: Chunk size 如何选择？**
 A: 取决于 reader 的上下文长度。LongRAG 证明 4K chunks + long-context reader 大幅优于 100-word chunks。关键：chunk size 应与 reader capability 匹配。
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

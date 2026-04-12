@@ -82,3 +82,13 @@
 **Training-Serving Skew**: Kamae 的 Pipeline-as-Model 设计如何消除特征处理不一致？为什么这是工业推荐系统的常见陷阱？
 
 **关联综述**: [[20260411_LLM驱动推荐推理_生成式召回_工业基础设施.md]]
+
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]

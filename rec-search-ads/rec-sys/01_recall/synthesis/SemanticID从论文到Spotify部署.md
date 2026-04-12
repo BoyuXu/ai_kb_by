@@ -250,7 +250,7 @@ $$
 ### 生成式检索
 
 $$
-P(\text{item} | \text{user}) = \prod_{k=1}^{K} P(c_k | c_{<k}, \text{user}}_{\text{{\text{context}}})
+P(\text{item} | \text{user}) = \prod_{k=1}^{K} P(c_k | c_{<k}, \text{user}_{context})
 $$
 
 **直观理解**：把"召回物品"转化为"生成 ID 序列"——就像 GPT 生成文本一样，推荐系统逐步生成物品的语义 ID。第一步生成粗粒度 ID（决定品类），后续步骤精细化。beam search 天然支持多样性。
@@ -263,3 +263,10 @@ $$
 
 **直观理解**：如果某些码字从不被选中（坍塌），码本的有效容量就缩小了。EMA 更新让码字追踪被分配到它的样本均值；如果一个码字长期不被使用，就用随机样本重新初始化。类似 K-Means 的"空簇重置"策略。
 
+---
+
+## 相关概念
+
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]

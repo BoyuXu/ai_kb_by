@@ -69,7 +69,7 @@ $$\text{ProxyIDs} = \text{TopK}_{j \in \mathcal{H}}[\text{sim}(e_i^{\text{conten
 
 迁移：
 
-$$e_{\text{final}}(t) = (1 - e^{-\mu N_{\text{clicks}}}) \cdot e_{\text{proxy}} + e^{-\mu N_{\text{clicks}}} \cdot e_{\text{id}}$$
+$$e_{\text{final}(t) = (1 - e^{-\mu N_{\text{clicks}}}) \cdot e_{\text{proxy}} + e^{-\mu N_{\text{clicks}}} \cdot e_{\text{id}}$$
 
 ---
 
@@ -81,7 +81,7 @@ $$P(\text{pay}) = P(\text{pay} | \text{add\_cart}) \cdot P(\text{add\_cart} | \t
 
 不确定性软标签：
 
-$$\hat{y}_{\text{soft}} = \begin{cases} y & \text{labeled} \\ P_{\text{impute}}(y=1) & \text{missing} \end{cases}$$
+$$\hat{y}_{\text{soft}} = \begin{cases} y & \text{labeled} \\ P_{\text{impute}(y=1) & \text{missing} \end{cases}$$
 
 偏斜校正 Focal Loss：
 
@@ -161,3 +161,11 @@ $$\mathcal{L}_{\text{distill}} = ||h_u^{\text{teacher}} - h_u^{\text{student}}||
 8. DAIAN: Intent-Aware CTR for Trigger Advertising (2025)
 9. R2LED: Retrieval+Refinement Lifelong User Modeling (2025)
 10. One Model Two Markets: Bid-Aware Generative Recommendation (2025)
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]

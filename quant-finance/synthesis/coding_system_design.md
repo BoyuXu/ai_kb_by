@@ -476,3 +476,9 @@ numactl --cpunodebind=0 --membind=0 ./strategy_engine
 - [[ml_in_quant]] — 机器学习在量化中的应用，与因子平台的数据流关系
 - [[../rec-search-ads/rec-sys/synthesis/feature_engineering]] — 搜广推特征工程，SQL 模式复用
 - [[concepts/embedding_everywhere]] — Embedding 技术，在因子表示学习中的应用
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]

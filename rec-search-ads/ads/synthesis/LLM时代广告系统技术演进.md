@@ -82,7 +82,7 @@ $$
 decoder-only 架构统一 12+ 业务场景：
 
 $$
-P(i_1,...,i_K | s, \text{Prompt}}_{\text{s) = \prod}}_{\text{{k=1}}^K P(i_k | i_{<k}, s, \text{Prompt}}_{\text{s)
+P(i_1,...,i_K | s, \text{Prompt_{s) = }\prod_{k=1}}^K P(i_k | i_{<k}, s, \text{Prompt}_{\text{s)
 $$
 
 - 场景 Prompt 区分不同业务语境
@@ -101,7 +101,7 @@ LLM → Embedding 生成  →  Feature Store → 查表(1ms) → 融合 MLP(1ms)
 **对齐损失**（将 LLM Embedding 对齐到 ID Embedding 空间）：
 
 $$
-L}_{\text{{\text{align}}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
+L}_{{\text{align}}} = -\log \frac{\exp(\text{sim}(e_{LLM}, e_{ID}) / \tau)}{\sum_j \exp(\text{sim}(e_{LLM}, e_{ID_j}) / \tau)}
 $$
 
 #### ELEC：LLM 离线特征工厂（2025 工业最实用方案）
@@ -151,7 +151,7 @@ Adapter Layer（场景专有，参数量仅 2-5%）
 在生成式架构基础上引入多任务：
 
 $$
-\mathcal{L}_{MTGR} = \sum_{k} w_k \mathcal{L}_k + \underbrace{\mathcal{L}_{cross-task}}_{\text{任务间注意力}}
+\mathcal{L}_{MTGR} = \sum_{k} w_k \mathcal{L}_k + \underbrace{\mathcal{L}_{cross-task}_{任务间注意力}}
 $$
 
 **关键发现**：生成式架构 ≠ 放弃 DLRM 特征交叉，两者互补：
@@ -220,7 +220,7 @@ $$
 **核心范式**：跨广告主大规模预训练，单一模型服务所有广告主：
 
 $$
-P(\text{bid}}_{\text{t | \text{bid}}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
+P(\text{bid_{t | }\text{bid}}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
 $$
 
 Diffusion 在连续出价空间建模（多峰分布）：
@@ -329,7 +329,7 @@ $$
 LLM 时代对话式广告拍卖：
 
 $$
-\text{Score}}_{\text{i = b}}_{\text{i \times q}}_{\text{i(query), \quad q}}_{\text{i = \text{LLM-Relevance}}(ad_i, query)
+\text{Score}_{\text{i = b_{i }}\times q}_{i(query), \quad q_{i = }\text{LLM-Relevance}(ad_i, query)
 $$
 
 Quality-adjusted 定价（Vickrey 变体）：
@@ -477,3 +477,13 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 > - [CTR_driven_advertising_image_generation_MLLM](../papers/CTR_driven_advertising_image_generation_MLLM.md) — CTR 驱动广告图像生成
 > - [UniROM_unifying_online_advertising_ranking_one_model](../papers/UniROM_unifying_online_advertising_ranking_one_model.md) — 统一在线广告排序单模型
 > - [LLM_AUCTION_generative_auction_llm_native_advertising](../papers/LLM_AUCTION_generative_auction_llm_native_advertising.md) — LLM 原生对话广告生成式拍卖
+
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]

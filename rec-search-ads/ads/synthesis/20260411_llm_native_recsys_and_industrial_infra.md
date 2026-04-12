@@ -236,3 +236,10 @@ Phase 4: 全链路统一
 8. DeepRec (github.com/DeepRec-AI/DeepRec) — 阿里 PAI
 9. NVIDIA Merlin HugeCTR (github.com/NVIDIA-Merlin/HugeCTR)
 10. Kamae (arxiv 2507.06021, RecSys 2025)
+
+---
+
+## 相关概念
+
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/multi_objective_optimization|多目标优化]]

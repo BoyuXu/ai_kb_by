@@ -416,7 +416,7 @@ E[LTV_90d] ≈ α × LTV_7d_pred + β × LTV_30d_pred + 校正因子
 ZILN 输出的 E[LTV] 通常需要后处理校准：
 
 $$
-\text{calibrated}}_{\text{{\text{LTV}}} = f(\hat{\mu}, \hat{\sigma}, \hat{\pi}, \text{用户分层})
+\text{calibrated}_{LTV} = f(\hat{\mu}, \hat{\sigma}, \hat{\pi}, \text{用户分层})
 $$
 
 常见方法：
@@ -608,7 +608,7 @@ $$
 ### 客户生命周期价值
 
 $$
-\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue}}_{\text{t - \text{Cost}}_t}{(1+r)^t}
+\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue_{t - }\text{Cost}}_t}{(1+r)^t}
 $$
 
 - $r$：折现率
@@ -624,3 +624,10 @@ $$
 
 **直观理解**：均值回归容易被极端值带偏，分位数回归直接预测"第 $\tau$ 百分位"——$\tau=0.9$ 意味着预测值以 90% 概率大于实际值。对 LTV 这种长尾分布，分位数回归比均值更稳健，也更适合做保守的预算决策。
 
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

@@ -122,3 +122,10 @@ BRIGHT Benchmark NDCG@10 **+8.3%** vs 最强基线。
 3. RankRAG: Unifying Context Ranking with RAG (2024)
 4. GTE-Qwen2: Multi-Lingual Embeddings for Dense Retrieval (2024)
 5. Query Reformulation with LLMs for Zero-Shot Retrieval (2024)
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/multi_objective_optimization|多目标优化]]

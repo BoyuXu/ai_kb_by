@@ -209,3 +209,9 @@ $$
 
 **直观理解**：第一轮检索可能找不到完整答案，LLM 分析返回结果后自动改写 query 做第二轮检索——就像研究者在图书馆"越查越精确"。通常 2-3 轮迭代就能找到全面的答案。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

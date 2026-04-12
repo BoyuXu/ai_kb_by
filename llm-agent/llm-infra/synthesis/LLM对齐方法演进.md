@@ -62,7 +62,7 @@ timeline
 **核心目标函数：**
 
 $$
-\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]
+\mathcal{L}_{\text{DPO}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]
 $$
 
 **推导步骤：**
@@ -241,3 +241,36 @@ SFT 监督微调（2022, InstructGPT 第一步）
 - **下游应用**：ChatBot、Agent 系统、安全审核
 - **相关 synthesis**：LLM推理优化完整版.md, MoE架构设计.md
 - **相关论文笔记**：synthesis/GRPO大模型推理RL算法.md, synthesis/RLVR_vs_RLHF后训练路线.md
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **RLHF = 师徒制**：先让徒弟（模型）学基本功（SFT），再请裁判（Reward Model）打分，徒弟根据反馈改进（PPO）
+- **DPO = 直接考试**：不需要裁判（RM），直接给模型看"好答案 vs 差答案"的配对题，模型学会区分好坏
+- **GRPO = 小组互评**：同一个问题让模型生成一组答案，组内对比打分（组内均值做基线），不需要单独训练 Critic
+- **RLVR = 机器判卷**：数学/代码题有标准答案，不需要人类标注，机器自动验证对错给奖励
+- **KL 约束 = 安全绳**：对齐时不能偏离原始模型太远（否则丢失预训练知识），KL 散度像安全绳限制偏离距离
+
+### 对比表
+
+| 方法 | 需要RM | 需要Critic | 显存 | 训练稳定性 | 适用场景 |
+|------|--------|-----------|------|-----------|---------|
+| RLHF (PPO) | 是 | 是 | 4×模型 | 中 | 通用对齐 |
+| DPO | 否 | 否 | 2×模型 | 高 | 偏好对齐 |
+| GRPO | 否 | 否 | 2×模型 | 高 | 可验证任务 |
+| RLVR | 否 | 否 | 2×模型 | 高 | 数学/代码 |
+
+### 口诀/助记
+
+- **对齐四代记**："RLHF（全家桶）→ DPO（去RM）→ GRPO（去Critic）→ RLVR（去人类标注）"
+- **DPO 一句话**："偏好对直接优化，不训 RM 不训 Critic，一个 loss 搞定"
+- **GRPO 核心**："组内生成对比，均值做基线，省掉 Critic 省一半显存"
+- **DeepSeek-R1 路径**："GRPO 训练推理能力，AIME 从 9% 飙到 80%"
+
+### 面试一句话
+
+- **DPO vs RLHF**："DPO 将 RM 的训练目标转化为直接在偏好数据上优化策略的二分类 loss，绕过了 RM 训练和 PPO 的不稳定性，训练简单且效果相当"
+- **GRPO**："去掉 Critic 网络，对同一 prompt 采样一组回答，用组内均值和标准差做归一化得到优势函数 A=(r-mean)/std，省 50% 显存，适合有标准答案的任务"

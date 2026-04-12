@@ -26,7 +26,7 @@ $$
 ### 2. Cross-Encoder
 
 $$
-score = \text{MLP}(\text{BERT}}_{\text{{CLS}}([q;d]))
+score = \text{MLP}(\text{BERT_{CLS}([q;d]))
 $$
 
 - Query-Doc 联合编码
@@ -106,7 +106,7 @@ $$
 ### Intent Classification
 
 $$
-P(\text{intent} | q) = \text{softmax}(W \cdot \text{BERT}}_{\text{{\text{CLS}}}(q) + b)
+P(\text{intent} | q) = \text{softmax}(W \cdot \text{BERT}_{CLS}(q) + b)
 $$
 
 **直观理解**：搜索意图分为导航型（"淘宝官网"）、信息型（"什么是量子计算"）、交易型（"买 iPhone 16"）。意图决定了后续检索策略——导航型直接返回 URL，信息型返回知识卡片，交易型返回商品列表。
@@ -161,3 +161,10 @@ $$
 | 适用策略 | P50 高频 query（量大）| P99 长尾/新 query（精度优先）|
 
 实践结论：**LLM 做兜底，传统 NLU 做主力**（80/20 分工）。
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/multi_objective_optimization|多目标优化]]

@@ -28,7 +28,7 @@ $$
 即：
 
 $$
-p_{\text{CTCVR}}(x) = p_{\text{CTR}}(x) \times p_{\text{CVR}}(x)
+p_{\text{CTCVR}(x) = p_{\text{CTR}(x) \times p_{\text{CVR}(x)
 $$
 
 **推导步骤：**
@@ -43,7 +43,7 @@ $$
 3. **ESMM 的解决方案**：共享 Embedding，两个子任务（CTR、CVR）的参数独立，但用 CTCVR 标签（在全空间有标签）约束 CVR 子网络：
 
 $$
-\mathcal{L}_{\text{ESMM}} = \underbrace{\mathcal{L}_{\text{CTR}}(\hat{p}_{\text{CTR}},\, y_{\text{click}})}_{\text{全曝光空间}} + \underbrace{\mathcal{L}_{\text{CTCVR}}(\hat{p}_{\text{CTR}} \cdot \hat{p}_{\text{CVR}},\, y_{\text{click}} \cdot y_{\text{conv}})}_{\text{全曝光空间，间接约束 CVR}}
+\mathcal{L}_{\text{ESMM}} = \underbrace{\mathcal{L}_{\text{CTR}(\hat{p}_{\text{CTR}},\, y_{\text{click}})}_{\text{全曝光空间}} + \underbrace{\mathcal{L}_{\text{CTCVR}(\hat{p}_{\text{CTR}} \cdot \hat{p}_{\text{CVR}},\, y_{\text{click}} \cdot y_{\text{conv}})}_{\text{全曝光空间，间接约束 CVR}}
 $$
 
 4. **为何有效**：CVR 子网通过链式乘积间接接受全空间标签监督，$\hat{p}_{\text{CVR}}$ 被隐式约束在全曝光分布上训练，消除 SSB。
@@ -52,9 +52,9 @@ $$
 
 | 符号 | 含义 |
 |------|------|
-| $p_{\text{CTR}}(x)$ | 曝光 $x$ 的点击概率，在全空间有标签 |
-| $p_{\text{CVR}}(x)$ | 点击后转化概率，传统方法只在点击空间有标签 |
-| $p_{\text{CTCVR}}(x)$ | 曝光到转化的联合概率，等于两者乘积 |
+| $p_{\text{CTR}(x)$ | 曝光 $x$ 的点击概率，在全空间有标签 |
+| $p_{\text{CVR}(x)$ | 点击后转化概率，传统方法只在点击空间有标签 |
+| $p_{\text{CTCVR}(x)$ | 曝光到转化的联合概率，等于两者乘积 |
 | $y_{\text{click}} \cdot y_{\text{conv}}$ | CTCVR 标签（仅曝光+点击+转化时为 1）|
 
 **直观理解：** ESMM 用"点击×转化的联合概率"作为全空间可观测的标签，巧妙地把无法在全空间观测的 CVR 藏进了可观测的 CTCVR，通过链式法则反向约束。
@@ -66,7 +66,7 @@ $$
 模型输出 logit $f(x)$，经 sigmoid 后得到未校准概率。校准目标：学习 $a, b$ 使得
 
 $$
-p_{\text{calib}}(x) = \sigma(a \cdot f(x) + b) = \frac{1}{1 + e^{-(a f(x) + b)}}
+p_{\text{calib}(x) = \sigma(a \cdot f(x) + b) = \frac{1}{1 + e^{-(a f(x) + b)}}
 $$
 
 **推导步骤：**
@@ -224,7 +224,38 @@ LR + 手工特征（2010-2014）→ FM/FFM（2014-2016）→ Wide&Deep/DeepFM（
 IPES（Inverse Propensity for Examination Score）纠正：
 
 $$
-w_i = \frac{1}{P(\text{examined} | \text{position}}_{\text{i)}} = \frac{1}{\text{exam}}_{\text{{\text{prob}}}(\text{pos}}_{\text{i)}}
+w_i = \frac{1}{P(\text{examined} | \text{position}_{\text{i)}} = \frac{1}{\text{exam}_{prob}(\text{pos}_{\text{i)}}
 $$
 
 exam_prob 通过随机化实验估计（随机打乱排名，观测哪些位置有更多点击）。
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **ESMM = 概率乘法链**："买东西 = 先看到 × 再点击 × 再下单"，每一步乘概率，在全空间训练避免选择偏差
+- **CTR校准 = 体温计校准**：模型预测 pCTR=0.1 必须意味着"每 10 次展示 1 次点击"，否则广告出价计算全部偏差
+- **延迟转化 = 慢性病诊断**：点击后 7 天才下单的转化不能标记为负样本，需要用生存分析估计"还没转化但可能会转化"的概率
+- **Platt Scaling = 微调温度计**：在模型输出后加一层 sigmoid(aX+b) 校准，a 和 b 用校准集拟合，简单但有效
+
+### 口诀/助记
+
+- **ESMM 一句话**："pCTCVR = pCTR × pCVR，全空间联合训练，CVR 间接获得全量标签监督"
+- **CVR偏差三来源**："样本选择偏差（只有点击样本）、延迟转化（假阴性）、数据稀疏（转化率低）"
+- **校准两步走**："训练后 Platt Scaling（简单），分桶 Isotonic Regression（灵活）"
+
+### 面试一句话
+
+- **ESMM**："通过 pCTCVR = pCTR × pCVR 的链式分解，CVR 子网络间接在全曝光空间训练，消除只用点击样本训练导致的 SSB 偏差"
+- **校准重要性**："广告出价 eCPM = pCTR × pCVR × bid，pCTR 不准直接导致 eCPM 偏差，广告主 ROI 异常，平台收入受损"

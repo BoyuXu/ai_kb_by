@@ -125,10 +125,10 @@ $$
 综合评估RAG系统的效率：
 
 $$
-\text{Score}}_{\text{{eff}} = \frac{\text{NDCG@K}}{\sqrt{\text{avg}}_{\text{{\text{retrievals}}}} \times \text{latency}}_{\text{{\text{ms}}}}
+\text{Score}_\text{eff} = \frac{\text{NDCG@K}}{\sqrt{\text{avg}_{retrievals}} \times \text{latency}_{ms}}
 $$
 
-**工程目标**：在约束延迟（<200ms）下最大化 $\text{Score}}_{\text{{eff}}$。
+**工程目标**：在约束延迟（<200ms）下最大化 $\text{Score}_\text{eff}$。
 
 ---
 
@@ -359,3 +359,8 @@ $$
 
 **直观理解**：Self-RAG 在生成过程中自我评估三个维度：检索到的文档相关吗？生成的答案有文档支持吗？答案对用户有用吗？三项加权得分决定是否接受这个答案，还是重新检索。相当于给 LLM 装了一个"质检员"。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]

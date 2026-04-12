@@ -22,7 +22,7 @@ $$
 ### 2. DHEN 层次集成聚合
 
 $$
-h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), \text{Module}}_{\text{2(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+h_l = \text{Aggregate}\left(\text{Module}_1(h_{l-1}), \text{Module}_2(h_{l-1}), ..., \text{Module}_K(h_{l-1})\right)
 $$
 
 - 同层内并行多个异构交互模块（FM/DCN/CIN），层输出作为下层输入
@@ -172,7 +172,7 @@ RankMixer MoE (2025-2026)
 ### Shared-Bottom 多任务
 
 $$
-\hat{y}_k = \text{Tower}}_{\text{k(\text{SharedBottom}}(x))
+\hat{y}_k = \text{Tower}_k(\text{SharedBottom}(x))
 $$
 
 **直观理解**：底层共享 + 顶层分叉。所有任务共享同一个特征提取器，顶层各自学任务特定的映射。简单高效但有"跷跷板"问题——优化 CTR 可能损害 CVR（梯度方向冲突时底层被"拉扯"）。
@@ -193,3 +193,45 @@ $$
 
 **直观理解**：如果两个任务的梯度方向夹角>90°（余弦<0），说明它们在"拉扯"共享参数——优化一个会恶化另一个。此时需要梯度调和（如 PCGrad 投影掉冲突分量）或增加任务特定参数（如 PLE 的私有 expert）。
 
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **Shared-Bottom = 一个人干所有活**：所有任务共用一个底层网络，像一个员工同时负责销售、客服、财务，任务多了顾不过来
+- **MMOE = 多个顾问团**：每个任务有自己的"老板"（Gate），根据输入决定听哪些顾问（Expert）的建议
+- **PLE = 私人顾问 + 公共智库**：每个任务有专属顾问不被抢，同时共享公共资源
+- **HoME层次化 = 公司组织架构**：高层管理（通用Expert）负责战略，中层（组内Expert）负责部门协调，基层（任务Expert）负责执行
+- **Expert Collapse = 员工躺平**：某些 Expert 90%+ 神经元死亡（ReLU 死区），形同虚设，需要监控和干预
+- **Meta Lattice = 集团统一管理**：N个产品×M个目标从各自为政变成一个统一模型，减少冗余但保留差异化
+
+### 对比表
+
+| 架构 | 核心机制 | 任务隔离度 | 参数效率 | 适用场景 |
+|------|---------|-----------|---------|---------|
+| Shared-Bottom | 底层全共享 | 无 | 最高 | 任务高度相关 |
+| MMOE | 多Expert+多Gate | 低（软分离） | 中 | 任务中等相关 |
+| PLE | 私有+共享Expert | 中（硬分离） | 较低 | 任务差异大 |
+| HoME | 层次化Expert树 | 高 | 较低 | 数十个任务 |
+| Meta Lattice | 统一模型+域自适应 | 中 | 高 | 多产品多目标 |
+
+### 口诀/助记
+
+- **多任务四代记**："全共享→软分离→硬分离→层次化" — Shared-Bottom → MMOE → PLE → HoME
+- **Expert 三大病**："坍塌（死神经元）、退化（被单任务占据）、欠拟合（稀疏任务学不到）"
+- **MoE 扩展金律**："稀疏激活扩参数，推理 FLOPs 不变，100× 参数但推理成本可控"
+- **梯度冲突检测**："余弦小于零就冲突，PCGrad 投影消干扰"
+
+### 面试一句话
+
+- **MMOE vs PLE**："MMOE 所有 Expert 对所有任务可见只是权重不同，PLE 增加任务私有 Expert 其他任务不可见，从根本上隔离干扰，适合任务差异大的场景"
+- **Expert Collapse**："工业 MoE 中某些 Expert 90%+ 神经元死亡，Gate 无法均匀分配。预防：用 GELU 替代 ReLU + 辅助均衡损失 + 激活率监控"
+- **多任务梯度平衡**："GradNorm 监控各任务 loss 下降速度动态调权，PCGrad 对冲突梯度投影消除干扰方向，不确定性加权按 1/σ² 自动调权"

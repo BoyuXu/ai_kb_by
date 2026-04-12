@@ -183,3 +183,9 @@ $$\max_w \quad w'\mu - \frac{\lambda}{2} w'\Sigma w$$
 - ML 模型选择 → [[quant-finance/synthesis/ml_in_quant.md]]
 - 序列建模 → [[concepts/sequence_modeling_evolution.md]]
 - 过拟合防范方法论在搜广推中也有对应 → 推荐系统离线评估
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]

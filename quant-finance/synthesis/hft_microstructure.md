@@ -222,3 +222,9 @@ print(f"1min K线: {len(tick_to_ohlcv(ticks))}条, Volume bars: {len(tick_to_vol
 ---
 
 **相关文档**：[[factor_investing]] | [[ml_in_quant]] | [[strategy_development]]
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]

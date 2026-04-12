@@ -146,7 +146,7 @@ $$
 ### 公式 2：PagedAttention 显存利用率
 
 $$
-\text{Utilization} = \frac{\sum_{i} \text{actual}}_{\text{{\text{len}}}_i}{\sum_{i} \text{allocated}}_{\text{{\text{pages}}}_i \times \text{page}}_{\text{{\text{size}}}}
+\text{Utilization} = \frac{\sum_{i} \text{actual}_{len}_i}{\sum_{i} \text{allocated}_{pages}_i \times \text{page}_{size}}
 $$
 
 **直观理解**：传统系统为每个请求预分配最大长度的连续显存，大部分空间浪费。PagedAttention 像操作系统的虚拟内存分页——按需分配小块显存，显存碎片从 60-80% 降到 <5%。这就是 vLLM 的核心创新。
@@ -196,3 +196,9 @@ PagedAttention 将 KV Cache 切成固定大小 Block（如 16 tokens/block），
 TTFT（首 token 延迟）= Prefill 时间 $\approx O(L^2 d / \text{并行度})$
 
 TPOT（每 token）$\approx 2|\theta| / \text{GPU FLOPS}$
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

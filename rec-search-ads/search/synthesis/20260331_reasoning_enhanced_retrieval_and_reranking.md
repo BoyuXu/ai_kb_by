@@ -110,7 +110,7 @@ $$
 ### Self-Consistency Reranking
 
 $$
-\text{score}(d) = \sum_{k=1}^{K} \mathbb{1}[\text{LLM}}_{\text{k(q, d) \text{ says relevant}}]
+\text{score}(d) = \sum_{k=1}^{K} \mathbb{1}[\text{LLM_{k(q, d) }\text{ says relevant}}]
 $$
 
 **直观理解**：多次用不同 prompt/温度让 LLM 判断文档相关性，投票决定最终排序。单次 LLM 判断可能不稳定（受 prompt 措辞影响），多次投票更鲁棒——5 次中 4 次说"相关"比 1 次说"相关"更可信。
@@ -123,3 +123,10 @@ $$
 
 **直观理解**：用 reward model 评估"query→检索→生成"整条链路的最终答案质量，反向优化 query。不是让检索结果"看起来相关"，而是让检索结果"真正帮助生成正确答案"——end-to-end 优化检索。
 
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

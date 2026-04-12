@@ -391,5 +391,59 @@
 | **llm Agent** | `Agent失败模式与解法.md` | `多智能体工作流生产架构.md` |
 | **fundamentals** | `attention_transformer.md` | `contrastive_learning.md` |
 
-> 📝 本文档由 MelonEgg 自动提炼，来源于 ai-kb 全库 synthesis 文件  
+---
+
+## 八、一句话记住（面试速查）
+
+### 推荐系统
+
+| 技术 | 一句话记住 |
+|------|----------|
+| **双塔DSSM** | User/Item 独立编码为向量，Item 离线建 ANN 索引，在线只算 User 向量 + 检索，毫秒级响应 |
+| **DIN** | 用 target attention 让候选商品动态激活用户历史中相关的行为，不做 softmax 因为兴趣非互斥 |
+| **DIEN** | 在 DIN 基础上加 GRU 建模兴趣从 A 到 B 的演化轨迹，AUGRU 让演化方向由候选 item 引导 |
+| **SIM** | 两阶段长序列：GSU 快速检索相关子序列（万→百），ESU 精细 Attention（百→分数） |
+| **DeepFM** | FM 做精确二阶交叉 + DNN 做隐式高阶交叉，共享 Embedding，不需要手工特征工程 |
+| **DCN-V2** | Cross Network 每层做 x0 和 xl 的外积，L 层后表示 L+1 阶多项式交叉，参数只 O(Ld) |
+| **MMoE** | 多 Expert 各学不同表示，每个任务通过独立 Gate 自适应加权融合，缓解 Shared-Bottom 梯度冲突 |
+| **PLE** | 在 MMoE 上增加任务私有 Expert（其他任务不可见），从根本上隔离干扰，逐层渐进提取 |
+| **ESMM** | pCTCVR = pCTR × pCVR，链式分解让 CVR 在全空间间接训练，消除样本选择偏差 |
+| **MMR** | 每次选"最相关但与已选最不相似"的物品，λ 控制相关性 vs 多样性平衡 |
+| **负采样** | 曝光未点击不做召回负样本（已过精排筛选），batch 内负样本高效但需热度纠偏 |
+| **冷启动** | 内容特征（BERT/CLIP）兜底 + DropoutNet（训练丢 ID 学内容）+ 探索流量 5-10% |
+
+### 广告系统
+
+| 技术 | 一句话记住 |
+|------|----------|
+| **eCPM** | pCTR × pCVR × bid，三者相乘决定广告排名，每一项的精度都直接影响平台收入和广告主 ROI |
+| **最优出价** | KKT 推导 b* = v/(1+λ)，λ 是预算约束乘子，预算越紧 λ 越大出价越保守 |
+| **oCPC** | 广告主设目标 CPA，平台自动出价 = TargetCPA × pCVR，实现转化目标下预算最优分配 |
+| **PID Pacing** | P 管当前偏差，I 管累积偏差，D 管变化趋势，闭环控制广告消费速率 |
+
+### 搜索系统
+
+| 技术 | 一句话记住 |
+|------|----------|
+| **BM25** | 词频统计无需训练，精确匹配强但无语义理解，BEIR ~47%，是稀疏检索基线 |
+| **Dense Retrieval** | 双编码器将 query/doc 编码为向量，语义理解强但精确匹配弱，需要混合检索互补 |
+| **ColBERT** | Token 级延迟交互 MaxSim，精度接近 Cross-Encoder 但 Doc 可预计算，延迟接近 Bi-Encoder |
+| **混合检索 RRF** | score = Σ 1/(k+rank)，BM25+Dense 互补，最鲁棒的工业检索方案 |
+| **LambdaMART** | NDCG 不可微，直接定义虚拟梯度 λ=σ'×|ΔNDCG|，配合 GBDT 是搜索排序工业 SOTA |
+
+### LLM 基础设施
+
+| 技术 | 一句话记住 |
+|------|----------|
+| **FlashAttention** | Tiling 分块在 SRAM 计算避免 HBM 读写，FA3 让计算和 IO 流水线重叠，H100 利用率 35%→75% |
+| **PagedAttention** | 借鉴 OS 虚拟内存分页管理 KV Cache，消除 60-80% 内存浪费，并发能力提升 10× |
+| **GQA** | 多 Query Head 共享 K/V Head，KV Cache 压缩 4-32×，精度损失 <0.5%，2024+ 大模型标配 |
+| **LoRA** | W = W0 + (α/r)×BA，冻结原参数只训低秩矩阵，参数减 99%，推理时合并不增延迟 |
+| **DPO** | 绕过 RM，直接在偏好对上优化策略的二分类 loss，训练简单稳定且效果接近 RLHF |
+| **GRPO** | 去掉 Critic，组内采样对比 A=(r-mean)/std，省 50% 显存，DeepSeek-R1 推理能力从 9%→80% |
+| **MoE** | N 个 Expert 只激活 Top-K，参数 100× 但推理 FLOPs 不变，是推荐/LLM Scaling 的最优路径 |
+| **RAG** | 检索增强生成 = 开卷考试，知识时效性强用 RAG，格式风格统一用 Finetune，可组合 |
+| **Speculative Dec.** | 小 draft 模型快速生成候选 token，大 target 一次性验证，数学保证输出分布一致，加速 2-5× |
+
+> 📝 本文档由 MelonEgg 自动提炼，来源于 ai-kb 全库 synthesis 文件
 > 更新：执行 `find ~/Documents/ai-kb -name "CORE_TECH_DIGEST.md" -exec touch {} \;` 触发重新生成

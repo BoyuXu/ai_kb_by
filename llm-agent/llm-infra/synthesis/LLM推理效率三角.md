@@ -224,7 +224,7 @@ $$
 ### 公式 2：Arithmetic Intensity 与硬件瓶颈判断
 
 $$
-I = \frac{\text{FLOPs}}{\text{Bytes}}_{\text{{\text{accessed}}}} \quad \Rightarrow \quad \begin{cases} I > I_{\text{roofline}}: & \text{compute-bound} \\ I < I_{\text{roofline}}: & \text{memory-bound} \end{cases}
+I = \frac{\text{FLOPs}}{\text{Bytes}_{accessed}} \quad \Rightarrow \quad \begin{cases} I > I_{\text{roofline}}: & \text{compute-bound} \\ I < I_{\text{roofline}}: & \text{memory-bound} \end{cases}
 $$
 
 - $I_{\text{roofline}} = \frac{\text{Peak FLOPS}}{\text{Peak BW}}$：硬件的计算/带宽比
@@ -234,7 +234,7 @@ $$
 ### 公式 3：Token/s 和 TTFT 的关系
 
 $$
-\text{TTFT} = \frac{N_{\text{prompt}} \times \text{FLOPs}}_{\text{{\text{per}}}_{\text{token}}}{\text{GPU}}_{\text{{\text{FLOPS}}}} + T_{\text{overhead}}
+\text{TTFT} = \frac{N_{\text{prompt}} \times \text{FLOPs}_{per}_{\text{token}}}{\text{GPU}_{FLOPS}} + T_{\text{overhead}}
 $$
 
 **直观理解**：TTFT 主要由 prefill 阶段决定——prompt 越长首 token 越慢。这就是为什么 RAG 系统（prompt 动辄上万 token）特别关注 TTFT 优化：FlashAttention 减少 IO、Chunked Prefill 平滑计算、Prefix Caching 避免重复计算。
@@ -274,3 +274,9 @@ $$
 | INT2 | 8× | 3× | 大（不推荐）| 极端资源限制 |
 
 实践原则：**先上 INT8，观察质量无损失后再考虑 INT4**。
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

@@ -16,7 +16,7 @@
 ### 1. 条件可验证奖励（GR2 - 防止 Reward Hacking）
 
 $$
-r = r_{ranking} \cdot \mathbb{1}[\text{reranking}}_{\text{{\text{happened}}}] + r_{baseline} \cdot \mathbb{1}[\text{not}}_{\text{{\text{reranked}}}]
+r = r_{ranking} \cdot \mathbb{1}[\text{reranking}_{happened}] + r_{baseline} \cdot \mathbb{1}[\text{not}_{reranked}]
 $$
 
 - 惩罚 LLM "直接输出原始排序"的保守行为，强制真实重排
@@ -40,7 +40,7 @@ $$
 ### 4. 图结构生成模型层内集成（ConGRATS）
 
 $$
-h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}), ..., \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+h_l = \text{Aggregate}\left(\text{Module}_{\text{1(h_{l-1}}), ..., \text{Module}_{\text{K(h_{l-1}})\right)
 $$
 
 配合图遍历多路径解码，打破 Likelihood Trap
@@ -56,7 +56,7 @@ $$
 ### 6. Pareto 偏好学习（PreferRec）
 
 - Intent-level Pareto 建模：用户偏好 = Pareto 前沿上一个分布点
-- 跨用户迁移：$\text{pref}}_{\text{{new}} \approx \text{NN-lookup}(\text{pref}}_{\text{{new}}, \mathcal{P}_{historical})$
+- 跨用户迁移：$\text{pref_{new}} \approx \text{NN-lookup}(\text{pref_{new}}, \mathcal{P}_{historical})$
 
 ---
 
@@ -192,3 +192,13 @@ $$
 
 **直观理解**：贪心选择每一步都平衡"和 query 的相关性"与"和已选集合的差异性"。$\lambda=1$ 退化为纯相关性排序（可能全选相似文档），$\lambda=0$ 退化为纯多样性（可能选不相关文档）。$\lambda=0.5-0.7$ 是常用的平衡点。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

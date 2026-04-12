@@ -392,7 +392,7 @@ $$
 ### 特征重要性分析
 
 $$
-\text{FI}(f) = \text{AUC}}_{\text{{\text{full}}} - \text{AUC}}_{\text{{\text{without}}_{\text{f}}}
+\text{FI}(f) = \text{AUC}_{full} - \text{AUC}_{without}_{\text{f}}}
 $$
 
 **直观理解**：去掉某个特征后 AUC 下降多少，就说明这个特征多重要。这是面试中常被问到的："你的模型中最重要的特征是什么？"——能答出 top-3 特征及其重要性排序，说明你真的理解了业务。
@@ -405,3 +405,13 @@ $$
 
 **直观理解**：学什么最值得？面试常考（频率高）、自己还不太懂（gap 大）、学了以后很多场景都能用（可迁移性强）的话题优先级最高。不要平均分配时间——二八定律，20% 的核心知识覆盖 80% 的常见题。
 
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/vector_quantization_methods|向量量化方法]]

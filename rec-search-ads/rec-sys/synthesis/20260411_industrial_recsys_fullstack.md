@@ -140,3 +140,10 @@ LR → FM → DeepFM → DCN → DIN → DIEN → HSTU → SORT
 ---
 
 *Last updated: 2026-04-11*
+
+---
+
+## 相关概念
+
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]

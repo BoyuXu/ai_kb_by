@@ -150,17 +150,17 @@ $$
 **SFG** 改进了 $\text{pCTR}$ 的特征表示：引入监督特征生成损失
 
 $$
-\mathcal{L}_{SFG} = \underbrace{\mathcal{L}_{CTR}}_{\text{点击预测}} + \lambda \underbrace{\mathcal{L}_{gen}}_{\text{特征重建}}
+\mathcal{L}_{SFG} = \underbrace{\mathcal{L}_{CTR}_{点击预测}} + \lambda \underbrace{\mathcal{L}_{gen}_{特征重建}}
 $$
 
 **CDP** 用扩散模型改进用户兴趣表示：
 
 $$
-\text{pCTR} = f\left(\text{user}}_{\text{{\text{interest}}}_\text{purified}, \text{item}, \text{context}\right)
+\text{pCTR} = f\left(\text{user}_{interest}_\text{purified}, \text{item}, \text{context}\right)
 $$
 
 $$
-\text{user}}_{\text{{\text{interest}}}_\text{purified} = \text{Denoise}(z_T, c) = p_\theta(z_0 | z_T, c)
+\text{user}_{interest}_\text{purified} = \text{Denoise}(z_T, c) = p_\theta(z_0 | z_T, c)
 $$
 
 ---
@@ -202,7 +202,7 @@ $$
 3. **UCB 上界**：选择最乐观的可能估计（置信上界）：
 
 $$
-\text{UCB}}_{\text{a(t) = \hat{\mu}}_a + \sqrt{\frac{2\log t}{n_a}}
+\text{UCB_{a(t) = }\hat{\mu}}_a + \sqrt{\frac{2\log t}{n_a}}
 $$
    
    **关键洞察**：$\sqrt{\frac{\log t}{n_a}}$ 项在样本少（$n_a$ 小）时很大，鼓励探索新臂。
@@ -210,7 +210,7 @@ $$
 4. **贪心选择与遗憾界**：每步选择 UCB 最高的臂：
 
 $$
-a_t^* = \arg\max_a \text{UCB}}_{\text{a(t)
+a_t^* = \arg\max_a \text{UCB}_{\text{a(t)
 $$
    
    理论上界（Lai-Robbins）：
@@ -222,13 +222,13 @@ $$
 5. **在 CTR 预估中的应用（MAB-ColdStart）**：对新广告，直接用 UCB 调整 CTR：
 
 $$
-\text{pCTR}}_{\text{{\text{UCB}}}(a) = \min\left(\hat{\text{pCTR}}(a) + \sqrt{\frac{2\log t}{n_a}}, 1.0\right)
+\text{pCTR}_{UCB}(a) = \min\left(\hat{\text{pCTR}(a) + \sqrt{\frac{2\log t}{n_a}}, 1.0\right)
 $$
    
    竞价评分变为：
 
 $$
-\text{eCPM}}_{\text{{\text{UCB}}}(a) = \text{bid}(a) \times \text{pCTR}}_{\text{{\text{UCB}}}(a)
+\text{eCPM}_{UCB}(a) = \text{bid}(a) \times \text{pCTR}_{UCB}(a)
 $$
 
 **符号说明：**
@@ -238,9 +238,9 @@ $$
 | $\mu_a$ | 广告 $a$ 的真实点击率（未知） |
 | $\hat{\mu}_a$ | 基于 $n_a$ 个样本的经验估计 CTR |
 | $n_a$ | 广告 $a$ 已获得的展示次数 |
-| $\text{UCB}}_{\text{a(t)$ | 第 $t$ 步的置信上界（乐观估计） |
+| $\text{UCB_{a(t)}$ | 第 $t$ 步的置信上界（乐观估计） |
 | $t$ | 当前时间步（总展示次数） |
-| $\text{KL}}(\cdot \| \cdot)$ | Kullback-Leibler 散度，衡量两分布距离 |
+| $\text{KL}(\cdot \| \cdot)$ | Kullback-Leibler 散度，衡量两分布距离 |
 
 **直观理解：** UCB 是「知识的价格」——新广告因为不确定性大（置信区间宽），被给予更高的"乐观评分"，从而获得更多探索机会。这种「不确定性驱动的探索」比固定探索率（如 $\epsilon$-greedy 的固定 $\epsilon$）更聪明：随着 $t$ 增大、$n_a$ 增大，置信区间收窄，探索逐渐转向利用。
 
@@ -251,7 +251,7 @@ $$
 满足 DSIC 的支付规则（Myerson 公式）：
 
 $$
-\text{payment}}_{\text{i = b}}_{\text{i \cdot \pi}}_{\text{i(b) - \int}}_{\text{0^{b}}_{\text{i}} \pi_i(t, b_{-i}) dt
+\text{payment}_{\text{i = b_{i }}\cdot \pi}_{i(b) - \int}_{\text{0^{b}_{i}} \pi_i(t, b_{-i}) dt
 $$
 
 **BundleNet** 和 **LPA** 均以此为基础设计支付规则。**LPA** 的液态支付扩展：
@@ -285,14 +285,14 @@ $$
 **因果图建模**（DAG）：
 
 $$
-B_i \rightarrow \text{Win}}_{\text{i \rightarrow \text{Click}}_i \rightarrow \text{Conversion}}_{\text{i
+B_i \rightarrow \text{Win_{i }\rightarrow \text{Click}}_i \rightarrow \text{Conversion}_{\text{i
 $$
 
-出价 $B}}_{\text{i$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。
+出价 $B_{i}}$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。
 
 **IPW（逆倾向加权）去偏**：
 
-历史数据下的行为策略为 $\pi}}_{\text{b(b}}_{\text{i|x}}_{\text{i)$，目标策略为 $\pi}}_{\text{e$，用重要性权重校正分布偏移：
+历史数据下的行为策略为 $\pi}_{b(b}_{\text{i|x_{i)}}$，目标策略为 $\pi}_{e$，用重要性权重校正分布偏移：
 
 $$
 \hat{V}}^{IPW}(\pi_e) = \frac{1}{n}\sum_{i=1}^n \frac{\pi_e(b_i|x_i)}{\pi_b(b_i|x_i)} r_i
@@ -501,3 +501,13 @@ $$
 ---
 
 *本综合总结涵盖 2024-2026 年广告系统最新进展，聚焦自动出价（因果/多智能体/知识注入新方向）、CTR/CVR预估、创意优化、竞价机制五大方向。*
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]

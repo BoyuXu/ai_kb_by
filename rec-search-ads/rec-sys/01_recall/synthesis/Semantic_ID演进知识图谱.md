@@ -189,3 +189,13 @@ A: ORM（Outcome Reward Model）只评估最终推荐列表的质量（结果级
 - [生成式推荐系统技术全景_2026](~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md)
 - [生成式推荐范式统一_20260403](~/Documents/ai-kb/rec-search-ads/rec-sys/synthesis/生成式推荐范式统一_20260403.md)
 - [PDF题库第22章 LLM与生成式推荐](~/Documents/ai-kb/rec-search-ads/interview/pdf-qa/第22章_LLM与生成式推荐.md)
+
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

@@ -39,7 +39,7 @@ graph TB
 
 ### 📐 1. 最优出价推导（二阶竞价下的 KKT 条件）
 
-**问题设定**：广告主有 $n$ 次展示机会，每次出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增），每次展示的转化价值 $v_i = \text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}$，赢得时支付对手最高价 $m_i$（二价拍卖）。
+**问题设定**：广告主有 $n$ 次展示机会，每次出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增），每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$，赢得时支付对手最高价 $m_i$（二价拍卖）。
 
 优化目标（最大化转化数，满足 ROI 约束）：
 
@@ -66,7 +66,7 @@ $$
 由于 $w_i'(b_i) > 0$（赢得概率单调递增），得：
 
 $$
-\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}}{\lambda}}
+\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR_{i }\times \text{pCVR}}_i \times \text{CPA}_{target}}{\lambda}}
 $$
 
 **符号说明：**
@@ -302,7 +302,7 @@ def pid_pacing(t, actual_spend, target_spend, prev_error, integral):
 设：
 - $n$ 个广告展示机会
 - 对第 $i$ 个机会出价 $b_i$，赢得概率 $w_i(b_i)$（单调递增）
-- 每次展示的转化价值 $v_i = \text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}$
+- 每次展示的转化价值 $v_i = \text{pCTR}_i \times \text{pCVR}_i \times \text{CPA}_{\text{target}}$
 - 赢得时的支付（二价拍卖中约为对手最高价 $m_i$）
 
 **优化问题**：
@@ -346,7 +346,7 @@ $$
 等价于：
 
 $$
-b_i^* = v_i / \lambda = \frac{\text{pCTR}}_{\text{i \times \text{pCVR}}_i \times \text{CPA}}_{\text{{\text{target}}}}{\lambda}
+b_i^* = v_i / \lambda = \frac{\text{pCTR_{i }\times \text{pCVR}}_i \times \text{CPA}_{target}}{\lambda}
 $$
 
 **关键结论**：
@@ -587,11 +587,11 @@ $$
 $$
 
 $$
-\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}}_{\text{i | b}}_{\text{i] \leq B
+\text{s.t.} \quad \sum_{i} \mathbb{E}[\text{cost}_{\text{i | b_{i] }}\leq B
 $$
 
 $$
-\text{其中 }} \mathbb{E}[\text{cost}}_{\text{i | b}}_{\text{i] = \int}}_{\text{0^{b}}_{\text{i}} x \cdot f_i(x) dx
+\text{其中 }} \mathbb{E}[\text{cost}_{\text{i | b_{i] = }}\int}_{0^{b}_{\text{i}} x \cdot f_i(x) dx
 $$
 
 **Bidding Machine 框架**（TKDE 2018, arXiv:1803.02194）：
@@ -671,7 +671,7 @@ $$
 $$
 
 $$
-\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI}}_{\text{{\text{target}}} \quad (\text{ROI约束})
+\quad \quad \sum_i v_i w_i(b_i) / \sum_i c_i w_i(b_i) \geq \text{ROI}_{target} \quad (\text{ROI约束})
 $$
 
 拉格朗日：$\mathcal{L} = \sum_i (v_i - \lambda_1 c_i - \lambda_2(c_i \cdot \text{ROI} - v_i)) w_i(b_i) + \lambda_1 B$
@@ -1173,7 +1173,7 @@ def safe_bid(raw_bid, context):
 广告系统中的出价通常采用如下统一公式：
 
 $$
-\text{bid}}_{\text{{\text{final}}} = k \times pCVR \times \text{CPA}}_{\text{{\text{target}}}
+\text{bid}_{final} = k \times pCVR \times \text{CPA}_{target}
 $$
 
 其中：
@@ -1258,3 +1258,11 @@ bid_final = value × shading_factor × pacing_multiplier
 15. **TD3**: Fujimoto et al. "Addressing Function Approximation Error in Actor-Critic Methods." *ICML*, 2018.
 
 > 📝 常见考点见：[ads_qa_extracted.md](../../../interview/ads_qa_extracted.md)
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

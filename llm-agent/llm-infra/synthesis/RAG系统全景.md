@@ -147,7 +147,7 @@ $$
 ### 公式 2：Hybrid Retrieval 融合
 
 $$
-\text{score}}_{\text{{\text{hybrid}}} = \alpha \cdot \text{score}}_{\text{{\text{dense}}} + (1-\alpha) \cdot \text{score}}_{\text{{\text{sparse}}}
+\text{score}_{hybrid} = \alpha \cdot \text{score}_{dense} + (1-\alpha) \cdot \text{score}_{sparse}
 $$
 
 **直观理解**：Dense 检索擅长语义匹配（"汽车"≈"轿车"），Sparse 检索擅长精确匹配（型号、代码）。混合检索取长补短——$\alpha=0.7$ 偏语义，$\alpha=0.3$ 偏精确。实践中 hybrid 几乎总是优于单一方法。
@@ -155,8 +155,47 @@ $$
 ### 公式 3：Reranker 交叉编码器得分
 
 $$
-\text{score}(q, d) = \text{MLP}(\text{CLS}}_{\text{{\text{token}}}(\text{BERT}([q; \text{SEP}; d])))
+\text{score}(q, d) = \text{MLP}(\text{CLS}_{token}(\text{BERT}([q; \text{SEP}; d])))
 $$
 
 **直观理解**：Reranker 把 query 和 document 拼接后一起过 BERT，让每个 token 都能"看到"对方——这比双塔（分别编码后算内积）精确得多，但慢得多（不能预计算）。所以工业上先用双塔/BM25 粗检索 top-100，再用 reranker 精排 top-10。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **RAG = 开卷考试**：模型不需要记住所有知识（闭卷），考试时可以翻书（检索文档），答案更准确也更可溯源
+- **Chunking = 拆书**：把长文档拆成小段（chunk），像把百科全书拆成词条，方便精准检索
+- **HyDE = 以身试法**：不直接搜原始 query，而是先让 LLM 生成一个"假设答案"，用假设答案去检索（因为答案和文档的语义更接近）
+- **Self-RAG = 带反思的开卷**：模型先判断"这道题需不需要翻书"，翻到后再判断"这段内容可靠吗"，不盲目检索
+- **Reranker = 精筛**：初步检索返回 top-100，Cross-Encoder 精排挑出 top-5 最相关的，质量大幅提升
+
+### 对比表
+
+| RAG 阶段 | Naive RAG | Advanced RAG | Agentic RAG |
+|---------|----------|-------------|-------------|
+| 检索 | 单次 top-K | 查询重写+混合检索 | 多步迭代+自适应触发 |
+| 文档处理 | 固定 chunk | 语义分块+重叠 | 分层索引+知识图谱 |
+| 生成 | 拼接 context | 重排+压缩 | 反思+工具调用 |
+| 幻觉控制 | 无 | 忠实度约束 | Self-RAG 自我验证 |
+
+### 口诀/助记
+
+- **RAG 三步走**："检索（找到）→ 重排（选好）→ 生成（答对）"
+- **RAG vs Finetune 选型**："知识常更新→RAG，风格要统一→Finetune，两者可组合"
+- **Chunk 策略三选一**："固定（简单）、语义（智能）、层次（复杂但效果好）"
+- **混合检索金律**："BM25 + Dense + RRF 是最鲁棒方案"
+
+### 面试一句话
+
+- **RAG 核心**："检索增强生成将 LLM 的参数化知识（可能过时/幻觉）与外部文档的非参数化知识结合，通过 retrieval 提供事实基础，减少幻觉并支持知识溯源"
+- **RAG vs Finetune**："知识时效性强用 RAG（文档随时更新），任务特定格式/风格用 Finetune（模型永久学会），复杂场景两者组合：先 finetune 再 RAG"

@@ -68,7 +68,7 @@ $$
 ### 4. KV Cache 内存占用
 
 $$
-\text{Memory}}_{\text{{KV}} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times L \times s
+\text{Memory_{KV}} = 2 \times n_{layers} \times n_{heads} \times d_{head} \times L \times s
 $$
 
 其中 $L$ 为序列长度，$s$ 为数据类型字节数（FP16=2, INT8=1）。
@@ -195,3 +195,42 @@ graph LR
 - **上游**：Transformer 架构、分布式训练（EP/TP/PP）
 - **下游**：大规模 LLM 部署、推理成本优化
 - **相关 synthesis**：LLM推理优化完整版.md, FlashAttention3与LLM推理基础设施.md
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **MoE = 专家会诊**：每个 token 不找所有医生（Dense FFN），而是挂号分诊（Router）到 1-2 个专科医生（Expert），大医院容量大但每次就诊成本低
+- **Router = 分诊台**：看到症状（token）后决定挂哪个科（Expert），softmax 给出各科的权重
+- **负载均衡 = 不让某个科室排长队**：辅助损失惩罚某个 Expert 被过多 token 访问，确保各科均匀忙碌
+- **MegaScale-Infer 解耦 = 门诊和检验分开**：Attention（门诊）和 FFN-Expert（检验）部署在不同机器上，乒乓流水线互不等待
+- **共享Expert = 全科医生**：DeepSeek 的设计——每次都有全科医生参与，保证基础能力，专科医生负责差异化
+
+### 对比表
+
+| MoE 变体 | Expert 数 | 激活数 | 核心设计 | 代表模型 |
+|---------|----------|--------|---------|---------|
+| Switch Transformer | 大Expert | Top-1 | 简单路由 | Google 2021 |
+| Mixtral | 8 大Expert | Top-2 | 标准MoE | Mistral 2023 |
+| DeepSeek-V3 | 256 小Expert | Top-K+共享 | 细粒度+共享Expert | DeepSeek 2024 |
+| Qwen3-235B | 128 Expert | 8 激活 | 大规模稀疏 | 阿里 2025 |
+
+### 口诀/助记
+
+- **MoE 核心**："大模型小计算——N 个 Expert 只激活 Top-K，参数 100x 但 FLOPs 基本不变"
+- **路由公式记**："G(x) = TopK(softmax(Wg*x))，输出 = sum(Gi*Ei(x))"
+- **负载均衡记**："辅助损失 = alpha*N*sum(fi*Pi)，f 是路由比例 P 是概率均值，惩罚不均"
+- **MoE 推理挑战**："Expert 分布多卡，All-to-All 通信是瓶颈，解耦部署是趋势"
+
+### 面试一句话
+
+- **MoE 核心优势**："稀疏激活实现参数量和计算量解耦——DeepSeek-V3 有 671B 参数但每次推理只激活 37B，效果接近同参数 Dense 模型但推理成本只有 1/18"
+- **负载均衡**："没有均衡机制时 Router 会退化为只选少数 Expert（赢者通吃），辅助损失或动态偏置确保 Expert 均匀使用，是 MoE 训练稳定的关键"

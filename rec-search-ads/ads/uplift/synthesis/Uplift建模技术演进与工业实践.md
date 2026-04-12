@@ -200,10 +200,10 @@ $$
 **核心思想**：在整体样本空间上建模，避免样本选择偏差。引入 cross 结构让 treatment 和 control 分支共享信息。
 
 $$
-\hat{Y}(t, x) = h_t(\Phi_{\text{shared}}(x) \oplus \Phi_{\text{cross}}^{t \to 1-t}(x))
+\hat{Y}(t, x) = h_t(\Phi_{\text{shared}(x) \oplus \Phi_{\text{cross}}^{t \to 1-t}(x))
 $$
 
-- $\Phi_{\text{shared}}(x)$：共享底层表示
+- $\Phi_{\text{shared}(x)$：共享底层表示
 - $\Phi_{\text{cross}}^{t \to 1-t}(x)$：从另一个 treatment 分支交叉传递的信息
 - $\oplus$：拼接操作
 
@@ -217,7 +217,7 @@ $$
 **核心思想**：将 uplift 建模融入推荐系统的多目标优化框架。
 
 $$
-\text{score}(x, item) = w_{\text{cvr}} \cdot \hat{\tau}_{\text{cvr}}(x, item) + w_{\text{cost}} \cdot \hat{\tau}_{\text{cost}}(x, item)
+\text{score}(x, item) = w_{\text{cvr}} \cdot \hat{\tau}_{\text{cvr}(x, item) + w_{\text{cost}} \cdot \hat{\tau}_{\text{cost}(x, item)
 $$
 
 - $\hat{\tau}_{\text{cvr}}$：转化率的增量效果
@@ -277,7 +277,7 @@ $$
 ### 6.2 Qini Coefficient
 
 $$
-Q = \text{AUUC}}_{\text{{\text{model}}} - \text{AUUC}}_{\text{{\text{random}}}
+Q = \text{AUUC}_{model} - \text{AUUC}_{random}
 $$
 
 **直观理解**：Qini 系数衡量模型相对于随机投放的提升。随机投放的 uplift curve 是一条直线（因为按随机顺序触达用户，累积增量效果线性增长）。
@@ -293,7 +293,7 @@ $$
 **IPW（逆概率加权）校正**：
 
 $$
-\hat{\text{ATE}}_{\text{IPW}} = \frac{1}{N} \sum_{i=1}^{N} \left[ \frac{T_i Y_i}{\hat{e}(x_i)} - \frac{(1-T_i) Y_i}{1 - \hat{e}(x_i)} \right]
+\hat{\text{ATE}_{\text{IPW}} = \frac{1}{N} \sum_{i=1}^{N} \left[ \frac{T_i Y_i}{\hat{e}(x_i)} - \frac{(1-T_i) Y_i}{1 - \hat{e}(x_i)} \right]
 $$
 
 - $\hat{e}(x_i)$：估计的倾向性得分
@@ -303,7 +303,7 @@ $$
 ### 7.2 Doubly Robust Estimator
 
 $$
-\hat{\tau}_{\text{DR}}(x) = \left[\hat{\mu}_1(x) + \frac{T(Y - \hat{\mu}_1(x))}{\hat{e}(x)}\right] - \left[\hat{\mu}_0(x) + \frac{(1-T)(Y - \hat{\mu}_0(x))}{1-\hat{e}(x)}\right]
+\hat{\tau}_{\text{DR}(x) = \left[\hat{\mu}_1(x) + \frac{T(Y - \hat{\mu}_1(x))}{\hat{e}(x)}\right] - \left[\hat{\mu}_0(x) + \frac{(1-T)(Y - \hat{\mu}_0(x))}{1-\hat{e}(x)}\right]
 $$
 
 **直观理解**：同时使用 outcome 模型 $\hat{\mu}$ 和 propensity 模型 $\hat{e}$，只要其中一个是正确的，估计就是一致的（consistent）。"双重保险"——两个模型互相兜底。
@@ -340,10 +340,17 @@ $$
 **答**：ESMM 通过在"曝光→点击→转化"整体空间上建模来解决 CVR 的样本选择偏差。DESCN 类似地在"实验+对照"整体空间上建模，避免只用实验组数据导致的选择偏差。核心思想一致：**不要在有偏的子集上训练，而要在整体空间上训练**。
 
 ### Q10: Uplift 模型在广告出价中怎么用？
-**答**：将 $\hat{\tau}$ 融入出价公式：$\text{bid} = \hat{\tau}_{\text{cvr}} \times \text{CPA}}_{\text{{\text{target}}}$。只对高 uplift 用户出高价，低 uplift 用户降价或不竞标。这比传统的 $\text{bid} = \hat{p}_{\text{cvr}} \times \text{CPA}$ 更经济——避免为"本来就会转化"的用户花钱。
+**答**：将 $\hat{\tau}$ 融入出价公式：$\text{bid} = \hat{\tau}_{\text{cvr}} \times \text{CPA}_{target}$。只对高 uplift 用户出高价，低 uplift 用户降价或不竞标。这比传统的 $\text{bid} = \hat{p}_{\text{cvr}} \times \text{CPA}$ 更经济——避免为"本来就会转化"的用户花钱。
 
 ### Q11: 线上 A/B 测试如何验证 uplift 模型？
 **答**：(1) 设置随机对照实验（RCT），按 uplift 模型打分分层，检验高分层的增量效果是否显著高于低分层；(2) 比较"全量投放" vs "按 uplift 排序投放 top-K"的 ROI；(3) 用 Qini coefficient 量化模型带来的投放效率提升。
 
 ### Q12: 因果森林（Causal Forest）和深度学习方法怎么选？
 **答**：因果森林（基于 GRF）适合特征维度中等、需要统计推断（置信区间）的场景；深度学习方法（CFRNet/DragonNet/DESCN）适合高维特征（embedding）、大规模工业数据。实践中常用因果森林做 baseline 和可解释性分析，深度方法做线上部署。
+
+---
+
+## 相关概念
+
+- [[concepts/multi_objective_optimization|多目标优化]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

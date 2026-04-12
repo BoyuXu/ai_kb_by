@@ -89,3 +89,9 @@
 5. **系统协同**：量化与 FlashAttention、PagedAttention 等的兼容性
 6. **混合精度分配**：为什么不同层应该用不同 bitwidth？如何自动确定？（AutoBit/ILP，层敏感度差异）
 7. **渐进量化**：OneComp 的三阶段流水线设计有什么优势？（每阶段可部署、单调改善、可提前停止）
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]

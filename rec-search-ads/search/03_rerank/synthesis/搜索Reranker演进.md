@@ -50,7 +50,7 @@ $$
 ### 2. Cross-Encoder
 
 $$
-score = \text{MLP}(\text{BERT}}_{\text{{CLS}}([q;d]))
+score = \text{MLP}(\text{BERT_{CLS}([q;d]))
 $$
 
 - Query-Doc 联合编码
@@ -177,7 +177,7 @@ DeepSeek-R1（推理 LLM）→ Rank-R1（推理 Reranker）
 ### MonoBERT（Pointwise Reranker）
 
 $$
-P(\text{relevant} | q, d) = \sigma(W \cdot \text{BERT}}_{\text{{\text{CLS}}}([q; d]) + b)
+P(\text{relevant} | q, d) = \sigma(W \cdot \text{BERT}_{CLS}([q; d]) + b)
 $$
 
 **直观理解**：把 (query, document) 对输入 BERT，用 CLS token 的输出做二分类（相关/不相关）。Pointwise 方法简单直接但忽略了文档间的比较关系——给两篇文档打了 0.8 和 0.7 分，但它们之间的排序关系可能和真实不一致。
@@ -185,7 +185,7 @@ $$
 ### DuoBERT（Pairwise Reranker）
 
 $$
-P(d_i \succ d_j | q) = \sigma(W \cdot \text{BERT}}_{\text{{\text{CLS}}}([q; d_i; d_j]) + b)
+P(d_i \succ d_j | q) = \sigma(W \cdot \text{BERT}_{CLS}([q; d_i; d_j]) + b)
 $$
 
 **直观理解**：两两比较"哪个更好"，比绝对打分更稳定——人类也更擅长说"A 比 B 好"而非给 A 打多少分。代价是 $O(n^2)$ 次比较，工业中用 bubble sort 策略（只比较相邻 pair）降低到 $O(n \log n)$。
@@ -198,3 +198,8 @@ $$
 
 **直观理解**：query 的每个 token 找到 document 中"最匹配"的那个 token 算分，所有 query token 的分数求和。比 dense retrieval（全局一个向量）精细——能捕捉"query 中某个关键词在文档中有精确对应"的信号。
 
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

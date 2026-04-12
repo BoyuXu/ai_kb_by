@@ -119,3 +119,47 @@ $$
 
 **直观理解**："相似的拉近、不同的推远"。关键在于正负样本定义——用户的两次点击是正对（应该相近），不同用户的点击是负对（应该远离）。温度 $\tau$ 越小，模型对 hard negative 越敏感。
 
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/multi_objective_optimization|多目标优化]]
+
+---
+
+## 记忆助手 💡
+
+### 类比法
+
+- **Word2Vec→Item2Vec = 学语言→学购物**：连续出现的词语义相近（"巴黎"和"法国"），连续点击的商品兴趣相近（"跑鞋"和"运动裤"）
+- **Graph Embedding = 社交圈子**：你和朋友的朋友可能有共同爱好，图上多跳传播就是"朋友的朋友也可能喜欢"
+- **对比学习 = 同卵双胞胎 vs 路人**：同一用户的两个行为子序列是"双胞胎"（拉近），不同用户是"路人"（推远）
+- **Semantic ID = 邮政编码**：传统 ID 是"随机门牌号"，Semantic ID 是"邮政编码"——邮编相近的地址真的在附近，ID 本身就携带语义信息
+- **Hash Embedding = 布隆过滤器**：多个哈希函数映射到小表取平均，少量碰撞但大幅省内存
+
+### 对比表
+
+| 方法 | 核心思想 | 冷启动能力 | 工程复杂度 | 适用场景 |
+|------|---------|-----------|-----------|---------|
+| ID Embedding | 查表，随机初始化 | 无 | 低 | 热门物品 |
+| Item2Vec | 行为序列→Skip-gram | 无 | 低 | 预训练初始化 |
+| EGES | 图游走+Side Info | 中（有属性即可） | 中 | 电商冷启动 |
+| 对比学习 | 正负样本对比 | 低 | 中 | 预训练Embedding |
+| 内容Embedding | BERT/CLIP编码 | 高 | 高 | 冷启动物品 |
+| Semantic ID | RQ-VAE量化 | 高（内容编码） | 高 | 生成式推荐 |
+
+### 口诀/助记
+
+- **Embedding四代记**："查表→游走→对比→语义" — ID Embedding → Graph Embedding → Contrastive Learning → Semantic ID
+- **冷启动三板斧**："内容编码兜底，相似物品插值，Hash Embedding应急"
+- **对比学习三要素**："正样本靠增广，负样本靠采样，温度控制敏感度"
+
+### 面试一句话
+
+- **Embedding地位**："Embedding 是推荐系统的通用语言，所有离散特征都通过 Embedding 转化为稠密向量，占模型参数 90%+，是最重要的存储和计算开销"
+- **Semantic ID vs ID Embedding**："ID Embedding 是查表，ID 之间无语义关系；Semantic ID 是编码，用 RQ-VAE 将内容编码为多级 token，相似物品的 ID 也相似，天然支持泛化和冷启动"
+- **对比学习在推荐中的应用**："对用户行为序列做数据增广（裁剪/mask/reorder）构建正样本对，InfoNCE 损失拉近正对推远负对，温度 τ 越小对 hard negative 越敏感"

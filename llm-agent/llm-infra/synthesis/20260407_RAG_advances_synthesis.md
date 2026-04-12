@@ -74,3 +74,9 @@ A：基于引用覆盖率、事实一致性评分、NLI 模型打分等。
 A：Chunking 策略、跨 chunk 信息丢失、位置偏见（Lost in the Middle）、验证延迟。
 
 **Tags:** #synthesis #rag #graphrag #verification #retrieval-optimization
+
+---
+
+## 相关概念
+
+- [[concepts/embedding_everywhere|Embedding 技术全景]]

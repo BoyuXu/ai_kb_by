@@ -108,7 +108,7 @@ Qwen3 核心设计：统一 thinking / non-thinking 两种模式
 **核心目标函数：**
 
 $$
-\mathcal{L}_{\text{RLHF}}(\theta) = \mathbb{E}_{x \sim \mathcal{D}}\left[\min\left(\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\hat{A}_{\text{RM}},\ \text{clip}(\cdot, 1-\epsilon, 1+\epsilon)\hat{A}_{\text{RM}}\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
+\mathcal{L}_{\text{RLHF}(\theta) = \mathbb{E}_{x \sim \mathcal{D}}\left[\min\left(\frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)}\hat{A}_{\text{RM}},\ \text{clip}(\cdot, 1-\epsilon, 1+\epsilon)\hat{A}_{\text{RM}}\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
 $$
 
 **推导步骤：**
@@ -159,7 +159,7 @@ $$
 **核心目标函数（以 GRPO 为例）：**
 
 $$
-\mathcal{L}_{\text{RLVR}}(\theta) = \frac{1}{G}\sum_{i=1}^{G}\left[\min\left(r_i(\theta)\hat{A}_i,\ \text{clip}(r_i(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_i\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
+\mathcal{L}_{\text{RLVR}(\theta) = \frac{1}{G}\sum_{i=1}^{G}\left[\min\left(r_i(\theta)\hat{A}_i,\ \text{clip}(r_i(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_i\right) - \beta\, \mathbb{D}_{\text{KL}}[\pi_\theta \| \pi_{\text{ref}}]\right]
 $$
 
 其中 $\hat{A}_i$ 由**程序验证的客观奖励**而非学出来的模型计算。
@@ -360,3 +360,10 @@ REINFORCE++（简化版 PPO）
 
 ### Q10: LLM 推理的三大瓶颈？
 **30秒答案**：①Prefill 阶段：计算密集（大量矩阵乘）；②Decode 阶段：内存密集（KV Cache 读写）；③通信：多卡推理时的 AllReduce。优化方向：FlashAttention（①）、PagedAttention（②）、TP/PP 并行（③）。
+
+---
+
+## 相关概念
+
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]

@@ -194,3 +194,13 @@ A：语义描述（P5型）适合冷启动和可解释性；VQ适合计算受限
 **核心方法：** 四层架构：召回（百万→千级，embedding-based ANN）、粗排（千→百级，轻量模型快速筛选）、精排（百→十级，复杂深度模型精细打分）、重排（多目标+多样性+业务规则）。
 **关键创新：** 系统级视角——不是单点技术，而是端到端 pipeline 的设计原则和工程经验。涵盖特征工程、Embedding、多任务、冷启动、评估和问题定位。
 **实验亮点：** 豆瓣 9.1 分，覆盖多个大厂实际案例和代码实现。
+
+---
+
+## 相关概念
+
+- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[concepts/sequence_modeling_evolution|序列建模演进]]
+- [[concepts/multi_objective_optimization|多目标优化]]
