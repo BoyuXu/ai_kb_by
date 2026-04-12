@@ -135,6 +135,7 @@
 | RAG系统全景 | [synthesis/RAG系统全景.md](llm-agent/llm-infra/synthesis/RAG系统全景.md) | 入门 | 检索增强生成全链路 |
 | LLM对齐 | [synthesis/LLM对齐方法演进.md](llm-agent/llm-infra/synthesis/LLM对齐方法演进.md) | 进阶 | SFT→RLHF→DPO→GRPO |
 | GRPO算法 | [synthesis/GRPO大模型推理RL算法.md](llm-agent/llm-infra/synthesis/GRPO大模型推理RL算法.md) | 高阶 | 组内归一化替代Critic |
+| **RL对齐全景** | [synthesis/LLM对齐RL方法全景_2026.md](llm-agent/llm-infra/synthesis/LLM对齐RL方法全景_2026.md) | **高阶** | PPO/DPO/GRPO/DAPO/KTO/SimPO等20+方法全景拉通 |
 | 量化技术 | [synthesis/LLM_quantization_evolution_20260408.md](llm-agent/llm-infra/synthesis/LLM_quantization_evolution_20260408.md) | 进阶 | PTQ/QAT/NF4量化 |
 | Agent框架 | [synthesis/agent-frameworks-landscape-2025-2026.md](llm-agent/llm-infra/synthesis/agent-frameworks-landscape-2025-2026.md) | 进阶 | 多Agent框架对比 |
 | 知识蒸馏10大模式 | [synthesis/知识蒸馏技术整体总结.md](llm-agent/llm-infra/synthesis/知识蒸馏技术整体总结.md) | 进阶 | 10大蒸馏模式×搜广推全景×面试考点 |
