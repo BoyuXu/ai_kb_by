@@ -172,7 +172,18 @@
 
 ---
 
-## 七、速查入口
+## 七、金融量化 `quant-finance/`
+| 主题 | 文件 | 难度 | 一句话 |
+|------|------|------|--------|
+| 因子投资 | [synthesis/factor_investing.md](quant-finance/synthesis/factor_investing.md) | 进阶 | CAPM→多因子、因子构建测试、Barra模型 |
+| 策略开发框架 | [synthesis/strategy_development.md](quant-finance/synthesis/strategy_development.md) | 进阶 | 动量/均值回归/套利、回测框架、过拟合陷阱 |
+| ML在量化中的应用 | [synthesis/ml_in_quant.md](quant-finance/synthesis/ml_in_quant.md) | 进阶 | 特征工程、树模型选股、与搜广推交叉对比 |
+| 学习路径 | [LEARNING_PATH.md](quant-finance/LEARNING_PATH.md) | — | 10周从零到面试 |
+| 导航入口 | [index.md](quant-finance/index.md) | — | 量化知识库全景 |
+
+---
+
+## 八、速查入口
 - **全库精华速查** → [CORE_TECH_DIGEST.md](CORE_TECH_DIGEST.md)（表格+公式，面试前30分钟速览）
 - **学习路径** → [LEARNING_PATH.md](LEARNING_PATH.md)（从零到精通，Karpathy风格）
 - **面试题库** → [rec-search-ads/interview/](rec-search-ads/interview/)
