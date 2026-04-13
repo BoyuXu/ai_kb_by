@@ -1,6 +1,7 @@
 # Attention 与 Transformer：从 Query-Key-Value 到多头注意力
 
 > 标签：#attention #transformer #self-attention #multi-head #positional-encoding #flash-attention #搜广推
+> 关联：[[fundamentals/transformer_evolution]] | [[fundamentals/kv_cache_inference]] | [[concepts/attention_in_recsys]]
 
 ---
 

@@ -1,7 +1,7 @@
 # LLM 预训练与架构演进：从 GPT 到 LLaMA 到 DeepSeek
 
 > 综合自 2 篇 synthesis | 更新：2026-04-13 | 领域：LLM 预训练/架构
-> 关联：[[concepts/attention_in_recsys]] | [[07_MoE架构与稀疏激活]]
+> 关联：[[concepts/attention_in_recsys]] | [[07_MoE架构与稀疏激活]] | [[fundamentals/transformer_evolution]]
 
 ---
 

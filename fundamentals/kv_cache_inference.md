@@ -1,6 +1,7 @@
 # KV Cache 与 LLM 推理优化：内存、延迟、吞吐的权衡
 
 > 标签：#KVCache #推理优化 #vLLM #PagedAttention #量化 #连续批处理 #推测解码 #广告推理
+> 关联：[[fundamentals/transformer_evolution]] | [[fundamentals/attention_transformer]]
 
 ---
 

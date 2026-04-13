@@ -4,7 +4,7 @@
 >
 > **为什么要学**：Attention 是搜广推和 LLM 的共同底层语言。理解它的演进，等于理解过去 7 年推荐系统最核心的建模思路变化。
 
-**相关概念页**：[序列建模演进](sequence_modeling_evolution.md) | [Embedding全景](embedding_everywhere.md) | [生成式推荐](generative_recsys.md)
+**相关概念页**：[序列建模演进](sequence_modeling_evolution.md) | [Embedding全景](embedding_everywhere.md) | [生成式推荐](generative_recsys.md) | [[fundamentals/transformer_evolution]]
 
 ---
 

@@ -89,6 +89,7 @@
 | 正则化技术 | [fundamentals/regularization.md](fundamentals/regularization.md) | 入门 |
 | 梯度问题与解法 | [fundamentals/gradient_issues.md](fundamentals/gradient_issues.md) | 入门 |
 | 学习率策略 | [fundamentals/lr_scheduling.md](fundamentals/lr_scheduling.md) | 入门 |
+| Transformer架构演进 | [fundamentals/transformer_evolution.md](fundamentals/transformer_evolution.md) | 进阶 |
 
 ---
 
