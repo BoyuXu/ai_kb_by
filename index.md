@@ -83,6 +83,12 @@
 | RLHF | [fundamentals/rlhf_reward_modeling.md](fundamentals/rlhf_reward_modeling.md) | 入门 |
 | 拍卖理论 | [fundamentals/auction_theory.md](fundamentals/auction_theory.md) | 入门 |
 | Uplift建模 | [fundamentals/uplift_modeling.md](fundamentals/uplift_modeling.md) | 进阶 |
+| Loss函数全景 | [fundamentals/loss_functions.md](fundamentals/loss_functions.md) | 入门 |
+| 优化器演进 | [fundamentals/optimizers.md](fundamentals/optimizers.md) | 入门 |
+| 激活函数全景 | [fundamentals/activation_functions.md](fundamentals/activation_functions.md) | 入门 |
+| 正则化技术 | [fundamentals/regularization.md](fundamentals/regularization.md) | 入门 |
+| 梯度问题与解法 | [fundamentals/gradient_issues.md](fundamentals/gradient_issues.md) | 入门 |
+| 学习率策略 | [fundamentals/lr_scheduling.md](fundamentals/lr_scheduling.md) | 入门 |
 
 ---
 
