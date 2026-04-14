@@ -134,11 +134,20 @@ def scan_file(fpath: Path) -> list[Issue]:
     # 严格模式：只匹配 $数字+小数点+单位 且后面不是 LaTeX 命令
     for i, line in enumerate(lines, 1):
         # 匹配 $数字.数字+单位 (如 $5.57M, $100B, $2.5k) — 真正的货币金额
-        money_matches = list(re.finditer(r"\$(\d+[\d,.]*\s*[MBKTmk](?:illion)?)\b", line))
+        # 跳过已转义的 \$ (lookbehind 排除反斜杠)
+        money_matches = list(re.finditer(r"(?<!\\)\$(\d+[\d,.]*\s*[MBKTmk](?:illion)?)\b", line))
         for m in money_matches:
             before = line[:m.start()]
+            after = line[m.end():]
             cleaned_before = re.sub(r"\\\$", "", before)
             cleaned_before = re.sub(r"\$\$", "", cleaned_before)
+            # 检查是否在 LaTeX 公式内部（后面有匹配的 $）
+            # 如果后文含 LaTeX 命令（\times, ^, \frac 等）+ 关闭 $，说明是公式不是金额
+            cleaned_after = re.sub(r"\\\$", "", after)
+            has_closing_dollar = "$" in cleaned_after
+            has_latex_commands = bool(re.search(r"\\[a-zA-Z]|[\^_]", after.split("$")[0] if "$" in after else ""))
+            if has_closing_dollar and has_latex_commands:
+                continue  # 这是合法 LaTeX 公式（如 $70B^2 \times 4$），跳过
             if cleaned_before.count("$") % 2 == 0:
                 def make_money_fix(pos=m.start()):
                     return lambda l: l[:pos] + "\\$" + l[pos+1:]

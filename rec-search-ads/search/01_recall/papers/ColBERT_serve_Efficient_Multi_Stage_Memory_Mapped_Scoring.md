@@ -76,9 +76,9 @@ S_hybrid(D,Q) = α · N(S_SPLADE) + (1-α) · N(S_ColBERT)
 ### 机器配置
 | 配置 | 类型 | 内存 | 月成本 | 节省 |
 |------|------|------|--------|------|
-| Control | r6a.4xlarge | 128GB | $438 | - |
-| MMAP MARCO | m5ad.xlarge | **16GB** | **$95** | **78%** |
-| MMAP Wiki | r6id.xlarge | **32GB** | **$139** | **68%** |
+| Control | r6a.4xlarge | 128GB | \$438 | - |
+| MMAP MARCO | m5ad.xlarge | **16GB** | **\$95** | **78%** |
+| MMAP Wiki | r6id.xlarge | **32GB** | **\$139** | **68%** |
 
 ### 检索质量
 
@@ -148,8 +148,8 @@ index = ColBERTIndex(index_path, mmap=True)
 
 | 场景 | 推荐配置 | 月成本 | 支持QPS |
 |------|----------|--------|---------|
-| 小规模/POC | m5ad.xlarge (16GB) | ~$95 | 2-3 |
-| 中等规模 | r6id.xlarge (32GB) | ~$139 | 3-5 |
+| 小规模/POC | m5ad.xlarge (16GB) | ~\$95 | 2-3 |
+| 中等规模 | r6id.xlarge (32GB) | ~\$139 | 3-5 |
 | 大规模 | 集群部署 | 按需 | 10+ |
 
 ### 5. 适用场景

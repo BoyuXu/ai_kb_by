@@ -14,7 +14,7 @@ RankLLM提出用大语言模型（GPT-4、LLaMA等）进行搜索结果重排序
 在TREC Deep Learning等benchmark，RankLLM(GPT-4) NDCG@10达到0.75+，超越传统重排序约8%；GPT-3.5效果约80%的GPT-4；开源LLaMA微调版接近GPT-3.5；LLM重排是目前SOTA方案之一。
 
 ## 工程落地要点
-- GPT-4 API重排成本高（约$0.01/query），大规模应用需要开源模型替代
+- GPT-4 API重排成本高（约\$0.01/query），大规模应用需要开源模型替代
 - Sliding window步长设为文档数的50%，确保边界文档被充分评估
 - 可以用RankLLM生成训练数据，蒸馏到cross-encoder进一步降低成本
 

@@ -904,7 +904,7 @@ GPT-4 Listwise Rerank: 0.745 nDCG@10
 ```
 
 **工程挑战**：
-- LLM 推理成本（GPT-4 重排 100 文档约 $0.5-1.0/query）
+- LLM 推理成本（GPT-4 重排 100 文档约 \$0.5-1.0/query）
 - 延迟（10-30 秒，不可接受）
 - 解决方案：小型 LLM 蒸馏（RankVicuna、RankZephyr）
 

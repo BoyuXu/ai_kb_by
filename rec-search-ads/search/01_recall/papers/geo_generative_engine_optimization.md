@@ -1226,12 +1226,12 @@ platforms = ["Perplexity", "ChatGPT", "Gemini", "AI Overview"]
 
 | 工具 | 功能 | 价格 | 适用场景 |
 |------|------|------|---------|
-| **SE Ranking** | AI Overview追踪、关键词排名 | $65/月+ | 中小型团队 |
-| **Semrush** | 正开发AI Overview功能 | $130/月+ | 大型团队 |
-| **Ahrefs** | 传统SEO + AI Overview监测（开发中）| $129/月+ | 专业SEO人员 |
+| **SE Ranking** | AI Overview追踪、关键词排名 | \$65/月+ | 中小型团队 |
+| **Semrush** | 正开发AI Overview功能 | \$130/月+ | 大型团队 |
+| **Ahrefs** | 传统SEO + AI Overview监测（开发中）| \$129/月+ | 专业SEO人员 |
 | **Authoritas** | AI Overview专项追踪 | 询价 | 企业级 |
 | **Brightedge** | 企业级AI搜索监测 | 询价 | 大型企业 |
-| **Rank Tracker** | 关键词排名 + AI Overview | $29/月+ | 个人/小团队 |
+| **Rank Tracker** | 关键词排名 + AI Overview | \$29/月+ | 个人/小团队 |
 
 #### 内容优化辅助工具
 
