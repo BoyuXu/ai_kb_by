@@ -24,6 +24,8 @@
 | SwiGLU | $(xW)\otimes\text{SiLU}(xV)$ | — | 取决于门控 | 门控+平滑，效果最佳 | 参数量翻倍 | LLaMA, PaLM |
 | GeGLU | $(xW)\otimes\text{GELU}(xV)$ | — | 取决于门控 | 门控+概率解释 | 参数量翻倍 | 部分 LLM |
 
+![激活函数全家福对比](../assets/activation/all_comparison.png)
+
 ---
 
 ## 2. 经典激活函数
@@ -46,6 +48,8 @@ $$\sigma'(x) = \sigma(x)(1-\sigma(x))$$
 **适用场景：** 二分类输出层（输出概率）、门控机制（LSTM/GRU 的 gate）、CTR 预估输出层（参见 [[ctr_calibration]]）
 
 > **面试一句话：** Sigmoid 做输出层天然输出概率，但做隐藏层会梯度消失——因为导数最大才 0.25，层一多就指数级衰减。
+
+![经典三件套：Sigmoid/Tanh/ReLU 函数值与导数](../assets/activation/classic_trio.png)
 
 ### 2.2 Tanh
 
@@ -87,6 +91,8 @@ $$\text{ReLU}'(x) = \begin{cases} 1 & x > 0 \\ 0 & x \leq 0 \end{cases}$$
 ---
 
 ## 3. ReLU 变种
+
+![ReLU 家族对比](../assets/activation/relu_family.png)
 
 ### 3.1 LeakyReLU
 
@@ -138,6 +144,8 @@ $$\text{SELU}(x) = \lambda \begin{cases} x & x > 0 \\ \alpha(e^x - 1) & x \leq 0
 ---
 
 ## 4. 现代激活函数 (Transformer 时代)
+
+![现代平滑激活：GELU/SiLU/Mish 函数值与导数](../assets/activation/modern_smooth.png)
 
 ### 4.1 GELU (Gaussian Error Linear Unit)
 
@@ -193,6 +201,8 @@ $$\text{Mish}(x) = x \cdot \tanh(\text{softplus}(x)) = x \cdot \tanh(\ln(1+e^x))
 **使用：** YOLOv4 默认激活函数，CV 领域有一定影响力，但 NLP 中很少用。
 
 ### 4.4 GLU 家族（面试重点）
+
+![GLU 家族门控机制对比](../assets/activation/glu_family.png)
 
 GLU（Gated Linear Unit）及其变种是 LLM 时代最重要的激活函数，**必须掌握**。
 
