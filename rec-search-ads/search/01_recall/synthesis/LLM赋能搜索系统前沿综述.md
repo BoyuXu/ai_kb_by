@@ -178,10 +178,10 @@ $$
 10. **SGLang** (open-source). LinkedIn 将 Prefill-Only 推理栈开源的项目，支持高吞吐 LLM scoring 推理。
 ## 参考文献
 
-- [distillation](../../papers/distillation.md)
-- [Sparse](../../papers/sparse.md)
-- [clip](../../papers/clip.md)
-- [GPT-4](../../papers/gpt_4.md)
+- distillation
+- Sparse
+- clip
+- GPT-4
 
 ## 📐 核心公式直观理解
 

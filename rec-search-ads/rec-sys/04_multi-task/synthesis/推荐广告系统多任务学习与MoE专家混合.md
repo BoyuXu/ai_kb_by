@@ -1,7 +1,7 @@
 # 推荐广告系统多任务学习与 MoE 专家混合：从 MMoE 到层次化专家系统
 
 > 📚 参考文献
-> - [HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou](../papers/HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou.md) — HoME: 层级化 MoE MTL，解决快手 Expert Collapse/Degradation/Underfitting
+> - HoME_hierarchy_multi_gate_experts_multi_task_learning_kuaishou — HoME: 层级化 MoE MTL，解决快手 Expert Collapse/Degradation/Underfitting
 > - [Meta_Lattice_model_space_redesign_industry_scale_ads](../../../ads/03_rerank/papers/Meta_Lattice_model_space_redesign_industry_scale_ads.md) — Meta Lattice: 统一 MDMO 模型，多产品×多目标 →1个模型，收入 +10%，算力 -20%
 > - [DHEN_deep_hierarchical_ensemble_network_CTR_prediction](../../../ads/02_rank/papers/DHEN_deep_hierarchical_ensemble_network_CTR_prediction.md) — DHEN: 深层异构专家集成，NE -0.27%，Facebook 工业验证
 

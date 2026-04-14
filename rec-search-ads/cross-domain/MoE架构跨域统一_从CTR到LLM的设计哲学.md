@@ -41,11 +41,11 @@ graph TB
 
 ## 📚 参考文献
 
-> - [DHEN](../../ads/papers/dhen_deep_hierarchical_ensemble_ctr.md) — Meta广告，层次Ensemble多种交叉模块，每层多专家输出聚合
-> - [HoME](../../rec-sys/papers/home_hierarchy_mulitgate_experts_kuaishou.md) — 快手多任务推荐，修复Expert Collapse/Degradation/Underfitting三大问题
-> - [RankMixer](../../rec-sys/papers/rankmixer_scaling_ranking_models.md) — 字节排序模型，稀疏MoE实现千亿参数Scaling，AUC持续提升无plateau
-> - [Wukong CTR](../../ads/papers/wukong_ctr_scalable_deep_parallel_training.md) — 快手CTR，Pre-LN深层Transformer-like架构，可理解为参数共享的"单专家"极端
-> - [Qwen3 Technical Report](../../llm-infra/papers/qwen3_technical_report.md) — LLM MoE的天花板：Thinking/Non-thinking双模式统一，MoE层交替Dense层
+> - DHEN — Meta广告，层次Ensemble多种交叉模块，每层多专家输出聚合
+> - [[home_hierarchy_mulitgate_experts_kuaishou|HoME]] — 快手多任务推荐，修复Expert Collapse/Degradation/Underfitting三大问题
+> - [[rankmixer_scaling_ranking_models|RankMixer]] — 字节排序模型，稀疏MoE实现千亿参数Scaling，AUC持续提升无plateau
+> - Wukong CTR — 快手CTR，Pre-LN深层Transformer-like架构，可理解为参数共享的"单专家"极端
+> - [[qwen3_technical_report|Qwen3 Technical Report]] — LLM MoE的天花板：Thinking/Non-thinking双模式统一，MoE层交替Dense层
 
 ---
 

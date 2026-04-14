@@ -409,9 +409,9 @@ def hierarchical_calibration(scores, labels, id_features, min_samples=500):
         
         # 优先使用最细粒度的可用校准器
         if ad_id in individual_calibrators:
-            return individual_calibrators[ad_id](scores)
+            return individual_calibrators`ad_id`
         elif cat in category_calibrators:
-            return category_calibrators[cat](scores)
+            return category_calibrators`cat`
         else:
             return global_calibrator(scores)
     

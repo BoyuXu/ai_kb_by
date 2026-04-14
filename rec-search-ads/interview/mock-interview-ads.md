@@ -616,7 +616,7 @@ class ESMM(nn.Module):
         embed_list = []
         for name in self.feature_dims.keys():
             idx = features[name]  # [batch_size]
-            emb = self.embeddings[name](idx)  # [batch_size, embed_dim]
+            emb = self.embeddingsname  # [batch_size, embed_dim]
             embed_list.append(emb)
         
         # 拼接所有embedding: [batch_size, num_features * embed_dim]
@@ -924,7 +924,7 @@ class PositionDebiasModel(nn.Module):
         
     def forward(self, features, position, training=True):
         # Embedding lookup
-        embs = [self.embeddings[f](features[f]) for f in features]
+        embs = `self.embeddings[f` for f in features]
         feat_concat = torch.cat(embs, dim=1)
         
         # 辅助任务：位置预测（强制模型从User/Item中学习位置无关特征）

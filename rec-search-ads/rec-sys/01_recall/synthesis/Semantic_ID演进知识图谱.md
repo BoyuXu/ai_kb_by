@@ -185,10 +185,10 @@ A: ORM（Outcome Reward Model）只评估最终推荐列表的质量（结果级
 
 ## 关联文档
 
-- [SemanticID从论文到Spotify部署](~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md)
-- [生成式推荐系统技术全景_2026](~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md)
-- [生成式推荐范式统一_20260403](~/Documents/ai-kb/rec-search-ads/rec-sys/synthesis/生成式推荐范式统一_20260403.md)
-- [PDF题库第22章 LLM与生成式推荐](~/Documents/ai-kb/rec-search-ads/interview/pdf-qa/第22章_LLM与生成式推荐.md)
+- [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]]
+- [[~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026|生成式推荐系统技术全景_2026]]
+- [[生成式推荐范式统一_20260403|生成式推荐范式统一_20260403]]
+- [[第22章_LLM与生成式推荐|PDF题库第22章 LLM与生成式推荐]]
 
 ---
 

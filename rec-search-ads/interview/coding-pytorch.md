@@ -218,8 +218,8 @@ class DeepFM(nn.Module):
             output: [batch_size] 预测CTR
         """
         # Embedding查找: 共享给FM和DNN
-        embeddings = [self.embedding[i](x[:, i]) for i in range(self.num_fields)]
-        first_order_vals = [self.fm_first[i](x[:, i]) for i in range(self.num_fields)]
+        embeddings = `self.embedding[i` for i in range(self.num_fields)]
+        first_order_vals = `self.fm_first[i` for i in range(self.num_fields)]
         
         # FM输出
         fm_out = self.fm_layer(embeddings, first_order_vals)  # [batch, 1]
@@ -641,7 +641,7 @@ class TwoTowerRecall(nn.Module):
         Returns:
             user_vec: [batch, embed_dim] L2归一化后的向量
         """
-        embs = [self.user_embeddings[name](indices) 
+        embs = `self.user_embeddings[name` 
                 for name, indices in user_feats.items()]
         concat = torch.cat(embs, dim=1)
         user_vec = self.user_mlp(concat)
@@ -656,7 +656,7 @@ class TwoTowerRecall(nn.Module):
         Returns:
             item_vec: [batch, embed_dim] L2归一化后的向量
         """
-        embs = [self.item_embeddings[name](indices) 
+        embs = `self.item_embeddings[name` 
                 for name, indices in item_feats.items()]
         concat = torch.cat(embs, dim=1)
         item_vec = self.item_mlp(concat)
@@ -937,7 +937,7 @@ class MMOE(nn.Module):
         outputs = []
         for i in range(self.num_tasks):
             # Gate生成权重: [batch, num_experts]
-            gate_weights = self.gates[i](x)  # [batch, num_experts]
+            gate_weights = self.gatesi  # [batch, num_experts]
             
             # 加权融合Expert输出
             # [batch, 1, num_experts] @ [batch, num_experts, expert_dim]
@@ -945,7 +945,7 @@ class MMOE(nn.Module):
             fused = fused.squeeze(1)  # [batch, expert_dim]
             
             # 任务特定的Tower
-            output = self.towers[i](fused).squeeze(-1)  # [batch]
+            output = self.towersi.squeeze(-1)  # [batch]
             outputs.append(torch.sigmoid(output))
             
         return outputs  # list of [batch] with length num_tasks
@@ -1027,7 +1027,7 @@ if __name__ == "__main__":
 
 ```python
 # ❌ Bug 1: Gate权重维度错误
-weights = self.gates[i](x)  # [batch, num_experts]
+weights = self.gatesi  # [batch, num_experts]
 fused = weights @ expert_outputs  # 矩阵乘法错误，维度不匹配
 
 # ✅ 正确做法: 使用bmm进行batch-wise加权

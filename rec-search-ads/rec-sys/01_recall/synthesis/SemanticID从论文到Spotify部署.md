@@ -229,9 +229,9 @@ $$
 
 ## 参考文献
 
-- [BERT](../../papers/bert.md)
-- [ViT](../../papers/vit.md)
-- [CLIP](../../papers/clip.md)
+- BERT
+- ViT
+- CLIP
 
 ## 📐 核心公式直观理解
 

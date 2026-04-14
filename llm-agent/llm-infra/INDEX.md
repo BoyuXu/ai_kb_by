@@ -22,8 +22,8 @@
 | [LLMServing系统实践](synthesis/LLMServing系统实践.md) | vLLM/SGLang 对比、连续批处理 | ⭐⭐⭐ |
 | [LLM推理效率三角](synthesis/LLM推理效率三角.md) | 延迟/吞吐/成本三角权衡 | ⭐⭐ |
 | [LLM推理优化完整版](synthesis/LLM推理优化完整版.md) | KV Cache → Speculative Decoding → 分布式推理 | ⭐⭐ |
-| [MoE推理解耦架构](synthesis/MoE推理解耦架构.md) | MoE 专家并行、解耦推理 | ⭐⭐ |
-| [MoE架构设计](synthesis/MoE架构设计.md) | MoE 设计原则（与上文互补） | ⭐⭐ |
+| MoE推理解耦架构 | MoE 专家并行、解耦推理 | ⭐⭐ |
+| MoE架构设计 | MoE 设计原则（与上文互补） | ⭐⭐ |
 
 ### 训练与微调
 
@@ -48,7 +48,7 @@
 | 文件 | 内容 | 重要度 |
 |------|------|--------|
 | [LLM基础设施工程优化要点_2026](synthesis/LLM基础设施工程优化要点_2026.md) | 2026 最新工程实践 | ⭐⭐ |
-| [LLM推理与RAG技术进展_20260326](synthesis/LLM推理与RAG技术进展_20260326.md) | 最新进展速览 | ⭐ |
+| LLM推理与RAG技术进展_20260326 | 最新进展速览 | ⭐ |
 
 ---
 
@@ -63,7 +63,7 @@
 ### training/（训练/微调）
 
 - [lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems](papers/training/lora_based_fine_tuning_for_domain_specific_llm_recommendation_systems.md) — LoRA 领域微调推荐系统
-- [limo_less_is_more_for_reasoning](papers/training/limo_less_is_more_for_reasoning.md) — 少量数据推理能力
+- limo_less_is_more_for_reasoning — 少量数据推理能力
 - [qwen3_technical_report](papers/training/qwen3_technical_report.md) — Qwen3 技术报告
 
 ### architecture/（模型架构）

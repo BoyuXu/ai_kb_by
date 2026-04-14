@@ -456,9 +456,9 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 
 ## 📚 参考文献
 
-> - [unified_embedding_personalized_retrieval_etsy](../papers/unified_embedding_personalized_retrieval_etsy.md) — 统一 Embedding 个性化检索（Etsy 工业实践）
+> - [[unified_embedding_personalized_retrieval_etsy|unified_embedding_personalized_retrieval_etsy]] — 统一 Embedding 个性化检索（Etsy 工业实践）
 > - [bid2x_bidding_dynamics_forecasting](../papers/bid2x_bidding_dynamics_forecasting.md) — 竞价动态预测前瞻性出价优化
-> - [dcn_v2_deep_cross_network](../papers/dcn_v2_deep_cross_network.md) — DCN-V2 改进的深度交叉网络
+> - dcn_v2_deep_cross_network — DCN-V2 改进的深度交叉网络
 > - [mtgr_meituan_generative_recommendation](../papers/mtgr_meituan_generative_recommendation.md) — 美团工业级多场景生成式推荐
 > - [mtgr_multi_task_generative_ranking](../papers/mtgr_multi_task_generative_ranking.md) — 美团多任务生成式排序（HSTU + DLRM + Pareto）
 > - [dgenctr_discrete_diffusion_ctr](../papers/dgenctr_discrete_diffusion_ctr.md) — 离散扩散生成式 CTR 预测
@@ -470,11 +470,11 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 > - [gr4ad_generative_recommendation_advertising](../papers/gr4ad_generative_recommendation_advertising.md) — 毫秒级生成式广告推荐（GR4AD）
 > - [gbs_generative_bid_shading_rtb](../papers/gbs_generative_bid_shading_rtb.md) — 生成式 Bid Shading RTB
 > - [dgenctr_universal_generative_ctr](../papers/dgenctr_universal_generative_ctr.md) — 通用生成式 CTR 范式
-> - [CADET_context_conditioned_ads_CTR_decoder_only_transformer](../papers/CADET_context_conditioned_ads_CTR_decoder_only_transformer.md) — Decoder-Only 因果建模广告 CTR
+> - CADET_context_conditioned_ads_CTR_decoder_only_transformer — Decoder-Only 因果建模广告 CTR
 > - [GRAD_generative_pretrained_models_automated_ad_bidding](../papers/GRAD_generative_pretrained_models_automated_ad_bidding.md) — 生成式预训练模型自动出价（跨广告主通用）
 > - [GAVE_generative_auto_bidding_value_guided_explorations](../papers/GAVE_generative_auto_bidding_value_guided_explorations.md) — 价值引导扩散模型出价探索
 > - [KBD_knowledge_informed_bidding_dual_process_control](../papers/KBD_knowledge_informed_bidding_dual_process_control.md) — 知识引导双过程控制自动出价
-> - [CTR_driven_advertising_image_generation_MLLM](../papers/CTR_driven_advertising_image_generation_MLLM.md) — CTR 驱动广告图像生成
+> - CTR_driven_advertising_image_generation_MLLM — CTR 驱动广告图像生成
 > - [UniROM_unifying_online_advertising_ranking_one_model](../papers/UniROM_unifying_online_advertising_ranking_one_model.md) — 统一在线广告排序单模型
 > - [LLM_AUCTION_generative_auction_llm_native_advertising](../papers/LLM_AUCTION_generative_auction_llm_native_advertising.md) — LLM 原生对话广告生成式拍卖
 

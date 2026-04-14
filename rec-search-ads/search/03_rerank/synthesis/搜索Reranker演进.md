@@ -170,7 +170,7 @@ DeepSeek-R1（推理 LLM）→ Rank-R1（推理 Reranker）
 - **上游依赖**：BERT/LLM、Knowledge Distillation、DeepSeek-R1/GRPO
 - **下游应用**：搜索引擎精排、RAG 系统、电商搜索
 - **相关 synthesis**：检索三角形深析.md, LearningToRank搜索排序三大范式.md
-- **跨域连接**：[强化学习跨域统一视角](../../../cross-domain/synthesis/强化学习跨域统一视角_LLM推理到广告出价.md)
+- **跨域连接**：[[强化学习跨域统一视角_LLM推理到广告出价|强化学习跨域统一视角]]
 
 ## 📐 核心公式直观理解
 

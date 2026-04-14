@@ -25,8 +25,8 @@
 - 需要校准 model 输出概率
 
 **跳转到领域深度**：
-- 广告特有：[广告CTR_CVR预估与校准](../../ads/synthesis/广告CTR_CVR预估与校准.md)
-- 推荐特有：[CTR模型深度解析](../../rec-sys/synthesis/CTR模型深度解析.md)
+- 广告特有：[[广告CTR_CVR预估与校准|广告CTR_CVR预估与校准]]
+- 推荐特有：[[CTR模型深度解析|CTR模型深度解析]]
 
 ---
 
@@ -134,21 +134,21 @@
 
 ### 与广告系统的关系
 unified 框架提供通用原理，特定于广告的实践见：
-- [广告CTR_CVR预估与校准](../../ads/synthesis/广告CTR_CVR预估与校准.md)
-- [广告排序系统演进路线图](../../ads/synthesis/广告排序系统演进路线图.md)
-- [广告系统多目标优化](../../ads/synthesis/广告系统多目标优化.md)
-- [广告系统偏差治理三部曲](../../ads/synthesis/广告系统偏差治理三部曲.md)
+- [[广告CTR_CVR预估与校准|广告CTR_CVR预估与校准]]
+- [[广告排序系统演进路线图|广告排序系统演进路线图]]
+- [[广告系统多目标优化|广告系统多目标优化]]
+- [[广告系统偏差治理三部曲|广告系统偏差治理三部曲]]
 
 ### 与推荐系统的关系
 unified 框架提供通用原理，推荐系统的深度见：
-- [CTR模型深度解析](../../rec-sys/synthesis/CTR模型深度解析.md)
-- [推荐系统排序范式演进](../../rec-sys/synthesis/推荐系统排序范式演进.md)
-- [推荐系统因果推断](../../rec-sys/synthesis/推荐系统因果推断.md)
+- [[CTR模型深度解析|CTR模型深度解析]]
+- [[推荐系统排序范式演进|推荐系统排序范式演进]]
+- [[推荐系统因果推断|推荐系统因果推断]]
 
 ### 与搜索系统的关系
 统一框架中的排序和因果推断对搜索系统适用，搜索特有的见：
-- [LearningToRank搜索排序三大范式](../../search/synthesis/LearningToRank搜索排序三大范式.md)
-- [检索三角_Dense_Sparse_LateInteraction](../../search/synthesis/检索三角_Dense_Sparse_LateInteraction.md)
+- [[LearningToRank搜索排序三大范式|LearningToRank搜索排序三大范式]]
+- [[检索三角_Dense_Sparse_LateInteraction|检索三角_Dense_Sparse_LateInteraction]]
 
 ---
 

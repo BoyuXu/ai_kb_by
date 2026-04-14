@@ -37,11 +37,11 @@ graph LR
 
 ## 📚 参考文献
 
-> - [GPR_generative_pretraining_ads_ranking](../../ads/papers/GPR_generative_pretraining_ads_ranking.md) — 广告GPR：生成式预训练统一CTR预测/CVR预测/相关性/冷启动
-> - [GPR_generative_pre_trained_recommendation](../../rec-sys/papers/GPR_generative_pre_trained_recommendation.md) — 推荐GPR（微信）：统一召回+精排+出价，CTR+7.2%，GMV+5.1%
-> - [OneRanker_unified_generation_ranking](../../rec-sys/papers/OneRanker_unified_generation_ranking.md) — OneRanker：生成分支+排序分支统一，AUC+0.8%，GMV+2.3%
-> - [OneTrans_unified_feature_interaction_sequence](../../rec-sys/papers/OneTrans_unified_feature_interaction_sequence.md) — OneTrans：统一特征交叉+序列建模，参数减少30%
-> - [HSTU_trillion_parameter_sequential_transducers](../../rec-sys/papers/HSTU_trillion_parameter_sequential_transducers.md) — HSTU（Meta）：万亿参数推荐，线性注意力解决超长序列
+> - [[GPR_generative_pretraining_ads_ranking|GPR_generative_pretraining_ads_ranking]] — 广告GPR：生成式预训练统一CTR预测/CVR预测/相关性/冷启动
+> - GPR_generative_pre_trained_recommendation — 推荐GPR（微信）：统一召回+精排+出价，CTR+7.2%，GMV+5.1%
+> - [[OneRanker_unified_generation_ranking|OneRanker_unified_generation_ranking]] — OneRanker：生成分支+排序分支统一，AUC+0.8%，GMV+2.3%
+> - [[OneTrans_unified_feature_interaction_sequence|OneTrans_unified_feature_interaction_sequence]] — OneTrans：统一特征交叉+序列建模，参数减少30%
+> - HSTU_trillion_parameter_sequential_transducers — HSTU（Meta）：万亿参数推荐，线性注意力解决超长序列
 
 ---
 

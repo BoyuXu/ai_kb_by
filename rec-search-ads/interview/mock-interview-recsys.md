@@ -460,7 +460,7 @@ class MMOELayer(nn.Module):
         task_outputs = []
         for i in range(self.num_tasks):
             # Gate权重 [batch_size, num_experts]
-            gate_weights = self.gates[i](x)  # [B, num_experts]
+            gate_weights = self.gatesi  # [B, num_experts]
             
             # 加权融合Expert输出 [batch_size, expert_dim]
             weighted_output = torch.bmm(
@@ -531,7 +531,7 @@ class MMOE(nn.Module):
         embeds = []
         for name, ids in features.items():
             if name in self.embeddings:
-                embeds.append(self.embeddings[name](ids))
+                embeds.append(self.embeddingsname)
         x = torch.cat(embeds, dim=-1)  # [B, input_dim]
         
         # MMOE层输出每个任务的表示
@@ -540,7 +540,7 @@ class MMOE(nn.Module):
         # 每个任务独立Tower预测
         predictions = []
         for i in range(self.num_tasks):
-            pred = self.task_towers[i](task_representations[i])  # [B, 1]
+            pred = self.task_towersi  # [B, 1]
             
             # 根据任务类型应用输出函数
             if self.task_output_types[i] == 'sigmoid':
@@ -598,7 +598,7 @@ def test_mmoe():
     loss_fns = [nn.BCELoss(), nn.BCELoss(), nn.MSELoss()]
     
     for i in range(3):
-        loss = loss_fns[i](predictions[i], labels[i])
+        loss = loss_fnsi
         losses.append(loss)
         print(f"  任务{i+1}损失: {loss.item():.4f}")
     

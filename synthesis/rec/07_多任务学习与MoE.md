@@ -73,7 +73,7 @@ routing_weights = softmax(routing_logits)
 # 子网络输出 + 路由融合
 for task_id in range(task_num):
     fused = sum(routing_weights[task_id, i] * subnet_output[i])
-    pred = tower[task_id](fused)
+    pred = towertask_id
 ```
 
 **vs MMOE**：MMOE 是单层 Expert 加权，SNR 是子网络级路由，可学习更复杂的连接模式。

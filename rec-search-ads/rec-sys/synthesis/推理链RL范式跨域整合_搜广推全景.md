@@ -258,7 +258,7 @@ LLM-Infra: compute-optimal 资源分配
 ## 📚 七、参考文献（按域）
 
 ### rec-sys
-> - [生成式推荐系统技术全景](./生成式推荐系统技术全景.md) — rec-sys 今日全景综述
+> - 生成式推荐系统技术全景 — rec-sys 今日全景综述
 
 ### search
 > - [推理增强检索技术综述](../../search/synthesis/推理增强检索技术综述.md) — search 今日全景综述

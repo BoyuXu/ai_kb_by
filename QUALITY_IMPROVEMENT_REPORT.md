@@ -111,9 +111,9 @@ $$
 ```markdown
 ## 参考文献
 
-- [Transformer](../../papers/transformer.md)
-- [Attention is All You Need](../../papers/attention_is_all_you_need.md)
-- [LoRA](../../papers/lora.md)
+- Transformer
+- Attention is All You Need
+- LoRA
 ```
 
 #### 链接验证

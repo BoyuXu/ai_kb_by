@@ -13,11 +13,11 @@
 
 ## 📚 参考文献
 
-> - [Scaling Laws for Recommendation Models](../../rec-sys/papers/scaling_laws_recommendation_models.md) — 建立推荐Scaling Law方程，α≈0.07 vs LLM 0.34
-> - [RankMixer](../../rec-sys/papers/rankmixer_scaling_ranking_models.md) — 字节排序MoE Scaling，千亿参数验证推荐Scaling Law存在
-> - [Wukong CTR](../../ads/papers/wukong_ctr_scalable_deep_parallel_training.md) — 快手超大规模CTR并行训练，Pre-LN + 大Batch工程实践
-> - [Qwen3 Technical Report](../../llm-infra/papers/qwen3_technical_report.md) — LLM Scaling的对照组，α≈0.34数据规模指数
-> - [DHEN](../../ads/papers/dhen_deep_hierarchical_ensemble_ctr.md) — Meta广告Ensemble深化，层次交叉提升的边际效益对比
+> - [[scaling_laws_recommendation_models|Scaling Laws for Recommendation Models]] — 建立推荐Scaling Law方程，α≈0.07 vs LLM 0.34
+> - [[rankmixer_scaling_ranking_models|RankMixer]] — 字节排序MoE Scaling，千亿参数验证推荐Scaling Law存在
+> - Wukong CTR — 快手超大规模CTR并行训练，Pre-LN + 大Batch工程实践
+> - [[qwen3_technical_report|Qwen3 Technical Report]] — LLM Scaling的对照组，α≈0.34数据规模指数
+> - DHEN — Meta广告Ensemble深化，层次交叉提升的边际效益对比
 
 ---
 

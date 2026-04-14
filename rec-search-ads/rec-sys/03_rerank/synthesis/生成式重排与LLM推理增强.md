@@ -2,10 +2,10 @@
 
 > 📚 参考文献
 > - [generative_reasoning_reranker](../../../ads/03_rerank/papers/generative_reasoning_reranker.md) — GR2: LLM+DAPO 推理增强的生成式重排，NDCG@5 +1.3%
-> - [Congrats_consistent_graph_structured_generative_recommendation](../papers/Congrats_consistent_graph_structured_generative_recommendation.md) — ConGRATS: 图结构生成重排，解决 Likelihood Trap，快手 3 亿 DAU 上线
+> - Congrats_consistent_graph_structured_generative_recommendation — ConGRATS: 图结构生成重排，解决 Likelihood Trap，快手 3 亿 DAU 上线
 > - [HiGR_efficient_generative_slate_recommendation_hierarchical_planning](../../../ads/03_rerank/papers/HiGR_efficient_generative_slate_recommendation_hierarchical_planning.md) — HiGR: CRQ-VAE + 分层解码，推理速度 5×，腾讯 +1.22% 观看时长
 > - [llm_explainable_reranker_recommendation](../../../ads/03_rerank/papers/llm_explainable_reranker_recommendation.md) — LLM 可解释重排：混合架构消除 Popularity Bias，两阶段训练
-> - [PreferRec_pareto_preferences_multi_objective_reranking](../papers/PreferRec_pareto_preferences_multi_objective_reranking.md) — PreferRec: Intent-level Pareto 偏好建模与跨用户迁移
+> - PreferRec_pareto_preferences_multi_objective_reranking — PreferRec: Intent-level Pareto 偏好建模与跨用户迁移
 
 > 知识卡片 | 创建：2026-03-29 | 领域：rec-sys / ads | 类型：综合分析
 
@@ -163,8 +163,8 @@ LLM 推理增强重排 (2025-2026)
 > A：三大挑战：① 奖励信号稀疏且噪声大：点击是隐式反馈，夹带大量噪声（误点、曝光偏差）；② Reward Hacking 更严重：推荐模型可轻易发现"推热门 item 一定高 CTR"的偷懒策略；③ 长期回报难以建模：用户满意度是序列决策，单次交互的即时奖励与长期价值经常不一致。解法：ConGRATS 的一致性可微训练（不用 PPO，减少训练不稳定）；GR2 的条件可验证奖励（惩罚保守行为）。
 ## 参考文献
 
-- [Clip](../../papers/clip.md)
-- [clip](../../papers/clip.md)
+- Clip
+- clip
 
 ## 📐 核心公式直观理解
 

@@ -37,15 +37,15 @@ graph TB
 
 ## 📚 参考文献
 
-> - [DeepSeek-R1](../llm-agent/llm-infra/papers/deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl.md) — 纯 RL 激励 LLM 推理能力，GRPO 算法
-> - [Qwen3 Technical Report](../llm-agent/llm-infra/papers/qwen3_technical_report.md) — 混合推理模式 + MoE 高效 RL 训练
-> - [LIMO: Less is More for Reasoning](../llm-agent/llm-infra/papers/limo_less_is_more_for_reasoning.md) — 817 样本激活推理能力，挑战数据规模假设
-> - [Rank-R1](../rec-search-ads/search/papers/rank_r1_enhancing_reasoning_in_llm_based_document_rerankers.md) — RL 训练 LLM Reranker，推理链增强排序
-> - [Hierarchy Enhanced Policy Optimization (HEPO)](../rec-search-ads/ads/papers/hierarchy_enhanced_policy_optimization_for_ad_ranking.md) — 广告排序分层 PPO，RL 直接优化排序
-> - [RTBAgent](../rec-search-ads/ads/papers/rtbagent_llm_agent_for_real_time_bidding.md) — LLM Agent + Tool Use 实时竞价决策
-> - [Real-Time Bidding with Deep RL](../rec-search-ads/ads/papers/real_time_bidding_strategy_with_deep_reinforcement_learning.md) — DDPG 自动出价
-> - 【20260327新增】[MTORL_multi_task_offline_RL_advertising](../../ads/papers/MTORL_multi_task_offline_RL_advertising.md) — 多任务离线RL广告系统，CQL保守Q-learning，同时优化CTR/CVR/收益/用户体验4目标
-> - 【20260328新增】[DAPO](../../ads/papers/dapo_open_source_llm_rl_system.md) — ByteDance开源LLM RL训练系统，Clip-Higher非对称截断 + Token-level PG Loss，30B/70B规模验证
+> - [[deepseek_r1_incentivizing_reasoning_capability_in_llms_via_rl|DeepSeek-R1]] — 纯 RL 激励 LLM 推理能力，GRPO 算法
+> - [[qwen3_technical_report|Qwen3 Technical Report]] — 混合推理模式 + MoE 高效 RL 训练
+> - LIMO: Less is More for Reasoning — 817 样本激活推理能力，挑战数据规模假设
+> - [[rank_r1_enhancing_reasoning_in_llm_based_document_rerankers|Rank-R1]] — RL 训练 LLM Reranker，推理链增强排序
+> - Hierarchy Enhanced Policy Optimization (HEPO) — 广告排序分层 PPO，RL 直接优化排序
+> - [[rtbagent_llm_agent_for_real_time_bidding|RTBAgent]] — LLM Agent + Tool Use 实时竞价决策
+> - [[real_time_bidding_strategy_with_deep_reinforcement_learning|Real-Time Bidding with Deep RL]] — DDPG 自动出价
+> - 【20260327新增】[[MTORL_multi_task_offline_RL_advertising|MTORL_multi_task_offline_RL_advertising]] — 多任务离线RL广告系统，CQL保守Q-learning，同时优化CTR/CVR/收益/用户体验4目标
+> - 【20260328新增】DAPO — ByteDance开源LLM RL训练系统，Clip-Higher非对称截断 + Token-level PG Loss，30B/70B规模验证
 
 ---
 

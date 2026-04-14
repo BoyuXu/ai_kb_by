@@ -1,9 +1,9 @@
 # CTR/CVR 预估统一框架：从原理到工业实践
 
 > 📚 参考文献与源文件
-> - [广告CTR_CVR预估与校准](../../ads/synthesis/广告CTR_CVR预估与校准.md) — 广告系统出价和归因视角
-> - [CTR模型深度解析](../../rec-sys/synthesis/CTR模型深度解析.md) — 推荐系统多任务学习视角
-> - [推荐系统排序范式演进](../../rec-sys/synthesis/推荐系统排序范式演进.md) — 精排模型架构
+> - [[广告CTR_CVR预估与校准|广告CTR_CVR预估与校准]] — 广告系统出价和归因视角
+> - [[CTR模型深度解析|CTR模型深度解析]] — 推荐系统多任务学习视角
+> - [[推荐系统排序范式演进|推荐系统排序范式演进]] — 精排模型架构
 
 ---
 
@@ -454,12 +454,12 @@ $$
 - 多目标优化与混排
 
 **相关 synthesis**：
-- [广告系统混排演进路线](../../ads/synthesis/广告系统混排演进路线.md)
-- [推荐系统排序范式演进](../../rec-sys/synthesis/推荐系统排序范式演进.md)
+- [[广告系统混排演进路线|广告系统混排演进路线]]
+- [[推荐系统排序范式演进|推荐系统排序范式演进]]
 - [多目标优化与Pareto框架](./03_多目标优化与Pareto框架.md)
 
 ---
 
 *MelonEggLearn - 搜广推核心技术统一框架*
 
-> 📝 常见考点见：[unified_qa_extracted.md](../../interview/unified_qa_extracted.md)
+> 📝 常见考点见：unified_qa_extracted

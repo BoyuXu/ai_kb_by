@@ -145,7 +145,7 @@ class MMOE(nn.Module):
         for task_id in range(self.task_num):
             # 2. Gating Network输出该任务的Expert权重
             # gating_weights: [batch_size, expert_num]
-            gating_weights = self.gates[task_id](x)
+            gating_weights = self.gatestask_id
             
             # 3. 加权融合Expert输出
             # gating_weights.unsqueeze(-1): [batch_size, expert_num, 1]
@@ -156,7 +156,7 @@ class MMOE(nn.Module):
             )  # 结果: [batch_size, expert_dim]
             
             # 4. 输入Task Tower得到最终预测
-            task_pred = self.towers[task_id](fused)
+            task_pred = self.towerstask_id
             task_outputs.append(task_pred)
         
         return task_outputs  # [task_num, batch_size, 1]
@@ -447,7 +447,7 @@ class PLELayer(nn.Module):
             all_experts = task_exp_outs + shared_exp_outs
             
             # 4. Gating选择
-            gate_weights = self.gates[task_id](task_inputs[task_id])
+            gate_weights = self.gatestask_id
             
             # 5. 加权融合
             output = sum(w * exp_out for w, exp_out in zip(gate_weights, all_experts))
