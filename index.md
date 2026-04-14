@@ -108,3 +108,4 @@
 - **面试题库** → [rec-search-ads/interview/](rec-search-ads/interview/)
 - **跨域统一视角** → [rec-search-ads/unified/](rec-search-ads/unified/)
 - **原始散落synthesis** → [rec-search-ads/](rec-search-ads/) + [llm-agent/llm-infra/synthesis/](llm-agent/llm-infra/synthesis/)
+- **粗排蒸馏专题** → [粗排蒸馏模型专题.md](rec-search-ads/rec-sys/02_rank/synthesis/粗排蒸馏模型专题.md) — 6种蒸馏方法 + COLD/快手/美团/Google/百度案例 + 面试Q&A
