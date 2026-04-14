@@ -1,0 +1,313 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "CTR 预估模型升级",
+      "domain": "ads",
+      "algorithms": ["ESMM", "Multi-Task Learning", "Sampling Bias Correction"],
+      "metrics": ["AUC", "CTR", "Conversion Coverage"],
+      "key_insight": "样本偏差比特征工程更关键",
+      "elevator_pitch": "通过 ESMM 多任务学习同时建模 CTR 和 CVR，用全空间可观测的转化率纠正样本偏差，AUC 0.72→0.78，点击率 +12%"
+    },
+    {
+      "id": 2,
+      "name": "自动竞价系统（AutoBidding）",
+      "domain": "ads",
+      "algorithms": ["Lagrange Duality", "Constrained Optimization"],
+      "metrics": ["CPA达标率", "ROI", "Revenue"],
+      "key_insight": "把问题重新定义（优化 vs 回归）比堆特征更有效",
+      "elevator_pitch": "用拉格朗日对偶优化将竞价问题建模为约束优化，自动调整出价乘数，CPA达标率 65%→92%，收入 +7%"
+    },
+    {
+      "id": 3,
+      "name": "Feed 混排多样性",
+      "domain": "ads",
+      "algorithms": ["DPP (Determinantal Point Process)", "Re-ranking"],
+      "metrics": ["Retention", "Diversity Entropy", "RPM"],
+      "key_insight": "列表级优化 > 逐项优化",
+      "elevator_pitch": "用 DPP 在相关性排序后进行多样性重排，让列表项目尽量不相似，留存 +8%、RPM +5%"
+    },
+    {
+      "id": 4,
+      "name": "广告主预算控制（Pacing）",
+      "domain": "ads",
+      "algorithms": ["PID Controller", "Control Theory"],
+      "metrics": ["Budget Smoothness", "Underspend Rate", "CPA Stability"],
+      "key_insight": "工程问题（而非算法问题）往往有最大的商业价值",
+      "elevator_pitch": "用 PID 控制器实时调节出价乘数，使预算在一天内均匀消耗，欠消耗率 <2%"
+    },
+    {
+      "id": 5,
+      "name": "展示频次控制",
+      "domain": "ads",
+      "algorithms": ["Bayesian Optimization", "Gaussian Process"],
+      "metrics": ["User Fatigue Rate", "ROI"],
+      "key_insight": "最优参数需要动态、个性化调整",
+      "elevator_pitch": "用贝叶斯优化探索每个用户的最优展示频次，动态调整（而非固定上限），用户反感率 -40%、ROI +15%"
+    },
+    {
+      "id": 6,
+      "name": "广告创意优化",
+      "domain": "ads",
+      "algorithms": ["Thompson Sampling", "Multi-Armed Bandit"],
+      "metrics": ["Best Creative Recall", "CTR"],
+      "key_insight": "平衡探索和利用的关键是概率化方法",
+      "elevator_pitch": "用 Thompson Sampling 自动探索和推荐高转化创意，最佳创意被推荐概率 95% vs 随机 1%"
+    },
+    {
+      "id": 7,
+      "name": "跨域归因",
+      "domain": "ads",
+      "algorithms": ["Shapley Value", "Multi-touch Attribution"],
+      "metrics": ["Attribution Accuracy", "Budget Allocation Efficiency"],
+      "key_insight": "因果推断在营销中是必需的，不只是学术问题",
+      "elevator_pitch": "用 Shapley 值公平分配转化功劳给多个触点，解决最后点击归因的不公平问题，预算分配效率 +25%"
+    },
+    {
+      "id": 8,
+      "name": "低频转化优化",
+      "domain": "ads",
+      "algorithms": ["GAN (Generative Adversarial Network)", "Data Augmentation"],
+      "metrics": ["CVR RMSE", "Prediction Coverage"],
+      "key_insight": "生成数据在数据稀疏场景下有巨大价值",
+      "elevator_pitch": "用 GAN 生成虚拟用户-广告-转化数据扩充稀疏的真实数据，转化预估 RMSE -30%，预测覆盖率 +50%"
+    },
+    {
+      "id": 9,
+      "name": "实时竞价（RTB）优化",
+      "domain": "ads",
+      "algorithms": ["DQN", "Reinforcement Learning"],
+      "metrics": ["Win Rate", "Cost", "Latency"],
+      "key_insight": "强化学习处理实时序列决策比传统优化更自然",
+      "elevator_pitch": "用 DQN 在毫秒级内学习最优竞价策略，赢率 +15%、成本 -8%、延迟 <50ms"
+    },
+    {
+      "id": 10,
+      "name": "品牌安全检测",
+      "domain": "ads",
+      "algorithms": ["BERT Text Classification", "Active Learning"],
+      "metrics": ["Safe Content Coverage", "Labeling Cost Reduction"],
+      "key_insight": "聪明地选择标注样本比随机标注节省 60% 的成本",
+      "elevator_pitch": "BERT 分类 + 主动学习选择最有信息量的样本标注，标注成本 -60%，安全覆盖率 98%"
+    },
+    {
+      "id": 11,
+      "name": "冷启动用户留存",
+      "domain": "recsys",
+      "algorithms": ["GNN", "GraphSAGE", "Graph Neural Network"],
+      "metrics": ["7-day Retention", "Recommendation Diversity", "CTR"],
+      "key_insight": "图结构比用户特征本身更有信息量",
+      "elevator_pitch": "用 GraphSAGE 在用户-朋友-内容图上聚合邻近节点特征，冷启动用户 7 日留存 28%→35%（+25%）"
+    },
+    {
+      "id": 12,
+      "name": "冷启动内容曝光",
+      "domain": "recsys",
+      "algorithms": ["Thompson Sampling", "Exploration-Exploitation"],
+      "metrics": ["New Content Exposure", "Discovery Ability"],
+      "key_insight": "适当的"浪费"（探索）能避免更大的浪费",
+      "elevator_pitch": "Thompson Sampling 分配探索流量给新内容，新内容首周曝光 3x、发现好内容能力 +50%"
+    },
+    {
+      "id": 13,
+      "name": "转化率预估（CVR）",
+      "domain": "recsys",
+      "algorithms": ["Sample Weighting", "Delayed Feedback Handling"],
+      "metrics": ["CVR AUC", "Conversion Coverage"],
+      "key_insight": "延迟是转化预估的隐藏杀手",
+      "elevator_pitch": "用样本加权补偿延迟偏差，CVR AUC 0.58→0.78，转化覆盖率 +20%"
+    },
+    {
+      "id": 14,
+      "name": "个性化排序",
+      "domain": "recsys",
+      "algorithms": ["Multi-Objective Ranking", "Pareto Frontier"],
+      "metrics": ["User Satisfaction", "Content Consumption Time"],
+      "key_insight": "单一指标优化往往是幸存者偏差",
+      "elevator_pitch": "多目标学习（CTR + 停留时长）使用帕累托前沿，用户满意度 +8%、消费时长 +12%"
+    },
+    {
+      "id": 15,
+      "name": "序列建模",
+      "domain": "recsys",
+      "algorithms": ["Transformer", "Self-Attention", "BERT4Rec"],
+      "metrics": ["CTR", "Retention", "Long-term Dependency"],
+      "key_insight": "Transformer 的 Self-Attention 比 RNN/CNN 更容易优化，能学到长期依赖",
+      "elevator_pitch": "Transformer 处理用户行为序列，点击率 +18%、留存 +6%"
+    },
+    {
+      "id": 16,
+      "name": "多样性与相关性平衡",
+      "domain": "recsys",
+      "algorithms": ["Re-ranking", "MMR (Maximum Marginal Relevance)"],
+      "metrics": ["Retention", "Diversity", "Coverage"],
+      "key_insight": "列表级优化 > 逐项优化",
+      "elevator_pitch": "两层排序（粗排相关性 + 精排多样性），留存 +7%、多样性 +45%"
+    },
+    {
+      "id": 17,
+      "name": "内容理解增强",
+      "domain": "recsys",
+      "algorithms": ["Multi-modal Learning", "CLIP", "Contrastive Learning"],
+      "metrics": ["Cold-start Accuracy", "New Content Exposure", "Coverage"],
+      "key_insight": "主动特征提取 > 被动反馈",
+      "elevator_pitch": "用 CLIP 多模态学习主动提取内容特征，冷启动精度 +22%、新颖内容曝光 +35%"
+    },
+    {
+      "id": 18,
+      "name": "用户分群与个性化",
+      "domain": "recsys",
+      "algorithms": ["K-means Clustering", "Per-cluster Model"],
+      "metrics": ["User Satisfaction", "Interpretability"],
+      "key_insight": "分群模型 vs 超大通用模型的权衡：可解释性更好，维护成本更低",
+      "elevator_pitch": "K-means 聚类 + 每群单独训练排序模型，不同群体满意度都 +5-8%"
+    },
+    {
+      "id": 19,
+      "name": "点击反馈延迟处理",
+      "domain": "recsys",
+      "algorithms": ["IPW", "Causal Inference", "Inverse Probability Weighting"],
+      "metrics": ["Model Update Frequency", "Performance"],
+      "key_insight": "因果推断处理时间延迟很有效",
+      "elevator_pitch": "IPW 纠正延迟偏差，模型更新频率 1 天→1 小时，性能 +4%"
+    },
+    {
+      "id": 20,
+      "name": "内容生命周期优化",
+      "domain": "recsys",
+      "algorithms": ["Exponential Decay Model", "Time-aware Ranking"],
+      "metrics": ["Peak Exposure", "Long-tail Coverage"],
+      "key_insight": "内容生命周期是时间函数，需要显式建模",
+      "elevator_pitch": "指数衰减函数建模热度随时间变化，热点峰值曝光 +25%、长尾覆盖 +15%"
+    },
+    {
+      "id": 21,
+      "name": "搜索相关性排序",
+      "domain": "search",
+      "algorithms": ["Learning-to-Rank", "LambdaMART", "Pairwise LTR"],
+      "metrics": ["NDCG@10", "User Satisfaction"],
+      "key_insight": "Listwise 损失 > Pairwise > Pointwise",
+      "elevator_pitch": "LambdaMART（Pairwise LTR）优化排序对的相对顺序，NDCG@10 0.65→0.78（+20%）"
+    },
+    {
+      "id": 22,
+      "name": "搜索查询理解",
+      "domain": "search",
+      "algorithms": ["BERT Classification", "Intent Recognition", "Multi-signal Fusion"],
+      "metrics": ["Intent Classification Accuracy", "Search Satisfaction"],
+      "key_insight": "查询歧义性很高，需要多信号融合",
+      "elevator_pitch": "BERT 分类 + 多信号融合消消歧，意图分类准确率 94%、搜索满意度 +18%"
+    },
+    {
+      "id": 23,
+      "name": "语义搜索",
+      "domain": "search",
+      "algorithms": ["Dense Retrieval", "DPR", "Dual-tower Encoding"],
+      "metrics": ["Recall", "Precision", "Latency"],
+      "key_insight": "语义相似性 > 关键词匹配",
+      "elevator_pitch": "DPR 双塔编码向量相似性检索，召回率 +35%、精度 +8%、延迟 <100ms"
+    },
+    {
+      "id": 24,
+      "name": "实时搜索",
+      "domain": "search",
+      "algorithms": ["Streaming Index Update", "Kafka", "Flink", "Elasticsearch"],
+      "metrics": ["Index Latency", "Search Experience", "Throughput"],
+      "key_insight": "实时性往往是隐形的用户体验指标",
+      "elevator_pitch": "Kafka + Flink 流式索引，索引延迟 30 分钟→5 分钟，新闻搜索体验 +40%"
+    },
+    {
+      "id": 25,
+      "name": "搜索排序个性化",
+      "domain": "search",
+      "algorithms": ["User Feature Fusion", "Personalized Ranking"],
+      "metrics": ["CTR", "Diversity Satisfaction"],
+      "key_insight": "个性化排序的收益比通用排序更大",
+      "elevator_pitch": "用户特征融合到排序模型，点击率 +15%、多样性满足 +22%"
+    },
+    {
+      "id": 26,
+      "name": "自动广告创意生成",
+      "domain": "nlp_llm",
+      "algorithms": ["GPT-2 Fine-tuning", "Conditional Text Generation"],
+      "metrics": ["Generated Text CTR", "Cost Reduction", "Diversity"],
+      "key_insight": "生成模型能替代人工初稿，成本低、迭代快",
+      "elevator_pitch": "GPT-2 微调生成广告文案，生成文案点击率接近人工、创意成本 -70%"
+    },
+    {
+      "id": 27,
+      "name": "评论情感分类",
+      "domain": "nlp_llm",
+      "algorithms": ["BERT Pre-training", "Transfer Learning", "Fine-tuning"],
+      "metrics": ["Accuracy", "Labeling Cost", "Data Efficiency"],
+      "key_insight": "预训练模型能大幅降低标注需求 90%",
+      "elevator_pitch": "BERT 预训练 + 微调，92% 准确率，标注成本 <1000 条（vs 10000 条）"
+    },
+    {
+      "id": 28,
+      "name": "对话式推荐",
+      "domain": "nlp_llm",
+      "algorithms": ["Dialog State Tracking", "Intent Recognition", "NLU"],
+      "metrics": ["User Steps", "Conversion Rate", "User Satisfaction"],
+      "key_insight": "交互式推荐更符合用户的决策过程",
+      "elevator_pitch": "多轮对话理解 + 意图识别，用户搜索步数 5→2，转化率 +20%"
+    },
+    {
+      "id": 29,
+      "name": "因果推断在营销中的应用",
+      "domain": "innovation",
+      "algorithms": ["Propensity Score Matching", "Causal Inference", "PSM"],
+      "metrics": ["Estimation Accuracy", "Cost Reduction", "Iteration Speed"],
+      "key_insight": "观测数据也能做因果推断，不一定需要 RCT",
+      "elevator_pitch": "PSM 评估算法效果，精准度接近 A/B 测试、成本 -80%、周期 1 周→1 天"
+    },
+    {
+      "id": 30,
+      "name": "图神经网络在推荐中的应用",
+      "domain": "innovation",
+      "algorithms": ["GNN", "Knowledge Graph Completion", "GraphSAGE"],
+      "metrics": ["Cold-start Accuracy", "Generalization"],
+      "key_insight": "显式图结构能大幅改进冷启动",
+      "elevator_pitch": "知识图补全用户-内容-属性图上传播，冷启动精度 +25%、泛化能力 +15%"
+    }
+  ],
+  "domains": {
+    "ads": "广告系统（10个项目）",
+    "recsys": "推荐系统（10个项目）",
+    "search": "搜索系统（5个项目）",
+    "nlp_llm": "NLP & LLM（3个项目）",
+    "innovation": "创新方向（2个项目）"
+  },
+  "algorithms": {
+    "core": [
+      "ESMM",
+      "Multi-Task Learning",
+      "Learning-to-Rank",
+      "GNN",
+      "BERT",
+      "Thompson Sampling",
+      "Bayesian Optimization",
+      "Reinforcement Learning",
+      "Causal Inference"
+    ]
+  },
+  "quick_filter": {
+    "by_interview_focus": {
+      "recsys_focused": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 3],
+      "search_focused": [21, 22, 23, 24, 25, 1],
+      "ads_focused": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 29],
+      "nlp_focused": [26, 27, 28],
+      "general": [1, 11, 21, 29, 30]
+    },
+    "by_difficulty": {
+      "easy": [4, 6, 12, 24, 27],
+      "medium": [1, 2, 3, 5, 13, 14, 16, 21, 22, 25, 26, 28],
+      "hard": [7, 8, 9, 10, 11, 15, 17, 18, 19, 20, 23, 29, 30]
+    },
+    "by_tech_novelty": {
+      "classic": [1, 21, 27],
+      "trending": [11, 15, 17, 23, 26, 30],
+      "cutting_edge": [7, 8, 29]
+    }
+  }
+}

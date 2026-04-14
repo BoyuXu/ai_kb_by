@@ -1,0 +1,733 @@
+{
+  "metadata": {
+    "created_at": "2026-03-24T13:55:00+08:00",
+    "total_projects": 60,
+    "last_update": "2026-03-29T16:00:00+09:00",
+    "daily_generation_enabled": true,
+    "daily_generation_time": "16:00 (Asia/Tokyo)",
+    "target_per_day": 10
+  },
+  "statistics": {
+    "ads_systems": 13,
+    "recommendation_systems": 17,
+    "search_systems": 10,
+    "nlp_llm": 0,
+    "innovation": 30
+  },
+  "daily_logs": [
+    {
+      "date": "2026-03-24",
+      "projects_generated": 10,
+      "file": "daily_projects_20260324.md",
+      "categories": {
+        "ads": [
+          "项目3: 实时竞价学习框架",
+          "项目7: 动态创意优化",
+          "项目9: 上文老虎机竞价"
+        ],
+        "recommendation": [
+          "项目1: 多目标融合排序",
+          "项目2: 冷启动推荐",
+          "项目4: 跨域图卷积",
+          "项目6: 对话式推荐"
+        ],
+        "search": [
+          "项目5: 点击重排",
+          "项目8: 多模态排序",
+          "项目10: 多意图融合"
+        ]
+      },
+      "highlights": [
+        "+18% GMV (项目1)",
+        "+35% 新用户留存 (项目2)",
+        "+22% 平台收益 (项目3)",
+        "+25% 稀疏用户覆盖 (项目4)",
+        "+17% 搜索转化 (项目5)",
+        "+40% 用户参与度 (项目6)",
+        "+31% 广告转化 (项目7)",
+        "+44% 搜索转化 (项目8)",
+        "+26% 竞价精准性 (项目9)",
+        "+21% 搜索转化 (项目10)"
+      ]
+    },
+    {
+      "date": "2026-03-25",
+      "projects_generated": 10,
+      "file": "daily_projects_20260325.md",
+      "categories": {
+        "ads": [
+          "项目3: LLM增强CTR预估",
+          "项目4: AutoBid RL竞价",
+          "项目5: Budget Pacing优化",
+          "项目10: CADET上下文感知CTR"
+        ],
+        "recommendation": [
+          "项目1: GEMs长序列推荐",
+          "项目2: 语义ID生成式召回",
+          "项目6: 多场景AIFS",
+          "项目8: 扩散模型重排",
+          "项目9: 公平性推荐"
+        ],
+        "search": [
+          "项目7: ColBERT混合检索"
+        ]
+      },
+      "highlights": [
+        "+14.6% GMV, -77%延迟 (项目1)",
+        "+562% 新内容召回覆盖率 (项目2)",
+        "+5.5% AUC (稀疏广告) (项目3)",
+        "+25.4% ROI达标率 (项目4)",
+        "预算偏差 ±35%→±8.3% (项目5)",
+        "模型参数 -91% (项目6)",
+        "+23.7% MRR@10 (项目7)",
+        "+16.8% 7日留存 (项目8)",
+        "公平性差距18%→3.8% (项目9)",
+        "+9.1% 搜索广告eCPM (项目10)"
+      ]
+    },
+    {
+      "date": "2026-03-26",
+      "projects_generated": 10,
+      "file": "daily_projects_20260326.md",
+      "categories": {
+        "ads": [
+          "项目6: 多模态广告创意质量评估",
+          "项目7: GSP→VCG混合拍卖优化",
+          "项目10: CTR模型自适应在线学习"
+        ],
+        "recommendation": [
+          "项目2: 因果去偏推荐(IPS/位置偏差)",
+          "项目3: 知识图谱路径推理召回",
+          "项目4: 联邦学习跨设备推荐",
+          "项目5: 硬负样本挖掘双塔召回",
+          "项目8: 用户长短期兴趣解耦"
+        ],
+        "search": [
+          "项目1: Flink实时流式特征CTR",
+          "项目9: LLM查询改写搜索召回"
+        ]
+      },
+      "highlights": [
+        "大促CTR偏差31%→8.3%, GMV+11.4% (项目1)",
+        "长尾内容召回+126%, NPS+8.4pts (项目2)",
+        "低活跃用户Recall@50+90% (项目3)",
+        "联邦精度与中心化差距23pts→2.8pts (项目4)",
+        "双塔Recall@200从51%→68.4% (项目5)",
+        "人工审核量减少79%, 广告库CTR+8.9% (项目6)",
+        "平台收益+14.7%, 中小广告主留存+18.3% (项目7)",
+        "热点响应时间4h→45min, 7日留存+9.6% (项目8)",
+        "Recall@20从34.1%→57.8% (+69.5%) (项目9)",
+        "峰值CTR偏差26%→8.3%, 全天AUC+0.018 (项目10)"
+      ]
+    },
+    {
+      "date": "2026-03-29",
+      "projects_generated": 10,
+      "file": "daily_projects_20260329.md",
+      "categories": {
+        "recommendation": [
+          "项目1: Mamba超长序列推荐",
+          "项目5: 端侧轻量化推荐",
+          "项目7: LTV分层留存干预",
+          "项目8: 哈希嵌入冲突缓解"
+        ],
+        "ads": [
+          "项目2: 延迟转化CVR校正",
+          "项目4: Shapley多渠道归因",
+          "项目10: 广告反欺诈系统"
+        ],
+        "search": [
+          "项目3: 搜索广告联合排序",
+          "项目6: A/B实验加速",
+          "项目9: RAG对话式商品搜索"
+        ]
+      },
+      "highlights": [
+        "+9.2% GMV, 推理延迟280ms→45ms (项目1)",
+        "CVR预估偏差15%→3.2%, 广告收入+11.4% (项目2)",
+        "用户NPS+7分, eCPM+4.3% (项目3)",
+        "营销ROI+22%, 新用户引入量+41% (项目4)",
+        "拒授权用户CTR从45%→79% (项目5)",
+        "实验周期14天→6天, 假阳性率28%→4.1% (项目6)",
+        "高LTV流失率8%→3.1%, 月流失收益损失-43% (项目7)",
+        "CTR AUC+0.004, 模型内存48GB→31GB (项目8)",
+        "推荐幻觉率34%→2.8%, 对话转化率+27% (项目9)",
+        "无效流量过滤率67%→91.3%, 误杀率8%→1.2% (项目10)"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "电商平台多目标融合排序系统",
+      "category": "recommendation_systems",
+      "business_impact": "+18% GMV",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Multi-task Learning",
+        "MMOE",
+        "Reinforcement Learning"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 2,
+      "title": "视频平台冷启动用户推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+35% 新用户留存",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Feature Engineering",
+        "Thompson Sampling",
+        "Multi-Armed Bandit"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 3,
+      "title": "广告竞价系统的实时学习框架",
+      "category": "ads_systems",
+      "business_impact": "+22% 平台收益",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Online Learning",
+        "Inverse Auction",
+        "Real-time Optimization"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 4,
+      "title": "基于图卷积网络的跨域推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+25% 稀疏用户覆盖",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Heterogeneous GCN",
+        "Meta-path",
+        "Transfer Learning"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 5,
+      "title": "搜索排序中的点击重排",
+      "category": "search_systems",
+      "business_impact": "+17% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Learning-to-Rank",
+        "LambdaMART",
+        "Click Model",
+        "Position Bias"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 6,
+      "title": "短视频平台的对话式个性化推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+40% 用户参与度",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Contextual Bandits",
+        "Fatigue Modeling",
+        "Multi-faceted Preferences"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 7,
+      "title": "电商广告的动态创意优化系统",
+      "category": "ads_systems",
+      "business_impact": "+31% 广告转化",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "DCO",
+        "User-Creative Matching",
+        "Thompson Sampling",
+        "Automated A/B Test"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 8,
+      "title": "视频搜索的多模态相关性排序",
+      "category": "search_systems",
+      "business_impact": "+44% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Multi-modal Encoding",
+        "Cross-modal Retrieval",
+        "BERT",
+        "ViT",
+        "Attention"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 9,
+      "title": "实时竞价中的上文学习",
+      "category": "ads_systems",
+      "business_impact": "+26% 竞价精准性",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Contextual Bandit",
+        "Thompson Sampling",
+        "Real-time Bidding",
+        "Neural Networks"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 10,
+      "title": "搜索结果页的多意图融合排序",
+      "category": "search_systems",
+      "business_impact": "+21% 搜索转化",
+      "date": "2026-03-24",
+      "key_algorithms": [
+        "Intent Classification",
+        "Multi-task Learning",
+        "Intent-Diversity",
+        "Personalization"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 11,
+      "title": "生成式序列推荐系统（GEMs框架）",
+      "category": "recommendation_systems",
+      "business_impact": "+14.6% GMV, 延迟-77%",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "GEMs",
+        "Memory Bank",
+        "Cross-Attention",
+        "Contrastive Learning"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 12,
+      "title": "基于语义ID的生成式召回系统",
+      "category": "recommendation_systems",
+      "business_impact": "+562% 新内容召回覆盖率",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "Semantic ID",
+        "RQ-VAE",
+        "Generative Retrieval",
+        "Beam Search"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 13,
+      "title": "LLM增强的CTR预估——生成式特征范式",
+      "category": "ads_systems",
+      "business_impact": "+5.5% AUC (稀疏广告), +8.3% 广告收入",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "LLaMA",
+        "Generative CTR",
+        "Confidence Gating",
+        "DIN"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 14,
+      "title": "自动竞价系统的强化学习框架（AutoBid）",
+      "category": "ads_systems",
+      "business_impact": "+25.4% ROI达标率, -88%人工干预",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "CMDP",
+        "PPO",
+        "Lagrangian Relaxation",
+        "Actor-Critic"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 15,
+      "title": "大规模广告预算分配的Pacing优化",
+      "category": "ads_systems",
+      "business_impact": "预算偏差±35%→±8.3%",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "Budget Pacing",
+        "Kalman Filter",
+        "Throttling",
+        "Floor Price"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 16,
+      "title": "多场景多任务CTR模型的自动化信息流设计",
+      "category": "ads_systems",
+      "business_impact": "模型参数-91%, 更新周期72h→6h",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "AIFS",
+        "Learnable Gating",
+        "Multi-scenario",
+        "Transfer Learning"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 17,
+      "title": "基于ColBERT晚交互的高效语义检索",
+      "category": "search_systems",
+      "business_impact": "+23.7% MRR@10",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "ColBERT v2",
+        "Late Interaction",
+        "PLAID",
+        "BM25S",
+        "int8量化"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 18,
+      "title": "扩散模型驱动的创意多样性推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+16.8% 7日留存, ILD+121.7%",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "DiffGRM",
+        "DDIM",
+        "DPP",
+        "Diffusion Reranking"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 19,
+      "title": "基于公平性约束的分组推荐优化",
+      "category": "recommendation_systems",
+      "business_impact": "公平性差距18%→3.8%",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "Max-Min Fairness",
+        "Jensen Gap",
+        "DPP",
+        "CMDP"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 20,
+      "title": "搜索广告的上下文感知CTR预估（CADET）",
+      "category": "ads_systems",
+      "business_impact": "+9.1% 搜索广告eCPM",
+      "date": "2026-03-25",
+      "key_algorithms": [
+        "CADET",
+        "Decoder Transformer",
+        "Position-aware Context",
+        "Cross-Attention"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 21,
+      "title": "实时流式用户行为特征建模（Flink + CTR）",
+      "category": "search_systems",
+      "business_impact": "大促CTR偏差31%→8.3%, GMV+11.4%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Flink",
+        "Streaming Features",
+        "Real-time Session Embedding",
+        "GRU",
+        "Lazy-update"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 22,
+      "title": "因果去偏推荐系统（Exposure Bias & Position Bias）",
+      "category": "recommendation_systems",
+      "business_impact": "长尾召回率+126%, NPS+8.4pts",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "IPS",
+        "Doubly Robust",
+        "Position Bias",
+        "Causal Inference",
+        "Counterfactual"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 23,
+      "title": "知识图谱路径推理增强召回系统",
+      "category": "recommendation_systems",
+      "business_impact": "低活跃用户Recall@50+90%, GMV+7.8%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "KGNN",
+        "Path Reasoning",
+        "Relation-aware Gating",
+        "BPR",
+        "KG Embedding"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 24,
+      "title": "联邦学习跨设备个性化推荐（隐私保护）",
+      "category": "recommendation_systems",
+      "business_impact": "精度差距23pts→2.8pts, 零数据上传",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Federated Learning",
+        "FedAvg",
+        "FedProx",
+        "DP-SGD",
+        "Gradient Compression"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 25,
+      "title": "硬负样本挖掘提升双塔召回质量",
+      "category": "recommendation_systems",
+      "business_impact": "双塔Recall@200从51%→68.4%, CTR+5.8%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Hard Negative Mining",
+        "IHN",
+        "In-batch Negatives",
+        "Popularity Sampling",
+        "False Negative Rejection"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 26,
+      "title": "多模态广告创意质量自动评估系统",
+      "category": "ads_systems",
+      "business_impact": "人工审核量减79%, 广告库CTR+8.9%, CPM+12.3%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "CLIP",
+        "ViT",
+        "CreativeScore",
+        "Image-Text Consistency",
+        "Aesthetic Scoring"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 27,
+      "title": "搜索广告拍卖机制优化（GSP → VCG混合）",
+      "category": "ads_systems",
+      "business_impact": "平台收益+14.7%, 中小广告主留存+18.3%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "VCG Auction",
+        "GSP",
+        "Incentive Compatibility",
+        "Quality Score",
+        "Bayesian Update"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 28,
+      "title": "用户长短期兴趣解耦推荐框架（LSIM）",
+      "category": "recommendation_systems",
+      "business_impact": "热点响应4h→45min, 7日留存+9.6%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Long-Short Interest Model",
+        "Attention Gate",
+        "GRU",
+        "Time-aware Weighting",
+        "Dual Tower"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 29,
+      "title": "LLM查询改写提升搜索召回多样性",
+      "category": "search_systems",
+      "business_impact": "Recall@20从34.1%→57.8%, MRR@10+43.9%",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Query Rewriting",
+        "LLM",
+        "RRF",
+        "Intent Classification",
+        "BM25+Vector Hybrid"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 30,
+      "title": "CTR模型自适应在线学习（样本时效性优化）",
+      "category": "ads_systems",
+      "business_impact": "峰值CTR偏差26%→8.3%, 全天AUC+0.018",
+      "date": "2026-03-26",
+      "key_algorithms": [
+        "Online Learning",
+        "Sample Temporal Weighting",
+        "Layer-wise Update",
+        "Gradient Clipping",
+        "Auto-rollback"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 71,
+      "title": "Mamba状态空间模型超长用户行为序列推荐",
+      "category": "recommendation_systems",
+      "business_impact": "+9.2% GMV, 延迟-84%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "Mamba",
+        "SSM",
+        "Selective Scan",
+        "Sequence Compression",
+        "LoRA"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 72,
+      "title": "延迟转化标签的CVR校正与实时竞价优化",
+      "category": "ads_systems",
+      "business_impact": "CVR偏差15%→3.2%, 广告收入+11.4%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "Survival Analysis",
+        "Delayed Feedback",
+        "Sample Reweighting",
+        "CVR Correction"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 73,
+      "title": "搜索与广告联合排序双引擎融合系统（STAR）",
+      "category": "search_systems",
+      "business_impact": "NPS+7分, eCPM+4.3%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "BERT Cross-Encoder",
+        "Unified Relevance Score",
+        "Dynamic Ad Insertion",
+        "Constrained Ranking"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 74,
+      "title": "基于Shapley值的多渠道广告归因与预算分配",
+      "category": "ads_systems",
+      "business_impact": "营销ROI+22%, 新用户+41%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "Shapley Value",
+        "Monte Carlo Approximation",
+        "Lagrange Optimization",
+        "Multi-touch Attribution"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 75,
+      "title": "端侧轻量化推荐模型部署与隐私感知个性化",
+      "category": "recommendation_systems",
+      "business_impact": "拒授权用户CTR 45%→79%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "On-device LoRA",
+        "DP-SGD",
+        "Model Compression",
+        "Federated Personalization"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 76,
+      "title": "序贯置信检验的A/B实验加速系统（ANYTIME）",
+      "category": "search_systems",
+      "business_impact": "实验周期14天→6天, 假阳性28%→4.1%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "Sequential Testing",
+        "AECI",
+        "CUPED",
+        "Bonferroni-Holm",
+        "Adaptive Allocation"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 77,
+      "title": "用户生命周期价值分层与精准留存干预系统",
+      "category": "recommendation_systems",
+      "business_impact": "高LTV流失率8%→3.1%, ROI 1:5.7",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "BG/NBD",
+        "Gamma-Gamma",
+        "XGBoost Churn",
+        "DID Causal Inference",
+        "LTV Segmentation"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 78,
+      "title": "大规模稀疏推荐系统的哈希嵌入冲突缓解（AdaHash）",
+      "category": "recommendation_systems",
+      "business_impact": "CTR AUC+0.004, 内存48GB→31GB",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "Two-hop Hashing",
+        "Frequency-aware Allocation",
+        "INT8 Quantization",
+        "Adaptive Bucket Split"
+      ],
+      "difficulty": 4
+    },
+    {
+      "id": 79,
+      "title": "检索增强生成的对话式商品搜索（ConvRAG）",
+      "category": "search_systems",
+      "business_impact": "幻觉率34%→2.8%, 转化率+27%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "RAG",
+        "Dialogue State Tracking",
+        "Intent Coreference",
+        "Constrained Retrieval",
+        "Active Clarification"
+      ],
+      "difficulty": 5
+    },
+    {
+      "id": 80,
+      "title": "图神经网络驱动的多层次广告反欺诈系统",
+      "category": "ads_systems",
+      "business_impact": "IVT过滤率67%→91.3%, 误杀率8%→1.2%",
+      "date": "2026-03-29",
+      "key_algorithms": [
+        "GraphSAGE",
+        "Device Fingerprint",
+        "Layered Detection",
+        "Adversarial Training",
+        "DTW Similarity"
+      ],
+      "difficulty": 5
+    }
+  ]
+}
