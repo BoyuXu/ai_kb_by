@@ -4,7 +4,7 @@
 >
 > **为什么要学**：生成式推荐是 2024-2026 最热的推荐前沿方向，TIGER/HSTU/MTGR 等工作正在被大厂落地。也是面试中区分"了解前沿"和"只会经典模型"的分水岭。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [Embedding全景](embedding_everywhere.md) | [序列建模演进](sequence_modeling_evolution.md) | [多目标优化](multi_objective_optimization.md) | [向量量化方法](vector_quantization_methods.md)
+**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[embedding_everywhere|Embedding全景]] | [[sequence_modeling_evolution|序列建模演进]] | [[multi_objective_optimization|多目标优化]] | [[vector_quantization_methods|向量量化方法]]
 
 ---
 
@@ -72,7 +72,7 @@ $$P(\text{next item}) = P(c_1) \cdot P(c_2|c_1) \cdot P(c_3|c_1, c_2) \cdot P(c_
 
 📄 详见 [[20260411_sequential_and_generative_rec]]
 
-📄 详见 [rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md](../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md) | [Embedding全景](embedding_everywhere.md) §4 | [[vector_quantization_methods|向量量化四大方法]]（RQ-VAE/FSQ/LFQ 详细对比）
+📄 详见 [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]] | [[embedding_everywhere|Embedding全景]] §4 | [[vector_quantization_methods|向量量化四大方法]]（RQ-VAE/FSQ/LFQ 详细对比）
 
 ---
 
@@ -115,7 +115,7 @@ SORT 系统优化 Transformer 用于工业精排：Request-Centric 样本组织 
 
 **实效**：GMV +2.1%，在美团外卖场景上线。
 
-📄 详见 [rec-sys/synthesis/生成式推荐范式统一_20260403.md](../rec-search-ads/rec-sys/synthesis/生成式推荐范式统一_20260403.md)
+📄 详见 [[生成式推荐范式统一_20260403|生成式推荐范式统一_20260403]]
 
 ---
 
@@ -147,7 +147,7 @@ D: 手机壳透明
 - 生成多条推理链 → PRM 逐步打分 → 选最优
 - Recall@10 +9.1%
 
-📄 详见 [rec-sys/03_rerank/synthesis/生成式重排与LLM推理增强.md](../rec-search-ads/rec-sys/03_rerank/synthesis/生成式重排与LLM推理增强.md)
+📄 详见 [[生成式重排与LLM推理增强|生成式重排与LLM推理增强]]
 
 ---
 
@@ -164,7 +164,7 @@ D: 手机壳透明
 
 **核心挑战**：创意效果（CTR 提升）和品牌安全（不出错）的平衡。
 
-📄 详见 [ads/05_creative/synthesis/广告创意优化.md](../rec-search-ads/ads/05_creative/synthesis/广告创意优化.md)
+📄 详见 [[广告创意优化|广告创意优化]]
 
 ---
 
@@ -193,7 +193,7 @@ $$P(\text{item} | \text{history}, \textbf{preference\_text}) = \prod_l P(c_l | c
 
 **意义**：将生成式推荐从"被动预测历史延续"提升为"主动响应用户意图"。这是生成式推荐的**第四阶段**——偏好感知生成，前三个阶段分别是生成式召回（TIGER）、统一召排（OneRec）、推理增强（OneRec-Think）。
 
-📄 详见 [[生成式推荐系统技术全景_2026|rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026.md]]
+📄 详见 [[生成式推荐系统技术全景_2026|生成式推荐系统技术全景_2026]]
 
 ---
 
@@ -209,7 +209,7 @@ $$P(\text{item} | \text{history}, \textbf{preference\_text}) = \prod_l P(c_l | c
 
 **和推荐生成式召回的共性**：都是 "文档/物品 → 离散 ID → 自回归生成"。
 
-📄 详见 [search/synthesis/2026-04-09_generative_retrieval_evolution.md](../rec-search-ads/search/synthesis/2026-04-09_generative_retrieval_evolution.md)
+📄 详见 [[2026-04-09_generative_retrieval_evolution|2026-04-09_generative_retrieval_evolution]]
 
 ---
 

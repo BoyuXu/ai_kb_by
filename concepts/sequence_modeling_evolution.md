@@ -4,7 +4,7 @@
 >
 > **为什么要学**：序列建模是推荐系统区别于传统机器学习的核心能力，也是理解 LLM 的基础。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [Embedding全景](embedding_everywhere.md) | [生成式推荐](generative_recsys.md)
+**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[embedding_everywhere|Embedding全景]] | [[generative_recsys|生成式推荐]]
 
 ---
 
@@ -62,7 +62,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\rig
 - **$O(N^2)$ 复杂度**：序列长度 N 的二次方 → 长序列（>2K）很慢
 - **KV Cache 内存**：推理时缓存所有历史 KV → 内存爆炸
 
-📄 详见 [Attention in RecSys](attention_in_recsys.md)
+📄 详见 [[attention_in_recsys|Attention in RecSys]]
 
 ---
 
@@ -90,7 +90,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\rig
 | FlashAttention | 不改数学，改访存 | $O(N^2)$ 但实际快 2x |
 | Sliding Window | 固定窗口（Mistral） | $O(Nw)$ |
 
-📄 FlashAttention 详见 [Attention in RecSys](attention_in_recsys.md) §6
+📄 FlashAttention 详见 [[attention_in_recsys|Attention in RecSys]] §6
 
 ---
 

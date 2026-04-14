@@ -97,7 +97,7 @@ TIGER（Google 2023）用 RQ-VAE 把物品内容特征编码为 Semantic ID：
 | ✅ 优势 | 层次化语义（从粗到细）、组合空间大（碰撞率低）、工业验证（TIGER/Spotify/快手） |
 | ❌ 劣势 | 码本需要学习（训练不稳定）、STE 梯度近似有偏、码本利用率需要特殊技巧（EMA/重置） |
 
-📄 详见 [[SemanticID从论文到Spotify部署|../rec-search-ads/rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]] | [[generative_recsys|生成式推荐]] §2
+📄 详见 [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]] | [[generative_recsys|生成式推荐]] §2
 
 ---
 

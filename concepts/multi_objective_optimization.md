@@ -4,7 +4,7 @@
 >
 > **为什么要学**：几乎所有搜广推的在线系统都面临多目标冲突。面试必问"MMoE和PLE区别"、"多目标怎么权衡"。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [Embedding全景](embedding_everywhere.md) | [生成式推荐](generative_recsys.md)
+**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[embedding_everywhere|Embedding全景]] | [[generative_recsys|生成式推荐]]
 
 ---
 
@@ -79,7 +79,7 @@ $$g^{(t)}(x) = \text{softmax}(W_g^{(t)} \cdot x)$$
 ### SMES（美团 2024）
 20+ 任务场景下 PLE 参数爆炸 → 稀疏门控，每个任务只激活部分 Expert。
 
-📄 详见 [rec-sys/04_multi-task/synthesis/推荐广告系统多任务学习与MoE专家混合.md](../rec-search-ads/rec-sys/04_multi-task/synthesis/推荐广告系统多任务学习与MoE专家混合.md)
+📄 详见 [[推荐广告系统多任务学习与MoE专家混合|推荐广告系统多任务学习与MoE专家混合]]
 
 ---
 
@@ -121,7 +121,7 @@ $$\max_\theta \sum_i \text{eCPM}_i \quad \text{s.t.} \quad \text{ROI}_j \geq \te
 2. **CMDP（约束马尔可夫决策过程）**：RL 框架下的约束优化
 3. **PID 控制**：实时调 Lagrange 乘子 $\lambda$
 
-📄 详见 [ads/02_rank/synthesis/广告系统多目标优化.md](../rec-search-ads/ads/02_rank/synthesis/广告系统多目标优化.md)
+📄 详见 [[广告系统多目标优化|广告系统多目标优化]]
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > **为什么要学**：Embedding 是推荐、搜索、广告、LLM 四个领域的共同地基。你遇到的几乎每个模型，第一步都是 Embedding。
 
-**相关概念页**：[Attention in RecSys](attention_in_recsys.md) | [序列建模演进](sequence_modeling_evolution.md) | [生成式推荐](generative_recsys.md) | [向量量化方法](vector_quantization_methods.md)
+**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[sequence_modeling_evolution|序列建模演进]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化方法]]
 
 ---
 
@@ -21,7 +21,7 @@ $$\mathbf{e}_i = \mathbf{E}[i] \in \mathbb{R}^d$$
 
 **问题**：纯 ID embedding 学不到交叉信息，冷启动时是随机向量。
 
-📄 详见 [rec-sys/02_rank/synthesis/Embedding学习_推荐系统表示基石.md](../rec-search-ads/rec-sys/02_rank/synthesis/Embedding学习_推荐系统表示基石.md)
+📄 详见 [[Embedding学习_推荐系统表示基石|Embedding学习_推荐系统表示基石]]
 
 ---
 
@@ -44,7 +44,7 @@ $$\hat{y} = w_0 + \sum_i w_i x_i + \sum_i \sum_{j>i} \langle \mathbf{v}_i, \math
 | AutoInt | Multi-head Self-Attention | attention 做交叉 |
 | FiBiNET | SENet 压缩-激发 | 动态特征重要性 |
 
-📄 详见 [rec-sys/02_rank/synthesis/CTR模型深度解析.md](../rec-search-ads/rec-sys/02_rank/synthesis/CTR模型深度解析.md)
+📄 详见 [[CTR模型深度解析|CTR模型深度解析]]
 
 ---
 
@@ -69,7 +69,7 @@ $$\mathbf{e}_u^{(l+1)} = \sum_{i \in \mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_
 - Mini-batch 邻居采样（全图训练不现实）
 - 图更新延迟（新交互进来后需重新聚合）
 
-📄 详见 [rec-sys/04_multi-task/synthesis/图神经网络在推荐中的应用.md](../rec-search-ads/rec-sys/04_multi-task/synthesis/图神经网络在推荐中的应用.md)
+📄 详见 [[图神经网络在推荐中的应用|图神经网络在推荐中的应用]]
 
 ---
 
@@ -92,7 +92,7 @@ $$\mathbf{e}_u^{(l+1)} = \sum_{i \in \mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_
 - **Spotify 部署**：工业级 Semantic ID 在音乐推荐中的落地
 - **Prefix Ngram**（Meta 2025）：用于排序模型的 Semantic ID 变体，见下方 §4-B
 
-📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化四大方法]]
+📄 详见 [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化四大方法]]
 
 ### 4-B. Semantic ID Prefix Ngram：解决 Embedding 不稳定性（Meta 2025）
 
@@ -113,7 +113,7 @@ $$\mathbf{e}_u^{(l+1)} = \sum_{i \in \mathcal{N}_u} \frac{1}{\sqrt{|\mathcal{N}_
 
 **和 TIGER 的区别**：TIGER 用 RQ-VAE 做生成式召回；Prefix Ngram 用层次聚类做排序模型的 embedding 表示。目标不同，但底层逻辑相同——**用语义结构替代随机 ID**。
 
-📄 详见 [[SemanticID从论文到Spotify部署|rec-sys/01_recall/synthesis/SemanticID从论文到Spotify部署.md]]
+📄 详见 [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]]
 
 ---
 
@@ -134,7 +134,7 @@ LLM 本身就是最强的 Embedding 提取器：
 - **跨模态对齐**：图文一起编码（CLIP 思路进入推荐）
 - **Zero-shot 推荐**：不需要交互数据，纯语义匹配
 
-📄 详见 [search/01_recall/synthesis/检索三角_Dense_Sparse_LateInteraction.md](../rec-search-ads/search/01_recall/synthesis/检索三角_Dense_Sparse_LateInteraction.md)
+📄 详见 [[检索三角_Dense_Sparse_LateInteraction|检索三角_Dense_Sparse_LateInteraction]]
 
 ---
 
@@ -186,7 +186,7 @@ LLM 本身就是最强的 Embedding 提取器：
 
 **与前代的关系**：Reasoning Embedding 是 LLM Embedding 的自然进化——不仅用 LLM 做编码器，还让 LLM 的推理能力服务于表示学习。
 
-📄 详见 [[20260411_dense_retrieval_and_reranking_advances.md|search/synthesis/20260411_dense_retrieval_and_reranking_advances.md]]
+📄 详见 [[20260411_dense_retrieval_and_reranking_advances.md|20260411_dense_retrieval_and_reranking_advances]]
 
 ---
 
