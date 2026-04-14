@@ -288,5 +288,5 @@ $$\mathcal{L}_{gen} = -\sum_t \log P(x_{t+1} | x_1, ..., x_t; \theta)$$
 
 ## 相关概念
 
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[multi_objective_optimization|多目标优化]]

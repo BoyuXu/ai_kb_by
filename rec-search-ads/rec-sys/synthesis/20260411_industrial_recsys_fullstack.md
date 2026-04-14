@@ -145,5 +145,5 @@ LR → FM → DeepFM → DCN → DIN → DIEN → HSTU → SORT
 
 ## 相关概念
 
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[generative_recsys|生成式推荐统一视角]]

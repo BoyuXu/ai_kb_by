@@ -72,7 +72,7 @@ A：离散化（SID）是主要方案；RQ-VAE→RQ-GMM 是演进路径；关键
 
 ## 相关概念
 
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[embedding_everywhere|Embedding 技术全景]]

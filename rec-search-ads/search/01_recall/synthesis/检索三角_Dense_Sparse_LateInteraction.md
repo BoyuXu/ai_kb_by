@@ -258,9 +258,9 @@ BGE-M3 / GTE (2024) → 统一多路（稀疏+稠密+多向量）单模型
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[embedding_everywhere|Embedding 技术全景]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[multi_objective_optimization|多目标优化]]
 
 ---
 

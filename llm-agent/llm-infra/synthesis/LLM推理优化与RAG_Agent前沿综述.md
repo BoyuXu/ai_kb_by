@@ -273,4 +273,4 @@ $$
 
 ## 相关概念
 
-- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[vector_quantization_methods|向量量化方法]]

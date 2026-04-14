@@ -628,6 +628,6 @@ $$
 
 ## 相关概念
 
-- [[concepts/multi_objective_optimization|多目标优化]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[multi_objective_optimization|多目标优化]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]

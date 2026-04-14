@@ -304,4 +304,4 @@ $$
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[embedding_everywhere|Embedding 技术全景]]

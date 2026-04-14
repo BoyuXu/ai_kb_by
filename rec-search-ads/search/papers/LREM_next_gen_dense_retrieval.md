@@ -50,4 +50,4 @@ $$
 
 LREM 的独特贡献在于**两阶段（SFT→RL）训练范式**和**电商工业验证**。
 
-[[推理增强检索技术综述]] | [[concepts/embedding_everywhere]] | [[concepts/sequence_modeling_evolution]]
+[[推理增强检索技术综述]] | [[embedding_everywhere]] | [[sequence_modeling_evolution]]

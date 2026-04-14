@@ -267,6 +267,6 @@ $$
 
 ## 相关概念
 
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[multi_objective_optimization|多目标优化]]

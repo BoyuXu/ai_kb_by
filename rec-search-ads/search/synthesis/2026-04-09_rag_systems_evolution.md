@@ -81,4 +81,4 @@ A: 取决于 reader 的上下文长度。LongRAG 证明 4K chunks + long-context
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[embedding_everywhere|Embedding 技术全景]]

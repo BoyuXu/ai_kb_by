@@ -213,5 +213,5 @@ $$
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[embedding_everywhere|Embedding 技术全景]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]

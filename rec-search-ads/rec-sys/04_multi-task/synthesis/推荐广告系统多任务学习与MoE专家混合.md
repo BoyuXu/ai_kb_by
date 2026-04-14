@@ -197,8 +197,8 @@ $$
 
 ## 相关概念
 
-- [[concepts/multi_objective_optimization|多目标优化]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[multi_objective_optimization|多目标优化]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]
 
 ---
 

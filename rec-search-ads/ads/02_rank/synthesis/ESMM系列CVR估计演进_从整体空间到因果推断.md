@@ -514,4 +514,4 @@ $$
 
 ## 相关概念
 
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[multi_objective_optimization|多目标优化]]

@@ -186,7 +186,7 @@ A: ORM（Outcome Reward Model）只评估最终推荐列表的质量（结果级
 ## 关联文档
 
 - [[SemanticID从论文到Spotify部署|SemanticID从论文到Spotify部署]]
-- [[~/Documents/ai-kb/rec-search-ads/rec-sys/01_recall/synthesis/生成式推荐系统技术全景_2026|生成式推荐系统技术全景_2026]]
+- [[生成式推荐系统技术全景_2026|生成式推荐系统技术全景_2026]]
 - [[生成式推荐范式统一_20260403|生成式推荐范式统一_20260403]]
 - [[第22章_LLM与生成式推荐|PDF题库第22章 LLM与生成式推荐]]
 
@@ -194,8 +194,8 @@ A: ORM（Outcome Reward Model）只评估最终推荐列表的质量（结果级
 
 ## 相关概念
 
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[embedding_everywhere|Embedding 技术全景]]

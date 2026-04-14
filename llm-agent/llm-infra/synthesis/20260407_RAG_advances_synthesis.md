@@ -79,4 +79,4 @@ A：Chunking 策略、跨 chunk 信息丢失、位置偏见（Lost in the Middle
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[embedding_everywhere|Embedding 技术全景]]

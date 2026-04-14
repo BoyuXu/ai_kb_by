@@ -363,4 +363,4 @@ $$
 
 ## 相关概念
 
-- [[concepts/generative_recsys|生成式推荐统一视角]]
+- [[generative_recsys|生成式推荐统一视角]]

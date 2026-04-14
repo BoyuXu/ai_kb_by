@@ -504,9 +504,9 @@ A：节点>100万/长程依赖/GPU有限→Graph-Mamba；节点<10万/需全局a
 
 ## 相关概念
 
-- [[concepts/multi_objective_optimization|多目标优化]]
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[multi_objective_optimization|多目标优化]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[embedding_everywhere|Embedding 技术全景]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]

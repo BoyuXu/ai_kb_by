@@ -69,5 +69,5 @@ A: IntRR: RAN single-token prediction 消除 autoregressive 瓶颈。MiniOneRec:
 
 ## 相关概念
 
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[vector_quantization_methods|向量量化方法]]

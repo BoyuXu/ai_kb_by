@@ -37,4 +37,4 @@ $$
 
 解决了"好的重排器需要昂贵标注"的核心痛点。LLM-as-Judge + Thurstone 模型的组合，为无监督训练高质量重排器提供了标准化流程。
 
-[[推理增强检索技术综述]] | [[concepts/embedding_everywhere]]
+[[推理增强检索技术综述]] | [[embedding_everywhere]]

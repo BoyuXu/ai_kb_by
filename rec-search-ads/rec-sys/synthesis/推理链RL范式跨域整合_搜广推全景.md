@@ -299,9 +299,9 @@ $$
 
 ## 相关概念
 
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
-- [[concepts/multi_objective_optimization|多目标优化]]
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/vector_quantization_methods|向量量化方法]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]
+- [[multi_objective_optimization|多目标优化]]
+- [[embedding_everywhere|Embedding 技术全景]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[vector_quantization_methods|向量量化方法]]

@@ -113,6 +113,6 @@ $$
 
 ## 相关概念
 
-- [[concepts/generative_recsys|生成式推荐统一视角]]
-- [[concepts/sequence_modeling_evolution|序列建模演进]]
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[generative_recsys|生成式推荐统一视角]]
+- [[sequence_modeling_evolution|序列建模演进]]
+- [[multi_objective_optimization|多目标优化]]

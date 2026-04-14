@@ -45,4 +45,4 @@ $$
 
 ReasonEmbed vs O1-Embedder：O1-Embedder 在推理链上做 query 增强（推理时开销），ReasonEmbed 在训练数据和学习算法上下功夫（训练时开销，推理时零额外成本）。
 
-[[推理增强检索技术综述]] | [[concepts/embedding_everywhere]] | [[concepts/attention_in_recsys]]
+[[推理增强检索技术综述]] | [[embedding_everywhere]] | [[attention_in_recsys]]

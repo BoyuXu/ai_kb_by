@@ -298,4 +298,4 @@ PITA 的独特价值：部署后可按用户偏好动态调整，无需重新训
 
 ## 相关概念
 
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]

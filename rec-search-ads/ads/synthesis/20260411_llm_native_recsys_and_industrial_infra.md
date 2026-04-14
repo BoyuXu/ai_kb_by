@@ -241,5 +241,5 @@ Phase 4: 全链路统一
 
 ## 相关概念
 
-- [[concepts/vector_quantization_methods|向量量化方法]]
-- [[concepts/multi_objective_optimization|多目标优化]]
+- [[vector_quantization_methods|向量量化方法]]
+- [[multi_objective_optimization|多目标优化]]

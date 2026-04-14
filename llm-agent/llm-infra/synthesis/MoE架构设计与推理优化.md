@@ -200,7 +200,7 @@ graph LR
 
 ## 相关概念
 
-- [[concepts/attention_in_recsys|Attention 在搜广推中的演进]]
+- [[attention_in_recsys|Attention 在搜广推中的演进]]
 
 ---
 

@@ -158,7 +158,7 @@ BM25 启发式排序（~2005）→ RankSVM/RankNet Pairwise（2005-2010）
 
 ## 相关概念
 
-- [[concepts/embedding_everywhere|Embedding 技术全景]]
+- [[embedding_everywhere|Embedding 技术全景]]
 
 ---
 
