@@ -6,6 +6,8 @@
 
 **相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[embedding_everywhere|Embedding全景]] | [[generative_recsys|生成式推荐]]
 
+> **延迟转化与多目标**：CVR 预估是多目标排序（eCPM = pCTR × pCVR × bid）的关键输入，延迟转化导致 CVR 低估会级联影响出价和收入。详见 [[延迟转化预估处理方案|延迟转化预估处理方案]]。
+
 ---
 
 ## 1. 为什么会有多目标？

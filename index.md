@@ -30,6 +30,7 @@
 | 06 | 冷启动与偏差 | [06_冷启动与偏差治理.md](synthesis/ads/06_冷启动与偏差治理.md) | IDProxy/UCB探索/位置偏差因果框架 |
 | 07 | 归因与Uplift | [07_效果归因与Uplift.md](synthesis/ads/07_效果归因与Uplift.md) | Shapley归因/S-T-X Learner/ZILN LTV |
 | 08 | 创意优化 | [08_广告创意优化.md](synthesis/ads/08_广告创意优化.md) | DCO/多模态CTR/AIGC创意 |
+| 09 | 延迟转化预估 | [09_延迟转化预估处理方案.md](synthesis/ads/09_延迟转化预估处理方案.md) | DFM/生存分析/全空间延迟反馈 |
 
 ### 搜索算法 `synthesis/search/` (6篇)
 | # | 主题 | 文件 | 一句话 |

@@ -140,6 +140,13 @@ Level 1: 竞价与出价
     │   📄 ads/04_bidding/synthesis/广告预算Pacing算法全景.md
     │   验证：推导 KKT 最优出价公式 b*=v/(1+λ)
     │
+    ├─ [A4.5] 延迟转化预估 ──────────────── 3h ⭐ 面试高频
+    │   前置：[A3] ESMM + [A4] oCPC
+    │   核心：DFM (Chapelle 2014), ESDF, DRSA
+    │   📄 ads/02_rank/synthesis/延迟转化预估处理方案.md
+    │   📄 concepts/multi_objective_optimization.md
+    │   验证：推导 DFM 的 EM 算法 w_i 公式，解释生存分析 vs 分类模型选择
+    │
     ├─ [A5] 多目标优化 ────────────────── 3h
     │   前置：[A3] + 推荐 [7]
     │   📄 ads/02_rank/synthesis/广告系统多目标优化.md
