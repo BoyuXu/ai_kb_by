@@ -17,7 +17,7 @@
 将每个特征field（用户年龄、商品类目、价格等）转化为token：
 
 $$
-\text{token}}_{\text{i = \text{Embedding}}(\text{field}}_{\text{i) + \text{FieldTypeEmbedding}}(i)
+\text{token}_{i} = \text{Embedding}}(\text{field}_{\text{i) + \text{FieldTypeEmbedding}}(i)
 $$
 
 序列行为同样token化，与结构化特征拼接成统一序列。

@@ -49,7 +49,7 @@ $$
 $$
 
 $$
-\mathbf{c}(v) = \text{MLP}(\text{subtree}}_{\text{{\text{size}}}(v)) \quad \text{（子树规模投影）}
+\mathbf{c}(v) = \text{MLP}(\text{subtree}_{	ext{size}}(v)) \quad \text{（子树规模投影）}
 $$
 
 最终将 TAPE 加到 token embedding 上：$\mathbf{x}_v^{enhanced} = \mathbf{x}_v + \mathbf{p}_{trie}(v)$
@@ -59,8 +59,8 @@ $$
 **功能**：在自注意力中注入任意两个 token（节点）之间的**成对结构关系（Pairwise Structural Relations）**，捕获 Trie 拓扑诱导的语义相关性。
 
 **关系特征：**
-- $r_{ij} = \text{LCA}}_{\text{{\text{depth}}}(v_i, v_j)$：两节点最近公共祖先（LCA）的深度（LCA 越深 = 语义越相近）
-- $r_{ij}^{path} = \text{path}}_{\text{{\text{distance}}}(v_i, v_j)$：Trie 中的路径距离
+- $r_{ij} = \text{LCA}_{	ext{depth}}(v_i, v_j)$：两节点最近公共祖先（LCA）的深度（LCA 越深 = 语义越相近）
+- $r_{ij}^{path} = \text{path}_{	ext{distance}}(v_i, v_j)$：Trie 中的路径距离
 
 **TARPE 注入注意力：**
 
@@ -73,7 +73,7 @@ $$
 **拓扑诱导的语义关联建模：**
 
 $$
-\text{Similarity}}_{\text{{topo}}(v_i, v_j) \propto \text{LCA}}_{\text{{\text{depth}}}(v_i, v_j)
+\text{Similarity}_{	ext{topo}}(v_i, v_j) \propto \text{LCA}_{	ext{depth}}(v_i, v_j)
 $$
 
 两个物品共享的 Trie 前缀越深，说明语义越相近，注意力权重应更大。

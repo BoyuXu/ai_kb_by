@@ -116,7 +116,7 @@ $$
 **工具相关性评分**：
 
 $$
-p(\text{tool}}_{\text{k | \text{query}}) = \text{softmax}(\mathbf{W} \cdot \mathbf{h}_{query})_k
+p(\text{tool}_{k} | \text{query}}) = \text{softmax}(\mathbf{W} \cdot \mathbf{h}_{query})_k
 $$
 
 ### 用户意图感知的个性化推理
@@ -130,7 +130,7 @@ $$
 其中 $\alpha$ 由LLM根据查询上下文动态决定：
 
 $$
-\alpha = \sigma(\text{LLM}(\text{query}, \text{session}}_{\text{{\text{context}}}))
+\alpha = \sigma(\text{LLM}(\text{query}, \text{session}_{	ext{context}}))
 $$
 
 ---

@@ -208,7 +208,7 @@ for position in [1, 2, ..., K]:
 将排序问题建模为整数规划：
 
 $$\begin{align}
-\text{maximize} \quad & \sum_{i=1}^n \text{score}}_{\text{i \times x}}_{\text{i \\
+\text{maximize} \quad & \sum_{i=1}^n \text{score}_{i} \times x}_{\text{i \\
 \text{subject to}} \quad & \sum_{i=1}^n x_i = K \\
 & x_i \in \{0, 1\}
 \end{align}$$
@@ -216,7 +216,7 @@ $$\begin{align}
 加入约束：
 
 $$
-\text{diversity}}_{\text{{\text{constraint}}}(x) \geq \text{threshold}
+\text{diversity}_{	ext{constraint}}(x) \geq \text{threshold}
 $$
 
 **求解**：通常用贪心近似，精确解 NP-hard
@@ -375,7 +375,7 @@ $$
 **目标 3：多样性**
 
 $$
-f_{\text{diversity}} = \frac{1}{K} \sum_{i=1}^K \text{novelty}(\text{item}}_{\text{i)
+f_{\text{diversity}} = \frac{1}{K} \sum_{i=1}^K \text{novelty}(\text{item}_{\text{i)
 $$
 
 其中 novelty 可以是：
@@ -385,7 +385,7 @@ $$
 **目标 4：公平性（广告主侧）**
 
 $$
-f}}_{\text{{\text{fairness}}} = \text{min}(\text{impression}(\text{advertiser}_i)) \quad \forall i
+f}_{\text{\text{fairness}} = \text{min}(\text{impression}(\text{advertiser}_i)) \quad \forall i
 $$
 
 最大化最小的广告主曝光数，保证没有广告主被忽视。

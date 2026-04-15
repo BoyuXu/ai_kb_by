@@ -54,7 +54,7 @@ p-MRR = 模型正确响应指令变化的比例
 ```
 
 $$
-p\text{-}MRR = \frac{1}{|Q|} \sum_{q \in Q} \frac{1}{\text{rank}}_{\text{{positive}}(q, instr)}
+p\text{-}MRR = \frac{1}{|Q|} \sum_{q \in Q} \frac{1}{\text{rank}_{	ext{positive}}(q, instr)}
 $$
 
 p-MRR 越高，说明模型越能根据指令调整排序，而不是对两种指令给出相同结果。

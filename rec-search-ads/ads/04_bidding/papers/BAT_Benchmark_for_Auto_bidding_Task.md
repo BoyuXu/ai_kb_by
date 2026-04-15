@@ -56,23 +56,23 @@
 ### 公式1：价值获取率（Value Acquisition Rate, VAR）
 
 $$
-\text{VAR} = \frac{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}}_{\text{t]}}{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}}_{\text{t^*]}}
+\text{VAR} = \frac{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}_{\text{t]}}{\sum_{t=1}^{T} v_t \cdot \mathbb{1}[\text{win}_{\text{t^*]}}
 $$
 
 **解释：**
 - $v_t$：第 $t$ 次拍卖中赢得广告位的价值
-- $\mathbb{1}[\text{win}}_{\text{t]$：算法赢得的指示函数
-- $\mathbb{1}}[\text{win}}_{\text{t^*]$：离线最优策略赢得的指示函数
+- $\mathbb{1}[\text{win}_{\text{t]$：算法赢得的指示函数
+- $\mathbb{1}}[\text{win}_{\text{t^*]$：离线最优策略赢得的指示函数
 - VAR ∈ [0, 1]，越接近 1 表示算法越接近最优
 
 ### 公式2：约束违反率（Constraint Violation Rate）
 
 $$
-\text{CVR}}_{budget} = \max\left(0, \frac{\sum_t c_t - B}{B}\right)
+\text{CVR}_{budget} = \max\left(0, \frac{\sum_t c_t - B}{B}\right)
 $$
 
 $$
-\text{CVR}}_{\text{{CPA}} = \max\left(0, \frac{\text{CPA}}_{\text{{actual}} - \text{CPA}}_{\text{{target}}}{\text{CPA}}_{\text{{target}}}\right)
+\text{CVR}_{	ext{CPA}} = \max\left(0, \frac{\text{CPA}_{	ext{actual}} - \text{CPA}_{	ext{target}}}{\text{CPA}_{	ext{target}}}\right)
 $$
 
 **解释：**

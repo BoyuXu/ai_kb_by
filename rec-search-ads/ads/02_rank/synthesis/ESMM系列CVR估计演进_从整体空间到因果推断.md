@@ -122,7 +122,7 @@ $y_i^{\text{CTCVR}} = y_i^{\text{CTR}} \cdot y_i^{\text{CVR}}$，其中 $y_i^{\t
 3. **链式约束**：当 $f_{\text{CTR}}$ 收敛后（已用 $\mathcal{L}_{\text{CTR}}$ 约束），$\mathcal{L}_{\text{CTCVR}}$ 等价于对 $f_{\text{CVR}}$ 施加：
 
 $$
-\min_{f_{\text{CVR}}} \sum_{i=1}^N \ell(y_i^{\text{CVR}},\ f_{\text{CVR}(x_i)) \cdot \underbrace{p_i^{\text{CTR}}_{曝光-点击权重}}
+\min_{f_{\text{CVR}}} \sum_{i=1}^N \ell(y_i^{\text{CVR}},\ f_{\text{CVR}(x_i)) \cdot \underbrace{p_i^{\text{CTR}_{曝光-点击权重}}
 $$
 
 即用 CTR 作为隐式权重，赋予不同曝光样本对 CVR 训练的贡献——全曝光空间的样本都参与了 CVR 的训练，只是贡献度由 CTR 加权。

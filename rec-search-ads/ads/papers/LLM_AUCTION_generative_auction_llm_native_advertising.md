@@ -33,7 +33,7 @@
 ## 数学公式
 
 $$
-\text{Score}}_{\text{i = b}}_{\text{i \cdot q}}_{\text{i, \quad q}}_{\text{i = \text{LLM-Relevance}}(ad_i, query)
+\text{Score}_{i} = b}_{\text{i \cdot q}_{\text{i, \quad q}_{i} = \text{LLM-Relevance}}(ad_i, query)
 $$
 
 $$

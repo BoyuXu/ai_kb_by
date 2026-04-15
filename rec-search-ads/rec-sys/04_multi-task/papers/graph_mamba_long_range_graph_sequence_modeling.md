@@ -20,7 +20,7 @@ Graph-Mamba首次将Mamba的Selective State Space模型引入图学习：
 解决图→序列转换中的节点排序问题：
 
 $$
-\text{priority}(v) = f(\text{degree}(v), \text{centrality}(v), \text{h}}_{\text{v)
+\text{priority}(v) = f(\text{degree}(v), \text{centrality}(v), \text{h}_{\text{v)
 $$
 
 - 不是随机排序节点，而是基于**图拓扑重要性**（度、介数中心性）和**节点特征**联合排序
@@ -30,7 +30,7 @@ $$
 Mamba的核心：**Selective SSM**
 
 $$
-h}}_{\text{t = \bar{A}}_t h_{t-1} + \bar{B}_t x_t
+h}_{\text{t = \bar{A}_t h_{t-1} + \bar{B}_t x_t
 $$
 
 $$

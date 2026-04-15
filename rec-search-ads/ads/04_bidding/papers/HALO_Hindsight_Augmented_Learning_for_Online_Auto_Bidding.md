@@ -64,7 +64,7 @@ s_t^{aug} = [s_t; h_t]
 $$
 
 $$
-h_t = [\text{clearing}}_{\text{{\text{price}}}_t, \text{competitor}}_{\text{{\text{bid}}}_{\text{mean}}_t, \text{market}}_{\text{{\text{intensity}}}_t]
+h_t = [\text{clearing}_{	ext{price}_t, \text{competitor}_{	ext{bid}_{\text{mean}_t, \text{market}_{	ext{intensity}_t]
 $$
 
 **解释：**
@@ -88,7 +88,7 @@ $$
 ### 公式4：预算节奏控制
 
 $$
-\text{pacing}}_{\text{{\text{signal}}}_t = \frac{\text{budget}}_{\text{{\text{spent}}}_t / \text{budget}}_{\text{{\text{total}}}}{\text{time}}_{\text{{\text{elapsed}}}_t / \text{time}}_{\text{{\text{total}}}}
+\text{pacing}_{	ext{signal}_t = \frac{\text{budget}_{	ext{spent}_t / \text{budget}_{	ext{total}}}{\text{time}_{	ext{elapsed}_t / \text{time}_{	ext{total}}}
 $$
 
 **解释：**

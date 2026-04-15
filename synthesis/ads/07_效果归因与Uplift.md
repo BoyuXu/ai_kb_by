@@ -150,7 +150,7 @@ $$
 **IPW（逆概率加权）**：
 
 $$
-\hat{\text{ATE}}_{\text{IPW}} = \frac{1}{N}\sum_i \left[\frac{T_i Y_i}{\hat{e}(x_i)} - \frac{(1-T_i)Y_i}{1-\hat{e}(x_i)}\right]
+\hat{\text{ATE}_{\text{IPW}} = \frac{1}{N}\sum_i \left[\frac{T_i Y_i}{\hat{e}(x_i)} - \frac{(1-T_i)Y_i}{1-\hat{e}(x_i)}\right]
 $$
 
 **Doubly Robust Estimator**（双重保险）：

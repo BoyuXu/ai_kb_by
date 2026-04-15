@@ -79,7 +79,7 @@ $$
 $$
 
 $$
-\text{Hard}(K_2) = \text{TopK}}_{\text{{v \notin \text{Pos}}(u)}(u \cdot v)
+\text{Hard}(K_2) = \text{TopK}_{	ext{v \notin \text{Pos}}(u)}(u \cdot v)
 $$
 
 **解释：**

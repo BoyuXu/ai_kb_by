@@ -40,10 +40,10 @@
 将每个广告包 (advertiser_A, advertiser_B) 表示为：
 
 $$
-\mathbf{b}_{ij} = f(v_i, v_j, \text{compatibility}}_{\text{{ij}})
+\mathbf{b}_{ij} = f(v_i, v_j, \text{compatibility}_{	ext{ij}})
 $$
 
-其中 $v_i, v_j$ 是各广告主的出价，$\text{compatibility}}_{\text{{ij}}$ 是品牌相容性特征。
+其中 $v_i, v_j$ 是各广告主的出价，$\text{compatibility}_{	ext{ij}}$ 是品牌相容性特征。
 
 **2. Bundle-aware Allocation Network**
 以所有可能的 bundle 作为输入，输出每个 bundle 在每个位置的分配概率：
@@ -60,7 +60,7 @@ $$
 基于单调性约束设计 DSIC-compatible 支付规则（类似 Myerson 支付）：
 
 $$
-\text{payment}}_{\text{i = \text{bid}}_i \cdot \pi_i - \int_0^{\text{bid}}_{\text{i}} \pi_i(t) dt
+\text{payment}_{i} = \text{bid}_i \cdot \pi_i - \int_0^{\text{bid}_{\text{i}} \pi_i(t) dt
 $$
 
 **近似 DSIC 保证**：BundleNet 输出的机制满足近似主导策略激励相容（ε-DSIC）和个体理性（IR）。

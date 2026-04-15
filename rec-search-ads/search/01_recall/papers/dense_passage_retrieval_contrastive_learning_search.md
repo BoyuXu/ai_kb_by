@@ -44,7 +44,7 @@ $$
 ### 4. 混合检索
 
 $$
-\text{score}}_{\text{{hybrid}} = \lambda \cdot s_{DPR} + (1-\lambda) \cdot s_{BM25}
+\text{score}_{	ext{hybrid}} = \lambda \cdot s_{DPR} + (1-\lambda) \cdot s_{BM25}
 $$
 
 λ 通过验证集调优，通常0.6~0.8有利于DPR。

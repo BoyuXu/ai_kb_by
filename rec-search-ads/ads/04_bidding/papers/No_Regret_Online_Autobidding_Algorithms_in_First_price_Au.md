@@ -57,7 +57,7 @@ $$
 $$
 
 $$
-\ell_t(\lambda, \mu) = -(v_t - \text{payment}}_{\text{t) \cdot \mathbb{1}}[\text{win}}_{\text{t] + \lambda(\text{CPA}}_t - \text{target}) + \mu(\text{cost}}_{\text{t - B/T)
+\ell_t(\lambda, \mu) = -(v_t - \text{payment}_{\text{t) \cdot \mathbb{1}}[\text{win}_{\text{t] + \lambda(\text{CPA}_t - \text{target}) + \mu(\text{cost}_{t} - B/T)
 $$
 
 **解释：**

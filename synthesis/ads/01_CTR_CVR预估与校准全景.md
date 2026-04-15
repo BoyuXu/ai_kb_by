@@ -159,13 +159,13 @@ $$
 **IPW 去偏**：
 
 $$
-\hat{\mathcal{L}}_{\text{IPW}} = \sum_{i:O_i=1} \frac{1}{p_i^{\text{CTR}}} \ell(y_i^{\text{CVR}}, f_{\text{CVR}}(x_i))
+\hat{\mathcal{L}_{\text{IPW}} = \sum_{i:O_i=1} \frac{1}{p_i^{\text{CTR}}} \ell(y_i^{\text{CVR}}, f_{\text{CVR}}(x_i))
 $$
 
 **DR 双重鲁棒估计器**：
 
 $$
-\hat{\mathcal{L}}_{\text{DR}} = \sum_{i=1}^{N} \ell(y_i^{\text{imputed}}, f) + \sum_{i:O_i=1} \frac{1}{p_i^{\text{CTR}}}(\ell(y_i^{\text{actual}}, f) - \ell(y_i^{\text{imputed}}, f))
+\hat{\mathcal{L}_{\text{DR}} = \sum_{i=1}^{N} \ell(y_i^{\text{imputed}}, f) + \sum_{i:O_i=1} \frac{1}{p_i^{\text{CTR}}}(\ell(y_i^{\text{actual}}, f) - \ell(y_i^{\text{imputed}}, f))
 $$
 
 只要 outcome 模型或 propensity 模型任一正确，估计就无偏。

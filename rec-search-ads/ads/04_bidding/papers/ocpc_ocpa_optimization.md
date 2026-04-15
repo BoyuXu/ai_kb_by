@@ -40,18 +40,18 @@
 ### 公式1：oCPC 自动出价
 
 $$
-\text{bid}}_{\text{{oCPC}} = \text{Target}}_{\text{{\text{CPA}}} \times \hat{p}_{CVR}(x)
+\text{bid}_{	ext{oCPC}} = \text{Target}_{	ext{CPA}} \times \hat{p}_{CVR}(x)
 $$
 
 **解释：**
-- $\text{Target}}_{\text{{\text{CPA}}}$：广告主设定的目标转化成本
+- $\text{Target}_{	ext{CPA}}$：广告主设定的目标转化成本
 - $\hat{p}_{CVR}(x)$：CVR 模型预估的转化概率
 - 高转化概率的请求 → 出更高价 → 更有可能赢得曝光
 
 ### 公式2：eCPM 排序
 
 $$
-\text{eCPM} = \text{bid}}_{\text{{oCPC}} \times \hat{p}_{CTR} \times 1000 = \text{Target}}_{\text{{\text{CPA}}} \times \hat{p}_{CVR} \times \hat{p}_{CTR} \times 1000
+\text{eCPM} = \text{bid}_{	ext{oCPC}} \times \hat{p}_{CTR} \times 1000 = \text{Target}_{	ext{CPA}} \times \hat{p}_{CVR} \times \hat{p}_{CTR} \times 1000
 $$
 
 ### 公式3：PID 预算控制
@@ -62,7 +62,7 @@ $$
 
 **解释：**
 - $k_t$：出价调整系数
-- $e_t = \text{target}}_{\text{{\text{spend}}}_{\text{rate}} - \text{actual}}_{\text{{\text{spend}}}_{\text{rate}}$
+- $e_t = \text{target}_{	ext{spend}_{\text{rate}} - \text{actual}_{	ext{spend}_{\text{rate}}$
 - P 项：当前偏差修正；I 项：累积偏差消除；D 项：防止超调
 
 ## 核心方法与创新点

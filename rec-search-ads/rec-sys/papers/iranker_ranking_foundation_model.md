@@ -13,7 +13,7 @@
 3. **Prompt-based微调**：场景Prompt快速适配新场景
 
 $$
-h = \text{Encoder}([\text{Scene}}_{\text{{\text{Prompt}}}; \text{User}}_{\text{{\text{Feat}}}; \text{Item}}_{\text{{\text{Feat}}}])
+h = \text{Encoder}([\text{Scene}_{	ext{Prompt}}; \text{User}_{	ext{Feat}}; \text{Item}_{	ext{Feat}}])
 $$
 
 4. **对比学习目标**：正样本对与负样本对的对比学习

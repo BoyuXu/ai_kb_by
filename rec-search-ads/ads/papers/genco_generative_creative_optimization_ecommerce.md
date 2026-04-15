@@ -48,7 +48,7 @@ $$
 - Bag 级别的标签（点击/未点击）→ 归因到 Instance 级别的奖励
 
 $$
-r(\text{bag}) = \text{Aggregation}(r(\text{instance}}_{\text{1), r(\text{instance}}_2), \ldots)
+r(\text{bag}) = \text{Aggregation}(r(\text{instance}_{\text{1), r(\text{instance}_2), \ldots)
 $$
 
 通过 MIL 训练，奖励模型能：

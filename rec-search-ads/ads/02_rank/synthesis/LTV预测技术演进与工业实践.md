@@ -608,7 +608,7 @@ $$
 ### 客户生命周期价值
 
 $$
-\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue_{t - }\text{Cost}}_t}{(1+r)^t}
+\text{LTV} = \sum_{t=1}^{T} \frac{\text{Revenue_{t - }\text{Cost}_t}{(1+r)^t}
 $$
 
 - $r$：折现率

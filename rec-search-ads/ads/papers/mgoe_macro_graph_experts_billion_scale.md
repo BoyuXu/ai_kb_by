@@ -17,7 +17,7 @@ MGOE(Macro Graph of Experts)提出在宏观层面(macro-level)进行专家路由
 MGOE将L层的多专家网络表示为有向无环图 $G = (V, E)$。节点集 $V$ 包含每层的 $M$ 个专家，加上输入节点和各任务的输出节点。边集 $E$ 连接相邻层的专家节点。对于任务 $t$，其信息流由一条从输入到输出的路径 $\pi_t$ 决定：
 
 $$
-h_t^{(l)} = \sum_{m=1}^{M} w_{t,m}^{(l)} \cdot \text{Expert}}_{\text{m^{(l)}}(h_t^{(l-1)})
+h_t^{(l)} = \sum_{m=1}^{M} w_{t,m}^{(l)} \cdot \text{Expert}_{\text{m^{(l)}}(h_t^{(l-1)})
 $$
 
 其中 $w_{t,m}^{(l)}$ 是任务 $t$ 在第 $l$ 层选择专家 $m$ 的路由权重。不同于微观MoE对每个样本独立路由，MGOE的路由权重是任务级别的全局参数。

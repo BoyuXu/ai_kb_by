@@ -33,9 +33,9 @@
 ## 数学公式
 
 $$
-\text{KV Cache Size} = 2 \times L \times H \times D \times T \times \text{bytes}}_{\text{{\text{per}}}_{\text{elem}}
+\text{KV Cache Size} = 2 \times L \times H \times D \times T \times \text{bytes}_{	ext{per}_{\text{elem}}
 $$
 
 $$
-\text{MiniKV: } \text{bytes}}_{\text{{\text{per}}}_{\text{elem}} = 0.25 \text{ (2-bit, 8x compression)}
+\text{MiniKV: } \text{bytes}_{	ext{per}_{\text{elem}} = 0.25 \text{ (2-bit, 8x compression)}
 $$

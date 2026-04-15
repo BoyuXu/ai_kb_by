@@ -27,7 +27,7 @@ $$
 3. 保留了生成的个性化能力，同时约束了生成空间
 
 $$
-\text{NextTokens}(q_{<i}) = \{t : \text{Trie.has}}_{\text{{\text{prefix}}}(q_{<i} + t)\}
+\text{NextTokens}(q_{<i}) = \{t : \text{Trie.has}_{	ext{prefix}}(q_{<i} + t)\}
 $$
 
 ### 3. 个性化生成

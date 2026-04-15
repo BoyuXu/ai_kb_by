@@ -213,13 +213,13 @@ Task-specific Tower (CTR/CVR/FAV)
 Expert 输出：
 
 $$
-f_i(x) = \text{Expert}}_{\text{i(x)
+f_i(x) = \text{Expert}_{\text{i(x)
 $$
 
 Gating Network（任务 k）：
 
 $$
-g}}_{\text{k(x) = \text{Softmax}}(W_{g_k} \cdot x)
+g}_{\text{k(x) = \text{Softmax}}(W_{g_k} \cdot x)
 $$
 
 融合表示：

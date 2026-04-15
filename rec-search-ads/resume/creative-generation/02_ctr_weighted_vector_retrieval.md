@@ -44,10 +44,10 @@
 **公式：**
 
 $$
-\text{score}(q, d) = \alpha \cdot \cos(q, d) + (1-\alpha) \cdot \text{CTR}}_{\text{{\text{norm}}}(d)
+\text{score}(q, d) = \alpha \cdot \cos(q, d) + (1-\alpha) \cdot \text{CTR}_{	ext{norm}}(d)
 $$
 
-其中 $\text{CTR}}_{\text{{\text{norm}}}(d) = \frac{\text{CTR}(d)}{\text{CTR}}_{\text{{max}}}$ 将CTR归一化到 [0,1]
+其中 $\text{CTR}_{	ext{norm}}(d) = \frac{\text{CTR}(d)}{\text{CTR}_{	ext{max}}}$ 将CTR归一化到 [0,1]
 
 **代码实现：**
 ```python
@@ -175,7 +175,7 @@ CTR加权重排（全量计算N条的加权分）
 **重排公式：**
 
 $$
-\text{final}}_{\text{{\text{score}}}(q, d) = \text{sem}}_{\text{{\text{score}}}(q, d)^{\gamma} \cdot \text{CTR}}_{\text{{\text{smooth}}}(d)^{1-\gamma}
+\text{final}_{	ext{score}}(q, d) = \text{sem}_{	ext{score}}(q, d)^{\gamma} \cdot \text{CTR}_{	ext{smooth}}(d)^{1-\gamma}
 $$
 
 使用乘法（而非加法）的好处：语义完全不相关的创意，无论CTR多高，分数也接近0
@@ -222,7 +222,7 @@ def ctr_rerank(
 **公式：**
 
 $$
-\text{CTR}}_{\text{{\text{smooth}}} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}
+\text{CTR}_{	ext{smooth}} = \frac{\text{click} + \alpha}{\text{impression} + \alpha + \beta}
 $$
 
 其中 $\alpha, \beta$ 是全局Beta分布的参数，由历史数据MLE估计：

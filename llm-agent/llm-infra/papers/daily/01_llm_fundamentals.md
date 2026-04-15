@@ -29,7 +29,7 @@ $$
 
 - $Q, K, V$ 来自输入的线性变换：$Q=XW_Q, K=XW_K, V=XW_V$
 - $\sqrt{d_k}$ 缩放防止点积过大导致梯度消失
-- Multi-Head：并行多组注意力，最后拼接：$\text{MHA}(Q,K,V) = \text{Concat}(\text{head}}_{\text{1,...,\text{head}}_h)W_O$
+- Multi-Head：并行多组注意力，最后拼接：$\text{MHA}(Q,K,V) = \text{Concat}(\text{head}_{\text{1,...,\text{head}_h)W_O$
 - 每个head学习不同的注意力模式
 
 **面试常问：**

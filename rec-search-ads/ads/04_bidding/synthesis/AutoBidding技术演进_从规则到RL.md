@@ -66,7 +66,7 @@ $$
 由于 $w_i'(b_i) > 0$（赢得概率单调递增），得：
 
 $$
-\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR_{i }\times \text{pCVR}}_i \times \text{CPA}_{target}}{\lambda}}
+\boxed{b_i^* = \frac{v_i}{\lambda} = \frac{\text{pCTR_{i }\times \text{pCVR}_i \times \text{CPA}_{target}}{\lambda}}
 $$
 
 **符号说明：**
@@ -346,7 +346,7 @@ $$
 等价于：
 
 $$
-b_i^* = v_i / \lambda = \frac{\text{pCTR_{i }\times \text{pCVR}}_i \times \text{CPA}_{target}}{\lambda}
+b_i^* = v_i / \lambda = \frac{\text{pCTR_{i }\times \text{pCVR}_i \times \text{CPA}_{target}}{\lambda}
 $$
 
 **关键结论**：

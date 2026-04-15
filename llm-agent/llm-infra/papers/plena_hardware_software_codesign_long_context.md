@@ -17,7 +17,7 @@ PLENA 的核心贡献包括三个协同设计模块：
 **1. Predictive KV Cache Scheduling（预测性 KV Cache 调度）。** 利用 Agent 执行的可预测性（工具调用序列通常遵循 DAG 模式），提前预取即将需要的 KV Cache 分片。调度决策基于一个轻量级的访问模式预测模型：
 
 $$
-P(\text{access}}_{\text{{t+1}} = k \mid \mathcal{H}_t) = \text{softmax}\left(\frac{W_q h_t \cdot W_k e_k}{\sqrt{d}}\right)
+P(\text{access}_{	ext{t+1}} = k \mid \mathcal{H}_t) = \text{softmax}\left(\frac{W_q h_t \cdot W_k e_k}{\sqrt{d}}\right)
 $$
 
 其中 $\mathcal{H}_t$ 为到时刻 $t$ 的 Agent 执行历史，$h_t$ 为历史编码向量，$e_k$ 为第 $k$ 个 KV Cache 分片的嵌入。

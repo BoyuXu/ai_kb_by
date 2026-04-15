@@ -51,7 +51,7 @@ $$
 **液态支付（Liquid Payment）**：
 
 $$
-\text{payment} = g(\text{bid}, \text{allocation}, \text{liquid}}_{\text{{\text{welfare}}})
+\text{payment} = g(\text{bid}, \text{allocation}, \text{liquid}_{	ext{welfare}})
 $$
 
 支付基于卖家的"液态福利"——即卖家当前的广告投入 vs 收益的动态比值，提供卖家投入与总销售额之间更清晰的联系。

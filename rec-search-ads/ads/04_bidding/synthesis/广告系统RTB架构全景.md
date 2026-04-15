@@ -106,13 +106,13 @@ $$
 广告主 $i$ 按出价排名，排第 $k$ 位的广告主支付第 $k+1$ 位的出价：
 
 $$
-\text{CPC_{k = }\text{bid}}_{k+1} \cdot \frac{\text{Quality_{k+1}}}{\text{Quality}_{\text{k}} + 0.01
+\text{CPC_{k = }\text{bid}_{k+1} \cdot \frac{\text{Quality_{k+1}}}{\text{Quality}_{\text{k}} + 0.01
 $$
 
 eCPM 排序：
 
 $$
-\text{eCPM_{i = }\text{pCTR}}_i \times \text{bid_{i }\times \text{quality}}_i
+\text{eCPM_{i = }\text{pCTR}_i \times \text{bid_{i }\times \text{quality}_i
 $$
 
 ### 广告主 ROI 约束下的最优出价

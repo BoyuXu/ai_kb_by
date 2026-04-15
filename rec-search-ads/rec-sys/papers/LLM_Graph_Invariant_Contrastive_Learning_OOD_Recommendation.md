@@ -23,7 +23,7 @@ $$\mathcal{G}_{\text{sem}} = \{(i, j) : \text{sem\_sim}(e_i^{\text{LLM}}, e_j^{\
    - 将图分为 **环境子图**（分布特定）和 **不变子图**（跨分布稳定）
    - 训练目标：不变子图特征在多个环境下预测能力一致
    
-$$\min_\phi \max_e \mathcal{L}(f(\mathcal{G}^{\text{inv}}_\phi), y^e)$$
+$$\min_\phi \max_e \mathcal{L}(f(\mathcal{G}^{\text{inv}_\phi), y^e)$$
 
 3. **对比不变性增强**：
    - 同物品在不同环境（不同用户群/时间段）的表示应相近

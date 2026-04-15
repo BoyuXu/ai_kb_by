@@ -1361,7 +1361,7 @@ $k_1 \in [1.2, 2.0]$，$b=0.75$（标准参数）。
 RRF 混合融合：
 
 $$
-\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}}_{\text{r(d)}}, \quad k=60
+\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_{\text{r(d)}}, \quad k=60
 $$
 
 余弦相似度检索：

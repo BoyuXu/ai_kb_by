@@ -86,7 +86,7 @@ $$
 每个文档表示为 $|V|$ 维稀疏向量（$V$ 是词汇表大小），第 $i$ 维是词 $v_i$ 的 TF-IDF 值。查询同样表示为稀疏向量，通过余弦相似度计算相关性：
 
 $$
-\text{cosine}}_{\text{{\text{sim}}}(q, d) = \frac{q \cdot d}{\|q\| \|d\|}
+\text{cosine}_{	ext{sim}}(q, d) = \frac{q \cdot d}{\|q\| \|d\|}
 $$
 
 ---
@@ -200,7 +200,7 @@ top_k = np.argsort(scores)[::-1][:10]
 **Reciprocal Rank Fusion（互惠秩融合）**：将稀疏和稠密检索的结果融合：
 
 $$
-\text{RRF}}_{\text{{\text{score}}}(d | q) = \sum_{r \in \{\text{sparse}, \text{dense}\}} \frac{1}{k + r_r(d)}
+\text{RRF}_{	ext{score}}(d | q) = \sum_{r \in \{\text{sparse}, \text{dense}\}} \frac{1}{k + r_r(d)}
 $$
 
 其中：

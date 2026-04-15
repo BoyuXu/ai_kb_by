@@ -29,7 +29,7 @@
 **RQ 编码过程：**
 
 $$
-\mathbf{z}_0 = \text{Encoder}(\text{item}}_{\text{{\text{content}}})
+\mathbf{z}_0 = \text{Encoder}(\text{item}_{	ext{content}})
 $$
 
 $$
@@ -84,10 +84,10 @@ $$
 **解决方案**：基于隐式用户反馈（观看时长、完播率、点赞等）构建**列表级偏好对**，用 DPO（Direct Preference Optimization）思想做 Slate 级对齐：
 
 $$
-\mathcal{L}_{align} = -\log\sigma\left(\beta \log \frac{\pi_\theta(\text{Slate}}_{\text{{win}} | u)}{\pi_{ref}(\text{Slate}}_{\text{{win}} | u)} - \beta \log \frac{\pi_\theta(\text{Slate}}_{\text{{lose}} | u)}{\pi_{ref}(\text{Slate}}_{\text{{lose}} | u)}\right)
+\mathcal{L}_{align} = -\log\sigma\left(\beta \log \frac{\pi_\theta(\text{Slate}_{	ext{win}} | u)}{\pi_{ref}(\text{Slate}_{	ext{win}} | u)} - \beta \log \frac{\pi_\theta(\text{Slate}_{	ext{lose}} | u)}{\pi_{ref}(\text{Slate}_{	ext{lose}} | u)}\right)
 $$
 
-其中 $\text{Slate}}_{\text{{win}}$ 是用户反馈更好的列表（高完播率），$\text{Slate}}_{\text{{lose}}$ 是反馈差的列表。
+其中 $\text{Slate}_{	ext{win}}$ 是用户反馈更好的列表（高完播率），$\text{Slate}_{	ext{lose}}$ 是反馈差的列表。
 
 ## 实验结论
 

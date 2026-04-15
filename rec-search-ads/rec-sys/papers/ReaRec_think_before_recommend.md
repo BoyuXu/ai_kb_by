@@ -61,7 +61,7 @@ $$
 引入课程学习思想，逐步增加推理步数的难度：
 
 $$
-\mathcal{L}_{PRL} = \sum_{k=1}^{K} \mathcal{L}_{CE}(h_k, h_{k-1}^{\text{stop}}_{\text{{\text{grad}}}})
+\mathcal{L}_{PRL} = \sum_{k=1}^{K} \mathcal{L}_{CE}(h_k, h_{k-1}^{\text{stop}_{	ext{grad}}})
 $$
 
 让每步推理向前一步的目标对齐，形成渐进式训练信号。

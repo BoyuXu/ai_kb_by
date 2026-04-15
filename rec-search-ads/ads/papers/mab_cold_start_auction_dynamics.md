@@ -39,7 +39,7 @@ $$
 为广告 $a$ 的 CTR 估计增加置信上界：
 
 $$
-\widehat{\text{pCTR}}_\text{UCB}(a) = \hat{\mu}_a + c \cdot \sqrt{\frac{\log t}{n_a}}
+\widehat{\text{pCTR}_\text{UCB}(a) = \hat{\mu}_a + c \cdot \sqrt{\frac{\log t}{n_a}}
 $$
 
 其中：
@@ -54,7 +54,7 @@ $$
 在 pay-per-click 系统中，广告排序分（eCPM）为：
 
 $$
-\text{eCPM}(a) = \text{bid}(a) \times \widehat{\text{pCTR}}_\text{UCB}(a)
+\text{eCPM}(a) = \text{bid}(a) \times \widehat{\text{pCTR}_\text{UCB}(a)
 $$
 
 通过 UCB 调整 pCTR，无需改变竞价机制本身，实现对新广告的隐式探索。

@@ -94,7 +94,7 @@ Actor 输出出价 bid，Critic 估计 Q(state=市场状态, action=出价)。
 ### 5. RL 奖励函数统一形式
 
 $$
-r = \underbrace{r_\text{task}}_\text{任务奖励} + \underbrace{\lambda_f \cdot r_\text{format}}_\text{格式约束} - \underbrace{\beta \cdot D_\text{KL}(\pi||\pi_\text{ref})}_\text{漂移惩罚}
+r = \underbrace{r_\text{task}_\text{任务奖励} + \underbrace{\lambda_f \cdot r_\text{format}_\text{格式约束} - \underbrace{\beta \cdot D_\text{KL}(\pi||\pi_\text{ref})}_\text{漂移惩罚}
 $$
 
 三个领域都有类似结构：主奖励 + 约束惩罚 + 策略稳定性正则。

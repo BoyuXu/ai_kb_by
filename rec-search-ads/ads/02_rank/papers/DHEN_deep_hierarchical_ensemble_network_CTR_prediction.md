@@ -38,7 +38,7 @@ DHEN Hierarchical Ensemble Layer:
 - **层间堆叠（Inter-layer）**：将集成输出作为下一层的输入，构建深层次交互
 
 $$
-h_l = \text{Aggregate}\left(\text{Module}}_{\text{1(h}}_{\text{{l-1}}),\ \text{Module}}_{\text{2(h}}_{\text{{l-1}}),\ \ldots,\ \text{Module}}_{\text{K(h}}_{\text{{l-1}})\right)
+h_l = \text{Aggregate}\left(\text{Module}_{\text{1(h}_{	ext{l-1}}),\ \text{Module}_{\text{2(h}_{	ext{l-1}}),\ \ldots,\ \text{Module}_{\text{K(h}_{	ext{l-1}})\right)
 $$
 
 其中 Aggregate 可选 concat + linear projection 或 attention-based fusion。
@@ -46,7 +46,7 @@ $$
 ### 公式2：层间堆叠（Inter-layer Stacking）
 
 $$
-h_l^{(k)} = \text{Module}}_{\text{k\left(\text{Aggregate}}(h_{l-1}^{(1)}, h_{l-1}^{(2)}, \ldots, h_{l-1}^{(K)})\right)
+h_l^{(k)} = \text{Module}_{\text{k\left(\text{Aggregate}}(h_{l-1}^{(1)}, h_{l-1}^{(2)}, \ldots, h_{l-1}^{(K)})\right)
 $$
 
 **解释：**

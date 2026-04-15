@@ -80,11 +80,11 @@ $$
 ### 公式4：PLE 改进（Progressive Layered Extraction）
 
 $$
-f_l^k = \text{Gate}}_{\text{l^k([E}}_{\text{l^{shared}}(x); E_l^{k}(x)])
+f_l^k = \text{Gate}_{\text{l^k([E}_{\text{l^{shared}}(x); E_l^{k}(x)])
 $$
 
 $$
-f_l^{shared} = \text{Gate}}_{\text{l^{shared}}([E_l^{shared}(x); E_l^{1}(x); \ldots; E_l^{T}(x)])
+f_l^{shared} = \text{Gate}_{\text{l^{shared}}([E_l^{shared}(x); E_l^{1}(x); \ldots; E_l^{T}(x)])
 $$
 
 **解释：**

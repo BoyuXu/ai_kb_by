@@ -27,7 +27,7 @@ $$
 **奖励设计：** 采用 Outcome-based Reward（结果奖励），仅在推理轨迹结束时根据最终答案的正确性给予 0/1 奖励，不对中间的搜索行为进行单独奖励或惩罚。这一设计的优势在于：
 
 $$
-R(\tau) = \mathbb{1}[\text{extract}}_{\text{{\text{answer}}}(\tau) = a^*]
+R(\tau) = \mathbb{1}[\text{extract}_{	ext{answer}}(\tau) = a^*]
 $$
 
 模型自主学习何时搜索最有利于最终答案的正确性，避免了人工设计搜索时机奖励的困难。

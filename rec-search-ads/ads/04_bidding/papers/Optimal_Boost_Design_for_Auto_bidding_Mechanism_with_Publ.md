@@ -40,7 +40,7 @@
 ### 公式1：Boost 函数
 
 $$
-\text{effective}}_{\text{{\text{bid}}}_i = \text{bid}}_{\text{i \times B(q}}_{\text{i)
+\text{effective}_{	ext{bid}_i = \text{bid}_{i} \times B(q}_{\text{i)
 $$
 
 $$
@@ -66,7 +66,7 @@ $$
 ### 公式3：社会福利最大化
 
 $$
-\max_{B(\cdot)} \mathbb{E}\left[\sum_i v_i \cdot \mathbb{1}[\text{win}}_{\text{i] \cdot q}}_{\text{i\right] \quad \text{s.t.}} \quad \mathbb{E}[q_{\text{winner}}] \geq q_{\min}
+\max_{B(\cdot)} \mathbb{E}\left[\sum_i v_i \cdot \mathbb{1}[\text{win}_{\text{i] \cdot q}_{\text{i\right] \quad \text{s.t.}} \quad \mathbb{E}[q_{\text{winner}}] \geq q_{\min}
 $$
 
 **解释：** 最大化价值加权的社会福利，同时保证赢家平均质量不低于发布商要求。

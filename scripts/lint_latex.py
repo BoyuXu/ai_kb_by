@@ -155,6 +155,53 @@ def scan_file(fpath: Path) -> list[Issue]:
                     f"美元金额 '{m.group()}' 会被 Obsidian 解析为公式，需转义为 \\$",
                     fixable=True, fix_fn=make_money_fix()))
 
+    # ── E6: \text{} 花括号腐化 (如 \text{X}}_{\text{Y) ──
+    in_code_e6 = False
+    in_math_e6 = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_e6 = not in_code_e6
+            continue
+        if in_code_e6:
+            continue
+        # 跳过 inline code `...` 中的内容
+        line_no_inline_code = re.sub(r"`[^`]+`", "", line)
+
+        # 检测 \text{X}}_{\text{ 模式（多了一个 }）
+        # 排除 \underbrace{...}_{\text{}} 这种合法用法
+        if "}}_" in line_no_inline_code and "\\text" in line_no_inline_code:
+            # 排除 underbrace/overbrace 的合法 }_{\text{}}
+            if not re.search(r"\\(?:underbrace|overbrace)\{", line_no_inline_code):
+                issues.append(Issue(rel, i, "E6",
+                    f"\\text{{}} 花括号腐化（}}}}_{{）: {stripped[:80]}",
+                    fixable=True))
+        # 检测 \text{{ 双花括号
+        if re.search(r"\\text\{\{", line_no_inline_code):
+            issues.append(Issue(rel, i, "E6",
+                f"\\text{{{{}} 双花括号: {stripped[:80]}",
+                fixable=True))
+
+    # ── W4: 行内公式中文紧贴 $ (Obsidian 不渲染) ──
+    in_code_block2 = False
+    in_math_block2 = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block2 = not in_code_block2
+            continue
+        if in_code_block2:
+            continue
+        if re.match(r"^\$\$\s*$", stripped):
+            in_math_block2 = not in_math_block2
+            continue
+        if in_math_block2:
+            continue
+        # 中文字符紧贴 $ 开头（无空格），Obsidian 可能不渲染
+        if re.search(r'[\u4e00-\u9fff]\$[^$]', line):
+            issues.append(Issue(rel, i, "W4",
+                f"中文紧贴 $ 开头，Obsidian 可能不渲染: {stripped[:60]}"))
+
     # ── E5: 空 $$ 对 ──
     for i, line in enumerate(lines, 1):
         if "$$" in line and re.search(r"\$\s*\$", line):

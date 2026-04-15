@@ -33,7 +33,7 @@
 ## 数学公式
 
 $$
-\text{Data Efficiency} = \frac{\text{Performance}}_{\text{{LIMO}}}{\text{Performance}}_{\text{{baseline}}} \div \frac{|D_{LIMO}|}{|D_{baseline}|}
+\text{Data Efficiency} = \frac{\text{Performance}_{	ext{LIMO}}}{\text{Performance}_{	ext{baseline}}} \div \frac{|D_{LIMO}|}{|D_{baseline}|}
 $$
 
 LIMO: 817 samples, +14% AIME → Data efficiency ≈ 100×

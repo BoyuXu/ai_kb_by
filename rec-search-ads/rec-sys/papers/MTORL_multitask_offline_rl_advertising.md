@@ -37,7 +37,7 @@ $$
 **动作（Action）$a_t$**：
 
 $$
-a_t = [\text{channel}}_{\text{{\text{selection}}}, \text{bid}}_{\text{{\text{amount}}}]
+a_t = [\text{channel}_{	ext{selection}}, \text{bid}_{	ext{amount}}]
 $$
 
 - `channel_selection`：选择投放渠道（离散动作）
@@ -46,7 +46,7 @@ $$
 **奖励（Reward）$r_t$**：
 
 $$
-r_t = \alpha \cdot \text{CTR}}_{\text{{t}} + \beta \cdot \text{CVR}}_{\text{{t}} + \gamma \cdot \text{ROI}}_{\text{{t}} - \lambda \cdot \text{constraint}}_{\text{{\text{violation}}}
+r_t = \alpha \cdot \text{CTR}_{	ext{t}} + \beta \cdot \text{CVR}_{	ext{t}} + \gamma \cdot \text{ROI}_{	ext{t}} - \lambda \cdot \text{constraint}_{	ext{violation}}
 $$
 
 多目标加权奖励，包含点击率、转化率、ROI 和约束违反惩罚。
@@ -56,7 +56,7 @@ $$
 **核心设计**：用 **因果注意力机制（Causal Attention）** 编码用户交互序列，同时捕获动态用户兴趣和时间依赖。
 
 $$
-\mathbf{h}_{user}(t) = \text{CausalTransformer}([i_{t-T}, \ldots, i_{t-1}]; \text{causal}}_{\text{{\text{mask}}})
+\mathbf{h}_{user}(t) = \text{CausalTransformer}([i_{t-T}, \ldots, i_{t-1}]; \text{causal}_{	ext{mask}})
 $$
 
 因果掩码（Causal Mask）确保时刻 $t$ 的状态只依赖历史信息，不泄露未来信号（防止测试泄漏）。
@@ -78,7 +78,7 @@ $$
 **预算感知的 Return-to-Go：**
 
 $$
-R_t = \sum_{\tau=t}^{T} r_\tau - \lambda \cdot \max(0, \sum_{\tau=t}^{T} \text{spend}}_{\text{\tau - B}}_{\text{{remaining}})
+R_t = \sum_{\tau=t}^{T} r_\tau - \lambda \cdot \max(0, \sum_{\tau=t}^{T} \text{spend}_{\text{\tau - B}_{	ext{remaining}})
 $$
 
 通过预算违反惩罚，将预算约束内化到目标回报中。

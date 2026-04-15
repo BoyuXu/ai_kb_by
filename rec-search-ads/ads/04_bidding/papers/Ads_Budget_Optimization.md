@@ -78,7 +78,7 @@ $$
 - **基于预测的出价**：
 
 $$
-b_i = v_i \times \text{pConversion}}_{\text{i
+b_i = v_i \times \text{pConversion}_{\text{i
 $$
 
 ，用预测转化率乘以目标转化价值
@@ -97,7 +97,7 @@ $$
 同时满足广告主 ROI 约束和平台收益约束：
 
 $$
-\max \sum}}_{\text{i r}}_{\text{i \cdot x}}_{\text{i \quad s.t. \quad \sum}}_{\text{i c}}_{\text{i \cdot x}}_{\text{i \leq B, \quad \text{ROI}}_i \geq \text{target}_i
+\max \sum}_{\text{i r}_{i} \cdot x}_{\text{i \quad s.t. \quad \sum}_{i} c}_{\text{i \cdot x}_{i} \leq B, \quad \text{ROI}_i \geq \text{target}_i
 $$
 
 ## 实验结论

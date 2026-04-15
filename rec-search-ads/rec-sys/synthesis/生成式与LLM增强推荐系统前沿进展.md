@@ -63,7 +63,7 @@ UFO 3 轮迭代后人口统计组间 Recall 差距缩小 **67%**。
 
 ### LLM Graph Invariant Learning
 
-$$\min_\phi \max_e \mathcal{L}(f(\mathcal{G}^{\text{inv}}_\phi), y^e)$$
+$$\min_\phi \max_e \mathcal{L}(f(\mathcal{G}^{\text{inv}_\phi), y^e)$$
 
 跨地域泛化 NDCG@10 **+17.3%**，跨时段 **+12.1%**。
 

@@ -202,7 +202,7 @@ $$
 3. **UCB 上界**：选择最乐观的可能估计（置信上界）：
 
 $$
-\text{UCB_{a(t) = }\hat{\mu}}_a + \sqrt{\frac{2\log t}{n_a}}
+\text{UCB_{a(t) = }\hat{\mu}_a + \sqrt{\frac{2\log t}{n_a}}
 $$
    
    **关键洞察**：$\sqrt{\frac{\log t}{n_a}}$ 项在样本少（$n_a$ 小）时很大，鼓励探索新臂。
@@ -285,7 +285,7 @@ $$
 **因果图建模**（DAG）：
 
 $$
-B_i \rightarrow \text{Win_{i }\rightarrow \text{Click}}_i \rightarrow \text{Conversion}_{\text{i
+B_i \rightarrow \text{Win_{i }\rightarrow \text{Click}_i \rightarrow \text{Conversion}_{\text{i
 $$
 
 出价 $B_{i}}$ 影响曝光赢得概率，进而影响点击和转化，形成有向因果链。

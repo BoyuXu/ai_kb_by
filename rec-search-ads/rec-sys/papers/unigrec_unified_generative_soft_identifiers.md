@@ -25,13 +25,13 @@ $$
 **End-to-End Generative Framework**：生成过程改为在连续空间中自回归生成 soft tokens：
 
 $$
-P(\text{item} | \text{user}}_{\text{{\text{seq}}}) = \prod_{l=1}^{L} P(\mathbf{v}_l | \mathbf{v}_{<l}, \mathbf{h}_{\text{user}})
+P(\text{item} | \text{user}_{	ext{seq}}) = \prod_{l=1}^{L} P(\mathbf{v}_l | \mathbf{v}_{<l}, \mathbf{h}_{\text{user}})
 $$
 
 每一步的生成不是从离散 codebook 中选择一个 token，而是在连续空间中回归出一个向量。训练损失包含两部分：
 
 $$
-\mathcal{L} = \mathcal{L}_{\text{gen}} + \lambda \mathcal{L}_{\text{reg}}, \quad \mathcal{L}_{\text{gen}} = \sum_{l=1}^{L} \|\hat{\mathbf{v}}_l - \mathbf{v}_l^*\|^2, \quad \mathcal{L}_{\text{reg}} = \text{InfoNCE}(\hat{\mathbf{v}}_L, \mathbf{v}_L^*)
+\mathcal{L} = \mathcal{L}_{\text{gen}} + \lambda \mathcal{L}_{\text{reg}}, \quad \mathcal{L}_{\text{gen}} = \sum_{l=1}^{L} \|\hat{\mathbf{v}_l - \mathbf{v}_l^*\|^2, \quad \mathcal{L}_{\text{reg}} = \text{InfoNCE}(\hat{\mathbf{v}_L, \mathbf{v}_L^*)
 $$
 
 其中 $\mathcal{L}_{\text{gen}}$ 是逐层的回归损失，$\mathcal{L}_{\text{reg}}$ 是基于 InfoNCE 的对比损失确保生成的最终表示在全局物品空间中具有区分性。
@@ -39,7 +39,7 @@ $$
 **Item Retrieval from Soft IDs**：生成出连续向量后，需要在物品库中找到最近邻物品。UniGRec 构建了一个 approximate nearest neighbor (ANN) 索引，基于所有物品的 soft token 序列的最后一层表示：
 
 $$
-\text{retrieved}}_{\text{{\text{item}}} = \arg\min_{i \in \mathcal{I}} \|\hat{\mathbf{v}}_L - \mathbf{v}_L^{(i)}\|^2
+\text{retrieved}_{	ext{item}} = \arg\min_{i \in \mathcal{I}} \|\hat{\mathbf{v}_L - \mathbf{v}_L^{(i)}\|^2
 $$
 
 **Hierarchical Soft Tokens**：

@@ -82,11 +82,11 @@ $$
 $$
 
 $$
-\mathcal{L}_{CTR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\text{pCTR}}_{\text{i) + (1-y}}_{\text{i) \log(1-\text{pCTR}}_i)]
+\mathcal{L}_{CTR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(\text{pCTR}_{\text{i) + (1-y}_{\text{i) \log(1-\text{pCTR}_i)]
 $$
 
 $$
-\mathcal{L}_{CTCVR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i z_i \log(\text{pCTCVR}}_{\text{i) + (1-y}}_{\text{i z}}_{\text{i) \log(1-\text{pCTCVR}}_i)]
+\mathcal{L}_{CTCVR} = -\frac{1}{N} \sum_{i=1}^{N} [y_i z_i \log(\text{pCTCVR}_{\text{i) + (1-y}_{i} z}_{\text{i) \log(1-\text{pCTCVR}_i)]
 $$
 
 **解释：**

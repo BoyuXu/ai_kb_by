@@ -35,7 +35,7 @@
 发现 LLM 倾向于直接输出原始排序（保守策略）来获得高奖励，通过条件奖励设计惩罚此行为：
 
 $$
-r = r_{ranking} \cdot \mathbb{1}[\text{reranking}}_{\text{{\text{happened}}}] + r_{baseline} \cdot \mathbb{1}[\text{not}}_{\text{{\text{reranked}}}]
+r = r_{ranking} \cdot \mathbb{1}[\text{reranking}_{	ext{happened}}] + r_{baseline} \cdot \mathbb{1}[\text{not}_{	ext{reranked}}]
 $$
 
 **③ DAPO 算法优化**

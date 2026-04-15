@@ -220,7 +220,7 @@ $$
 **核心范式**：跨广告主大规模预训练，单一模型服务所有广告主：
 
 $$
-P(\text{bid_{t | }\text{bid}}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
+P(\text{bid_{t | }\text{bid}_{t-k:t-1}, \text{budget}, \text{KPI}) = p_\theta(\cdot)
 $$
 
 Diffusion 在连续出价空间建模（多峰分布）：

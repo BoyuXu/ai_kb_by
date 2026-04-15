@@ -155,13 +155,13 @@ def prepare_training_data(events_log, observation_window_days=7):
 广告主的目标：
 
 $$
-\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target}}_{\text{{\text{CPA}}}
+\max \text{Conversions} \quad \text{s.t.} \quad CPA \leq \text{target}_{	ext{CPA}}
 $$
 
 其中：
 
 $$
-CPA = \frac{\text{Total Cost}}{\text{Total Conversions}} = \frac{\sum \text{bid}}_{\text{i}}{\sum \text{conversion}}_{\text{i}}
+CPA = \frac{\text{Total Cost}}{\text{Total Conversions}} = \frac{\sum \text{bid}_{\text{i}}{\sum \text{conversion}_{\text{i}}
 $$
 
 这是个非线性的约束优化问题。直接求解很难。
@@ -171,43 +171,43 @@ $$
 使用拉格朗日乘数法，转化为无约束问题：
 
 $$
-L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}}_{\text{i(\text{bid}}_i) - \lambda \left( \sum_i \text{bid}}_{\text{i - \text{target}}_{\text{CPA}} \sum_i \text{conversion}}_{\text{i(\text{bid}}_i) \right)
+L(\mathbf{bid}, \lambda) = \sum_i \text{conversion}_{\text{i(\text{bid}_i) - \lambda \left( \sum_i \text{bid}_{i} - \text{target}_{\text{CPA}} \sum_i \text{conversion}_{\text{i(\text{bid}_i) \right)
 $$
 
 展开：
 
 $$
-L = \sum_i [\text{conversion}}_{\text{i(\text{bid}}_i) \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) - \lambda \cdot \text{bid}}_{\text{i]
+L = \sum_i [\text{conversion}_{\text{i(\text{bid}_i) \cdot (1 + \lambda \cdot \text{target}_{	ext{CPA}}) - \lambda \cdot \text{bid}_{\text{i]
 $$
 
-对 $\text{bid}}_i$ 求偏导，在最优点：
+对 $\text{bid}_i$ 求偏导，在最优点：
 
 $$
-\frac{\partial \text{conversion}}_{\text{i}}{\partial \text{bid}}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) = \lambda
+\frac{\partial \text{conversion}_{\text{i}}{\partial \text{bid}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}_{	ext{CPA}}) = \lambda
 $$
 
 假设转化与出价成对数关系（常见假设）：
 
 $$
-\text{conversion}}_{\text{i = \alpha}}_{\text{i \cdot \text{log}}(\text{bid}}_{\text{i)
+\text{conversion}_{i} = \alpha}_{\text{i \cdot \text{log}}(\text{bid}_{\text{i)
 $$
 
 则：
 
 $$
-\frac{\alpha}}_{\text{i}}{\text{bid}}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}) = \lambda
+\frac{\alpha}_{\text{i}}{\text{bid}_{\text{i}} \cdot (1 + \lambda \cdot \text{target}_{	ext{CPA}}) = \lambda
 $$
 
 解得最优出价：
 
 $$
-\text{bid}}_{\text{i^* = \frac{\alpha}}_{\text{i}}{\lambda} \cdot (1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}})
+\text{bid}_{\text{i^* = \frac{\alpha}_{\text{i}}{\lambda} \cdot (1 + \lambda \cdot \text{target}_{	ext{CPA}})
 $$
 
-进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target}}_{\text{{\text{CPA}}}}{\lambda}$，得：
+进一步简化，定义 $\beta = \frac{1 + \lambda \cdot \text{target}_{	ext{CPA}}}{\lambda}$，得：
 
 $$
-\text{bid}}_{\text{i^* = \beta \cdot \text{target}}_{\text{CPA}} \cdot \text{pCVR}}_{\text{i
+\text{bid}_{\text{i^* = \beta \cdot \text{target}_{\text{CPA}} \cdot \text{pCVR}_{\text{i
 $$
 
 **直观理解**：最优出价 = 目标 CPA × 预估转化率 × 调整系数 $\beta$
@@ -341,7 +341,7 @@ Thompson Sampling 的妙处在于：
 定义综合目标函数：
 
 $$
-F = w}}_{\text{1 \cdot \text{Conversions}} + w_2 \cdot \text{Platform Revenue} - w_3 \cdot \text{Unfairness}
+F = w}_{\text{1 \cdot \text{Conversions}} + w_2 \cdot \text{Platform Revenue} - w_3 \cdot \text{Unfairness}
 $$
 
 其中权重 $w_1, w_2, w_3$ 由产品和商业团队协商。

@@ -27,7 +27,7 @@ $$
 MTFM的核心贡献之一是验证了推荐基础模型的scaling law。定义模型性能(以AUC衡量)与模型规模(参数量 $N$)、数据量($D$)的关系：
 
 $$
-\text{AUC}(N, D) = \text{AUC}}_{\text{{\infty}} - \left(\frac{N_c}{N}\right)^{\alpha_N} - \left(\frac{D_c}{D}\right)^{\alpha_D}
+\text{AUC}(N, D) = \text{AUC}_{	ext{\infty}} - \left(\frac{N_c}{N}\right)^{\alpha_N} - \left(\frac{D_c}{D}\right)^{\alpha_D}
 $$
 
 实验表明 $\alpha_N \approx 0.07$，$\alpha_D \approx 0.12$，即增大数据量带来的收益略高于增大模型，但两者均呈幂律递减。关键发现是在3倍规模增长时(从1B到3B到10B)，AUC持续正向提升，未出现饱和。
