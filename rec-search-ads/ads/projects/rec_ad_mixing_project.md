@@ -491,7 +491,7 @@ RL的视角:
 ### MDP 建模
 
 $$
-\text{State } s_t = (\underbrace{\text{user\_profile}}_{\text{兴趣/画像}}, \underbrace{\text{displayed\_list}_{<t}}_{\text{已展示序列}}, \underbrace{\text{session\_context}}_{\text{时间/设备/实时特征}})
+\text{State } s_t = (\underbrace{\text{user\_profile}}_{\text{兴趣/画像}}, \underbrace{\text{displayed\_list}_{\lt t}}_{\text{已展示序列}}, \underbrace{\text{session\_context}}_{\text{时间/设备/实时特征}})
 $$
 
 $$
@@ -729,7 +729,7 @@ $$
 **路线C: 端到端序列生成（EGA-v2, 2025）**
 
 $$
-P(a_1, a_2, ..., a_K | u, \mathcal{C}) = \prod_{k=1}^{K} P(a_k | a_{<k}, u, \mathcal{C})
+P(a_1, a_2, \ldots, a_K \mid u, \mathcal{C}) = \prod_{k=1}^{K} P(a_k \mid a_{\lt k}, u, \mathcal{C})
 $$
 
 直接自回归生成广告序列，用 Semantic ID 表示每个 item。
@@ -836,7 +836,7 @@ $\sigma_k$ 是可学习参数——任务不确定性高时 $\sigma_k$ 大，权
 **PCGrad**：当两个任务梯度方向冲突时，将梯度投影到对方的正交方向：
 
 $$
-g_i' = g_i - \frac{g_i \cdot g_j}{\|g_j\|^2} g_j \quad \text{if } g_i \cdot g_j < 0
+g_i' = g_i - \frac{g_i \cdot g_j}{\lVert g_j \rVert^2} g_j \quad \text{if } g_i \cdot g_j \lt 0
 $$
 
 **MGDA**：找所有任务梯度的最小包络方向：
@@ -1192,7 +1192,7 @@ $$
 | RPM | 广告收入/千次展示 | 不降超过2% | 核心商业指标 |
 | CTR_ad | 广告点击/广告展示 | 不降超过1% | 广告效果 |
 | CTR_organic | 自然内容点击/展示 | 持平或提升 | 用户体验 |
-| CTR_gap | \|CTR_organic - CTR_ad\| | 缩小 | 广告与内容融合度 |
+| CTR_gap | abs(CTR_organic - CTR_ad) | 缩小 | 广告与内容融合度 |
 | Ad Load | 广告展示/总展示 | 在目标范围内 | 广告密度 |
 | Skip Rate | 快速划过/总展示 | 不升超过5% | 疲劳指标 |
 
