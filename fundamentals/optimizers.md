@@ -211,9 +211,9 @@ $$\theta_{t+1} = \theta_t - \eta \left( \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \eps
 
 $$r_t = \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} + \lambda \theta_t$$
 
-$$\text{trust\_ratio} = \frac{||\theta_t||}{||r_t||}$$
+$$\text{trustRatio} = \frac{||\theta_t||}{||r_t||}$$
 
-$$\theta_{t+1} = \theta_t - \eta \cdot \text{trust\_ratio} \cdot r_t$$
+$$\theta_{t+1} = \theta_t - \eta \cdot \text{trustRatio} \cdot r_t$$
 
 **核心创新：** 在 AdamW 基础上加了**逐层 trust ratio**。每层的更新幅度按该层参数范数和更新范数的比值缩放。
 

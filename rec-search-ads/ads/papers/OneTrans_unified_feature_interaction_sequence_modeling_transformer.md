@@ -33,7 +33,7 @@
 
 4. **共享 Transformer 的双任务 Loss**：
 
-$$\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{sequence\_pred}}$$
+$$\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{sequencePred}}$$
 
 - 序列预测辅助任务：预测下一个行为 item，增强序列建模质量
 - 主任务：CTR 预测

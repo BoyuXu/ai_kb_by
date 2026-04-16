@@ -30,7 +30,7 @@
    - 不是每步都搜索，而是只在置信度低时触发
    - 置信度估计：基于 token 概率方差
    
-$$\text{trigger\_search} = \text{True if } \text{Var}(P(\text{tokens})) > \theta$$
+$$\text{triggerSearch} = \text{True if } \text{Var}(P(\text{tokens})) > \theta$$
 
 3. **检索结果融合（Retrieval Integration）**：
    - 检索结果摘要（避免 Context 过长）

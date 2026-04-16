@@ -22,7 +22,7 @@
 动态调整每个训练样本的权重，基于其「推理强度」：
 
 $$
-w_i = f(\text{reasoning\_intensity}(q_i, d_i))
+w_i = f(\text{reasoningIntensity}(q_i, d_i))
 $$
 
 推理强度高的样本获得更大权重，让模型聚焦于真正需要推理能力的困难样本。

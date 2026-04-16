@@ -60,7 +60,7 @@ LLM 提供因果先验知识，识别广告特征间的因果关系（如"价格
 统一排序框架：一个模型同时处理多种排序任务（广告排序、搜索排序、推荐排序）。
 
 $$
-\text{score} = \text{OneRanker}(\text{query/context}, \text{candidates}, \text{task\_prompt})
+\text{score} = \text{OneRanker}(\text{query/context}, \text{candidates}, \text{taskPrompt})
 $$
 
 通过 task prompt 区分不同排序场景，共享底层表示学习。
@@ -94,7 +94,7 @@ Step 3: 排序决策 → "广告A > 广告B（品牌广告，弱相关）"
 将广告 ID 编码为语义 token 序列（Semantic ID），用自回归模型逐 token 生成：
 
 $$
-P(\text{ad}) = \prod_{t=1}^{T} P(\text{token}_t \mid \text{token}_{<t}, \text{user\_context})
+P(\text{ad}) = \prod_{t=1}^{T} P(\text{token}_t \mid \text{token}_{<t}, \text{userContext})
 $$
 
 优势：无需维护显式候选集索引，新广告自然融入生成空间。
@@ -150,7 +150,7 @@ LLM 驱动的创意生产：
 OneRec 类统一框架：一个模型同时处理召回、排序、重排：
 
 $$
-\text{output} = \text{FoundationModel}(\text{user}, \text{context}, \text{task\_token})
+\text{output} = \text{FoundationModel}(\text{user}, \text{context}, \text{taskToken})
 $$
 
 task\_token 切换任务模式（召回/排序/解释）。

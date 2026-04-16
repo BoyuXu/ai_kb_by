@@ -19,7 +19,7 @@ $$P(\text{POI}_t | u, \text{loc}_t, \text{time}_t, \text{hist}_{<t})$$
    - 将地理坐标量化为分层地理 token（城市→区→格网→POI）
    - 时间编码：小时 + 星期 + 节假日 → 时间 token
    
-$$\text{STID}(p) = [\text{geo\_token}_{L1}, \text{geo\_token}_{L2}, \text{geo\_token}_{L3}, \text{poi\_token}]$$
+$$\text{STID}(p) = [\text{geoToken}_{L1}, \text{geoToken}_{L2}, \text{geoToken}_{L3}, \text{poiToken}]$$
 
 2. **时空约束解码**：
    - 在 beam search 中加入空间可行性约束

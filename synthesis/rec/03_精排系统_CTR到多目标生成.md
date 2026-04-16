@@ -85,7 +85,7 @@ $$
 
 工业常用加权融合：
 $$
-\text{score} = \text{pCTR}^{w_1} \times \text{pCVR}^{w_2} \times \text{duration\_pred}^{w_3}
+\text{score} = \text{pCTR}^{w_1} \times \text{pCVR}^{w_2} \times \text{durationPred}^{w_3}
 $$
 
 ### 3.3 多任务学习损失

@@ -91,7 +91,7 @@ $$\text{Generate} \xrightarrow{\text{Execute}} \text{Error} \xrightarrow{\text{F
 
 **ReasonIR** 核心贡献：检索器不应只学语义相似，而应学「推理相关」：
 
-$$\text{sem\_sim}(q, d) \neq \text{reasoning\_relevance}(q, d)$$
+$$\text{semSim}(q, d) \neq \text{reasoningRelevance}(q, d)$$
 
 多跳推理链：
 

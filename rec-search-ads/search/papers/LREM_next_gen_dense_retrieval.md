@@ -24,7 +24,7 @@ $$
 用强化学习进一步优化推理链质量，使其生成的 embedding 更利于检索。
 
 $$
-\pi^* = \arg\max_\pi \mathbb{E}[\text{Retrieval\_Reward}(q, \text{CoT}_\pi, \text{item})]
+\pi^* = \arg\max_\pi \mathbb{E}[\text{RetrievalReward}(q, \text{CoT}_\pi, \text{item})]
 $$
 
 ## 关键创新

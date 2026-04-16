@@ -958,7 +958,7 @@ $$
 > LR（手工）→ FM（自动二阶）→ DeepFM（FM+DNN）→ DCN/DCNv2（Cross Network）→ xDeepFM（CIN）→ AutoInt（Multi-head Attention）→ FiBiNET（SENet+Bilinear）→ MaskNet（乘性交互）。
 
 ### Q5: 推荐系统中 Embedding 维度如何选择？
-> 经验公式：$d = 6 \times (\text{vocabulary\_size})^{1/4}$。高频特征 16-64 维，低频 4-8 维。总参数量主要由 Embedding 决定（占 99%+），需在表达能力和存储/计算成本间权衡。
+> 经验公式：$d = 6 \times (\text{vocabularySize})^{1/4}$。高频特征 16-64 维，低频 4-8 维。总参数量主要由 Embedding 决定（占 99%+），需在表达能力和存储/计算成本间权衡。
 
 ### Q6: 多任务学习中负迁移如何检测和缓解？
 > 检测：对比多任务 vs 单任务 AUC，某任务下降=负迁移。缓解：MMoE（Gate 软选择 Expert）→ PLE（任务特定+共享 Expert 分离）→ STAR（共享+特定参数网络）。

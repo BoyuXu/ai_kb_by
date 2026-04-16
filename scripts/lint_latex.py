@@ -15,6 +15,7 @@ LaTeX 公式巡检 + 自动修复工具
     E4: 下划线未转义 (Obsidian 可能误解为斜体)
     E5: 空 $ $ 对 ($ $ 中间无内容)
     E6: 嵌套 $ ($$...$...$$)
+    E7: \\text{} 内含 \\_ (markdown 先消费反斜杠，裸 _ 导致 MathJax 报错)
     W1: \\ 后跟小写字母 (可能是 \\text 写成 \\ text)
     W2: \frac{} 缺少参数
     W3: 行内公式过长 (> 80 字符，建议改 $$ 块)
@@ -154,6 +155,25 @@ def scan_file(fpath: Path) -> list[Issue]:
                 issues.append(Issue(rel, i, "E4",
                     f"美元金额 '{m.group()}' 会被 Obsidian 解析为公式，需转义为 \\$",
                     fixable=True, fix_fn=make_money_fix()))
+
+    # ── E7: \text{} 内含 \_ (markdown 先消费反斜杠，裸 _ 到 MathJax 报 "_ allowed only in math mode") ──
+    in_code_e7 = False
+    in_math_e7 = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_e7 = not in_code_e7
+            continue
+        if in_code_e7:
+            continue
+        # 跳过 inline code
+        line_clean = re.sub(r"`[^`]+`", "", line)
+        # 在 $$ 块内和行内 $ 中查找 \text{...\_...}
+        for m in re.finditer(r"\\text\{([^}]*)\}", line_clean):
+            inner = m.group(1)
+            if r"\_ " in inner or r"\_}" in inner or re.search(r"\\_[a-zA-Z]", inner):
+                issues.append(Issue(rel, i, "E7",
+                    f"\\text{{}} 内含 \\_ (Obsidian 会渲染失败): \\text{{{inner}}}"))
 
     # ── E6: \text{} 花括号腐化 (如 \text{X}}_{\text{Y) ──
     in_code_e6 = False

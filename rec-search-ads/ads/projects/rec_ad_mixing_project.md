@@ -209,7 +209,7 @@ Ad Fatigue Index = weighted_sum(跳过率, 反感率, 连续广告后CTR衰减)
 为自然内容赋予一个"虚拟eCPM"，代表展示这条内容的长期商业价值：
 
 $$
-\text{virtual\_eCPM} = \text{engagement\_score} \times \text{user\_LTV\_factor} \times \text{retention\_value}
+\text{virtualeCPM} = \text{engagementScore} \times \text{userLtvFactor} \times \text{retentionValue}
 $$
 
 其中 `retention_value` 反映"展示这条内容对用户留存的贡献"，通常通过因果推断离线估计。
@@ -217,7 +217,7 @@ $$
 **方案B: 分位数归一化**
 
 $$
-\text{norm\_score}(x) = \text{Percentile}(x, \text{历史分布})
+\text{normScore}(x) = \text{Percentile}(x, \text{历史分布})
 $$
 
 将推荐分数和广告 eCPM 都映射到 [0, 1] 的分位数空间。
@@ -300,7 +300,7 @@ $$
 $$
 
 $$
-\text{score}_{organic} = \text{pCTR}_{organic} \times \text{engagement\_value} \times \text{retention\_multiplier}
+\text{score}_{\text{organic}} = \text{pCTR}_{\text{organic}} \times \text{engagementValue} \times \text{retentionMultiplier}
 $$
 
 ### 虚拟 eCPM 怎么算？
@@ -378,11 +378,11 @@ $$
 $$
 
 $$
-\quad \quad H(\text{topic\_dist}(S)) \geq \tau \quad \text{(多样性约束, Shannon Entropy)}
+\quad \quad H(\text{topicDist}(S)) \geq \tau \quad \text{(多样性约束, Shannon Entropy)}
 $$
 
 $$
-\quad \quad \text{consecutive\_ads}(S) \leq 2 \quad \text{(连续广告数约束)}
+\quad \quad \text{consecutiveAds}(S) \leq 2 \quad \text{(连续广告数约束)}
 $$
 
 ### Lagrange 松弛求解
@@ -491,7 +491,7 @@ RL的视角:
 ### MDP 建模
 
 $$
-\text{State } s_t = (\underbrace{\text{user\_profile}}_{\text{兴趣/画像}}, \underbrace{\text{displayed\_list}_{\lt t}}_{\text{已展示序列}}, \underbrace{\text{session\_context}}_{\text{时间/设备/实时特征}})
+\text{State } s_t = (\underbrace{\text{userProfile}}_{\text{兴趣/画像}}, \underbrace{\text{displayedList}_{\lt t}}_{\text{已展示序列}}, \underbrace{\text{sessionContext}}_{\text{时间/设备/实时特征}})
 $$
 
 $$
@@ -499,7 +499,7 @@ $$
 $$
 
 $$
-\text{Reward } r_t = w_1 \cdot \text{click} + w_2 \cdot \text{view\_time} + w_3 \cdot \text{engagement} + w_4 \cdot \text{ad\_revenue}
+\text{Reward } r_t = w_1 \cdot \text{click} + w_2 \cdot \text{viewTime} + w_3 \cdot \text{engagement} + w_4 \cdot \text{adRevenue}
 $$
 
 $$
@@ -862,7 +862,7 @@ $$
 经验公式（工业界常用）：
 
 $$
-\text{CTR}_{adj}(i) = \text{CTR}_{base}(i) \times e^{-\beta \cdot \text{consecutive\_ad\_count}}
+\text{CTR}_{\text{adj}}(i) = \text{CTR}_{\text{base}}(i) \times e^{-\beta \cdot \text{consecutiveAdCount}}
 $$
 
 其中 $\beta \approx 0.3$，即连续第2条广告的CTR衰减约26%，第3条衰减约59%。
@@ -870,7 +870,7 @@ $$
 更精细的建模：
 
 $$
-\text{fatigue}(i) = \alpha_1 \cdot \text{same\_advertiser\_count} + \alpha_2 \cdot \text{same\_category\_count} + \alpha_3 \cdot \text{consecutive\_ad\_count}
+\text{fatigue}(i) = \alpha_1 \cdot \text{sameAdvertiserCount} + \alpha_2 \cdot \text{sameCategoryCount} + \alpha_3 \cdot \text{consecutiveAdCount}
 $$
 
 $$

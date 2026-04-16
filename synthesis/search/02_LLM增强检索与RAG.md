@@ -76,7 +76,7 @@ $$
 $$
 
 $$
-R = R_{\text{correctness}} - \alpha \cdot N_{\text{search\_calls}}
+R = R_{\text{correctness}} - \alpha \cdot N_{\text{searchCalls}}
 $$
 
 - 推理-检索交织：[知识缺口] → 检索 → 更新推理 → [新缺口] → ...

@@ -15,7 +15,7 @@
 $$\mathbf{e}_i = \mathbf{E}[i] \in \mathbb{R}^d$$
 
 **工程要点**：
-- **维度选择**：8~128 维，经验公式 $d \approx 6 \times (\text{vocab\_size})^{1/4}$（Google 建议）
+- **维度选择**：8~128 维，经验公式 $d \approx 6 \times (\text{vocabSize})^{1/4}$（Google 建议）
 - **初始化**：Xavier/He 初始化，别用全零
 - **OOV（Out-of-Vocabulary）**：新用户/新物品没有 ID → 用默认 embedding 或 hash bucket
 

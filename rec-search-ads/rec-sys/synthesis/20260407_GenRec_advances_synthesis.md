@@ -78,7 +78,7 @@ $$\mathcal{L}_{\text{GPT}} = -\sum_{i} \log P(f_i | f_1, ..., f_{i-1})$$
 其中 $f_i$ 为特征 token，通过 request-centric 组织实现 local attention 内的因果预训练。
 
 ### NEO Constrained Decoding
-$$P(\text{next\_token} | \text{context}) = \text{softmax}(\mathbf{h} \cdot \mathbf{E}_{\text{valid}}^T)$$
+$$P(\text{nextToken} | \text{context}) = \text{softmax}(\mathbf{h} \cdot \mathbf{E}_{\text{valid}}^T)$$
 
 $\mathbf{E}_{\text{valid}}$ 限制在 catalog 有效 SID token 子集内，保证生成的 item 真实存在。
 

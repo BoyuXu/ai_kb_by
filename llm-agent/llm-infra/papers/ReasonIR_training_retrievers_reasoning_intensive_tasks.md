@@ -11,7 +11,7 @@
 
 问题本质：检索器只学会了语义相似，未学会推理相关性。
 
-$$\text{sim}(q, d) \approx \text{semantic\_sim}(q, d) \neq \text{reasoning\_relevance}(q, d)$$
+$$\text{sim}(q, d) \approx \text{semanticSim}(q, d) \neq \text{reasoningRelevance}(q, d)$$
 
 ## 核心方法与创新点
 

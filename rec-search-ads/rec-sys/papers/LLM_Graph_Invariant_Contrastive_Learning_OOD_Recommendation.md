@@ -17,7 +17,7 @@
    - 用 LLM 分析物品文本，提取语义不变特征（品类、功能、目标人群）
    - 构建语义图：相同功能/品类的物品连边
    
-$$\mathcal{G}_{\text{sem}} = \{(i, j) : \text{sem\_sim}(e_i^{\text{LLM}}, e_j^{\text{LLM}}) > \theta\}$$
+$$\mathcal{G}_{\text{sem}} = \{(i, j) : \text{semSim}(e_i^{\text{LLM}}, e_j^{\text{LLM}}) > \theta\}$$
 
 2. **图不变学习（Graph Invariant Learning, GIL）**：
    - 将图分为 **环境子图**（分布特定）和 **不变子图**（跨分布稳定）

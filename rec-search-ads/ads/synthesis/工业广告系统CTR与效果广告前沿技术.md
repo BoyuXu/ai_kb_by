@@ -53,7 +53,7 @@ $$\mathcal{L}_{\text{div}} = \sum_k w_k \log w_k \quad \text{(熵最大化)}$$
 
 统一 loss：
 
-$$\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{seq\_pred}}$$
+$$\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{seqPred}}$$
 
 参数量 -35%，训练速度 +1.4x，AUC +0.9‰。
 
@@ -77,7 +77,7 @@ $$e_{\text{final}(t) = (1 - e^{-\mu N_{\text{clicks}}}) \cdot e_{\text{proxy}} +
 
 **No One Left Behind** 利用标签层次性：
 
-$$P(\text{pay}) = P(\text{pay} | \text{add\_cart}) \cdot P(\text{add\_cart} | \text{click}) \cdot P(\text{click})$$
+$$P(\text{pay}) = P(\text{pay} | \text{addCart}) \cdot P(\text{addCart} | \text{click}) \cdot P(\text{click})$$
 
 不确定性软标签：
 

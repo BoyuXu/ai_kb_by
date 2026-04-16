@@ -121,7 +121,7 @@ $$
 | 目标广告 | Cross Attention | 意图对齐 |
 
 $$
-\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{seq\_pred}}
+\mathcal{L} = \mathcal{L}_{\text{CTR}} + \lambda \cdot \mathcal{L}_{\text{seqPred}}
 $$
 
 参数量 -35%，训练速度 +1.4x，AUC +0.9‰。
@@ -297,7 +297,7 @@ IPS（逆倾向加权）、PAL（分解 P(click) = P(examine|pos) × P(click|exa
 召回（千万→万）→ 粗排（万→千）→ 精排（千→百，CTR 模型核心战场）→ 重排（百→十，多样性+频控）。
 
 **Q13: Embedding 维度如何选择？**
-经验公式 $d = 6 \times (\text{category\_size})^{1/4}$（Google）。高频特征 16-64 维，低频 4-8 维。也可用 NAS 搜索。
+经验公式 $d = 6 \times (\text{categorySize})^{1/4}$（Google）。高频特征 16-64 维，低频 4-8 维。也可用 NAS 搜索。
 
 **Q14: 特征哈希的原理和风险？**
 将超大 ID 空间（10^9）哈希映射到较小空间（10^7），接受少量碰撞。缓解：多哈希函数、高频 ID 保留独立 embedding、signed hash。

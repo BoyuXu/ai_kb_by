@@ -45,7 +45,7 @@ Reasoning → [知识缺口] → <search>query</search> →
 
 RL 奖励函数（兼顾质量和效率）：
 
-$$R = R_{\text{correctness}} - \alpha \cdot N_{\text{search\_calls}}$$
+$$R = R_{\text{correctness}} - \alpha \cdot N_{\text{searchCalls}}$$
 
 ---
 

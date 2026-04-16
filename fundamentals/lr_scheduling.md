@@ -160,8 +160,8 @@ $$\eta_t = \eta_{min} + \frac{1}{2}(\eta_{max} - \eta_{min})\left(1 + \cos\left(
 核心思想（Leslie Smith, 2018）：
 
 $$
-\text{Phase 1 (warmup):} \quad \eta_0 / \text{div\_factor} \to \eta_{max} \\
-\text{Phase 2 (decay):} \quad \eta_{max} \to \eta_0 / (\text{div\_factor} \times \text{final\_div\_factor})
+\text{Phase 1 (warmup):} \quad \eta_0 / \text{divFactor} \to \eta_{max} \\
+\text{Phase 2 (decay):} \quad \eta_{max} \to \eta_0 / (\text{divFactor} \times \text{finalDivFactor})
 $$
 
 - Phase 1 占 `pct_start`（通常 30%）的训练步数

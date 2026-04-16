@@ -9,7 +9,7 @@
 - 冷启动广告曝光机会少（模型置信度低），形成恶性循环
 - 内容平台特殊性：图文/视频内容信息丰富，但 ID 信号缺失
 
-$$\text{CTR}_{\text{cold}} = f(\text{content}, \text{user}) \approx f(\text{proxy\_id}, \text{user})$$
+$$\text{CTR}_{\text{cold}} = f(\text{content}, \text{user}) \approx f(\text{proxyId}, \text{user})$$
 
 ## 核心方法与创新点
 

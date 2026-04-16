@@ -112,14 +112,14 @@ $$\frac{\partial h_t}{\partial h_0} = \prod_{i=1}^{t} W_{hh} \cdot \text{diag}(\
 
 **By Norm（最常用）**：
 
-$$g \leftarrow \begin{cases} g, & \text{if } \|g\| \leq \text{max\_norm} \\ \frac{g}{\|g\|} \cdot \text{max\_norm}, & \text{if } \|g\| > \text{max\_norm} \end{cases}$$
+$$g \leftarrow \begin{cases} g, & \text{if } \|g\| \leq \text{maxNorm} \\ \frac{g}{\|g\|} \cdot \text{maxNorm}, & \text{if } \|g\| > \text{maxNorm} \end{cases}$$
 
 - 保持梯度方向不变，只缩放大小
 - PyTorch: `torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)`
 
 **By Value**：
 
-$$g_i \leftarrow \text{clip}(g_i, -\text{clip\_value}, \text{clip\_value})$$
+$$g_i \leftarrow \text{clip}(g_i, -\text{clipValue}, \text{clipValue})$$
 
 - 每个分量独立裁剪
 - **会改变梯度方向**
