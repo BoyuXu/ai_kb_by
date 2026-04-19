@@ -129,6 +129,22 @@ Mamba 让 $B, C, \Delta$（步长）**依赖于输入**：
 
 **但**：截至 2026，Mamba 在推荐中的工业应用还不多，Transformer + 剪枝（SIM/ETA）仍是主流。
 
+### 2026 新进展：工业级大规模序列建模架构
+
+2026 年，ByteDance 和 Meta 的多篇论文系统性解决了 Transformer 在工业推荐中的 scaling 瓶颈：
+
+| 模型 | 核心创新 | 规模 | 部署场景 |
+|------|---------|------|---------|
+| **LLaTTE** (Meta) | 两阶段异步架构 + content-aware scaling law | Meta 最大 user model | Facebook Feed/Reels |
+| **Kunlun** (Meta) | GDPA + CompSkip，MFU 17%→37% | — | Meta Ads |
+| **HyFormer** (ByteDance) | 交替 Query Decoding + Query Boosting 统一序列与特征 | billion-scale | 抖音搜索 |
+| **MixFormer** (ByteDance) | 统一参数化 dense+sequence，消除 co-scaling 难题 | — | 抖音/抖音极速版 |
+| **TokenMixer-Large** (ByteDance) | Mixing-Reverting + Sparse Per-token MoE | 7B-15B | 电商/广告/直播 |
+
+关键结论：序列建模在工业推荐中已进入「Scaling Law 时代」——语义特征是 scaling 前提（LLaTTE），MFU 是实际瓶颈（Kunlun），深层稳定性靠 Mixing-Reverting（TokenMixer-Large），序列与特征必须联合 scaling（HyFormer/MixFormer）。
+
+📄 详见 [[20260420_scaling_laws_and_cold_start|20260420 Scaling Laws + 冷启动]]
+
 ### 2026 新进展：Mamba for SeqRec
 
 | 模型 | 核心创新 | 发表 |
@@ -253,4 +269,5 @@ Transformer (2017-now) ── 全局注意力，O(N²)
 - [[用户行为序列建模|用户行为序列建模]]
 - [[精排模型进阶深度解析|精排模型进阶深度解析]]
 - [[长序列用户行为建模技术演进|长序列用户行为建模技术演进]]
+- [[20260420_scaling_laws_and_cold_start|20260420 Scaling Laws + 生成式召回 + 冷启动]]
 - [[面试项目讲故事_30个案例|面试项目讲故事_30个案例]]

@@ -18,8 +18,9 @@
 | 06 | 重排与多样性 | [06_重排与多样性.md](synthesis/rec/06_重排与多样性.md) | MMR/DPP + 生成式重排 + LLM推理重排 |
 | 07 | 多任务与MoE | [07_多任务学习与MoE.md](synthesis/rec/07_多任务学习与MoE.md) | MMoE→PLE→SMES→DHEN，梯度冲突解法 |
 | 08 | 冷启动/GNN/因果 | [08_冷启动_GNN_因果推断.md](synthesis/rec/08_冷启动_GNN_因果推断.md) | DropoutNet/PinSage/IPS/A/B测试 |
+| 09 | Scaling Laws+生成召回+冷启动 | [20260420_scaling_laws_and_cold_start.md](rec-search-ads/rec-sys/synthesis/20260420_scaling_laws_and_cold_start.md) | LLaTTE/Kunlun/TokenMixer-Large/HyFormer/MixFormer/EmerG/ULIM 10篇 |
 
-### 广告系统 `synthesis/ads/` (8篇)
+### 广告系统 `synthesis/ads/` (11篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | CTR/CVR预估 | [01_CTR_CVR预估与校准全景.md](synthesis/ads/01_CTR_CVR预估与校准全景.md) | FM→DCN-V2→DHEN，ESMM CVR，EST Scaling |
@@ -32,6 +33,7 @@
 | 08 | 创意优化 | [08_广告创意优化.md](synthesis/ads/08_广告创意优化.md) | DCO/多模态CTR/AIGC创意 |
 | 09 | 延迟转化预估 | [09_延迟转化预估处理方案.md](synthesis/ads/09_延迟转化预估处理方案.md) | DFM/生存分析/全空间延迟反馈 |
 | 10 | 模型校准方案全景 | [10_模型校准方案全景.md](synthesis/ads/10_模型校准方案全景.md) | 负采样/位置偏差/Neural Cal/分桶校准选型 |
+| 11 | 基础模型+冷启动+评估 | [20260420_ads_ctr_foundation_and_evaluation.md](rec-search-ads/ads/synthesis/20260420_ads_ctr_foundation_and_evaluation.md) | CADET/LFM4Ads/PAM/Bench-CTR 10篇综合 |
 
 ### 搜索算法 `synthesis/search/` (6篇)
 | # | 主题 | 文件 | 一句话 |
@@ -48,6 +50,7 @@
 |---|------|------|--------|
 | 01 | 推理优化全景 | [01_LLM推理优化全景.md](synthesis/llm/01_LLM推理优化全景.md) | KV Cache/FlashAttn/投机解码/vLLM |
 | 02 | 对齐与后训练 | [02_LLM对齐与后训练全景.md](synthesis/llm/02_LLM对齐与后训练全景.md) | PPO→DPO→GRPO→DAPO 20+方法全景 |
+| 02b | GRPO变体演进 | [GRPO变体演进](llm-agent/llm-infra/synthesis/GRPO变体演进_从OnPolicy到TrainingFree.md) | 原始→Off-Policy→Training-Free→Critique-GRPO |
 | 03 | RAG全景 | [03_RAG系统全景与决策框架.md](synthesis/llm/03_RAG系统全景与决策框架.md) | Naive→Agentic RAG + RAG vs FT决策 |
 | 04 | Agent系统 | [04_Agent系统完整指南.md](synthesis/llm/04_Agent系统完整指南.md) | 框架/记忆/多Agent/失败模式 |
 | 05 | 微调与压缩 | [05_高效微调与模型压缩.md](synthesis/llm/05_高效微调与模型压缩.md) | LoRA→QLoRA→DoRA + PTQ/QAT量化 |

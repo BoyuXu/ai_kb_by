@@ -201,6 +201,9 @@ SPLADE (2021) → 学习稀疏表示，BM25 的"进化版"
 BGE-M3 / GTE (2024) → 统一多路（稀疏+稠密+多向量）单模型
     ↓
 今日：BM25s（极速实现）+ SPLADE-v3（SOTA稀疏）+ ColBERT v3（SOTA晚期交互）
+    ↓
+SPLATE (2024) → ColBERT dense → SPLADE sparse 映射，倒排索引加速 Late Interaction
+Mistral-SPLADE (2024) → LLM backbone 做 LSR，BEIR SOTA，Echo Embedding 解决 causal mask
     ↓（预测）
 生成式检索（DSI/MINDER）→ 直接生成 DocID，无需检索索引
 ```

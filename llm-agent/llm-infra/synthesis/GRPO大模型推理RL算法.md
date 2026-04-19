@@ -194,4 +194,5 @@ $$
 
 ## 相关概念
 
+- [[GRPO变体演进_从OnPolicy到TrainingFree]] — Off-Policy / Training-Free / Critique-GRPO 三大变体演进
 - [[attention_in_recsys|Attention 在搜广推中的演进]]

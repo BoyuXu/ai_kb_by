@@ -176,6 +176,27 @@
 - **优势**：解决 outcome-based reward 的稀疏性问题
 - **效果**：在多步数学推理上显著优于纯 GRPO
 
+#### Critique-GRPO — Zhang et al. 2025 (arXiv: 2506.03106)
+- **核心**：将自然语言 critique 注入 GRPO 的 RL 循环
+- **方法**：失败样本 → LLM 生成 critique → critique 引导 refinement → 初始+修正回答共同参与 advantage 计算
+- **解决**：纯数值 reward 的信息瓶颈（性能平台期、无法有效自我反思、持续性失败）
+- **效果**：AIME 2024 上 +16.7% Pass@1（vs GRPO），Qwen 系列 +15~21.6%
+- **详见**：[[20260420_grpo_variants_and_kv_cache]]
+
+#### Off-Policy GRPO — Mroueh et al. 2025 (arXiv: 2505.22257)
+- **核心**：将 GRPO 从 on-policy 扩展到 off-policy，用历史策略采样估计 advantage
+- **理论**：证明 on-policy 和 off-policy 都有 policy improvement 下界
+- **优势**：采样效率高（历史样本复用）、训练更稳定、显存更低
+- **效果**：GSM8K/AIME/Math500 上显著优于或持平 on-policy GRPO
+- **详见**：[[20260420_grpo_variants_and_kv_cache]]
+
+#### Training-Free GRPO — Chen et al. 2025 (arXiv: 2510.08191)
+- **范式转换**：从参数空间优化 → 上下文空间优化，模型权重完全冻结
+- **方法**：策略 = frozen LLM + 可变经验上下文 C，用语义 advantage 迭代更新 C
+- **优势**：无需模型权重访问（适用闭源 API），成本降 100 倍（$800→$8）
+- **效果**：100 样本让 DeepSeek-V3.1 超越微调 32B 模型
+- **详见**：[[20260420_grpo_variants_and_kv_cache]]
+
 ---
 
 ### D. 生成式偏好 & 统一框架
