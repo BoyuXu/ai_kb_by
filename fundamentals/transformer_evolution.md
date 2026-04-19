@@ -184,44 +184,196 @@ $$
 
 ---
 
-## 4. FFN / 激活函数演进
+## 4. FFN 选型演进
 
 > 详细激活函数对比见 [[activation_functions]]。
 
-| 变体 | 年份 | 公式 | FFN 参数量 | 代表模型 |
-|------|------|------|-----------|---------|
-| ReLU FFN | 2017 | $\max(0, xW_1)W_2$ | $2 \times d \times d_{ff}$ | Transformer |
-| GELU FFN | 2018 | $x \cdot \Phi(x) \cdot W_1 \cdot W_2$ | $2 \times d \times d_{ff}$ | GPT-2/3, BERT |
-| SwiGLU | 2020/2023 | $(xW_1 \otimes \text{Swish}(xW_g)) W_2$ | $3 \times d \times d_{ff}'$ | LLaMA 全系, DeepSeek |
+FFN（Feed-Forward Network）占 Transformer 总参数的约 2/3，是架构演进中变化最大的组件之一。从 2017 年的 ReLU FFN 到 2025 年的 MoE SwiGLU，经历了四代演进。
 
-### 4.1 标准 FFN
+### 4.0 演进总览
+
+| 代际 | 变体 | 年份 | 公式核心 | FFN 参数量 | 代表模型 |
+|------|------|------|---------|-----------|---------|
+| 第一代 | ReLU FFN | 2017 | $\max(0, xW_1)W_2$ | $2 \times d \times d_{ff}$ | Transformer |
+| 第一代 | GELU FFN | 2018 | $\text{GELU}(xW_1)W_2$ | $2 \times d \times d_{ff}$ | GPT-2/3, BERT |
+| 第二代 | GLU | 2016/2020 | $(xW_1 \otimes \sigma(xW_g))W_2$ | $3 \times d \times d_{ff}'$ | - |
+| 第二代 | GeGLU | 2020 | $(xW_1 \otimes \text{GELU}(xW_g))W_2$ | $3 \times d \times d_{ff}'$ | Gemma |
+| 第二代 | SwiGLU | 2020 | $(xW_1 \otimes \text{Swish}(xW_g))W_2$ | $3 \times d \times d_{ff}'$ | **LLaMA 全系, DeepSeek, Qwen** |
+| 第三代 | MoE FFN | 2022+ | Top-K 路由到 N 个专家 FFN | $N \times \text{单专家参数}$ | Mixtral, DeepSeek-V3, Qwen3 |
+| 前沿 | MoE + 共享专家 | 2024 | 1 共享专家 + N 路由专家 | $(N+1) \times \text{单专家}$ | DeepSeek-V2/V3 |
+
+### 4.1 第一代：标准 FFN (ReLU/GELU)
 
 $$
 \text{FFN}(x) = \sigma(xW_1 + b_1)W_2 + b_2
 $$
 
-原始 Transformer 用 $d_{ff} = 4d = 2048$，参数量 = $2 \times d \times 4d = 8d^2$。
+原始 Transformer 用 $d_{ff} = 4d$（如 $d=512$, $d_{ff}=2048$），参数量 = $2 \times d \times d_{ff} = 8d^2$。
 
-### 4.2 Gated Linear Unit (GLU) 系列
+**ReLU → GELU 的演进**：
 
-GLU 引入门控机制：输出 = 内容分支 $\otimes$ 门控分支。
+$$
+\text{ReLU}(x) = \max(0, x) \qquad \text{GELU}(x) = x \cdot \Phi(x) \approx 0.5x(1 + \tanh[\sqrt{2/\pi}(x + 0.044715x^3)])
+$$
+
+| 对比 | ReLU | GELU |
+|------|------|------|
+| 平滑性 | 非平滑（0点不可导） | 平滑，处处可导 |
+| 零点行为 | 硬截断，负值全为0 | 软截断，小负值保留少量信息 |
+| 死神经元 | 严重（~10-30% 神经元永久失活） | 极少 |
+| 梯度特性 | 正区恒为1，负区恒为0 | 连续变化，梯度信号更丰富 |
+| 代表模型 | 原始 Transformer, T5 | GPT-2/3, BERT, 早期 LLM |
+
+**Why GELU 取代 ReLU**：语言模型需要处理大量接近零的激活值（如"不太相关但有微弱信号"的特征），ReLU 的硬截断丢失这些弱信号。GELU 的概率加权（$x \cdot \Phi(x)$）让模型自适应地保留或抑制，实验中 pre-training loss 稳定低于 ReLU。
+
+### 4.2 第二代：Gated Linear Unit (GLU) 系列
+
+**GLU 的核心创新**：将 FFN 拆成两个分支——**内容分支**产出信息，**门控分支**决定放行多少。
+
+$$
+\text{GLU}(x) = (xW_1) \otimes \sigma(xW_g)
+$$
+
+其中 $\otimes$ 是逐元素乘法，$\sigma$ 是 Sigmoid。Dauphin et al. (2016) 提出，Shazeer (2020) 系统测试了所有激活函数变体。
+
+**GLU 变体全家谱**：
+
+| 变体 | 门控激活函数 $\sigma_g$ | 公式 | 效果排名 |
+|------|----------------------|------|---------|
+| GLU | Sigmoid | $(xW_1) \otimes \sigma(xW_g)$ | 第四 |
+| ReGLU | ReLU | $(xW_1) \otimes \text{ReLU}(xW_g)$ | 第三 |
+| GeGLU | GELU | $(xW_1) \otimes \text{GELU}(xW_g)$ | 第二 |
+| **SwiGLU** | **Swish/SiLU** | $(xW_1) \otimes \text{Swish}(xW_g)$ | **第一** |
+
+$$
+\text{Swish}(x) = x \cdot \sigma(\beta x), \quad \beta=1 \text{ 时称 SiLU}
+$$
 
 $$
 \text{SwiGLU}(x) = (\text{Swish}(xW_g) \otimes xW_1) W_2
 $$
 
-其中 $\text{Swish}(x) = x \cdot \sigma(\beta x)$（$\beta=1$ 时称 SiLU）。
+**Shazeer (2020) 实验结论**（PaLM 论文验证）：
+- 在相同参数量和 FLOPs 下，SwiGLU > GeGLU > ReGLU > GELU > ReLU
+- SwiGLU 比标准 GELU FFN 在 C4 数据集上 loss 低约 0.05-0.1（大模型中极显著）
 
-- **Why 改**：门控让网络选择性通过信息，实验表明 SwiGLU 在同参数量下 loss 更低。
-- **参数量**：引入第三个矩阵 $W_g$，总参数 = $3 \times d \times d_{ff}'$。为保持与标准 FFN 参数量相当：
+**为什么门控有效？直觉解释**：
+
+```
+标准 FFN：x → 激活(x * W1) → output
+  所有信息经过同一个激活函数，无选择性
+
+GLU 系列：x → [内容分支: x * W1] ⊗ [门控分支: σ(x * Wg)] → output
+  门控分支学会"这个维度的信息是否有用"
+  等价于一个逐维度的 soft attention
+```
+
+门控机制让 FFN 变成了一个**可学习的特征选择器**——内容分支提取候选特征，门控分支筛选哪些通过。这比逐元素激活（如 GELU）的表达力更强。
+
+**参数量设计**：GLU 引入第三个矩阵 $W_g$，总参数 = $3 \times d \times d_{ff}'$。为保持与标准 FFN 参数量相当：
 
 $$
 3 \times d \times d_{ff}' = 2 \times d \times 4d \implies d_{ff}' = \frac{8d}{3} \approx 2.67d
 $$
 
-LLaMA 实际用 $d_{ff}' = \frac{8}{3}d$ 再向上取到 256 的整数倍（如 $d=4096$ 时 $d_{ff}'=11008$）。
+LLaMA 实际用 $d_{ff}' = \frac{8}{3}d$ 再向上取到 256 的整数倍（如 $d=4096$ 时 $d_{ff}'=11008$）。DeepSeek-V3 ($d=7168$) 用 $d_{ff}'=18432$。
 
-- **效果**：LLaMA 论文显示 SwiGLU 比 GELU 在相同训练 FLOPs 下 loss 低 0.05-0.1，这在大规模训练中是显著差异。DeepSeek-V3 同样使用 SwiGLU。
+**SwiGLU 现已成为绝对主流**——LLaMA 全系列、DeepSeek、Qwen、Gemma、Mistral、Yi、Baichuan 均采用。无一例外。
+
+### 4.3 第三代：MoE FFN（稀疏 FFN）
+
+> MoE 详解见 [[07_MoE架构与稀疏激活]]。
+
+将单个 FFN 替换为 N 个「专家 FFN」+ 1 个路由器。每个 token 只激活 Top-K 个专家。
+
+$$
+\text{MoE-FFN}(x) = \sum_{i \in \text{TopK}} g_i(x) \cdot \text{FFN}_i(x)
+$$
+
+$$
+g(x) = \text{TopK}(\text{Softmax}(x W_r), K)
+$$
+
+| 模型 | 总专家数 N | 激活 K | 单专家结构 | 总参数 | 激活参数 | 稀疏率 |
+|------|---------|-------|----------|--------|---------|--------|
+| Switch Transformer | 128 | 1 | ReLU FFN | 1.6T | ~5B | 99.7% |
+| Mixtral-8x7B | 8 | 2 | SwiGLU | 47B | 13B | 72% |
+| DeepSeek-V3 | 256+1共享 | 8+1 | SwiGLU | 671B | 37B | 94.5% |
+| Qwen3 | 128 | 8 | SwiGLU | 235B | 22B | 90.6% |
+
+**MoE 中每个专家的 FFN 结构**：本质上就是一个缩小版的 SwiGLU FFN。如 Mixtral 的每个专家 $d_{ff}'=14336$（与 Mistral-7B 相同），但只激活 2 个。
+
+**MoE FFN 的工程挑战**：
+
+| 问题 | 原因 | 解决方案 |
+|------|------|---------|
+| 负载不均衡 | 路由器偏好某些专家 | 辅助 loss / 偏置动态调整 (DeepSeek) |
+| 专家冗余 | 多个专家学到相似功能 | 共享专家 (DeepSeek-V2) |
+| 通信开销 | 分布式训练中 token 需发送到不同设备的专家 | Expert Parallelism + All-to-All 通信 |
+| 推理不确定性 | 不同 token 走不同专家，batch 化困难 | Token Dropping / 预分配缓冲区 |
+
+### 4.4 共享专家 + 路由专家（DeepSeek-V2/V3）
+
+**Why 改**：纯路由 MoE 中，所有专家都通过竞争分配 token。但有些知识是"通用的"（如语法、基础语义），不需要专门化。
+
+**改了什么**：引入 1 个始终激活的共享专家，处理通用知识；其余 256 个路由专家处理专门化知识。
+
+$$
+\text{MoE-FFN}(x) = \text{FFN}_{\text{shared}}(x) + \sum_{i \in \text{TopK}} g_i(x) \cdot \text{FFN}_i(x)
+$$
+
+**效果**：减少专家间冗余，提升参数利用率。共享专家相当于一个"公共底座"，路由专家在其基础上做差异化。
+
+### 4.5 FFN 宽度比例演进
+
+| 模型 | FFN 类型 | $d_{ff}/d$ 比例 | 实际值 ($d$→$d_{ff}$) |
+|------|---------|----------------|---------------------|
+| Transformer (2017) | ReLU | 4.0× | 512→2048 |
+| GPT-3 (2020) | GELU | 4.0× | 12288→49152 |
+| LLaMA (2023) | SwiGLU | 2.69× (≈8/3) | 4096→11008 |
+| LLaMA-3 (2024) | SwiGLU | 3.25× | 8192→26624 (405B 的 d 和 d_ff) |
+| DeepSeek-V3 (2025) | SwiGLU | 2.57× | 7168→18432 |
+| Qwen3 (2025) | SwiGLU | 2.57× | 5120→13184 (32B dense) |
+
+**趋势**：SwiGLU 的三矩阵设计天然需要缩小 $d_{ff}$，2.5-2.7× 是最常见的比例。部分模型（如 LLaMA-3 405B）用更大比例以增加 FFN 容量。
+
+### 4.6 FFN 选型决策树
+
+```
+需要设计 FFN？
+├─ 模型 < 1B 参数？
+│   └─ 用 SwiGLU (d_ff = 8d/3 取到 256 整数倍)
+│       简单、高效、验证充分
+│
+├─ 模型 1-100B 参数 (Dense)?
+│   └─ 用 SwiGLU，考虑 d_ff/d 比例：
+│       - 参数预算紧：2.67× (标准 LLaMA)
+│       - 参数预算充裕：3.0-3.5× (更大 FFN 容量)
+│
+└─ 模型 100B+ 参数？
+    └─ 用 MoE + SwiGLU：
+        - 专家数 64-256，Top-K = 2-8
+        - 加共享专家 (DeepSeek 方案)
+        - 辅助无损负载均衡
+```
+
+### 4.7 面试高频追问
+
+**Q: 为什么所有 GLU 变体中 SwiGLU 最好？**
+
+Swish ($x \cdot \sigma(x)$) 本身是一个自门控激活函数——它用自身值做门控。在 GLU 框架中再加一层外部门控，形成"双重门控"。Shazeer 的消融实验表明，Swish 作为门控激活函数时梯度流最稳定（Sigmoid 饱和问题轻微），同时非单调性保留了 GELU 的优势（允许小负值通过）。
+
+**Q: SwiGLU 的 $d_{ff}$ 为什么是 $8d/3$ 而不是其他值？**
+
+纯粹为了参数量对齐。标准 FFN 有 2 个矩阵，参数 = $2 \times d \times 4d = 8d^2$。SwiGLU 有 3 个矩阵，要保持总参数相同：$3 \times d \times d_{ff}' = 8d^2 \implies d_{ff}' = 8d/3$。然后向上取到硬件友好的整数倍（64/128/256），以最大化 GPU Tensor Core 利用率。
+
+**Q: MoE FFN 中每个专家的 capacity 怎么设？**
+
+Capacity factor $C$：每个专家在一个 batch 中最多处理 $C \times B/N$ 个 token（$B$ = batch token 总数，$N$ = 专家数）。$C=1.0$ 表示完全均匀分配，实践中 $C=1.05-1.25$ 留少量余量。超出 capacity 的 token 被 drop 或溢出到共享专家。DeepSeek-V3 的辅助无损均衡使实际负载接近均匀，$C$ 的敏感度大幅降低。
+
+**Q: 为什么不用 ReLU²（Squared ReLU）？**
+
+Primer (So et al., 2021) 和部分实验表明 $\text{ReLU}^2(x) = (\max(0,x))^2$ 在某些设置下优于 GELU。但 (1) ReLU² 输出值域无上界且增长更快，可能导致 FP16/BF16 溢出；(2) SwiGLU 的门控机制在大模型上更稳健；(3) ReLU² 没有在 >10B 模型上被充分验证。工业界倾向选择验证最充分的方案（SwiGLU），而非边际实验最优的方案。
 
 ---
 
@@ -546,9 +698,9 @@ $$
 
 **答**：Zhang & Sennrich (2019) 实验表明 LayerNorm 的效果主要来自 re-scaling（除以 RMS），re-centering（减均值）贡献极小。RMSNorm 去掉减均值和 bias $\beta$，计算量减少 ~10%，参数量减半（$d$ vs $2d$），但效果无损。在大规模训练中 10% 计算量 = 数百万美元成本差异。
 
-### Q8: SwiGLU 相比 GELU 的优势？
+### Q8: SwiGLU 相比 GELU 的优势？FFN 选型的演进逻辑？
 
-**答**：SwiGLU 引入门控机制，让网络学习性地选择哪些信息通过 FFN。Shazeer (2020) 实验表明 SwiGLU 在相同参数量下比 GELU FFN 的 loss 更低。直觉：门控分支 $\text{Swish}(xW_g)$ 起到注意力/筛选作用，比单纯的逐元素激活更有表达力。代价是引入第三个矩阵 $W_g$，但通过缩小 $d_{ff}$ (从 $4d$ 到 $\frac{8}{3}d$) 保持总参数量不变。
+**答**：FFN 经历了四代演进——ReLU FFN → GELU FFN → GLU 门控系列 (SwiGLU) → MoE 稀疏化。SwiGLU 将 FFN 拆为内容分支和门控分支，门控分支 $\text{Swish}(xW_g)$ 相当于逐维度的 soft attention，选择性放行信息，比 GELU 的逐元素激活表达力更强。Shazeer (2020) 系统测试了所有 GLU 变体（GLU/ReGLU/GeGLU/SwiGLU），SwiGLU 在同参数量下 loss 最低。代价是引入第三个矩阵 $W_g$，通过缩小 $d_{ff}$（从 $4d$ 到 $\frac{8}{3}d$）保持总参数量不变。第三代 MoE 进一步将单个 SwiGLU FFN 替换为多个专家 FFN + 路由器，用稀疏激活实现参数效率的量级提升。详见 Section 4。
 
 ### Q9: Scaling Law 对架构选择的指导？
 
