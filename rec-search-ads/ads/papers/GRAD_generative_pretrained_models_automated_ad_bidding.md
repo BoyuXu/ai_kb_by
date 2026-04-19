@@ -1,8 +1,8 @@
 # GRAD: Generative Large-Scale Pre-trained Models for Automated Ad Bidding Optimization
-> 来源：arXiv:2508.02002 | 领域：ads | 学习日期：20260330
+> 来源：arXiv:2508.02002 | 领域：ads | 学习日期：20260330 | 更新：20260420 | 美团部署
 
 ## 问题定义
-自动出价（Auto-bidding）通常针对单广告主独立优化，忽略了跨广告主的市场共性规律。GRAD 提出用大规模预训练生成模型学习广告竞价市场的通用动态，通过 prompt 条件化适配各广告主策略，实现"一个模型服务所有广告主"。
+���动出价（Auto-bidding）通常针对单广告主独立优化，忽略了跨广告主的市场共性规律。GRAD 提出用大规模预训练生成模型学习广告竞价市场的通用动态，通过 prompt 条件化适配各广告主策略，实现"一个模型服务所有广告主"。
 
 ## 核心方法与创新点
 1. **Generative Bidding Model**：将出价决策建模为序列生成：给定广告主历史 budget 消耗、竞价结果序列，模型自回归预测下一时刻最优出价乘数。
@@ -10,6 +10,11 @@
 3. **Per-Advertiser Prompt**：每个广告主用其 KPI 目标、历史表现作为 prompt condition，无需为每个广告主单独训练模型。
 4. **Diffusion-based 出价生成**：用 Diffusion Model（而非 AR 模型）在连续出价空间建模，支持多峰分布和不确定性估计。
 5. **预算感知采样**：在 Diffusion 采样过程中注入预算约束（guidance），保证生成的出价序列满足约束。
+6. **Action-Mixture-of-Experts (A-MoE)**：多专家模块探索多样化出价动作空间，避免生成式模型陷入单一出价模式。
+7. **Value Estimator of Causal Transformer**：因果 Transformer 评估出价序列的约束满足度（marginal CPM / ROI），实现约束感知优化。
+
+## 美团工业部署结果（2025 更新）
+- GMV +2.18%，ROI +10.68%（多营销场景在线 A/B）
 
 ## 实验结论
 - 某平台 1000+ 广告主测试：平均 GMV +4.2%，ROI +3.1%（对比人均独立 RL 出价）

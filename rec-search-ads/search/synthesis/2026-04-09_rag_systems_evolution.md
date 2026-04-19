@@ -79,6 +79,31 @@ A: 取决于 reader 的上下文长度。LongRAG 证明 4K chunks + long-context
 
 ---
 
+## 5. 2026-04 新进展
+
+### Phase 5: RAG 安全防御 — ProGRank (2603.22934)
+- **Corpus Poisoning**：攻击者注入恶意文档到检索库，被检索进 Top-K 后影响生成
+- **ProGRank**：training-free 的 reranking 防御，对 query-passage 施加随机扰动，检测梯度不稳定性
+- Poison 文档在扰动下梯度方差更大（优化痕迹暴露）
+- 即插即用，不修改检索器，支持黑盒 surrogate 模式
+
+### Phase 6: RAG 性能预测 — Predict When RAG Helps (2604.07985)
+- **核心问题**：不是所有 query 都需要 RAG，如何预测 RAG 的增益？
+- 三层预测器：Pre-retrieval < Post-retrieval < Post-generation
+- 最优方案：建模 question-passage-answer 三元组语义关系的监督预测器
+- **工业意义**：自适应路由——简单问题跳过 RAG 节省延迟和成本
+
+### Phase 7: Inference-Time Scaling for RAG — REBEL + A-RAG
+- 传统 RAG 增加计算量时效果提升有限
+- **REBEL** (2504.07104)：多准则重排序（relevance + diversity + specificity），CoT 评估，compute↑→quality↑
+- **A-RAG** (2602.03442)：Agent 自主选择检索策略（keyword/semantic/chunk read），multi-hop reasoning
+- **RAG Scaling Law**：compute 用在多准则评估 + 自适应检索 + 多跳推理上才有效
+
+---
+
 ## 相关概念
 
 - [[embedding_everywhere|Embedding 技术全景]]
+- [[ProGRank_Probe_Gradient_Reranking_RAG_Corpus_Poisoning|ProGRank: RAG 安全防御]]
+- [[RAG_Performance_Prediction_QA|RAG 性能预测]]
+- [[Scaling_RAG_Inference_Time_Compute_Multi_Agent|RAG Inference-Time Scaling]]

@@ -185,6 +185,8 @@
   },
   "active": "b16c4e2c1d7ee581",
   "lastOpenFiles": [
+    "rec-search-ads/rec-sys/synthesis/20260420_on_device_llm_and_multi_scenario.md",
+    "rec-search-ads/rec-sys/synthesis/20260420_feature_interaction_ctr_advances.md",
     "rec-search-ads/search/synthesis/20260420_retrieval_reranking_distillation.md",
     "rec-search-ads/ads/papers/progressive_length_prediction_llm_output.md",
     "rec-search-ads/search/01_recall/papers/Mistral_SPLADE_LLMs_Better_Learned_Sparse_Retrieval.md",
@@ -209,8 +211,6 @@
     "llm-agent/llm-infra/papers/adaptive_KV_cache_quantization_on_device.md",
     "llm-agent/llm-infra/papers/PicoSpec_pipelined_speculative_decoding_edge_cloud.md",
     "rec-search-ads/search/papers/multimodal_semantic_retrieval_product_search.md",
-    "rec-search-ads/search/papers/KuaiSearch_ecommerce_search_dataset.md",
-    "rec-search-ads/search/papers/llm_retrievers_cost_efficiency_robustness.md",
     "rec-search-ads/interview/pdf-qa/17-llm-genrec",
     "rec-search-ads/interview/pdf-qa/16-explainability",
     "rec-search-ads/interview/pdf-qa/15-system-arch",

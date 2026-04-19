@@ -126,8 +126,17 @@ LLM 本身就是最强的 Embedding 提取器：
 | 双编码器 (DPR) | BERT 分别编码 query/doc，内积相似度 | 搜索召回 |
 | Cross-Encoder | BERT 联合编码 [query; doc]，全交互 | 搜索重排 |
 | ColBERT | token 级延迟交互 | 精度-效率平衡 |
+| SPLATE | ColBERT dense → SPLADE sparse 映射 | CPU 友好的 Late Interaction |
+| Mistral-SPLADE | LLM backbone + sparse head，Echo Embedding | LSR SOTA (BEIR 0.497) |
 | Qwen3-Emb | LLM backbone 全量微调 | BEIR SOTA |
 | E5-Mistral | 指令化 embedding | 多任务通用表示 |
+
+**2024 新趋势 — Dense-Sparse 融合**：
+- **SPLATE**：在冻结 ColBERTv2 上加 MLM adapter，将 dense token embedding 映射到稀疏词汇空间，用倒排索引做 ColBERT 候选生成（<10ms CPU）
+- **Mistral-SPLADE**：用 Mistral-7B 替代 BERT 做 SPLADE backbone，Echo Embedding 解决 causal mask，BEIR SOTA。离线编码慢但在线检索延迟不变
+- **趋势**：Dense 和 Sparse 不再对立，可以互相转化——Dense 蒸馏为 Sparse（SPLATE），LLM 增强 Sparse（Mistral-SPLADE）
+
+📄 详见 [[检索三角_Dense_Sparse_LateInteraction|检索三角]] | [[SPLATE_Sparse_Late_Interaction_Retrieval|SPLATE]] | [[Mistral_SPLADE_LLMs_Better_Learned_Sparse_Retrieval|Mistral-SPLADE]]
 
 **对推荐的影响**：
 - **文本特征增强**：用 LLM embedding 替代 title/description 的 TF-IDF
@@ -190,6 +199,30 @@ LLM 本身就是最强的 Embedding 提取器：
 
 ---
 
+## 7. Fine-Grained Token Embedding：从文档级到 Token 级（2026 前沿）
+
+ColBERT 的 Late Interaction 证明 token-level embedding 比 single-vector embedding 更强。最新进展进一步挖掘 token 级表示的潜力：
+
+**FGR-ColBERT（SIGIR 2026）**：
+- 在 MaxSim 检索的同时预测每个 document token 是否是 evidence（相关性归因）
+- 用 LLM 标注的 evidence span 做 token 级监督，联合训练检索 + 归因
+- 110M 模型的 token-level F1=64.5，超过 27B Gemma 2（62.8），延迟仅增 12%
+- **启示**：token-level embedding 不仅用于匹配打分，还可用于可解释性和精确证据定位
+
+**U-MARVEL 的 Reranker Distillation**：
+- 将 Cross-Encoder reranker 的排序知识蒸馏进 Bi-Encoder embedding 模型
+- 基于 Qwen2-VL-7B + LoRA，progressive transition 从文本到多模态
+- 单一 embedding 模型达到 rerank 级精度 → 工程部署极大简化
+
+**蒸馏 Score 分布的 Embedding 质量**（ADAM, ACL Findings 2024）：
+- 发现 hard negatives 的教师 score 集中在低分区，soft label 接近 one-hot → dark knowledge 丢失
+- 用 token mix-up + masking 构造中间难度的 dark examples，让 score 分布均匀覆盖
+- **启示**：训练 embedding 模型时，蒸馏数据的 score 分布比样本数量更重要
+
+📄 详见 [[20260420_retrieval_reranking_distillation|检索-重排-蒸馏前沿五篇精读]]
+
+---
+
 ## 演进总结
 
 ```
@@ -206,7 +239,8 @@ ID Embedding (稠密，学习得到)
     │   └─ Prefix Ngram ────── 层次聚类+前缀共享 (排序+稳定性)
     │
     └─ LLM Embedding ──────── BERT/LLM backbone (最强表示力)
-        └─ Reasoning Embedding ── CoT推理+编码 (LREM/ReasonEmbed)
+        ├─ Reasoning Embedding ── CoT推理+编码 (LREM/ReasonEmbed)
+        └─ Fine-Grained Token ── token级证据+蒸馏 (FGR-ColBERT/U-MARVEL)
 ```
 
 ## 面试高频问题
@@ -224,6 +258,7 @@ ID Embedding (稠密，学习得到)
 
 ## 相关 Synthesis
 
+- [[20260420_retrieval_reranking_distillation|检索-重排-蒸馏前沿五篇精读]]
 - [[2026-04-09_rag_systems_evolution|2026-04-09_rag_systems_evolution]]
 - [[20260402_搜索系统前沿综合分析|20260402_搜索系统前沿综合分析]]
 - [[20260407_CTR_scaling_advances_synthesis|20260407_CTR_scaling_advances_synthesis]]

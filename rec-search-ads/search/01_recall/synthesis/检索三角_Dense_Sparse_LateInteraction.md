@@ -162,6 +162,29 @@ MaxSim 公式：score(q,d) = Σ_{qi∈Q} max_{dj∈D} qi·dj
 工业化关键：PLAID 两阶段（centroid粗筛→全量精算），使 ColBERT 可用于亿级索引
 ```
 
+### SPLATE — ColBERT → Sparse 的桥梁（SIGIR 2024）
+```
+问题：ColBERT 候选生成需要 GPU + 专用引擎（PLAID）
+方案：在冻结 ColBERTv2 上训练轻量 MLM adapter，
+      将 dense token embedding 映射到稀疏词汇空间
+关键公式：s_j = max_i ReLU(MLM(h_i))_j （SPLADE-style max pooling）
+结果：SPLATE Top-50 + ColBERTv2 rerank ≈ PLAID 全流程效果
+      候选生成 <10ms（CPU 倒排索引），无需 GPU
+意义：Dense-Sparse 不再是非此即彼，可以用 Sparse 做 Dense 的候选生成
+```
+📄 详见 [[SPLATE_Sparse_Late_Interaction_Retrieval|SPLATE]]
+
+### Mistral-SPLADE — LLM backbone 做稀疏检索（2024）
+```
+问题：SPLADE 基于 BERT MLM，语言理解能力有限
+方案：用 Mistral-7B 替代 BERT 做 backbone
+      Echo Embeddings 解决 causal mask：输入重复两遍，只取第二份 token embedding
+结果：BEIR NDCG@10 = 0.497（SPLADE v3 = 0.480），SOTA Learned Sparse Retrieval
+成本：离线编码慢（7B 模型），但在线检索延迟不变（倒排索引）
+趋势：LLM backbone + sparse head = 下一代 LSR 范式
+```
+📄 详见 [[Mistral_SPLADE_LLMs_Better_Learned_Sparse_Retrieval|Mistral-SPLADE]]
+
 ### Dense Retrieval 统一评测（今日综述）
 ```
 关键发现：

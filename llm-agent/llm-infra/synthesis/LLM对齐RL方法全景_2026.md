@@ -14,11 +14,13 @@
             │               │               │
       去 RM 路线      去 Critic 路线     混合/极简路线
             │               │               │
-     ┌──────┴──────┐   ┌───┴────┐    ┌─────┴─────┐
-     DPO  SimPO    │  GRPO  DAPO │  REINFORCE++ RLOO
-     IPO  ORPO     │  Dr.GRPO   │  ReMax  RAFT
-     KTO  CPO      │  PRIME     │  RSO
-     SPPO TDPO     │            │
+     ┌──────┴──────┐   ┌───┴────────┐    ┌─────┴─────┐
+     DPO  SimPO    │  GRPO  DAPO   │  REINFORCE++ RLOO
+     IPO  ORPO     │  Dr.GRPO     │  ReMax  RAFT
+     KTO  CPO      │  PRIME       │  RSO
+     SPPO TDPO     │  Critique-GRPO│
+                   │  Off-Policy GRPO
+                   │  TF-GRPO     │
             │      │            │
             └──┬───┘       ┌───┘
                │           │
@@ -251,6 +253,9 @@
 | PRIME | ✅(PRM) | ❌ | ✅ | ✅ | 过程奖励 | 多步推理 | - |
 | GSPO | ✅ | ❌ | ✅ | ✅ | 二元偏好(构造) | 混合 | - |
 | Online DPO | ✅ | ❌ | ✅ | ✅ | 二元偏好 | 弥补分布偏移 | - |
+| Critique-GRPO | ✅+NL | ❌ | ✅ | ✅ | 数值+自然语言 | 突破平台期 | Qwen/Llama |
+| Off-Policy GRPO | ✅ | ❌ | ✅ | Off-policy | 连续分数 | 大规模高效训练 | IBM |
+| TF-GRPO | ❌ | ❌ | ❌ | 冻结rollout | 语义advantage | 闭源API增强 | DeepSeek-V3.1 |
 
 ---
 
@@ -273,8 +278,11 @@
 │   ├── 有可验证 reward（数学/代码/逻辑）
 │   │   ├── 只看最终答案 → GRPO
 │   │   ├── GRPO entropy collapse → DAPO
+│   │   ├── GRPO 性能平台期 → Critique-GRPO
 │   │   ├── 需要过程监督 → PRIME
-│   │   └── 想修正 advantage bias → Dr.GRPO
+│   │   ├── 想修正 advantage bias → Dr.GRPO
+│   │   ├── 采样效率太低 → Off-Policy GRPO
+│   │   └── 闭源 API / 无法微调 → Training-Free GRPO
 │   │
 │   ├── 有 RM 但非可验证 → PPO / REINFORCE++
 │   │
@@ -334,8 +342,9 @@ L_SimPO = -E[log σ(r_SimPO(y_w|x) - r_SimPO(y_l|x) - γ)]   # γ = target margi
 ## 六、2025-2026 趋势与研判
 
 ### 6.1 GRPO 家族统治 Reasoning
-- DeepSeek-R1 → DAPO → Dr.GRPO → PRIME
+- DeepSeek-R1 → DAPO → Dr.GRPO → PRIME → **Critique-GRPO / Off-Policy GRPO / TF-GRPO**
 - 核心模式：**砍 Critic + 组内归一化 + 可验证 reward**
+- 2025下半年三大新方向：NL反馈注入、Off-Policy高效采样、无训练上下文优化
 - 一切数学/代码/逻辑任务都在用这个范式
 
 ### 6.2 DPO 系走向极简
@@ -414,3 +423,6 @@ Phase 4: PRIME 精修（过程奖励，解决多步推理）
 17. Wang et al. (2025) — PRIME
 18. Zhong et al. (2025) — Dr.GRPO
 19. Yu et al. (2025) — GSPO
+20. Zhang et al. (2025) — Critique-GRPO (arXiv:2506.03106)
+21. Mroueh et al. (2025) — Off-Policy GRPO (arXiv:2505.22257)
+22. Chen et al. (2025) — Training-Free GRPO (arXiv:2510.08191)
