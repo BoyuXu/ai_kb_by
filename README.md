@@ -55,7 +55,7 @@ ai-kb/
 ### 路径1：推荐系统面试速成（1周）
 
 ```
-Day1: fundamentals/attention_transformer.md + din_sequence_modeling.md
+Day1: fundamentals/注意力与Transformer.md + DIN序列建模.md
 Day2: rec-sys/02_rank/synthesis/CTR模型深度解析.md
 Day3: rec-sys/01_recall/synthesis/召回系统工业界最佳实践.md
 Day4: rec-sys/03_rerank/synthesis/推荐系统重排与多样性.md
@@ -66,7 +66,7 @@ Day6-7: tech-evolution/02_ranking_evolution.md (完整演进)
 ### 路径2：广告系统面试（1周）
 
 ```
-Day1: fundamentals/auction_theory.md + ctr_calibration.md
+Day1: fundamentals/拍卖理论.md + CTR校准.md
 Day2: ads/02_rank/synthesis/ESMM系列CVR估计演进.md + LTV预测.md
 Day3: ads/04_bidding/synthesis/AutoBidding技术演进.md
 Day4: ads/04_bidding/synthesis/广告出价体系全景.md
@@ -91,7 +91,7 @@ Day6-7: tech-evolution/06_llm_evolution.md
 |------|---------------|
 | `interview/面试官最想听到什么.md` | 面试前必看，纠正表达方式 |
 | `industry-challenges-2026.md` | 理解业界真实痛点，面试有深度 |
-| `fundamentals/auction_theory.md` | 广告出价的根基 |
+| `fundamentals/拍卖理论.md` | 广告出价的根基 |
 | `llm-infra/synthesis/LLM常见认知误区.md` | 避免在面试中说错话 |
 | `cross-domain/冷启动问题统一视角.md` | 三域对比，展示系统思维 |
 

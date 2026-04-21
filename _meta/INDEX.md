@@ -22,9 +22,9 @@
 | llm-infra/synthesis/Agent失败模式与解法.md | 5类失败模式 | 工程 |
 | llm-infra/synthesis/LLM常见认知误区.md | 5个学界vs工业界差距 | 思维 |
 | interview/qa-bank.md（追加） | 5道2026热点面试题 | 面试 |
-| fundamentals/din_sequence_modeling.md（追加） | DICE激活函数完整推导 | 技术 |
-| fundamentals/attention_transformer.md（追加） | Attention直觉解释 | 技术 |
-| fundamentals/uplift_modeling.md（追加） | 工业落地案例+Qini曲线 | 案例 |
+| fundamentals/DIN序列建模.md（追加） | DICE激活函数完整推导 | 技术 |
+| fundamentals/注意力与Transformer.md（追加） | Attention直觉解释 | 技术 |
+| fundamentals/增量效果建模.md（追加） | 工业落地案例+Qini曲线 | 案例 |
 | interview/ab_test_experiment_design.md（追加） | 实战checklist+统计陷阱 | 工程 |
 
 ## 知识库覆盖地图
