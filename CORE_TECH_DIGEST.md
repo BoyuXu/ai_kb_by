@@ -155,6 +155,7 @@
 
 **DFM EM 推导**：$w_i$ 是 fake negative 后验概率，$e_i$ 越大 $w_i$ 越小（等越久越可能是真负样本）
 **延迟修正因子**：$\text{CVR}_{corrected} = \text{CVR}_{raw} \times \text{CF}(e)$，CF 按时间桶查表或参数化
+**级联延迟（2023-2026新方向）**：转化→退款两阶段级联延迟，ECAD/TESLA 分阶段去偏；GMV 连续目标 READER 用复购路由+动态校准。详见 [[20260421_llm_auction_and_delayed_feedback]]
 
 ---
 

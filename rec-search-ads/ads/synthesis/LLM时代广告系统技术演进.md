@@ -1,6 +1,6 @@
 # LLM时代广告系统技术演进（持续更新）
 
-> 领域：ads | 类型：综合综述 | 覆盖论文：26篇 | 最近更新：2026-04-02
+> 领域：ads | 类型：综合综述 | 覆盖论文：31篇 | 最近更新：2026-04-20
 
 ## 一、技术演进脉络
 
@@ -12,10 +12,14 @@ FM/DeepFM 特征交叉                   DCN-V2 矩阵 Cross 特征交叉       
 GSP 拍卖 + 规则出价                  Lagrangian 对偶自动出价              FPA Bid Shading + 竞价动态（Bid2X）
 人工设计广告素材                     MLLM 驱动创意生成                    多场景统一生成式排序（MTGR美团）
 独立 CTR/CVR/LTV 模型               UniROM 统一排序模型                  ELEC 离线 LLM 特征工厂（<2ms延迟）
-纯 ID 特征冷启动困难                 Multimodal Proxy 解决冷启动          广告基础模型预训练 + Adapter 微调
-静态 ID Embedding                    隐式→显式反馈联合训练               GRAD 生成式预训练通用出价模型
-单广告主 RL 出价                     Offline RL 出价（BCQ/CQL）          短视频多模态个性化（NextAds）
+纯 ID 特征冷启动困难                 Multimodal Proxy 解决冷启动          广告基础模型���训练 + Adapter 微调
+静态 ID Embedding                    隐式→显式反馈联合训练               GRAD 生成式预训练通用出价模型（美团MoE）
+单广告主 RL 出价                     Offline RL 出价（BCQ/CQL）          短视��多模态个性化（NextAds）
+关键词竞价广告                       搜索广告精准匹配                    LLM 对话广告（Genre-Based Bidding）
                                                                          毫秒级生成式广告推荐（GR4AD）
+                                                                         LLM-HYPER 生成 CTR 模型参数
+                                                                         IDProxy MLLM 亿级冷启动（小红书）
+                                                                         RTBAgent LLM Agent 实时竞价
 ```
 
 ## 二、核心技术维度
@@ -338,6 +342,56 @@ $$
 p_i = \frac{b_{2\text{nd}} \times q_{2\text{nd}}}{q_i}
 $$
 
+### 2.9 LLM 对话广告：从搜索广告到对话广告（Ad Insertion）
+
+**核心问题**：LLM 对话系统（ChatGPT 类）的变现需要全新的广告范式。传统关键词竞价不适用于动态对话流。
+
+**Genre-Based Bidding Framework**：
+
+$$
+\text{Ad Slot} = f(\text{response\_genre}), \quad \text{NOT} \quad f(\text{raw\_response})
+$$
+
+广告主在稳定的**类别**上竞价（而非实时对话内容），折中了精准性与隐私保护：
+- 降低计算负担（不需要实时对话-广告匹配）
+- 保护用户隐私（广告主只知道类别）
+- VCG 拍卖在此框架下近似满足 DSIC + IR
+
+**LLM-as-a-Judge 评估**：$\rho \approx 0.66$（与人工评分），超过 80% 单个人类评估者。
+
+**意义**：LLM 广告不是搜索广告的简单延伸，而是广告行业的范式转换 —— 从"关键词→广告"到"对话语义→类别→广告"。
+
+### 2.10 LLM Agent 出价：RTBAgent
+
+**首个基于 LLM 的 RTB Agent**，架构：4 工具 + 3 记忆 + 2 步决策。
+
+| 模块类型 | 组件 | 功能 |
+|----------|------|------|
+| 工具 | CTR 模型、专家知识库、市场分析器、预算计算器 | 精确计算 |
+| 记忆 | 交易记录、决策记录、日反思 | 经验积累 |
+| 决策 | 策略层（LLM 推理）→ 执行层（工具调用） | 分层决策 |
+
+**性能**：Win Rate +11.3%, ROI +8.7%（100万+ 竞价请求验证）。
+
+**核心价值**：LLM Agent 的适应性弥补了传统 RL 的分布偏移脆弱性。Daily Reflection（日反思）是 Agent 持续自我改进的关键机制。
+
+### 2.11 LLM 驱动冷启动 CTR（IDProxy + LLM-HYPER）
+
+**两种 LLM 冷启动范式**：
+
+| 维度 | IDProxy（小红书） | LLM-HYPER（美国电商） |
+|------|-------------------|---------------------|
+| LLM 输出 | Proxy Embedding | CTR 模型参数 |
+| 训练需求 | 端到端对齐 | Training-free（ICL） |
+| 生命周期适配 | 长期（平滑过渡） | 短期促销（即时生效） |
+| 部署规模 | 亿级用户 | 头部电商 |
+
+**IDProxy 对齐公式**：$e_{\text{proxy}} = \text{Align}(\text{MLLM}(x_{\text{multimodal}}), \mathcal{E}_{\text{ID}})$
+
+**LLM-HYPER 参数生成**：$w = \text{LLM}(\text{CoT}(q, \text{similar\_ads})), \; \hat{y} = \sigma(w^T x)$
+
+详见 → [[LLM驱动广告冷启动CTR技术演进]]
+
 ## 三、📐 关键数学公式全集
 
 | 公式 | 名称 | 用途 |
@@ -477,6 +531,11 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 > - CTR_driven_advertising_image_generation_MLLM — CTR 驱动广告图像生成
 > - [UniROM_unifying_online_advertising_ranking_one_model](../papers/UniROM_unifying_online_advertising_ranking_one_model.md) — 统一在线广告排序单模型
 > - [LLM_AUCTION_generative_auction_llm_native_advertising](../papers/LLM_AUCTION_generative_auction_llm_native_advertising.md) — LLM 原生对话广告生成式拍卖
+> - [ad_insertion_llm_generated_responses](../papers/ad_insertion_llm_generated_responses.md) — LLM 对话广告 Genre-Based Bidding
+> - [RTBAgent_llm_agent_real_time_bidding](../papers/RTBAgent_llm_agent_real_time_bidding.md) — LLM Agent 实时竞价系统（WWW'25）
+> - [LLM_HYPER_generative_ctr_cold_start_hypernetworks](../papers/LLM_HYPER_generative_ctr_cold_start_hypernetworks.md) — LLM Hypernetwork 冷启动 CTR
+> - [idproxy_cold_start_ctr_multimodal_llm](../papers/idproxy_cold_start_ctr_multimodal_llm.md) — 小红书 MLLM Proxy Embedding 冷启动
+> - [[LLM驱动广告冷启动CTR技术演进]] — LLM 冷启动 CTR synthesis
 
 ---
 

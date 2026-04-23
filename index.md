@@ -20,7 +20,7 @@
 | 08 | 冷启动/GNN/因果 | [08_冷启动_GNN_因果推断.md](synthesis/rec/08_冷启动_GNN_因果推断.md) | DropoutNet/PinSage/IPS/A/B测试 |
 | 09 | Scaling Laws+生成召回+冷启动 | [20260420_scaling_laws_and_cold_start.md](rec-search-ads/rec-sys/synthesis/20260420_scaling_laws_and_cold_start.md) | LLaTTE/Kunlun/TokenMixer-Large/HyFormer/MixFormer/EmerG/ULIM 10篇 |
 
-### 广告系统 `synthesis/ads/` (11篇)
+### 广告系统 `synthesis/ads/` (12篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | CTR/CVR预估 | [01_CTR_CVR预估与校准全景.md](synthesis/ads/01_CTR_CVR预估与校准全景.md) | FM→DCN-V2→DHEN，ESMM CVR，EST Scaling |
@@ -34,6 +34,7 @@
 | 09 | 延迟转化预估 | [09_延迟转化预估处理方案.md](synthesis/ads/09_延迟转化预估处理方案.md) | DFM/生存分析/全空间延迟反馈 |
 | 10 | 模型校准方案全景 | [10_模型校准方案全景.md](synthesis/ads/10_模型校准方案全景.md) | 负采样/位置偏差/Neural Cal/分桶校准选型 |
 | 11 | 基础模型+冷启动+评估 | [20260420_ads_ctr_foundation_and_evaluation.md](rec-search-ads/ads/synthesis/20260420_ads_ctr_foundation_and_evaluation.md) | CADET/LFM4Ads/PAM/Bench-CTR 10篇综合 |
+| 12 | LLM拍卖+延迟反馈 | [20260421_llm_auction_and_delayed_feedback.md](rec-search-ads/ads/synthesis/20260421_llm_auction_and_delayed_feedback.md) | LLM-Auction/TESLA/READER/CFR-DF 10篇 |
 
 ### 搜索算法 `synthesis/search/` (6篇)
 | # | 主题 | 文件 | 一句话 |
