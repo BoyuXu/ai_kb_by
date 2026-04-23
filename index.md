@@ -7,7 +7,7 @@
 
 ## ⭐ 整合知识精华 `synthesis/` ← 去重后的核心层
 
-### 推荐系统 `synthesis/rec/` (8篇)
+### 推荐系统 `synthesis/rec/` (9篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 语义ID与生成式召回 | [01_语义ID与生成式召回演进.md](synthesis/rec/01_语义ID与生成式召回演进.md) | CF→Embedding→SID→TIGER/HSTU/OneRec-V2/GLIDE |
@@ -19,6 +19,7 @@
 | 07 | 多任务与MoE | [07_多任务学习与MoE.md](synthesis/rec/07_多任务学习与MoE.md) | MMoE→PLE→SMES→DHEN，梯度冲突解法 |
 | 08 | 冷启动/GNN/因果 | [08_冷启动_GNN_因果推断.md](synthesis/rec/08_冷启动_GNN_因果推断.md) | DropoutNet/PinSage/IPS/A/B测试 |
 | 09 | Scaling Laws+生成召回+冷启动 | [20260420_scaling_laws_and_cold_start.md](rec-search-ads/rec-sys/synthesis/20260420_scaling_laws_and_cold_start.md) | LLaTTE/Kunlun/TokenMixer-Large/HyFormer/MixFormer/EmerG/ULIM 10篇 |
+| 10 | 生成式召回+序列推荐效率 | [20260421_generative_retrieval_and_seqrec.md](rec-search-ads/rec-sys/synthesis/20260421_generative_retrieval_and_seqrec.md) | SID对齐/SynerGen/GRank/LONGER/PerSRec/DLLM2Rec/LIGER/GAMER 9篇 |
 
 ### 广告系统 `synthesis/ads/` (12篇)
 | # | 主题 | 文件 | 一句话 |
@@ -45,6 +46,7 @@
 | 04 | 生成式搜索 | [04_生成式搜索与Query理解.md](synthesis/search/04_生成式搜索与Query理解.md) | DSI/TIGER/OneSearch + Query理解 |
 | 05 | Reranker与LTR | [05_Reranker演进与LTR.md](synthesis/search/05_Reranker演进与LTR.md) | Pointwise/Pairwise/Listwise + LLM重排 |
 | 06 | 系统架构 | [06_搜索系统综合架构.md](synthesis/search/06_搜索系统综合架构.md) | 全链路三段式 + 工业实践 |
+| 07 | Agent重排与RAG检索 | [20260421_reranking_in_search_agents.md](rec-search-ads/search/synthesis/20260421_reranking_in_search_agents.md) | RGS/ETC/KG-RAG/Reranking演进 10篇 |
 
 ### LLM基础设施 `synthesis/llm/` (9篇)
 | # | 主题 | 文件 | 一句话 |
