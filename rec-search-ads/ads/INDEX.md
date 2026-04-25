@@ -5,7 +5,7 @@
 | 分类 | 文档数 | 描述 |
 |------|--------|------|
 | **Papers** | 96篇 | 学术论文笔记（+20 2026-04-02：因果竞价/多智能体出价/广告基础模型/ELEC/NextAds 等） |
-| **Synthesis** | 17篇 | 提炼总结（最近更新：LLM时代技术演进+6篇、竞价CTR进展+3篇） |
+| **Synthesis** | 18篇 | 提炼总结（最近更新：TAAC2026 KDD 比赛笔记、LLM时代技术演进+6篇、竞价CTR进展+3篇） |
 | **Practices** | 2篇 | 工业实践 |
 | **总计** | 115篇 | - |
 
@@ -13,6 +13,7 @@
 
 ## 📝 Synthesis 总结文档
 
+- [**TAAC x KDD Cup 2026 比赛学习笔记**](./synthesis/taac2026_kdd_competition.md) ⭐ **比赛实战** — 腾讯广告算法大赛：统一架构 CVR 预测，baseline 代码分析，pm-* 协作流程，技术改进方向
 - [**LLM 时代广告系统技术演进**](./synthesis/LLM时代广告系统技术演进.md) ⭐ **最新综述** (26篇，更新于2026-04-02) — 含 ELEC/GRAD/Foundation Model/NextAds/MTGR多任务/GR4AD
 - [**广告竞价与CTR预估前沿进展**](./synthesis/广告竞价与CTR预估前沿进展.md) ⭐ **竞价专题** (13篇，更新于2026-04-02) — 含因果竞价/多智能体RL/KBD双过程
 - [[AutoBidding技术演进_从规则到RL|**Auto Bidding 技术演进：从规则出价到强化学习**]] ⭐ **经典主文档** (1392 行)

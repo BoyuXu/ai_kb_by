@@ -4,7 +4,7 @@
 >
 > **为什么要学**：Embedding 是推荐、搜索、广告、LLM 四个领域的共同地基。你遇到的几乎每个模型，第一步都是 Embedding。
 
-**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[sequence_modeling_evolution|序列建模演进]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化方法]]
+**相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[sequence_modeling_evolution|序列建模演进]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化方法]] | [[taac2026_kdd_competition|TAAC2026 KDD 比赛]]
 
 ---
 
