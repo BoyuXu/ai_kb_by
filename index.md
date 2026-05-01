@@ -99,6 +99,7 @@
 | 学习率策略 | [fundamentals/lr_scheduling.md](fundamentals/lr_scheduling.md) | 入门 |
 | Transformer架构演进 | [fundamentals/transformer_evolution.md](fundamentals/transformer_evolution.md) | 进阶 |
 | 搜索算法工程师完整知识储备 | [rec-search-ads/fundamentals/搜索算法工程师完整知识储备.md](rec-search-ads/fundamentals/搜索算法工程师完整知识储备.md) | 综合 |
+| 字节系搜广推Transformer演进 | [fundamentals/bytedance_recsys_transformer.md](fundamentals/bytedance_recsys_transformer.md) | 进阶 |
 
 ---
 
