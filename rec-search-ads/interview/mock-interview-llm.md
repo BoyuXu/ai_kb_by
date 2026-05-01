@@ -536,6 +536,97 @@ Verification:           逐个验证，找到第一个不匹配位置
 
 ---
 
+### Q13: 大模型推理的两个阶段及各自特点？
+
+**候选人高质量答案：**
+
+> 来源：月之暗面（Kimi）模型算法工程师面试真题
+
+**Prefill（预填充）阶段：**
+- 一次性处理全部 input tokens，计算所有 token 的 KV Cache
+- **计算密集型（Compute-bound）**：大量矩阵乘法并行执行，GPU 算力是瓶颈
+- 延迟指标 = TTFT（Time To First Token）
+- 可高度并行，算力利用率高
+
+**Decode（解码）阶段：**
+- 逐 token 自回归生成，每步只算 1 个新 token
+- **访存密集型（Memory-bound）**：每步都要读取完整 KV Cache，但只做很少计算
+- 瓶颈在显存带宽（HBM bandwidth），GPU 算力严重浪费
+- Batch 越大越能摊薄访存开销（continuous batching 的动机）
+
+**追问：为什么 Prefill 和 Decode 分离调度？**
+- 两阶段的计算/访存比（Arithmetic Intensity）差异巨大
+- Prefill 高 AI → 适合算力密集型 GPU，Decode 低 AI → 适合带宽优化
+- 分离后可以独立扩缩容，Prefill 池用大 batch，Decode 池用 continuous batching
+- 代表工作：Splitwise, TetriInfer, DistServe
+
+---
+
+### Q14: 推理时出现 OOM，可能的原因和排查方法？
+
+**候选人高质量答案：**
+
+**常见原因：**
+
+| 原因 | 说明 |
+|------|------|
+| **KV Cache 爆显存** | 长序列 + 大 batch 时最常见。大小 = $2 \times L \times n_h \times d_k \times s \times b \times \text{dtype\_bytes}$ |
+| **权重 + 激活 + KV Cache 总和超限** | 70B 模型权重本身占大量显存，留给 KV Cache 的空间不足 |
+| **动态 batch 突增** | continuous batching 下新请求涌入导致瞬时显存飙升 |
+| **显存碎片化** | 反复分配释放导致有剩余但无法分配连续块（PagedAttention 可缓解） |
+
+**排查方法：**
+1. `nvidia-smi` / `torch.cuda.memory_summary()` 看显存分配明细
+2. 打印 KV Cache 实际占用，与理论值对比
+3. 检查 `max_batch_size` 和 `max_seq_len` 配置
+4. `torch.cuda.memory_allocated()` 推理前后对比，检测泄漏
+5. 使用 `torch.cuda.memory_snapshot()` 分析碎片化情况
+
+**缓解手段：**
+- 降低 batch size / 序列长度
+- GQA 减少 KV Cache（MHA → GQA 减少 $n_h/g$ 倍）
+- KV Cache 量化（FP16 → INT8/INT4）
+- PagedAttention 消除碎片
+- 模型权重量化（AWQ/GPTQ INT4）
+- Offloading（KV Cache 部分转 CPU）
+
+---
+
+### Q15: 输入 shape 为 (b,s,h)，详细计算 MHA 和 MLP 的 FLOPs？
+
+**候选人高质量答案：**
+
+设 $b$ = batch, $s$ = seq\_len, $h$ = hidden\_dim, $n_h$ 个头, $d_k = h / n_h$。
+
+**Self-Attention 部分：**
+
+| 操作 | 矩阵维度 | FLOPs |
+|------|---------|-------|
+| QKV 投影 | 3 个 $[h, h]$ | $3 \times 2bsh^2 = 6bsh^2$ |
+| Attention Score $QK^T$ | $[s, d_k] \times [d_k, s]$ × $n_h$ 个头 | $2bs^2h$ |
+| Score × V | $[s, s] \times [s, d_k]$ × $n_h$ 个头 | $2bs^2h$ |
+| Output 投影 | $[h, h]$ | $2bsh^2$ |
+| **MHA 合计** | | $8bsh^2 + 4bs^2h$ |
+
+**MLP 部分（标准 2 层 FFN，中间维度 4h）：**
+
+| 操作 | 矩阵维度 | FLOPs |
+|------|---------|-------|
+| 第一层 | $[h, 4h]$ | $8bsh^2$ |
+| 第二层 | $[4h, h]$ | $8bsh^2$ |
+| **MLP 合计** | | $16bsh^2$ |
+
+> 若用 SwiGLU（LLaMA 等），中间维度取 $8h/3$，有 gate+up+down 三个投影，总计仍约 $16bsh^2$
+
+**单层 Transformer 总计：$24bsh^2 + 4bs^2h$**
+
+**追问：什么时候 attention 的 $O(s^2)$ 项不可忽略？**
+- 当 $s \gg h$ 时（如长文本推理 $s$=128K, $h$=4096），$4bs^2h$ 项占主导
+- 这也是 FlashAttention / 稀疏 Attention 的核心动机
+- 参考：[[synthesis/llm/01_LLM推理优化全景.md]]
+
+---
+
 ## 五、RAG系统设计 (15分钟)
 
 ### Q13: 从Naive RAG到Advanced RAG到Modular RAG，架构如何演进？

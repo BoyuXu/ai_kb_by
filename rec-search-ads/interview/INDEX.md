@@ -45,6 +45,12 @@
 - `cards/rec_sys_cards.md` — 新增：Mamba SSM、HSTU ReLU Attention、MTGR双流融合、Semantic ID演进、PROMISE Test-Time Compute、O1 Embedder
 - `cards/ads_system_cards.md` — 新增：生存分析延迟CVR、Causal Bidding、BundleNet、FPA+GBS出价分布、Shapley归因
 
+### 面经收录
+- [面经：月之暗面（Kimi）模型算法工程师](./面经-月之暗面-模型算法工程师.md) — LLM 推理优化方向 5 题（Prefill/Decode、OOM 排查、FLOPs 计算、PagedAttention、FlashAttention）
+
+### 模拟面试更新
+- `mock-interview-llm.md` — 新增 Q13-Q15：推理两阶段、OOM 排查、MHA+MLP FLOPs 计算
+
 ### 核心主题覆盖（新增）
 - **序列建模**：Mamba SSM、HSTU、Differentiable Semantic ID、UniGRec Soft ID
 - **延迟CVR**：生存分析、软标签重加权
