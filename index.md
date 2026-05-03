@@ -36,6 +36,7 @@
 | 10 | 模型校准方案全景 | [10_模型校准方案全景.md](synthesis/ads/10_模型校准方案全景.md) | 负采样/位置偏差/Neural Cal/分桶校准选型 |
 | 11 | 基础模型+冷启动+评估 | [20260420_ads_ctr_foundation_and_evaluation.md](rec-search-ads/ads/synthesis/20260420_ads_ctr_foundation_and_evaluation.md) | CADET/LFM4Ads/PAM/Bench-CTR 10篇综合 |
 | 12 | LLM拍卖+延迟反馈 | [20260421_llm_auction_and_delayed_feedback.md](rec-search-ads/ads/synthesis/20260421_llm_auction_and_delayed_feedback.md) | LLM-Auction/TESLA/READER/CFR-DF 10篇 |
+| 13 | 自动出价+MoE | [ads_autobidding_moe_2024_2026.md](rec-search-ads/ads/synthesis/ads_autobidding_moe_2024_2026.md) | AHBid/JD-BP/DenoiseBid/MEBS + MoE专题 10篇 |
 
 ### 搜索算法 `synthesis/search/` (6篇)
 | # | 主题 | 文件 | 一句话 |
