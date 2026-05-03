@@ -7,7 +7,7 @@
 
 ## ⭐ 整合知识精华 `synthesis/` ← 去重后的核心层
 
-### 推荐系统 `synthesis/rec/` (9篇)
+### 推荐系统 `synthesis/rec/` (11篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 语义ID与生成式召回 | [01_语义ID与生成式召回演进.md](synthesis/rec/01_语义ID与生成式召回演进.md) | CF→Embedding→SID→TIGER/HSTU/OneRec-V2/GLIDE |
@@ -20,8 +20,9 @@
 | 08 | 冷启动/GNN/因果 | [08_冷启动_GNN_因果推断.md](synthesis/rec/08_冷启动_GNN_因果推断.md) | DropoutNet/PinSage/IPS/A/B测试 |
 | 09 | Scaling Laws+生成召回+冷启动 | [20260420_scaling_laws_and_cold_start.md](rec-search-ads/rec-sys/synthesis/20260420_scaling_laws_and_cold_start.md) | LLaTTE/Kunlun/TokenMixer-Large/HyFormer/MixFormer/EmerG/ULIM 10篇 |
 | 10 | 生成式召回+序列推荐效率 | [20260421_generative_retrieval_and_seqrec.md](rec-search-ads/rec-sys/synthesis/20260421_generative_retrieval_and_seqrec.md) | SID对齐/SynerGen/GRank/LONGER/PerSRec/DLLM2Rec/LIGER/GAMER 9篇 |
+| 11 | Scaling+长序列+多任务前沿 | [20260503_scaling_sequence_multitask_frontier.md](rec-search-ads/rec-sys/synthesis/20260503_scaling_sequence_multitask_frontier.md) | ULTRA-HSTU/SparseCTR/LONGER/OneTrans/SMES 10篇 |
 
-### 广告系统 `synthesis/ads/` (12篇)
+### 广告系统 `synthesis/ads/` (13篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | CTR/CVR预估 | [01_CTR_CVR预估与校准全景.md](synthesis/ads/01_CTR_CVR预估与校准全景.md) | FM→DCN-V2→DHEN，ESMM CVR，EST Scaling |
@@ -38,7 +39,7 @@
 | 12 | LLM拍卖+延迟反馈 | [20260421_llm_auction_and_delayed_feedback.md](rec-search-ads/ads/synthesis/20260421_llm_auction_and_delayed_feedback.md) | LLM-Auction/TESLA/READER/CFR-DF 10篇 |
 | 13 | 自动出价+MoE | [ads_autobidding_moe_2024_2026.md](rec-search-ads/ads/synthesis/ads_autobidding_moe_2024_2026.md) | AHBid/JD-BP/DenoiseBid/MEBS + MoE专题 10篇 |
 
-### 搜索算法 `synthesis/search/` (6篇)
+### 搜索算法 `synthesis/search/` (8篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 检索范式 | [01_检索范式_稀疏到混合到稠密.md](synthesis/search/01_检索范式_稀疏到混合到稠密.md) | BM25/DPR/ColBERT三角 + 混合检索RRF |
@@ -48,8 +49,9 @@
 | 05 | Reranker与LTR | [05_Reranker演进与LTR.md](synthesis/search/05_Reranker演进与LTR.md) | Pointwise/Pairwise/Listwise + LLM重排 |
 | 06 | 系统架构 | [06_搜索系统综合架构.md](synthesis/search/06_搜索系统综合架构.md) | 全链路三段式 + 工业实践 |
 | 07 | Agent重排与RAG检索 | [20260421_reranking_in_search_agents.md](rec-search-ads/search/synthesis/20260421_reranking_in_search_agents.md) | RGS/ETC/KG-RAG/Reranking演进 10篇 |
+| 08 | RAG成熟化+推理重排 | [20260503_rag_maturity_and_reasoning_reranking.md](rec-search-ads/search/synthesis/20260503_rag_maturity_and_reasoning_reranking.md) | Rank1/QAC-RAG/RAG安全评估 5篇 |
 
-### LLM基础设施 `synthesis/llm/` (9篇)
+### LLM基础设施 `synthesis/llm/` (10篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 推理优化全景 | [01_LLM推理优化全景.md](synthesis/llm/01_LLM推理优化全景.md) | KV Cache/FlashAttn/投机解码/vLLM |
@@ -62,6 +64,7 @@
 | 07 | MoE架构 | [07_MoE架构与稀疏激活.md](synthesis/llm/07_MoE架构与稀疏激活.md) | 专家路由/负载均衡/MegaScale |
 | 08 | 预训练演进 | [08_LLM预训练与架构演进.md](synthesis/llm/08_LLM预训练与架构演进.md) | GPT→LLaMA→DeepSeek-V3 |
 | 09 | 常见误区 | [09_LLM常见认知误区.md](synthesis/llm/09_LLM常见认知误区.md) | 5大误区面试防坑 |
+| 10 | KV Cache前沿2026 | [20260503_kv_cache_frontier_2026.md](llm-agent/llm-infra/synthesis/20260503_kv_cache_frontier_2026.md) | DASH-KV/DepthKV/TTKV/LMCache 5篇 |
 
 ---
 

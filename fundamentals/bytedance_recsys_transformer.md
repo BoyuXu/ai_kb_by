@@ -450,17 +450,158 @@ Sequence Arch          Cross Arch          Interaction Arch
 
 ---
 
-## 8. 对比总结与面试速查
+## 8. HSTU — 推荐系统 Scaling Law 奠基
+
+> Actions Speak Louder than Words: Trillion-Parameter Sequential Transducers for Generative Recommendations (ICML 2024, Meta)
+> arXiv:2402.17152
+
+### 核心创新
+
+HSTU（Hierarchical Sequential Transduction Unit）首次在推荐领域验证了类 LLM 的 Scaling Law：模型参数从 1.5B 到 1.5T，效果持续提升，无饱和迹象。核心修改：**用 ReLU 替代 softmax attention，去掉 LayerNorm**，使 Transformer 在推荐稀疏数据上能有效 scale。
+
+### 解决了什么问题
+
+传统推荐模型（DIN/DIEN/SIM）参数量在百万级别就饱和，加大模型不涨点。HSTU 证明这不是推荐任务本身的限制，而是架构设计的问题——标准 Transformer 的 softmax attention 和 LayerNorm 在推荐场景中是 scaling 的瓶颈。
+
+### 架构
+
+```
+用户行为序列 [item_1, item_2, ..., item_T]
+    |
+    v
+Token Embedding (item_id + side_info)
+    |
+    v
+HSTU Block x N:
+    |
+    +-- Pointwise Aggregated Attention (ReLU, 非 softmax)
+    |       Attn(Q,K,V) = ReLU(QK^T) V  (无归一化)
+    |
+    +-- SwiGLU FFN (无 LayerNorm)
+    |
+    +-- Residual Connection
+    |
+    v
+Generative Head -> 预测下一个 item
+```
+
+**关键设计**：
+- **ReLU Attention**：$\text{Attn}(Q,K,V) = \text{ReLU}(QK^T) V$，不做 softmax 归一化。推荐场景不需要概率分布假设，ReLU 更稀疏、计算更快
+- **去掉 LayerNorm**：推荐 embedding 的分布与 NLP 不同，LayerNorm 会压缩有效信号。去掉后梯度流更顺畅
+- **生成式范式**：预测下一个行为 item（类 GPT），而非判别式 CTR 预估
+- **Jagged Tensor**：工程上用不定长 tensor 处理变长序列，避免 padding 浪费
+
+### 与字节系工作的关联
+
+| 方面 | HSTU (Meta) | OneTrans (字节) | HyFormer (字节) |
+|------|------------|----------------|-----------------|
+| 核心目标 | Scaling Law | 架构统一 | 序列-特征混合 |
+| Attention | ReLU (无归一化) | Standard softmax | Standard softmax |
+| 特征交互 | 隐式（全序列 attention） | 显式（Attention Mask） | 显式（RankMixer） |
+| 非序列特征 | 弱（主要建模序列） | **强（NS Tokenizer）** | **强（NS Tokenizer）** |
+| 参数量级 | 1.5T | 百万-亿级 | 百万-亿级 |
+| 工程复杂度 | 极高（需定制 infra） | 中 | 中 |
+
+### 面试高频考点
+
+1. **Q**: HSTU 为什么用 ReLU 替代 softmax？
+   **A**: 推荐场景不需要注意力分数归一化为概率分布（NLP 需要因为是 token 选择任务）。ReLU 产生稀疏注意力，自然过滤不相关 item；且无需计算 softmax 的指数和归一化，推理更快。1.5T 参数实验表明 ReLU attention 的 scaling 曲线显著优于 softmax。
+
+2. **Q**: HSTU 证明了什么？对工业推荐系统意味着什么？
+   **A**: 证明推荐系统也存在 Scaling Law——参数量从百万到万亿，效果按幂律持续提升。这意味着"推荐模型不需要太大"的传统认知是错误的，瓶颈在架构而非数据/任务。工业意义：有足够算力的团队应该 scale up 推荐模型。
+
+3. **Q**: HSTU 的局限性？字节为什么没有直接用 HSTU？
+   **A**: (1) HSTU 主要建模行为序列，对非序列特征（用户画像、物品属性、上下文）建模较弱。字节的 HyFormer/OneTrans 通过 NS Tokenizer 解决了这个问题。(2) 1.5T 参数的训练/推理 infra 门槛极高，大部分团队无法复现。(3) ReLU attention 在短序列 + 丰富特征场景的优势不如长序列场景明显。
+
+4. **Q**: HSTU 和 TAAC 2026 的关联？
+   **A**: TAAC baseline PCVRHyFormer 可以看作是"HSTU 思路 + 字节特征交互"的融合——用 Transformer 做序列建模（类 HSTU），同时引入 NS Tokenizer + RankMixer 做特征交互（字节贡献）。参赛者可以尝试将 ReLU attention 引入 HyFormer 的 Sequence Evolution 模块。
+
+---
+
+## 9. FinalMLP — 双流 MLP 特征交互
+
+> FinalMLP: An Enhanced Two-Stream MLP Model for CTR Prediction (AAAI 2023, Huawei Noah's Ark Lab)
+> arXiv:2304.00902
+
+### 核心创新
+
+FinalMLP 挑战了"CTR 预估需要复杂特征交互模块"的假设。核心发现：**两个独立 MLP stream + 特征门控选择 + bilinear fusion，效果可以超越 DCN-V2、AutoInt 等复杂模型**。关键不在交互模块的复杂度，而在于输入特征的选择和流间融合方式。
+
+### 解决了什么问题
+
+DCN-V2、AutoInt 等模型引入复杂的显式特征交互（Cross Network、Self-Attention），但工程上不好优化、不好并行。FinalMLP 证明：如果给 MLP 正确的特征子集和好的融合策略，简单 MLP 就能达到甚至超越复杂模型。
+
+### 架构
+
+```
+All Features [user, item, context]
+    |
+    +-- Feature Gate 1 (选择 stream1 的特征子集)
+    |       gate_1 = sigmoid(W_1 · x + b_1)
+    |       x_1 = x ⊙ gate_1
+    |
+    +-- Feature Gate 2 (选择 stream2 的特征子集)
+    |       gate_2 = sigmoid(W_2 · x + b_2)
+    |       x_2 = x ⊙ gate_2
+    |
+    v
+Stream 1: MLP(x_1) -> h_1       Stream 2: MLP(x_2) -> h_2
+    |                                  |
+    +---- Bilinear Fusion ----+
+    |    h = h_1^T W_b h_2 + w^T[h_1; h_2] + b
+    |
+    v
+CTR logit
+```
+
+**关键设计**：
+- **特征门控**：$\mathbf{g}_i = \sigma(\mathbf{W}_i \mathbf{x} + \mathbf{b}_i)$，每个 stream 学习选择不同的特征子集
+- **双流 MLP**：两个独立 MLP，输入不同特征子集，学习互补的表示
+- **Bilinear Fusion**：$\hat{y} = \mathbf{h}_1^T \mathbf{W}_b \mathbf{h}_2 + \mathbf{w}^T [\mathbf{h}_1; \mathbf{h}_2] + b$
+  - 比简单 concat+MLP 更能捕捉两个 stream 输出之间的交互
+  - $\mathbf{W}_b$ 矩阵实现了 stream 间的二阶交互
+
+### 与字节系工作的关联
+
+| 方面 | FinalMLP | DHEN | RankMixer | HyFormer |
+|------|----------|------|-----------|----------|
+| 交互范式 | MLP（隐式） | 异构专家 | 无参数 mixing | Attention+Mixing |
+| 显式特征交互 | 无 | 有（多种） | 有（reshape） | 有（Cross-Attn） |
+| 特征选择 | **门控选择** | 无 | 无 | 无 |
+| 参数量 | 少 | 多 | 极少 | 中 |
+| 推理速度 | **极快** | 慢 | 极快 | 中 |
+
+FinalMLP 的意义在于提供了一个**强 MLP baseline**——如果你的 Transformer 方案打不过 FinalMLP，说明模型复杂度没有带来真正的收益。
+
+### 面试高频考点
+
+1. **Q**: FinalMLP 为什么两个 MLP 比一个 MLP 好？
+   **A**: 特征门控让两个 stream 看到不同的特征子集，学习互补表示。类比 ensemble 思想——两个弱学习器的融合优于一个强学习器。Bilinear fusion 进一步捕捉两个 stream 之间的交互，比 concat 更有效。
+
+2. **Q**: FinalMLP 打败了哪些复杂模型？为什么？
+   **A**: 在 Criteo/Avazu 等公开数据集上超越 DCN-V2、AutoInt、FiBiNet 等。原因：(1) 特征门控实现了自动特征选择，减少噪声特征的影响。(2) MLP 的隐式交互在足够深度下，表达力不输显式交互。(3) Bilinear fusion 比 concat+MLP 更参数高效。
+
+3. **Q**: FinalMLP 和 TAAC 2026 比赛的关系？
+   **A**: PCVRHyFormer baseline 代表了"Transformer 统一架构"路线。FinalMLP 代表了"简单 MLP 也能很强"的对照思路。参赛者可以：(1) 用 FinalMLP 的特征门控思想改进 HyFormer 的 NS Tokenizer；(2) 将 FinalMLP 作为 ablation baseline 验证 Transformer 架构的真实增益。
+
+4. **Q**: 如果让你设计一个融合 FinalMLP 和 HyFormer 的模型？
+   **A**: 在 HyFormer 的 NS Tokenizer 前加入 FinalMLP 的特征门控，让不同 token group 看到不同的特征子集。或者把 FinalMLP 的双流思想应用到 Query Boosting——一个 stream 用 RankMixer，另一个用 MLP，再 bilinear fusion。
+
+---
+
+## 10. 对比总结与面试速查
 
 ### 全景对比表
 
-| 模型 | 年份 | 核心贡献 | 序列建模 | 特征交互 | 序列-特征耦合 | 参数效率 | 推理友好 |
-|------|------|---------|---------|---------|-------------|---------|---------|
-| DHEN | 2022 | 异构专家深层交互 | 无（需外接） | 多专家门控 | 无 | 低 | 中 |
-| RankMixer | 2024 | 无参数 token mixing | 无 | reshape+transpose | 无 | **极高** | **极高** |
-| HyFormer | 2026 | 交替 decode+boost | Transformer/Longer | RankMixer | 交替（隐式双向） | 高 | 高 |
-| OneTrans | 2026 | 单 Transformer 统一 | 共享 Transformer | 共享 Transformer | **完全统一** | **最高** | **最高** |
-| InterFormer | 2025 | 显式双向 Cross Arch | 独立 Seq Arch | 独立 Int Arch | 显式双向桥梁 | 中 | 中 |
+| 模型 | 年份 | 来源 | 核心贡献 | 序列建模 | 特征交互 | 序列-特征耦合 | 参数效率 | 推理友好 |
+|------|------|------|---------|---------|---------|-------------|---------|---------|
+| DHEN | 2022 | 字节 | 异构专家深层交互 | 无（需外接） | 多专家门控 | 无 | 低 | 中 |
+| FinalMLP | 2023 | 华为 | 双流 MLP + 门控选择 | 无 | MLP 隐式 + bilinear | 无 | 高 | **极高** |
+| RankMixer | 2024 | 字节 | 无参数 token mixing | 无 | reshape+transpose | 无 | **极高** | **极高** |
+| HSTU | 2024 | Meta | 1.5T 参数 Scaling Law | ReLU Attention | 隐式（全序列 attn） | 隐式 | 中 | 中 |
+| InterFormer | 2025 | 字节 | 显式双向 Cross Arch | 独立 Seq Arch | 独立 Int Arch | 显式双向桥梁 | 中 | 中 |
+| HyFormer | 2026 | 字节 | 交替 decode+boost | Transformer/Longer | RankMixer | 交替（隐式双向） | 高 | 高 |
+| OneTrans | 2026 | 字节 | 单 Transformer 统一 | 共享 Transformer | 共享 Transformer | **完全统一** | **最高** | **最高** |
 
 ### 面试万能框架：字节 Transformer 演进的底层逻辑
 
@@ -481,5 +622,5 @@ Sequence Arch          Cross Arch          Interaction Arch
 
 ---
 
-> 最后更新：2026-05-01
+> 最后更新：2026-05-02
 > 关联文档：[[concepts/attention_in_recsys]] | [[concepts/sequence_modeling_evolution]] | [[synthesis/rec/03_精排系统_CTR到多目标生成]] | [[synthesis/ads/taac2026_kdd_competition]]
