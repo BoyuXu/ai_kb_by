@@ -7,7 +7,7 @@
 
 ## ⭐ 整合知识精华 `synthesis/` ← 去重后的核心层
 
-### 推荐系统 `synthesis/rec/` (11篇)
+### 推荐系统 `synthesis/rec/` (12篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 语义ID与生成式召回 | [01_语义ID与生成式召回演进.md](synthesis/rec/01_语义ID与生成式召回演进.md) | CF→Embedding→SID→TIGER/HSTU/OneRec-V2/GLIDE |
@@ -21,6 +21,7 @@
 | 09 | Scaling Laws+生成召回+冷启动 | [20260420_scaling_laws_and_cold_start.md](rec-search-ads/rec-sys/synthesis/20260420_scaling_laws_and_cold_start.md) | LLaTTE/Kunlun/TokenMixer-Large/HyFormer/MixFormer/EmerG/ULIM 10篇 |
 | 10 | 生成式召回+序列推荐效率 | [20260421_generative_retrieval_and_seqrec.md](rec-search-ads/rec-sys/synthesis/20260421_generative_retrieval_and_seqrec.md) | SID对齐/SynerGen/GRank/LONGER/PerSRec/DLLM2Rec/LIGER/GAMER 9篇 |
 | 11 | Scaling+长序列+多任务前沿 | [20260503_scaling_sequence_multitask_frontier.md](rec-search-ads/rec-sys/synthesis/20260503_scaling_sequence_multitask_frontier.md) | ULTRA-HSTU/SparseCTR/LONGER/OneTrans/SMES 10篇 |
+| 12 | Transformer→GR双线演进 | [从Transformer到生成式推荐_双线演进路线.md](rec-search-ads/rec-sys/synthesis/从Transformer到生成式推荐_双线演进路线.md) | 架构线(Attention/PE/效率)×特征线(Embedding→SID→生成)双线对照 |
 
 ### 广告系统 `synthesis/ads/` (13篇)
 | # | 主题 | 文件 | 一句话 |
