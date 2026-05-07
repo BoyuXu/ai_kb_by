@@ -956,3 +956,33 @@
 {"date": "20260421", "domain": "llm-infra", "title": "KV Cache Optimization Strategies for Scalable and Efficient LLM Inference", "url": "https://arxiv.org/abs/2603.20397", "priority": "中", "status": "done", "learning_date": "20260421"}
 {"date": "20260421", "domain": "llm-infra", "title": "When Perplexity Lies: Generation-Focused Distillation of Hybrid Sequence Models", "url": "https://arxiv.org/abs/2603.26556", "priority": "中", "status": "done", "learning_date": "20260421"}
 {"date": "20260421", "domain": "llm-infra", "title": "Causal Distillation for Alleviating Performance Heterogeneity in Recommender Systems", "url": "https://arxiv.org/abs/2405.20626", "priority": "中", "status": "done", "learning_date": "20260421"}
+{"id": "p0504-rec01", "title": "Bending the Scaling Law Curve: ULTRA-HSTU", "arxiv": "2602.16986", "domain": "rec-sys", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-rec02", "title": "Large User Model (LUM): Unlocking Scaling Law", "arxiv": "2502.08309", "domain": "rec-sys", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-rec03", "title": "MixFormer: Co-Scaling Dense and Sequence", "arxiv": "2602.14110", "domain": "rec-sys", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-rec04", "title": "GR-LLMs: Generative Recommendation via LLMs Survey", "arxiv": "2507.06507", "domain": "rec-sys", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-rec05", "title": "EmerG: Warming Up Cold-Start CTR with Item-Specific Feature Interactions", "arxiv": "2407.10112", "domain": "rec-sys", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-rec06", "title": "DTN: Deep Multiple Task-specific Feature Interactions Network", "arxiv": "2408.11611", "domain": "rec-sys", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-rec07", "title": "IDProxy: Cold-Start CTR with Multimodal LLMs at Xiaohongshu", "arxiv": "2603.01590", "domain": "rec-sys", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-rec08", "title": "Sparse Contrastive Learning for Content-Based Cold Item Recommendation", "arxiv": "2604.12990", "domain": "rec-sys", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-rec09", "title": "CETNet: Collaborative Ensemble Framework for CTR Prediction", "arxiv": "2411.13700", "domain": "rec-sys", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-rec10", "title": "Approximate Entropy Scaling Law for Sequential Recommendation", "arxiv": "2412.00430", "domain": "rec-sys", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads01", "title": "GRAD: Generative Pre-trained Models for Ad Bidding (Meituan KDD26)", "arxiv": "2508.02002", "domain": "ads", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-ads02", "title": "Generative CTR Prediction", "arxiv": "2507.11246", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads03", "title": "CGA: Contextual Generative Auction with Permutation Externalities", "arxiv": "2412.11544", "domain": "ads", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-ads04", "title": "IBPA: Targeting Information in Ad Auction Mechanisms", "arxiv": "2601.09541", "domain": "ads", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-ads05", "title": "Optimal Auction Design in Joint Advertising", "arxiv": "2507.07418", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads06", "title": "Deep Automated Mechanism Design for Feed Ad", "arxiv": "2401.01656", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads07", "title": "LDACP: Long-Delayed Ad Conversions Prediction for Bidding", "arxiv": "2411.16095", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads08", "title": "AIE: Auction Information Enhanced CTR Prediction", "arxiv": "2408.07907", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads09", "title": "Robust Mechanism Design with Anonymous Information", "arxiv": "2602.20429", "domain": "ads", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-ads10", "title": "CTR Prediction on Taobao Advertising Dataset", "arxiv": "2511.21963", "domain": "ads", "status": "done", "priority": "低", "date": "2026-05-04"}
+{"id": "p0504-search01", "title": "DPS: Dynamic Passage Selector for RAG", "arxiv": "2508.09497", "domain": "search", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-search02", "title": "GraphER: Graph-Based Enrichment and Reranking for RAG", "arxiv": "2603.24925", "domain": "search", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-search03", "title": "AdaRankLLM: Adaptive Listwise Ranking for RAG", "arxiv": "2604.15621", "domain": "search", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-search04", "title": "RRK: Efficient Listwise Reranking with Compressed Documents", "arxiv": "2604.26483", "domain": "search", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-search05", "title": "RAG Fusion: Scaling RAG in Industry Deployment", "arxiv": "2603.02153", "domain": "search", "status": "done", "priority": "中", "date": "2026-05-04"}
+{"id": "p0504-llm01", "title": "CacheFlow: 3D-Parallel KV Cache Restoration", "arxiv": "2604.25080", "domain": "llm-infra", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-llm02", "title": "RocketKV: Two-Stage KV Cache Compression", "arxiv": "2502.14051", "domain": "llm-infra", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-llm03", "title": "FreeKV: Speculative KV Cache Retrieval", "arxiv": "2505.13109", "domain": "llm-infra", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-llm04", "title": "PPD: Prefill-Decode Disaggregation for Multi-turn Serving", "arxiv": "2603.13358", "domain": "llm-infra", "status": "done", "priority": "高", "date": "2026-05-04"}
+{"id": "p0504-llm05", "title": "HierSpec: Speculative Decoding Meets Quantization", "arxiv": "2505.22179", "domain": "llm-infra", "status": "done", "priority": "中", "date": "2026-05-04"}
