@@ -251,7 +251,7 @@ ID Embedding (稠密，学习得到)
 2. **Graph Embedding 和 ID Embedding 有什么关系？** → Graph Embedding 可以作为 ID Embedding 的初始化，或者拼接使用，提供高阶协同信号。
 3. **冷启动时 ID Embedding 怎么办？** → 默认值→内容映射→Meta-Learning→Semantic ID，按复杂度递进选择。
 4. **为什么推荐系统的 Embedding 维度通常比 NLP 小？** → 推荐的 token 是 ID（语义简单），NLP 的 token 是词（语义复杂）；推荐需要实时推理，维度太大 ANN 检索变慢。
-5. **Random Hashing vs Semantic ID Prefix Ngram？** → Random Hash 让不相关 ID 碰撞，污染 embedding；Prefix Ngram 让语义相似 ID 碰撞，碰撞变成信息共享。Meta 生产验证：长尾 AUC 显著提升，预测稳定性改善。
+5. **Random Hashing vs Semantic ID Prefix Ngram？** → Random Hash 让不相关 ID 碰撞，污染 embedding；Prefix Ngram 让语义相似 ID 碰撞，碰撞变成信息共享。Meta 生产验证：长尾 AUC 显著提升，预测稳定性改善。详见 [[20260504_semantic_id_and_ondevice_rec]]（Paper 10 深度分析）。
 6. **Reasoning Embedding 和普通 LLM Embedding 的区别？** → 普通 LLM Embedding 直接编码文本，捕捉统计共现模式；Reasoning Embedding 先推理再编码（LREM）或用推理密集数据训练（ReasonEmbed），能跨越 query-doc 语义鸿沟。LREM 已部署于淘宝电商搜索。
 7. **广告冷启动中图嵌入为什么效果好？** → GACE (Alipay) 通过跨页面图构建 + VAE 预训练为新广告生成 embedding，冷启动 CTR 提升 7-10%。关键在于图结构传播邻居信息，而非零向量初始化。详见 [[20260420_ads_ctr_foundation_and_evaluation]]。
 8. **Embedding Survey (2310.18608) 的分类框架？** → Matrix-based (CF) → Sequential (RNN/Transformer/SSL) → Graph (GNN/KG) → Optimization (AutoML/Hashing/Quantization) → LLM-Enhanced。趋势：AutoML 选维度 > 手动调参；LLM 增强文本特征 embedding 提升 10-20%。
@@ -339,3 +339,4 @@ ID Embedding (稠密，学习得到)
 - [[精排模型进阶深度解析|精排模型进阶深度解析]]
 - [[语义搜索与推理检索前沿_20260326|语义搜索与推理检索前沿_20260326]]
 - [[长序列用户行为建模技术演进|长序列用户行为建模技术演进]]
+- [[20260504_semantic_id_and_ondevice_rec|20260504 SID演进+端侧LLM+序列前沿 10篇]]
