@@ -340,3 +340,4 @@ ID Embedding (稠密，学习得到)
 - [[语义搜索与推理检索前沿_20260326|语义搜索与推理检索前沿_20260326]]
 - [[长序列用户行为建模技术演进|长序列用户行为建模技术演进]]
 - [[20260504_semantic_id_and_ondevice_rec|20260504 SID演进+端侧LLM+序列前沿 10篇]]
+- [[20260504_reasoning_retrieval_rag_traces|20260504 推理检索+RAG Traces: RTriever aspect-aware embedding 在推理检索中的应用]]

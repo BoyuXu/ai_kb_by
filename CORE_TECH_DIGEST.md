@@ -382,11 +382,13 @@
 1. **知识蒸馏10大模式**（来源：`知识蒸馏技术整体总结.md`）：经典KD/自蒸馏/多教师/在线蒸馏/渐进式/黑盒/推理链/投机解码/蒸馏+对齐/无数据蒸馏。On-policy蒸馏传递O(N) bits/episode vs RL的O(1)，Qwen3实测1/10 GPU cost达RL等效。黑盒蒸馏GAD让Qwen2.5-14B匹配GPT系列。AlignDistil证明RLHF≡token级蒸馏
 2. **Prefill-Decode物理分离**（来源：`LLM推理优化完整版.md`）：两阶段资源需求差异极大，拆成独立集群，GPU利用率+30%
 3. **MoE架构主流化**（来源：`MoE架构设计与推理优化.md`）：Qwen3-235B-A22B（128专家/8激活），参数量大但计算量可控，成本效益最优
+4. **长上下文不可能三角**（来源：`20260504_speculative_decoding_longcontext_quant.md`）：Efficiency x Compactness x Recall 三选二，52种架构无一逃脱。MLA使attention算术强度提升100x+，颠覆memory-bound假设
 
 ### 搜索系统
 1. **推理增强检索（Reasoning Retrieval）**（来源：`推理增强检索技术综述.md`）：O1-Embedder/DEAR/CRE-T1，推理能力直接提升NDCG@10 ~10%
 2. **Agentic Search**（来源：`端到端生成式搜索前沿_20260403.md`）：多轮自主检索+工具调用，Qagent等Agent架构取代固定pipeline
 3. **生成式检索（DSI范式）**（来源：`端到端生成式搜索前沿_20260403.md`）：Transformer直接生成文档ID，DocID设计是核心挑战
+4. **RAG语料革命：Thinking Traces**（来源：`20260504_reasoning_retrieval_rag_traces.md`）：T3将推理轨迹作为检索语料，AIME上相对提升+56.3%；Verbal-R3用语言化重排弥合检索与推理
 
 ---
 
