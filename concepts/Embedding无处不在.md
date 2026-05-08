@@ -6,6 +6,8 @@
 
 **相关概念页**：[[attention_in_recsys|Attention in RecSys]] | [[sequence_modeling_evolution|序列建模演进]] | [[generative_recsys|生成式推荐]] | [[vector_quantization_methods|向量量化方法]] | [[taac2026_kdd_competition|TAAC2026 KDD 比赛]]
 
+> **Embedding 退化问题**：Tencent 广告系统发现 embedding 的两大退化——维度坍塌（dimensional collapse，只有少数维度携带信息）和兴趣纠缠（interest entanglement，多任务/多场景兴趣混杂）。解决方案包括正交正则化、特征归一化和解耦表示学习。详见 [[20260504_ads_bidding_cvr_mechanism|竞价+CVR+机制设计综合]]。
+
 ---
 
 ## 1. ID Embedding：最基础的表示

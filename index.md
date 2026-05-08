@@ -24,7 +24,7 @@
 | 12 | Transformer→GR双线演进 | [从Transformer到生成式推荐_双线演进路线.md](fundamentals/从Transformer到生成式推荐_双线演进路线.md) | 架构线(Attention/PE/效率)×特征线(Embedding→SID→生成)双线对照 |
 | 13 | Scaling Law+冷启动+CTR前沿 | [20260504_scaling_coldstart_ctr_frontier.md](rec-search-ads/rec-sys/synthesis/20260504_scaling_coldstart_ctr_frontier.md) | LUM/MixFormer/GR-LLMs/IDProxy/CETNet 10篇 |
 
-### 广告系统 `synthesis/ads/` (14篇)
+### 广告系统 `synthesis/ads/` (15篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | CTR/CVR预估 | [01_CTR_CVR预估与校准全景.md](synthesis/ads/01_CTR_CVR预估与校准全景.md) | FM→DCN-V2→DHEN，ESMM CVR，EST Scaling |
@@ -41,6 +41,7 @@
 | 12 | LLM拍卖+延迟反馈 | [20260421_llm_auction_and_delayed_feedback.md](rec-search-ads/ads/synthesis/20260421_llm_auction_and_delayed_feedback.md) | LLM-Auction/TESLA/READER/CFR-DF 10篇 |
 | 13 | 自动出价+MoE | [ads_autobidding_moe_2024_2026.md](rec-search-ads/ads/synthesis/ads_autobidding_moe_2024_2026.md) | AHBid/JD-BP/DenoiseBid/MEBS + MoE专题 10篇 |
 | 14 | 生成式广告+拍卖机制 | [20260504_generative_ads_auction_mechanism.md](rec-search-ads/ads/synthesis/20260504_generative_ads_auction_mechanism.md) | GRAD/CGA/IBPA/BundleNet 10篇 |
+| 15 | 竞价+CVR+机制设计 | [20260504_ads_bidding_cvr_mechanism.md](rec-search-ads/ads/synthesis/20260504_ads_bidding_cvr_mechanism.md) | RobustBid/BAR/DHEN/MIAA/MDP长期收益 10篇 |
 
 ### 搜索算法 `synthesis/search/` (9篇)
 | # | 主题 | 文件 | 一句话 |
