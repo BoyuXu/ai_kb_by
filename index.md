@@ -7,7 +7,7 @@
 
 ## ⭐ 整合知识精华 `synthesis/` ← 去重后的核心层
 
-### 推荐系统 `synthesis/rec/` (15篇)
+### 推荐系统 `synthesis/rec/` (17篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 语义ID与生成式召回 | [01_语义ID与生成式召回演进.md](synthesis/rec/01_语义ID与生成式召回演进.md) | CF→Embedding→SID→TIGER/HSTU/OneRec-V2/GLIDE |
@@ -46,7 +46,7 @@
 | 15 | 竞价+CVR+机制设计 | [20260504_ads_bidding_cvr_mechanism.md](rec-search-ads/ads/synthesis/20260504_ads_bidding_cvr_mechanism.md) | RobustBid/BAR/DHEN/MIAA/MDP长期收益 10篇 |
 | 16 | 竞价+创意+CTR基准 | [20260513_ads_bidding_creative_benchmark.md](rec-search-ads/ads/synthesis/20260513_ads_bidding_creative_benchmark.md) | BiCB/AuctionNet/UniMVT/SUIN/CTR-DPO/TencentGR 9篇 |
 
-### 搜索算法 `synthesis/search/` (11篇)
+### 搜索算法 `synthesis/search/` (12篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 检索范式 | [01_检索范式_稀疏到混合到稠密.md](synthesis/search/01_检索范式_稀疏到混合到稠密.md) | BM25/DPR/ColBERT三角 + 混合检索RRF |
@@ -60,8 +60,9 @@
 | 09 | RAG Reranking+Passage Selection | [20260504_rag_reranking_passage_selection.md](rec-search-ads/search/synthesis/20260504_rag_reranking_passage_selection.md) | DPS/GraphER/AdaRankLLM/RRK/RAG Fusion 5篇 |
 | 10 | 推理检索+RAG Traces | [20260504_reasoning_retrieval_rag_traces.md](rec-search-ads/search/synthesis/20260504_reasoning_retrieval_rag_traces.md) | RTriever/Verbal-R3/T3/统一数据层/Evidence-Grounded 5篇 |
 | 11 | Embedding理论极限+Agentic RAG | [20260513_embedding_limits_agentic_rag.md](rec-search-ads/search/synthesis/20260513_embedding_limits_agentic_rag.md) | sign-rank极限/R^{2k}充分性/IR架构Survey/KG-RAG/A-RAG 5篇 |
+| 12 | Agentic RAG+去噪IR+重排 | [20260513_agentic_rag_denoising_reranking.md](rec-search-ads/search/synthesis/20260513_agentic_rag_denoising_reranking.md) | LatentRAG/LLM-Oriented IR/A-RAG/BioRAG Bench/FlashRank 5篇 |
 
-### LLM基础设施 `synthesis/llm/` (13篇)
+### LLM基础设施 `synthesis/llm/` (14篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 推理优化全景 | [01_LLM推理优化全景.md](synthesis/llm/01_LLM推理优化全景.md) | KV Cache/FlashAttn/投机解码/vLLM |
@@ -78,6 +79,7 @@
 | 11 | KV Cache+投机解码Serving | [20260504_kv_cache_and_speculative_serving.md](llm-agent/llm-infra/synthesis/20260504_kv_cache_and_speculative_serving.md) | CacheFlow/RocketKV/FreeKV/PPD/HierSpec 5篇 |
 | 12 | 投机解码统一+长上下文三角+量化 | [20260504_speculative_decoding_longcontext_quant.md](llm-agent/llm-infra/synthesis/20260504_speculative_decoding_longcontext_quant.md) | UniVer/不可能三角/WindowQuant/CuBridge/MLA+MoE 5篇 |
 | 13 | P/D分离+KV Cache量化 | [20260513_pd_disaggregation_and_kvcache_quant.md](llm-agent/llm-infra/synthesis/20260513_pd_disaggregation_and_kvcache_quant.md) | TaiChi/Nexus/PDTrim/AdaptiveKV/KV管理Survey 5篇 |
+| 14 | 投机解码自适应+KV量化+端侧LLM | [20260513_speculative_decoding_kvcache_ondevice.md](llm-agent/llm-infra/synthesis/20260513_speculative_decoding_kvcache_ondevice.md) | SpecKV/EfficientLLM/AdaptiveKV/SmallThinker/QuantSpec 5篇 |
 
 ---
 

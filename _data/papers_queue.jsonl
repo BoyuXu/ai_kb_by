@@ -1016,3 +1016,40 @@
 {"arxiv_id": "2605.02262", "title": "WindowQuant: Mixed-Precision KV Cache Quantization based on Window-Level Similarity for VLMs", "domain": "llm-infra", "priority": "high", "status": "done"}
 {"arxiv_id": "2605.05023", "title": "CuBridge: An LLM-Based Framework for Understanding and Reconstructing High-Performance Attention Kernels", "domain": "llm-infra", "priority": "medium", "status": "done"}
 {"arxiv_id": "2507.15465", "title": "Rethinking LLM Inference Bottlenecks: Insights from Latent Attention and Mixture-of-Experts", "domain": "llm-infra", "priority": "high", "status": "done"}
+{"arxiv_id": "2405.16871", "title": "Multi-Behavior Generative Recommendation MBGen", "domain": "rec-sys", "priority": "high", "status": "pending"}
+{"arxiv_id": "2503.06963", "title": "Multi-Behavior Recommender Systems Survey", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2602.10811", "title": "EST: Efficient Scaling Laws in CTR via Unified Modeling", "domain": "rec-sys", "priority": "high", "status": "pending"}
+{"arxiv_id": "2309.10357", "title": "Deep Mutual Learning across Task Towers for Multi-Task Rec", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2507.06507", "title": "GR-LLMs: Generative Recommendation Based on LLMs Survey", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2412.00430", "title": "Predictive Models in Sequential Rec: Performance Laws and Data Quality", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2311.11351", "title": "Scaling Law of Large Sequential Recommendation Models", "domain": "rec-sys", "priority": "high", "status": "pending"}
+{"arxiv_id": "2602.22219", "title": "Neural Retriever-Reranker for RAG over KG in E-commerce", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2508.21038", "title": "On Theoretical Limitations of Embedding-Based Retrieval", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2601.20844", "title": "R2k is Theoretically Large Enough for Embedding Top-k Retrieval", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2502.14822", "title": "Survey of Model Architectures in Information Retrieval", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2412.09165", "title": "Text Embedding Meets LLM: Comprehensive Survey", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2602.03442", "title": "A-RAG: Scaling Agentic RAG via Hierarchical Retrieval", "domain": "search", "priority": "high", "status": "pending"}
+{"arxiv_id": "2510.24402", "title": "Metadata-Driven RAG for Financial QA", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2507.12425", "title": "Advancing RAG for Structured Enterprise Data", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2512.10942", "title": "VL-JEPA: Joint Embedding Predictive Architecture Vision-Language", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2410.12837", "title": "Comprehensive Survey of RAG: Evolution Current Future", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2507.18910", "title": "Systematic Review of Key RAG Systems: Progress Gaps Future", "domain": "search", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2508.06069", "title": "Lightweight Auto-bidding based on Traffic Prediction in Live Ads", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2412.10798", "title": "AuctionNet: Benchmark for Decision-Making in Large-Scale Ad Auctions", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2302.03328", "title": "Multi-Task Recommendations with Reinforcement Learning", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2302.03525", "title": "Multi-Task Deep Recommender Systems Survey", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2412.16382", "title": "EMPRA: Embedding Perturbation Rank Attack against Neural Ranking", "domain": "rec-sys", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2508.01989", "title": "TaiChi: Unifying Aggregation and Disaggregation for LLM Serving", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2509.17542", "title": "Disaggregated P-D Inference on Multi-Vendor GPUs", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2507.06608", "title": "Nexus: Proactive Intra-GPU P-D Disaggregation", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2509.04467", "title": "Targeted Pruning for P-D Disaggregation in LLM Inference", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2604.04722", "title": "Adaptive KV-Cache Quantization for Lightweight On-Device LLMs", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2603.13358", "title": "PPD: Multi-turn P-D Disaggregation for LLM Serving", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2412.19442", "title": "Survey on LLM Acceleration based on KV Cache Management", "domain": "llm-infra", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2602.12972", "title": "Jointly Optimizing Debiased CTR and Uplift for Coupons Marketing", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2502.02920", "title": "Adaptive Budget Optimization for Multichannel Advertising Combinatorial Bandits", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2604.23810", "title": "Similar Users-Augmented Interest Network for Ad CTR", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2507.20227", "title": "CTR-Driven Ad Text Generation via Online Feedback Preference Optimization", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2604.04976", "title": "Tencent Advertising Algorithm Challenge 2025", "domain": "ads", "priority": "high", "status": "pending"}
+{"arxiv_id": "2202.10462", "title": "CTR Prediction in Online Advertising Literature Review", "domain": "ads", "priority": "mid", "status": "pending"}
+{"arxiv_id": "2628.00000", "title": "Improved Online Learning for CTR in Ad Auctions", "domain": "ads", "priority": "mid", "status": "pending"}
