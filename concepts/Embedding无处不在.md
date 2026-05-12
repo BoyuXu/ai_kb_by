@@ -342,3 +342,5 @@ ID Embedding (稠密，学习得到)
 - [[20260504_semantic_id_and_ondevice_rec|20260504 SID演进+端侧LLM+序列前沿 10篇]]
 - [[20260504_reasoning_retrieval_rag_traces|20260504 推理检索+RAG Traces: RTriever aspect-aware embedding 在推理检索中的应用]]
 - [[20260513_ads_bidding_creative_benchmark|SUIN: 行为embedding检索相似用户 / TencentGR: 多模态embedding(视觉+文本)用于生成式广告推荐]]
+- [[20260513_multibehavior_scaling_multitask|VL-JEPA: 预测连续embedding而非token(50%参数) / EMPRA: embedding空间对抗攻击(96%成功率) / EST: unified token-level embedding交互解锁Scaling Law]]
+- [[20260513_embedding_limits_agentic_rag|Embedding理论极限: sign-rank约束限制单向量top-k表达力(ICLR2026), R^{2k}维度充分性证明(瓶颈在学习非几何), IR架构Survey(Bi-encoder/ColBERT/Cross-encoder全景)]]

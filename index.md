@@ -46,7 +46,7 @@
 | 15 | 竞价+CVR+机制设计 | [20260504_ads_bidding_cvr_mechanism.md](rec-search-ads/ads/synthesis/20260504_ads_bidding_cvr_mechanism.md) | RobustBid/BAR/DHEN/MIAA/MDP长期收益 10篇 |
 | 16 | 竞价+创意+CTR基准 | [20260513_ads_bidding_creative_benchmark.md](rec-search-ads/ads/synthesis/20260513_ads_bidding_creative_benchmark.md) | BiCB/AuctionNet/UniMVT/SUIN/CTR-DPO/TencentGR 9篇 |
 
-### 搜索算法 `synthesis/search/` (10篇)
+### 搜索算法 `synthesis/search/` (11篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 检索范式 | [01_检索范式_稀疏到混合到稠密.md](synthesis/search/01_检索范式_稀疏到混合到稠密.md) | BM25/DPR/ColBERT三角 + 混合检索RRF |
@@ -77,6 +77,7 @@
 | 10 | KV Cache前沿2026 | [20260503_kv_cache_frontier_2026.md](llm-agent/llm-infra/synthesis/20260503_kv_cache_frontier_2026.md) | DASH-KV/DepthKV/TTKV/LMCache 5篇 |
 | 11 | KV Cache+投机解码Serving | [20260504_kv_cache_and_speculative_serving.md](llm-agent/llm-infra/synthesis/20260504_kv_cache_and_speculative_serving.md) | CacheFlow/RocketKV/FreeKV/PPD/HierSpec 5篇 |
 | 12 | 投机解码统一+长上下文三角+量化 | [20260504_speculative_decoding_longcontext_quant.md](llm-agent/llm-infra/synthesis/20260504_speculative_decoding_longcontext_quant.md) | UniVer/不可能三角/WindowQuant/CuBridge/MLA+MoE 5篇 |
+| 13 | P/D分离+KV Cache量化 | [20260513_pd_disaggregation_and_kvcache_quant.md](llm-agent/llm-infra/synthesis/20260513_pd_disaggregation_and_kvcache_quant.md) | TaiChi/Nexus/PDTrim/AdaptiveKV/KV管理Survey 5篇 |
 
 ---
 

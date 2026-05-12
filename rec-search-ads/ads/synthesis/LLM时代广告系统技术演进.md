@@ -1,6 +1,6 @@
 # LLM时代广告系统技术演进（持续更新）
 
-> 领域：ads | 类型：综合综述 | 覆盖论文：31篇 | 最近更新：2026-04-20
+> 领域：ads | 类型：综合综述 | 覆盖论文：34篇 | 最近更新：2026-05-13
 
 ## 一、技术演进脉络
 
@@ -20,6 +20,9 @@ GSP 拍卖 + 规则出价                  Lagrangian 对偶自动出价        
                                                                          LLM-HYPER 生成 CTR 模型参数
                                                                          IDProxy MLLM 亿级冷启动（小红书）
                                                                          RTBAgent LLM Agent 实时竞价
+                                                                         RARE LLM意图驱动广告检索（阿里EMNLP'25）
+                                                                         LLM文案说服力超越人类（Persuasion）
+                                                                         LLM广告四模块框架（综述）
 ```
 
 ## 二、核心技术维度
@@ -361,7 +364,93 @@ $$
 
 **意义**：LLM 广告不是搜索广告的简单延伸，而是广告行业的范式转换 —— 从"关键词→广告"到"对话语义→类别→广告"。
 
-### 2.10 LLM Agent 出价：RTBAgent
+### 2.10 LLM 生成广告文案：从个性化到说服力超越（2512.03373）
+
+**核心发现**：LLM 生成的广告文案在说服力上已超越人类专家。
+
+**两阶段实验设计**：
+
+| 实验 | 样本量 | 维度 | LLM vs 人类 | 结论 |
+|------|--------|------|-------------|------|
+| Study 1: 人格匹配 | n=400 | 开放性/神经质人格 | 51.1% vs 48.9% (p>0.05) | 统计平齐 |
+| Study 2: 心理原则 | n=800 | 权威/共识/认知/稀缺 | 59.1% vs 40.9% (p<0.05) | LLM 显著胜出 |
+
+**关键洞察**：
+1. 个性化维度（按用户人格定制）LLM 与人类持平，但**通用说服原则**（Cialdini 六原则）维度 LLM 显著胜出
+2. LLM 胜出的根本原因：能同时组合多种说服策略（权威+稀缺+社会认同），人类文案师通常只用 1-2 种
+3. **伦理风险**：LLM 生成广告的说服力超过人类，需要明确标注 AI 生成内容，防止操纵性广告
+
+**工业启示**：广告创意生成从"辅助工具"升级为"超人能力"，但监管和透明度成为关键约束。
+
+### 2.11 RARE：LLM 意图驱动实时广告检索（2504.01304, EMNLP 2025）
+
+**核心创新**：用 LLM 生成的**商业意图（Commercial Intention, CI）**作为中间语义表示，替代传统 DocID 检索广告。
+
+**传统方法的问题**：
+- 数字 DocID：一对少映射，语义低效
+- 内容 DocID：提取耗时，不可扩展
+
+**RARE 架构**：
+```
+Query → LLM → Commercial Intention (CI) text → 检索匹配广告
+                   ↓
+         "用户想买一款轻便跑步鞋，预算300元以内"
+                   ↓
+         直接用 CI 文本做语义检索（Dense Retrieval）
+```
+
+**关键设计**：
+1. CI 是自然语言描述，而非数字/内容 ID，语义丰富且可解释
+2. 实时生成：LLM 推理延迟通过 KV Cache + 投机解码控制在 10ms 内
+3. 与现有广告索引系统兼容（CI → Embedding → ANN 检索）
+
+**性能**：搜索广告场景相关性 +15%，CTR +3.2%（阿里巴巴在线实验）。
+
+**与 Genre-Based Bidding 对比**：
+| 维度 | Ad-Insertion (Genre) | RARE (CI) |
+|------|---------------------|-----------|
+| 语义粒度 | 粗（类别级） | 细（意图级） |
+| 应用场景 | 对话广告变现 | 搜索广告检索 |
+| 广告匹配 | 广告主竞价类别 | 语义检索匹配 |
+| 实时性 | 类别预定义 | 实时生成 |
+
+### 2.12 LLM 广告系统综述：框架与挑战（2311.07601）
+
+**核心贡献**：首个系统化的 LLM 广告框架，定义四大模块：
+
+```
+┌─────────────────────────────────────────────────────┐
+│                 LLM 广告系统框架                      │
+├─────────────────────────────────────────────────────┤
+│ 1. Modification Module (广告内容生成/修改)            │
+│    - LLM 生成个性化广告文案                           │
+│    - Dynamic Creative Optimization (DCO)             │
+│ 2. Bidding Module (竞价模块)                         │
+│    - LLM 理解广告主意图 → 智能出价                    │
+│ 3. Prediction Module (预测模块)                      │
+│    - CTR/CVR 预估 + 用户意图理解                     │
+│ 4. Auction Module (拍卖模块)                         │
+│    - 从传统 slot-based → LLM response-integrated     │
+└─────────────────────────────────────────────────────┘
+```
+
+**四维约束**：
+| 约束维度 | 具体要求 | 技术难点 |
+|---------|---------|---------|
+| 隐私 | 用户数据不暴露给广告主 | 联邦学习 / Genre 代理 |
+| 延迟 | <100ms 端到端 | 离线预计算 / 模型蒸馏 |
+| 可靠性 | 广告内容合规 | 安全过滤 + 审核 |
+| 用户满意度 | 广告不干扰体验 | 自然融合 + 频控 |
+
+**LLM-DCO（动态创意优化）**：
+- 传统 DCO：从预制素材库组合（标题A × 图片B × CTA_C）
+- LLM-DCO：实时生成个性化文案，适配用户画像和上下文
+
+**与本 synthesis 其他工作的关系**：
+- 该综述是 2023 年的框架性工作，后续的 Ad-Insertion（2.9节）、LLM-Auction、RARE 等都是其框架下的具体实现
+- 四模块框架是理解 LLM 广告系统的最佳入口
+
+### 2.13 LLM Agent 出价：RTBAgent
 
 **首个基于 LLM 的 RTB Agent**，架构：4 工具 + 3 记忆 + 2 步决策。
 
@@ -375,7 +464,7 @@ $$
 
 **核心价值**：LLM Agent 的适应性弥补了传统 RL 的分布偏移脆弱性。Daily Reflection（日反思）是 Agent 持续自我改进的关键机制。
 
-### 2.11 LLM 驱动冷启动 CTR（IDProxy + LLM-HYPER）
+### 2.14 LLM 驱动冷启动 CTR（IDProxy + LLM-HYPER）
 
 **两种 LLM 冷启动范式**：
 
@@ -491,7 +580,16 @@ $$
 **Q20**: 广告 Scaling Law（$\text{AUC} \propto D^{0.07}$）意味着什么？
 > 幂律指数 0.07 意味着数据量翻倍只带来 ~5% AUC 提升（$2^{0.07} \approx 1.05$），但与 NLP（~0.1-0.15）相比更平缓，说明广告系统的提升瓶颈不仅在数据量，也在**特征质量和模型架构**。实践启示：① 追求数据量翻倍的边际效益在下降，特征工程和架构创新更有价值；② 多场景 Adapter 微调（参数量仅 2-5%）可以在不增加基础模型成本的前提下快速获取新场景收益。
 
-## 六、📐 横向对比：工程落地视角
+**Q21**: LLM 生成广告文案为什么在通用说服原则上超越人类？
+> LLM 能同时组合多种心理说服策略（权威+稀缺+社会认同+认知负荷），而人类文案师受工作记忆限制，通常只用 1-2 种策略。Study 2 显示 LLM 在四种 Cialdini 原则上均显著优于人类（59.1% vs 40.9%），但在个性化维度（按人格定制）与人类持平（51.1% vs 48.9%），说明 LLM 的优势在"策略组合"而非"个体洞察"。
+
+**Q22**: RARE 的 Commercial Intention 与传统 Query Rewriting 有什么区别？
+> Query Rewriting 是对原查询的同义改写/扩展，仍在关键词层面操作；RARE 的 CI 是 LLM 推理出的**商业意图描述**（自然语言，如"用户想买轻便跑步鞋，预算300元内"），包含了 query 中未显式表达的购买意图和约束条件。CI 直接用于语义检索，跳过了关键词匹配的瓶颈，相关性 +15%。
+
+**Q23**: LLM 广告系统的四大约束中，哪个是工业部署的最大瓶颈？
+> **延迟**。广告系统典型 SLA 50-100ms，而 LLM 推理 >200ms。现有解法：① 离线预计算（ELEC 路线，+0.3ms）；② KV Cache 复用 + 投机解码（RARE 路线，~10ms）；③ 小模型蒸馏。隐私和可靠性可通过工程手段解决（联邦学习/安全过滤），但延迟是物理限制，需要架构级创新。
+
+## 六、横向对比：工程落地视角
 
 ```
                  精度    延迟    冷启动    大规模可扩展性
@@ -536,6 +634,9 @@ LightweightLLM   ★★★    ★★★★★  ★★★★     ★★★★★
 > - [LLM_HYPER_generative_ctr_cold_start_hypernetworks](../papers/LLM_HYPER_generative_ctr_cold_start_hypernetworks.md) — LLM Hypernetwork 冷启动 CTR
 > - [idproxy_cold_start_ctr_multimodal_llm](../papers/idproxy_cold_start_ctr_multimodal_llm.md) — 小红书 MLLM Proxy Embedding 冷启动
 > - [[LLM驱动广告冷启动CTR技术演进]] — LLM 冷启动 CTR synthesis
+> - LLM-Generated Ads: From Personalization Parity to Persuasion Superiority. Meguellati et al. arXiv:2512.03373, 2025 — LLM 广告文案说服力实验
+> - RARE: Real-time Ad Retrieval via LLM-generative Commercial Intention. Liu et al. EMNLP 2025, arXiv:2504.01304 — LLM 意图驱动广告检索
+> - Online Advertisements with LLMs: Opportunities and Challenges. Feizi et al. arXiv:2311.07601, 2023 — LLM 广告系统四模块综述框架
 
 ---
 
