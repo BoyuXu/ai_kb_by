@@ -7,7 +7,7 @@
 
 ## ⭐ 整合知识精华 `synthesis/` ← 去重后的核心层
 
-### 推荐系统 `synthesis/rec/` (13篇)
+### 推荐系统 `synthesis/rec/` (15篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 语义ID与生成式召回 | [01_语义ID与生成式召回演进.md](synthesis/rec/01_语义ID与生成式召回演进.md) | CF→Embedding→SID→TIGER/HSTU/OneRec-V2/GLIDE |
@@ -24,8 +24,9 @@
 | 12 | Transformer→GR双线演进 | [从Transformer到生成式推荐_双线演进路线.md](fundamentals/从Transformer到生成式推荐_双线演进路线.md) | 架构线(Attention/PE/效率)×特征线(Embedding→SID→生成)双线对照 |
 | 13 | Scaling Law+冷启动+CTR前沿 | [20260504_scaling_coldstart_ctr_frontier.md](rec-search-ads/rec-sys/synthesis/20260504_scaling_coldstart_ctr_frontier.md) | LUM/MixFormer/GR-LLMs/IDProxy/CETNet 10篇 |
 | 14 | SID演进+端侧LLM+序列前沿 | [20260504_semantic_id_and_ondevice_rec.md](rec-search-ads/rec-sys/synthesis/20260504_semantic_id_and_ondevice_rec.md) | CapsID/RecGPT-Mobile/BLADE/HELM/FEDIN/ConvRec 10篇 |
+| 15 | 多行为+Scaling+多任务前沿 | [20260513_multibehavior_scaling_multitask.md](rec-search-ads/rec-sys/synthesis/20260513_multibehavior_scaling_multitask.md) | MBGen/EST/DML/RMTL/SeqRec-Scaling/VL-JEPA/EMPRA 10篇 |
 
-### 广告系统 `synthesis/ads/` (15篇)
+### 广告系统 `synthesis/ads/` (16篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | CTR/CVR预估 | [01_CTR_CVR预估与校准全景.md](synthesis/ads/01_CTR_CVR预估与校准全景.md) | FM→DCN-V2→DHEN，ESMM CVR，EST Scaling |
@@ -43,6 +44,7 @@
 | 13 | 自动出价+MoE | [ads_autobidding_moe_2024_2026.md](rec-search-ads/ads/synthesis/ads_autobidding_moe_2024_2026.md) | AHBid/JD-BP/DenoiseBid/MEBS + MoE专题 10篇 |
 | 14 | 生成式广告+拍卖机制 | [20260504_generative_ads_auction_mechanism.md](rec-search-ads/ads/synthesis/20260504_generative_ads_auction_mechanism.md) | GRAD/CGA/IBPA/BundleNet 10篇 |
 | 15 | 竞价+CVR+机制设计 | [20260504_ads_bidding_cvr_mechanism.md](rec-search-ads/ads/synthesis/20260504_ads_bidding_cvr_mechanism.md) | RobustBid/BAR/DHEN/MIAA/MDP长期收益 10篇 |
+| 16 | 竞价+创意+CTR基准 | [20260513_ads_bidding_creative_benchmark.md](rec-search-ads/ads/synthesis/20260513_ads_bidding_creative_benchmark.md) | BiCB/AuctionNet/UniMVT/SUIN/CTR-DPO/TencentGR 9篇 |
 
 ### 搜索算法 `synthesis/search/` (10篇)
 | # | 主题 | 文件 | 一句话 |
@@ -57,8 +59,9 @@
 | 08 | RAG成熟化+推理重排 | [20260503_rag_maturity_and_reasoning_reranking.md](rec-search-ads/search/synthesis/20260503_rag_maturity_and_reasoning_reranking.md) | Rank1/QAC-RAG/RAG安全评估 5篇 |
 | 09 | RAG Reranking+Passage Selection | [20260504_rag_reranking_passage_selection.md](rec-search-ads/search/synthesis/20260504_rag_reranking_passage_selection.md) | DPS/GraphER/AdaRankLLM/RRK/RAG Fusion 5篇 |
 | 10 | 推理检索+RAG Traces | [20260504_reasoning_retrieval_rag_traces.md](rec-search-ads/search/synthesis/20260504_reasoning_retrieval_rag_traces.md) | RTriever/Verbal-R3/T3/统一数据层/Evidence-Grounded 5篇 |
+| 11 | Embedding理论极限+Agentic RAG | [20260513_embedding_limits_agentic_rag.md](rec-search-ads/search/synthesis/20260513_embedding_limits_agentic_rag.md) | sign-rank极限/R^{2k}充分性/IR架构Survey/KG-RAG/A-RAG 5篇 |
 
-### LLM基础设施 `synthesis/llm/` (12篇)
+### LLM基础设施 `synthesis/llm/` (13篇)
 | # | 主题 | 文件 | 一句话 |
 |---|------|------|--------|
 | 01 | 推理优化全景 | [01_LLM推理优化全景.md](synthesis/llm/01_LLM推理优化全景.md) | KV Cache/FlashAttn/投机解码/vLLM |
