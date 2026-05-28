@@ -101,9 +101,67 @@ A: 取决于 reader 的上下文长度。LongRAG 证明 4K chunks + long-context
 
 ---
 
+## 6. 2026-05 新进展：RAG Survey 全景与企业落地
+
+### Phase 8: RAG 综合综述与企业级应用
+
+**Comprehensive RAG Survey [2410.12837] — Gupta et al. (2024.10)**
+- 从开放域问答到当代 RAG 的全景综述
+- 三维分类: 检索机制 / 生成模型 / 融合策略
+- 开放挑战: 可扩展性、偏差、隐私
+- 价值: 最完整的 RAG 技术分类框架
+
+**Systematic Review of Key RAG Systems [2507.18910] — Oche et al. (2025.07)**
+- 系统回顾从 ODQA 到 SOTA RAG 的演进
+- 技术组件深度剖析: 检索器 / seq2seq 生成器 / 融合策略
+- 核心贡献: 明确 RAG 如何缓解幻觉和知识过时问题
+- Gap 分析: 多模态 RAG、实时更新、评估标准化仍待解决
+
+**Metadata-Driven RAG for Financial QA [2510.24402] — Dadopoulos et al. (2025.10)**
+- 金融长文档（SEC filings）上的多阶段 RAG 架构
+- 核心创新: **Contextual Chunks** — 将 LLM 生成的元数据嵌入 chunk embedding
+- 三阶段优化: pre-retrieval filtering → enriched embedding → cross-encoder reranking
+- 在 FinanceBench 上最大增益来自 contextual chunks（元数据直接拼接文本再编码）
+- 工业启示: 结构化文档需要元数据感知，不能只靠纯文本 embedding
+
+**Advancing RAG for Structured Enterprise Data [2507.12425] — Cheerla (2025.07)**
+- 企业内部数据（HR、报表、表格）的混合 RAG 框架
+- 技术栈: all-mpnet-base-v2 + BM25 + SpaCy NER 元数据过滤 + Cross-encoder reranking
+- 语义分块 + 表格结构保留（保持行列关系完整性）
+- 量化索引 + 人在回路反馈 + 对话记忆
+- 结果: Precision@5 提升 15% (90% vs 75%), MRR 提升 16% (0.85 vs 0.69)
+- 面试要点: 企业 RAG 的难点在结构化/半结构化数据，不是纯文本
+
+### RAG 架构选型决策树（更新版）
+```
+Query 类型判断
+├── 简单事实 QA → 跳过 RAG，直接 LLM（Phase 6: Predict When RAG Helps）
+├── 纯文本文档 QA → LongRAG / Naive RAG
+├── 复杂推理 / 多跳 → GraphRAG
+├── 企业结构化数据 → Hybrid RAG + 元数据过滤（Phase 8）
+│   ├── 表格数据 → 保留行列结构 + semantic chunking
+│   └── 金融长文档 → Contextual Chunks + pre-retrieval filtering
+├── 安全敏感 → + ProGRank 防御（Phase 5）
+└── 高吞吐需求 → + 自适应路由 + A-RAG（Phase 7）
+```
+
+### 面试新增 Q&A
+
+**Q8: 企业 RAG 与通用 RAG 的核心差异？**
+A: (1) 数据异构性: 表格、PDF、报表混合，不能只靠纯文本分块; (2) 元数据重要性: 文档标题/时间/类型等元数据对检索精度影响巨大; (3) 结构保持: 表格的行列关系不能被分块破坏; (4) 领域术语: 需要 NER + 领域词典辅助检索。
+
+**Q9: Contextual Chunks 的原理和优势？**
+A: 用 LLM 为每个 chunk 生成描述性元数据（来源、主题、关键实体），将元数据与原文拼接后再编码为 embedding。优势: embedding 包含了上下文信息，解决了"chunk 脱离文档语境后语义模糊"的问题。
+
+**Q10: RAG 领域的三大开放问题？**
+A: (1) 多模态 RAG — 图表/图像/音频的统一检索和理解; (2) 实时知识更新 — 如何增量更新索引而非全量重建; (3) 评估标准化 — 缺乏统一 benchmark，FinanceBench/NaturalQuestions 各有侧重。
+
+---
+
 ## 相关概念
 
 - [[embedding_everywhere|Embedding 技术全景]]
 - [[ProGRank_Probe_Gradient_Reranking_RAG_Corpus_Poisoning|ProGRank: RAG 安全防御]]
 - [[RAG_Performance_Prediction_QA|RAG 性能预测]]
 - [[Scaling_RAG_Inference_Time_Compute_Multi_Agent|RAG Inference-Time Scaling]]
+- [[20260513_pd_disaggregation_and_kvcache_quant|P/D Disaggregation 与 KV Cache]]

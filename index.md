@@ -78,7 +78,7 @@
 | 10 | KV Cache前沿2026 | [20260503_kv_cache_frontier_2026.md](llm-agent/llm-infra/synthesis/20260503_kv_cache_frontier_2026.md) | DASH-KV/DepthKV/TTKV/LMCache 5篇 |
 | 11 | KV Cache+投机解码Serving | [20260504_kv_cache_and_speculative_serving.md](llm-agent/llm-infra/synthesis/20260504_kv_cache_and_speculative_serving.md) | CacheFlow/RocketKV/FreeKV/PPD/HierSpec 5篇 |
 | 12 | 投机解码统一+长上下文三角+量化 | [20260504_speculative_decoding_longcontext_quant.md](llm-agent/llm-infra/synthesis/20260504_speculative_decoding_longcontext_quant.md) | UniVer/不可能三角/WindowQuant/CuBridge/MLA+MoE 5篇 |
-| 13 | P/D分离+KV Cache量化 | [20260513_pd_disaggregation_and_kvcache_quant.md](llm-agent/llm-infra/synthesis/20260513_pd_disaggregation_and_kvcache_quant.md) | TaiChi/Nexus/PDTrim/AdaptiveKV/KV管理Survey 5篇 |
+| 13 | P/D分离+KV Cache量化 | [20260513_pd_disaggregation_and_kvcache_quant.md](llm-agent/llm-infra/synthesis/20260513_pd_disaggregation_and_kvcache_quant.md) | TaiChi/Nexus/PDTrim/AdaptiveKV/KV管理Survey/PPD多轮 6篇 |
 | 14 | 投机解码自适应+KV量化+端侧LLM | [20260513_speculative_decoding_kvcache_ondevice.md](llm-agent/llm-infra/synthesis/20260513_speculative_decoding_kvcache_ondevice.md) | SpecKV/EfficientLLM/AdaptiveKV/SmallThinker/QuantSpec 5篇 |
 
 ---

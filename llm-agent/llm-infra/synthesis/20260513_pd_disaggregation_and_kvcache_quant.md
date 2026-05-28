@@ -187,6 +187,37 @@ $$b_t = f_\theta(\text{freq}_t, \text{quality}_t, \text{var}_t, \text{entropy}_t
 
 ---
 
+### Paper 11 (新增): PPD — Not All Prefills Are Equal
+**[2603.13358] Li et al. (2026.03)**
+
+**Problem**: 标准 P/D Disaggregation 在多轮对话中效率低下: 每轮都要 prefill 新 prompt + 上一轮 response, 且重复 KV 传输饱和带宽。
+
+**Key Innovation — Prefill-Prefill-capable-Decode (PPD)**:
+- 核心洞察: **不是所有 prefill 都一样"重"** — append-prefill（只处理新增 token，复用已缓存 KV）对 decode 的干扰远小于 full prefill
+- PPD 三类节点:
+  - **P 节点**: 处理 full prefill（首轮/长 prompt）
+  - **PD 节点**: 处理 append-prefill + decode（多轮追加）
+  - **D 节点**: 纯 decode
+- 动态路由: 根据当前负载、SLO 约束、prefill 类型选择路由到 P 或 PD 节点
+
+**架构**:
+```
+Request Router (负载感知 + SLO 驱动)
+  ├── Full Prefill → P 节点 (compute-heavy)
+  ├── Append Prefill → PD 节点 (轻量, 复用 KV)
+  └── Decode → D 节点 / PD 节点
+```
+
+**Results**:
+- 多轮场景下 TTFT 降低显著（避免不必要的 full prefill）
+- 带宽消耗大幅降低（append-prefill 不需要传输完整 KV）
+
+**面试考点**:
+- Q: 为什么多轮对话让 P/D 分离效率变差? A: 每轮都需 prefill 上一轮的 response, 且 KV cache 要反复在 P/D 节点间传输。PPD 通过让 decode 节点直接处理轻量 append-prefill 来避免这些开销。
+- Q: Append-prefill vs Full-prefill 的区别? A: Full-prefill 处理全部 prompt token（首轮）; Append-prefill 只处理新增 token 并复用已有 KV cache（多轮追加），计算量和干扰都远小于 full prefill。
+
+---
+
 ## 三、简要记录论文 (LLM-Infra 方向其余论文)
 
 > 以下论文与本批 KV Cache / Serving 主题相关, 已在之前批次 synthesis 中深度覆盖:
@@ -194,7 +225,7 @@ $$b_t = f_\theta(\text{freq}_t, \text{quality}_t, \text{var}_t, \text{entropy}_t
 > - KV Cache + 投机解码: [[20260504_kv_cache_and_speculative_serving]]
 > - 投机解码 + 长上下文 + 量化: [[20260504_speculative_decoding_longcontext_quant]]
 
-本批 5 篇深度论文覆盖了 P/D Disaggregation 和 KV Cache 量化的最新进展, 与之前批次形成完整的 LLM Serving 优化知识图谱。
+本批覆盖了 P/D Disaggregation 和 KV Cache 量化的最新进展 + 多轮场景下的 PPD 新范式, 与之前批次形成完整的 LLM Serving 优化知识图谱。
 
 ---
 
@@ -206,6 +237,7 @@ $$b_t = f_\theta(\text{freq}_t, \text{quality}_t, \text{var}_t, \text{entropy}_t
 | Nexus | Intra-GPU | 单 GPU 内 SM 分区 | 无网络传输 | 需要 GPU 支持资源隔离 |
 | TaiChi | Hybrid | 动态选择聚合/分离 | 最优 goodput | 系统复杂度高 |
 | PDTrim | Model-level | 为 P/D 分别剪枝模型 | 降传输带宽 4.95x | 需要离线剪枝+蒸馏 |
+| **PPD** | **Multi-turn** | 区分 full/append prefill, 轻量 prefill 路由到 decode 节点 | 多轮低延迟, 省带宽 | 路由决策复杂度增加 |
 
 ---
 
