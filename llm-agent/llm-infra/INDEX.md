@@ -11,6 +11,11 @@
 
 ---
 
+## 本次新增与纠错（2026-11-08）
+
+- [Skills、渐进式披露与 MCP](synthesis/20261108_skills_mcp.md)
+- [Harness 研究线索与验收](synthesis/20261108_harness_evidence.md)
+
 ## Synthesis（提炼总结，从这里开始）
 
 ### LLM 推理优化
