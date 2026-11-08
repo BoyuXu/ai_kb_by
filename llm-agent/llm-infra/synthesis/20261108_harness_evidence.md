@@ -24,3 +24,15 @@ Anthropic 将 session 事件记录、执行循环和执行环境分开，降低�
 4. 恢复层：任务去重键与已完成阶段落盘，失败后从缺失阶段继续。
 
 关联：[Agent失败模式与解法](Agent失败模式与解法.md)。这套建议首先适用于知识整理流程，性能收益仍需自身任务的测量。
+
+## 四种循环：触发、执行、验收与改进
+
+完整阅读 [Agent智能体深度研究院，2026-07-05，BV1tUMA61ES1](https://www.bilibili.com/video/BV1tUMA61ES1) P1的307段字幕，未逐帧核对。对照 [LangChain，The art of loop engineering，Sydney Runkle，2026-06-16](https://www.langchain.com/blog/the-art-of-loop-engineering) 正文相关章节：agent loop执行动作，verification loop检查结果，event loop决定何时触发，hill-climbing loop利用轨迹调整Harness。它是该文的工程分类，不是全行业强制四层标准。
+
+把失败任务原样再跑一次属于重试，不能称为系统已经自我改进。改进需要明确变更了提示、工具或评估标准，并在固定任务上比较成功率、耗时与成本；还需保留人工检查与回退边界。这补充了前述产物验收，而不替代验收。
+
+## Dynamic Workflows：状态外置的适用边界
+
+完整阅读 [AI超元域，2026-06-04，BV1a2EA6VEeX](https://www.bilibili.com/video/BV1a2EA6VEeX) P1全部298段字幕。视频中的代码图谱、跨工具演示未复现，性能宣称不入库为实测结论。当前 [Claude Code官方 Workflows 文档](https://code.claude.com/docs/en/workflows)（核验2026-11-08）说明脚本可维护规划和中间状态，适合复杂审计或迁移等工作。由此可以借鉴显式计划、持久化状态、停止条件；不能推出每次简短摘要都应增加多代理和跨工具桥接。
+
+建议先在固定任务上对比简单单次流程与脚本编排，再决定复杂度是否值得。视频发布日期与当前产品版本不同，指令和能力应按当前官方文档复核，尤其不能推定读者已有额外订阅。
