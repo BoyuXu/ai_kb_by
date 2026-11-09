@@ -11,10 +11,10 @@
 
 ---
 
-## 本次新增与纠错（2026-11-08）
+## 本次新增与纠错（2026-11-09更新）
 
 - [Skills、渐进式披露与 MCP](synthesis/20261108_skills_mcp.md)
-- [Harness 研究线索与验收](synthesis/20261108_harness_evidence.md)：补充四种循环与工作流适用边界
+- [Harness 研究线索与验收](synthesis/20261108_harness_evidence.md)：四种循环、请求预算边界与成功率口径
 - [投机采样与MTP纠错](synthesis/多Token预测与Agent工程化.md)：撤回最大概率分母的错误解释，标记旧数值待审计
 
 ## Synthesis（提炼总结，从这里开始）
