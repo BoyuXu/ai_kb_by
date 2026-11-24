@@ -10,6 +10,8 @@
 > - [Speculative Decoding Draft Alignment](../papers/daily/20260322_speculative_decoding_draft_alignment.md) — Efficiently Aligning Draft Models for Speculative Decoding
 > - [Recurrent-Drafter-Speculative-Decoding](../papers/daily/20260319_recurrent-drafter-speculative-decoding.md) — Recurrent Drafter for Fast Speculative Decoding
 
+> 2026-11-24复核：已撤回本页缺少对照条件的固定吞吐/GPU利用率排名。其余旧章节尚未全面审计，不能作为当前版本实测。
+
 > 创建：2026-03-24 | 领域：LLM | 类型：综合分析
 > 来源：vLLM, TensorRT-LLM, TGI, SGLang, Orca 系列
 
@@ -21,8 +23,8 @@
 |------|-------------------|------|--------------|--------|
 | Batching | Static（等最长完成） | **Continuous Batching**（逐 step 调度） | Continuous + Inflight | Continuous |
 | 内存管理 | 预分配 max\_len | **PagedAttention**（分页按需） | 固定池 | PagedAttention |
-| GPU 利用率 | ~30% | **~80%** | ~85%（编译优化） | ~80% |
-| 吞吐量（相对） | 1× | 3-5× | 5-8× | 4-6× |
+| GPU 利用率 | 待同负载实测 | 待同负载实测 | 待同负载实测 | 待同负载实测 |
+| 吞吐量（相对） | 需冻结版本及负载 | 同条件比较 | 同条件比较 | 同条件比较 |
 | 易用性 | 高 | 高（Python API） | 中（需编译） | 高 |
 | 特色 | 灵活 | 开源标杆 | NVIDIA 官方，INT4/FP8 | **RadixAttention** 前缀复用 |
 
@@ -39,10 +41,10 @@ timeline
             : 提出 Continuous Batching
     2023-Q2 : vLLM (UC Berkeley)
             : PagedAttention, 开源标杆
-            : 吞吐 3-5× vs HF
+            : 性能取决于实验条件
     2023-Q4 : TensorRT-LLM (NVIDIA)
             : 编译优化 + INT4/FP8
-            : 单卡吞吐最强
+            : NVIDIA平台优化
     2024 : SGLang (UC Berkeley)
          : RadixAttention 前缀复用
          : 多轮对话/RAG 场景优化
@@ -84,7 +86,7 @@ $$
 ## 🎯 核心洞察（4条）
 
 1. **LLM Serving 的核心指标是 TTFT 和 TPS**：TTFT（Time To First Token，首 token 延迟）决定用户感知，TPS（Tokens Per Second，生成速度）决定体验流畅度
-2. **vLLM PagedAttention 是 Serving 的基础设施**：KV Cache 分页管理 + Continuous Batching 使 GPU 利用率从 30% 提升到 80%+
+2. **vLLM PagedAttention 是 Serving 的基础设施**：分页内存管理与连续批处理分别解决分配和调度问题；不承诺固定GPU利用率
 3. **Prefill 和 Decode 解耦是趋势**：Prefill（prompt 处理）是 compute-bound，Decode（生成）是 memory-bound，分离部署可以各自优化
 4. **多租户和 SLA 管理是生产关键**：不同请求有不同的优先级和延迟要求，需要优先级队列 + 抢占机制
 
@@ -141,7 +143,7 @@ $$
 - $\bar{L}_{\text{output}}$：平均输出序列长度
 - $\bar{T}_{\text{latency}}$：平均端到端延迟
 
-**直观理解**：传统 static batching 必须等最长的请求完成才能释放 batch 槽位，像"等最慢的人吃完才能收桌子"。Continuous batching 允许已完成的请求随时离开、新请求随时加入，GPU 永远保持满载——吞吐提升 2-5 倍。
+**直观理解**：传统 static batching 必须等最长的请求完成才能释放 batch 槽位，像"等最慢的人吃完才能收桌子"。Continuous batching 允许已完成的请求随时离开、新请求随时加入，有助于减少等待，但到达率、调度预算和资源瓶颈仍限制吞吐，不能保证永远满载或固定倍数。
 
 ### 公式 2：PagedAttention 显存利用率
 
@@ -149,7 +151,7 @@ $$
 \text{Utilization} = \frac{\sum_{i} \text{actual}_{len}_i}{\sum_{i} \text{allocated}_{pages}_i \times \text{page}_{size}}
 $$
 
-**直观理解**：传统系统为每个请求预分配最大长度的连续显存，大部分空间浪费。PagedAttention 像操作系统的虚拟内存分页——按需分配小块显存，显存碎片从 60-80% 降到 <5%。这就是 vLLM 的核心创新。
+**直观理解**：传统系统为每个请求预分配最大长度的连续显存，大部分空间浪费。PagedAttention 像操作系统的虚拟内存分页——按需分配小块显存，减少过度预留及外部碎片；末块仍可能未填满。此式是给定块布局下的占用比例，不是通用性能保证。
 
 ### 公式 3：SLA 约束下的最优 batch 策略
 
@@ -181,7 +183,7 @@ $$
 
 4096 token 上下文 = 524KB × 4096 ≈ 2GB（单请求）。
 
-PagedAttention 将 KV Cache 切成固定大小 Block（如 16 tokens/block），按需分配，消除碎片，GPU 利用率从 60% → 90%+。
+PagedAttention 将 KV Cache 切成固定大小 Block（如 16 tokens/block），按需分配，减少分配浪费，但末块仍可能浪费，不能由内存机制直接推出GPU计算利用率。
 
 ## vLLM vs SGLang 对比
 
@@ -202,3 +204,16 @@ TPOT（每 token）$\approx 2|\theta| / \text{GPU FLOPS}$
 ## 相关概念
 
 - [[attention_in_recsys|Attention 在搜广推中的演进]]
+
+
+## vLLM 与 Ollama：机制不能替代同条件压测（2026-11-24）
+
+问题：能否因为分页和连续批处理，就断言某引擎在所有生产场景更快？
+
+完整代读[AI探索喵，2026-06-25，BV1fe7h6wEJ5](https://www.bilibili.com/video/BV1fe7h6wEJ5) P1全部167段可用字幕（0.10–325.62秒）。开头讨论显存，中段介绍调度，结尾给选型总结。未看图示；作者在225.80秒称性能图为模拟图，未提供可复现实验。
+
+1. **官方机制**：PagedAttention用块表映射非连续物理KV块，按需分配；末块仍可能未填满。连续批处理调整活跃请求集合，属于不同机制。[vLLM作者博客，2023-06-20](https://vllm.ai/blog/2023-06-20-vllm)的性能比较针对当时HF/TGI、特定模型硬件和ShareGPT长度分布，不能移作对当前Ollama的性能结论。[当前功能文档](https://docs.vllm.ai/en/latest/)列出两类能力。
+2. **修正笼统比较**：[Ollama FAQ并发章节](https://docs.ollama.com/faq#how-does-ollama-handle-concurrent-requests)支持多模型与单模型并行，但受内存和配置约束；排队不是“永远不支持并行”。视频的“5–10倍”“十卡变五卡”“永远满载”均不作为通用事实。本节同时撤回旧表格中无实验条件的固定排名。
+3. **工程推断**：固定模型、量化、硬件、版本、输入输出长度、到达率和并发配置，再比较吞吐、尾部TTFT/TPOT、错误率及成本。低并发原型与高并发服务的最佳选择可能不同；当前没有复现对照压测。
+
+官方核验日2026-11-24；只核上述主张，未审计源代码或视频画面。关联[KVCache全景](KVCache与LLM推理优化全景.md)，后续需补齐版本化性能数据。
