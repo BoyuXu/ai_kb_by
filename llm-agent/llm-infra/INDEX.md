@@ -11,6 +11,17 @@
 
 ---
 
+## 本次新增与纠错（2026-11-25更新）
+
+- [Skills、渐进式披露与 MCP](synthesis/20261108_skills_mcp.md)：MUSE生命周期与分母；新增SkillForge失败归因及离线评估边界
+- [Harness 研究线索与验收](synthesis/20261108_harness_evidence.md)：四种循环、请求预算、成功率口径、APO提示优化、代码图谱、执行环境与分布式调试证据边界
+- [投机采样与MTP纠错](synthesis/多Token预测与Agent工程化.md)：撤回最大概率分母的错误解释，标记旧数值待审计
+
+- [Agent记忆约束](synthesis/Agent失败模式与解法.md)：预算与生效时间、错误记忆撤回、重试和补偿边界
+- [复杂PDF RAG](synthesis/RAG系统全景.md)：合并表头、Markdown跨度损失、GraphRAG选型与来源回查
+
+- [Serving选型纠错](synthesis/LLMServing系统实践.md)：撤回固定性能排名，区分分页与调度，补充Ollama并发条件
+
 ## Synthesis（提炼总结，从这里开始）
 
 ### LLM 推理优化
